@@ -11,7 +11,7 @@
   </div>
   <footer class="text-sm relative leading-6">
     <div class="mt-16 pt-10 text-center">
-      Al-Quran Digital &copy; {{new Date().getFullYear()}}
+      Al-Quran Digital &copy;{{new Date().getFullYear()}}
     </div>
   </footer>
 </div>
