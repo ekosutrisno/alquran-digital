@@ -1,16 +1,55 @@
-# Vue 3 + TypeScript + Vite
+## <img alt="vue" src="https://avatars.githubusercontent.com/u/51039205?s=460&u=cb1d242b6a9b13a3b6383e46b5410fafe471b63d&v=4" width="20" height="20" /> Al-Quran Digital (Dev)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[![ExoApps](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://exoappsv2.netlify.app/)
 
-## Recommended IDE Setup
+### Intro
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+- Introductions
+  - It is a Web App portfolio.
+  - Al-Quran Digital From Scratch.
+- Tech Stack
+  - <img src="https://img.icons8.com/fluent/48/000000/visual-studio-code-2019.png" width="14" height="14"/> Vs Code
+  - <img alt="vue" src="https://seeklogo.com/images/V/vuejs-logo-17D586B587-seeklogo.com.png" width="11" height="11" /> Vue and Vite
+  - <img alt="tailwindcss" src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg" width="14" height="14" /> TailwindCss
+  - <img alt="firebase" src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" width="14" height="14" /> Firebase
+  - <img alt="pinia" src="https://d33wubrfki0l68.cloudfront.net/ddd72aa8248a5c2f77429b9496e6e3e4da2a4e26/8afc0/logo.svg" width="14" height="14" /> Pinia
+- Author
+  - Eko Sutrisno
+  - [Github](https://github.com/ekosutrisno) Or [Gitlab](https://gitlab.com/ekosutrisno1)
+  - Website [Eko Sutrisno](https://ekosutrisno.netlify.app)
 
-## Type Support For `.vue` Imports in TS
+### <img alt="vue" src="https://seeklogo.com/images/V/vuejs-logo-17D586B587-seeklogo.com.png" width="15" height="15" /> Vue Project Setup
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+```shell
+npm install
+```
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- ##### Development
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+```shell
+npm run dev
+```
+
+- ##### Compiles Production
+
+```shell
+npm run build
+```
+
+- ##### Preview Production
+
+```shell
+npm run serve
+```
+
+### <img alt="firebase" src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" width="18" height="18" /> Firebase Project Setup
+
+- Required
+  - Have a Google Account.
+  - Go to [firebase.com](firebase.com) to use firebase.
+  - Create Project.
+  - Enable auth with `Username Password` and `Google`.
+  - If you deploy in Netlify or Vercel make sure you add host in tab auth.
+  - Enable Firestore.
+  - Enable Storage.
+  - Enable Realtime Database.

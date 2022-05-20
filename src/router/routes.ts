@@ -7,17 +7,7 @@ import WebLayout from '@/layouts/WebLayout.vue';
 import HomePage from '@/views/web/HomePage.vue';
 
 const routes: RouteRecordRaw[] = [
-    {
-        path: "/:pathMatch(.*)*",
-        name: "NotFound",
-        component: () => import("../views/web/404.vue"),
-        meta: {
-            title: 'Not Found Page',
-            description: 'The page you are looking for is not available or not found.',
-            requiresAuth: false
-        }
-    },
-    {
+   {
         path: '/',
         name: 'WebLayout',
         component: WebLayout,
@@ -29,6 +19,16 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Home Page',
                     description: 'Welcome to the Al-Quran Digital app.',
+                    requiresAuth: false
+                }
+            },
+            {
+                path: "/:pathMatch(.*)*",
+                name: "NotFound",
+                component: () => import("../views/web/404.vue"),
+                meta: {
+                    title: 'Not Found Page',
+                    description: 'The page you are looking for is not available or not found.',
                     requiresAuth: false
                 }
             },
