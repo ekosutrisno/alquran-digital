@@ -6,6 +6,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": [
+      "vite-plugin-pwa/client",
+      "vite/client",
+      "node"
+    ]
   },
   "include": ["vite.config.ts"]
 }
