@@ -1,11 +1,11 @@
 <template>
 <div class="relative mx-auto w-full flex items-center justify-between p-6 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200 bg-[#0B1120]">
-  <h1 class="text-xl inline-flex items-center space-x-1.5">
+  <router-link to="/" class="text-xl inline-flex items-center space-x-1.5">
     <span>
       <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
     </span>
      <span class="text-white">Al-Quran Digital</span>
-  </h1>
+  </router-link>
   <div class="flex items-center">
     <button type="button" class="-my-1 flex h-8 w-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 md:hidden">
       <span class="sr-only">Search</span
