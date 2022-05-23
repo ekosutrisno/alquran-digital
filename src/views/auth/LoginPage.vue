@@ -20,11 +20,11 @@
                     <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" v-model="state.auth.email" name="email" type="email" autocomplete="email" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                        <input id="email-address" v-model="state.auth.email" name="email" type="email" autocomplete="email" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
-                        <input id="password" v-model="state.auth.password" name="password" type="password" autocomplete="current-password" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                        <input id="password" v-model="state.auth.password" name="password" type="password" autocomplete="current-password" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
                     </div>
                     </div>
 
@@ -54,7 +54,7 @@
                     </div>
                     <button 
                         @click="loginWithGoogleHandler"
-                        class="rounded-md inline-flex items-center space-x-2 py-2 px-6 border dark:border-none dark:hover:bg-slate-700 ring-sky-400 hover:ring-2 transition dark:text-white text-slate-800 dark:bg-slate-800 bg-slate-50"
+                        class="rounded-md inline-flex items-center space-x-2 py-2 px-6 border dark:border-slate-700 dark:hover:bg-slate-700 ring-sky-400 hover:ring-2 transition dark:text-white text-slate-800 dark:bg-slate-800 bg-white"
                     >
                         <GoogleIcon class="w-7 h-7"/> <span>Google</span>
                     </button>
