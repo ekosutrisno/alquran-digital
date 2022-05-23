@@ -9,6 +9,9 @@ const router = createRouter({
 
 router.beforeEach((to: RouteLocationNormalized) => {
     document.title = `Al-Quran Digital - ${to.meta.title}`;
+
+    if (to.meta.requiresAuth && to.meta.requiresAdmin) return '/auth/unauthorized';
+    else if (to.meta.requiresAuth) return '/auth/login'
 })
 
 
