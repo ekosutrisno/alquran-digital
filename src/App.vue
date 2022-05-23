@@ -3,8 +3,13 @@
 </template>
 
 <script setup lang="ts">
- import { useAuth } from './services';
+import { useAuth } from './services';
+import { useDark } from '@vueuse/core'
 
- const authService = useAuth();
+// For handling and checking dark mode configuration from localStorage
+useDark();
+
+// Authentication checking point
+useAuth();
 
 </script>

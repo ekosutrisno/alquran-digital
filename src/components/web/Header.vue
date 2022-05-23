@@ -29,7 +29,7 @@
       </nav>
       <div class="ml-6 flex items-center border-l border-slate-200 pl-6 dark:border-slate-800">
         <label class="sr-only" id="headlessui-listbox-label-2">Theme</label
-        ><button type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
+        ><button @click="toggleDark()" type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
           <span class="dark:hidden"
             ><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
               <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" class="stroke-slate-400 dark:stroke-slate-500"></path>
@@ -49,6 +49,9 @@
 </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { useDark, useToggle } from '@vueuse/core'
 
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 </script>
