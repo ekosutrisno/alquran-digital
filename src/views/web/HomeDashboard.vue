@@ -24,7 +24,7 @@ const state = reactive({
                 "Menyimpan ayat-ayat favorit",
                 "History/Aktivitas bacaan"
             ],
-            linkToAction:"/personal"
+            linkToAction:"personal"
         },
         {
             id: 2,
@@ -35,7 +35,7 @@ const state = reactive({
                 "+ Pengelolaan Kelas",
                 "+ Lapor Bacaan"
             ],
-            linkToAction:"/madrasah"
+            linkToAction:"madrasah"
         }
     ]
 })

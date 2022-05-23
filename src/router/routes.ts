@@ -2,10 +2,13 @@ import { RouteRecordRaw } from "vue-router";
 
 // Layout Section Import
 import WebLayout from '@/layouts/WebLayout.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 // View Section Import
 import HomePage from '@/views/web/HomePage.vue';
 import HomeDashboard from '@/views/web/HomeDashboard.vue';
+import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
+import MadrasahDashboard from '@/views/app/MadrasahDashboard.vue';
 
 const routes: RouteRecordRaw[] = [
    {
@@ -34,13 +37,40 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: '/home-dashboard',
+                path: 'home-dashboard',
                 name: 'HomeDashboard',
                 component: HomeDashboard,
                 meta: {
                     title: 'Home Dashboard',
                     description: 'Home Dashboard Page',
                     requiresAuth: false
+                }
+            },
+        ]
+    },
+    {
+        path: '/app/dashboard',
+        name: 'AppLayout',
+        component: AppLayout,
+        children:[
+            {
+                path: 'personal',
+                name: 'PersonalDashboard',
+                component: PersonalDashboard,
+                meta: {
+                    title: 'Personal Dashboard',
+                    description: 'Persona lDashboard Page',
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'madrasah',
+                name: 'MadrasahDashboard',
+                component: MadrasahDashboard,
+                meta: {
+                    title: 'Madrasah Dashboard',
+                    description: 'Madrasah Dashboard Page',
+                    requiresAuth: true
                 }
             },
         ]

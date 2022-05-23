@@ -1,0 +1,13 @@
+<template>
+    <div>
+        Madrasah Dashboard
+    </div>
+</template>
+
+<script setup lang="ts">
+
+</script>
+
+<style scoped>
+
+</style>
