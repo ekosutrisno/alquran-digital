@@ -35,18 +35,37 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
+import { useAuth } from '../../services';
+import { validateEmail } from '../../utils/helperFunction';
+
+const authService = useAuth();
 
 const state = reactive({
     auth:{
         email: ''
     },
-    isEmailNotRegisterd: false
+    isEmailNotRegisterd: false,
+    isSendProcess: false
 })
 
 const onSendEmailVerification = () => {
-    console.log('Send Action');
+
+    state.isSendProcess = true;
+
+    if(validateEmail(state.auth.email)){
+        authService
+        .sendPasswordResetEmail(state.auth.email)
+        .then(()=> {
+            state.isSendProcess = false;
+            state.auth.email = '';
+        })
+    }
+
+    setTimeout(() => {
+        state.isSendProcess = false;
+    }, 3000);
 }
 
-const isValidEmail = computed(()=> true);
+const isValidEmail = computed(()=> validateEmail(state.auth.email));
 
 </script>

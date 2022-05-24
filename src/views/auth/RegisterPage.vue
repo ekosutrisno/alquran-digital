@@ -46,19 +46,55 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
+import { isMatchPassword } from '../../utils/helperFunction';
+import { useRouter } from 'vue-router';
+import { useAuth } from '../../services';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
+import { auth } from '../../services/useFirebase';
+
+const router = useRouter();
+const authService = useAuth()
 
 const state = reactive({
     auth:{
         email: '',
         password: '',
         confirmPassword: ''
-    }
+    },
+    isRegisterProcess: false
 })
+const validate = computed(()=>isMatchPassword(state.auth.password, state.auth.confirmPassword))
 
 const onRegisterAction = () => {
-    console.log('Register Action');
+    if(validate.value){
+        createUserWithEmailAndPassword(auth, state.auth.email, state.auth.password)
+            .then((userCredential: { user: any; }) => {
+                const user = userCredential.user;
+                /** Set User Details Data. */
+                authService.onLoginAction(user);
+
+                /** Set isRegister to false and Redirect to Dashboard page. */
+                state.isRegisterProcess = false;
+
+                router.replace('/app/dashboard/personal');
+            })
+            .catch((error:any) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                authService.$patch((state: { error: { errorCode: any; errorMessage: any; }; }) => state.error = {
+                    errorCode: errorCode,
+                    errorMessage: errorMessage
+                });
+
+                state.isRegisterProcess = false;
+                console.log(`${errorCode} => ${errorMessage}`);
+            });
+        }else{
+            state.isRegisterProcess = false;
+        }
 }
 
 </script>

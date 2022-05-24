@@ -66,23 +66,86 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
+import { useRouter } from 'vue-router';
+import { signInWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
+import { auth, gProvider } from '../../services/useFirebase';
+import { useAuth } from '../../services';
+
+const router = useRouter();
+const authService = useAuth();
 
 const state = reactive({
     auth:{
         email: '',
         password: ''
-    }
+    },
+    isLoginProcess: false
+})
+
+onMounted(()=>{
+    if (localStorage.getItem('_uid')) 
+        router.replace('/app/dashboard/personal');
 })
 
 const onLoginAction = () => {
-    console.log('Login Action');
-}
+    /** Initial Loading. */
+    state.isLoginProcess = true;
 
-const loginWithGoogleHandler = () => {
-    console.log('Login With Google Action');
+    signInWithEmailAndPassword(auth, state.auth.email, state.auth.password)
+        .then((userCredential) => {
+            /** Get User Cred. */
+            const user = userCredential.user;
+
+            /** Set User Detail to Context. */
+            authService.onLoginAction(user);
+
+            /** Stop Loading and Redirect in to Dashboard. */
+            state.isLoginProcess =  false;
+            router.replace('/app/dashboard/personal');
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            authService.$patch(state => state.error = {
+            errorCode: errorCode,
+            errorMessage: errorMessage
+            });
+
+            state.isLoginProcess =  false;
+            console.log(`${errorCode} => ${errorMessage}`);
+        });
+    }
+
+ const loginWithGoogleHandler = () => {
+    signInWithPopup(auth, gProvider)
+        .then((result) => {
+            const user = result.user;
+            /** Save user data to DB */
+            // userStore
+            //     .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
+            //     .then(() => {
+                    
+            //         authStore.onLoginAction(user);
+                    
+            //         router.replace('/u/0/dashboard')
+            //     });
+
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            authService.$patch(state => state.error = {
+                errorCode: errorCode,
+                errorMessage: errorMessage
+            });
+
+            state.isLoginProcess =  false;
+            console.log(`${errorCode} => ${errorMessage}`);
+        });
 }
 
 </script>
