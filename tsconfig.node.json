@@ -3,14 +3,12 @@
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [
-      "vite-plugin-pwa/client",
-      "vite/client",
-      "node"
-    ]
+    "types": ["vite-plugin-pwa/client", "vite/client", "node"]
   },
   "include": ["vite.config.ts"]
 }

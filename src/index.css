@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.toast-style {
+  @apply bg-slate-900 !important;
+  @apply border-b sm:border border-slate-700 shadow-xl;
+}
+
 body {
   overflow: overlay;
 }
