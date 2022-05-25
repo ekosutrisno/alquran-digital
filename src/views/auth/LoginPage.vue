@@ -1,5 +1,12 @@
 <template>
-    <div class="flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+    <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-4 text-sm font-medium rounded-md text-slate-500 dark:text-white hover:text-sky-500 hover:border-slate-800/25" :class="['focus:ring-sky-500 focus:outline-none w-auto absolute left-20 z-50 border border-transparent transition dark:hover:border-sky-400']">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        <span class="ml-2">Back</span>
+    </button>
+
+    <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">        
         <div class="md:bg-white md:dark:bg-slate-800 max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/75 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
                <!-- Main Form -->
             <div class="with-transition w-full space-y-8">
@@ -59,7 +66,6 @@
                         <GoogleIcon class="w-7 h-7"/> <span>Google</span>
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
