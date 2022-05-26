@@ -11,7 +11,7 @@
   </div>
   <footer class="text-sm relative leading-6">
     <div class="mt-16 pt-10 text-center text-slate-900 dark:text-slate-300">
-      Al-Quran Digital &copy;{{new Date().getFullYear()}}
+      Al-Quran <span @click="onLogoutAction" class="cursor-pointer">Digital</span> &copy;{{new Date().getFullYear()}}
     </div>
   </footer>
 </div>
@@ -20,4 +20,15 @@
 
 <script setup lang="ts">
 import Button from '@/components/shared/Button.vue';
+import { useAuth } from '@/services';
+import { useRouter } from 'vue-router';
+
+const authService = useAuth();
+const router = useRouter();
+
+const onLogoutAction = () => {
+      localStorage.removeItem('_uid');
+      authService.onLogoutAction();
+      router.replace('/auth/login');
+    }
 </script>

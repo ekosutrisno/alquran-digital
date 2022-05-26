@@ -7,11 +7,11 @@
             <div class="with-transition w-full space-y-8">
                 <div>
                     <h2 class="text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
-                    Login
+                        Login
                     </h2>
                     <p class="mt-4 text-center text-sm text-gray-600 dark:text-slate-300">
-                    Or
-                    {{ ' ' }} Not register yet?
+                        Or
+                        {{ ' ' }} Not register yet?
                     <router-link to="/auth/register" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
                         Create an Account
                     </router-link>
@@ -73,11 +73,12 @@ import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import { useRouter } from 'vue-router';
 import { signInWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
 import { auth, gProvider } from '@/services/useFirebase';
-import { useAuth } from '@/services';
+import { useAuth, useUser } from '@/services';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 
 const router = useRouter();
 const authService = useAuth();
+const userService = useUser();
 
 const state = reactive({
     auth:{
@@ -127,14 +128,14 @@ const onLoginAction = () => {
         .then((result) => {
             const user = result.user;
             /** Save user data to DB */
-            // userStore
-            //     .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
-            //     .then(() => {
+            userService
+                .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
+                .then(() => {
                     
-            //         authStore.onLoginAction(user);
+                    authService.onLoginAction(user);
                     
-            //         router.replace('/u/0/dashboard')
-            //     });
+                    router.replace('/app/dashboard/personal')
+                });
 
         }).catch((error) => {
             const errorCode = error.code;

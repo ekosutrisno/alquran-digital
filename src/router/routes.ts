@@ -54,16 +54,16 @@ const routes: RouteRecordRaw[] = [
                     requiresAuth: false
                 }
             },
-            {
-                path: 'insert-data-page',
-                name: 'InsertDataPage',
-                component: () => import("../views/web/InsertDataPage.vue"),
-                meta: {
-                    title: 'Insert Data',
-                    description: 'Insert Data Page',
-                    requiresAuth: false
-                }
-            },
+            // {
+            //     path: 'insert-data-page',
+            //     name: 'InsertDataPage',
+            //     component: () => import("@/views/web/InsertDataPage.vue"),
+            //     meta: {
+            //         title: 'Insert Data',
+            //         description: 'Insert Data Page',
+            //         requiresAuth: false
+            //     }
+            // },
         ]
     },
     {

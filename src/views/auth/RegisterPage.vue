@@ -64,7 +64,7 @@ import { computed, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
 import { isMatchPassword } from '@/utils/helperFunction';
 import { useRouter } from 'vue-router';
-import { useAuth } from '@/services';
+import { useAuth, useUser } from '@/services';
 import { createUserWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
 import { auth, gProvider } from '@/services/useFirebase';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
@@ -72,6 +72,7 @@ import ButtonBack from '@/components/shared/ButtonBack.vue';
 
 const router = useRouter();
 const authService = useAuth()
+const userService = useUser();
 
 const state = reactive({
     auth:{
@@ -90,6 +91,9 @@ const onRegisterAction = () => {
                 const user = userCredential.user;
                 /** Set User Details Data. */
                 authService.onLoginAction(user);
+
+                /** Save User Details To tbl_users. */
+                userService.onRegisterUser({userId: user.uid, email: user.email as string});
 
                 /** Set isRegister to false and Redirect to Dashboard page. */
                 state.isRegisterProcess = false;
@@ -117,15 +121,16 @@ const loginWithGoogleHandler = () => {
     signInWithPopup(auth, gProvider)
         .then((result) => {
             const user = result.user;
+            
             /** Save user data to DB */
-            // userStore
-            //     .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
-            //     .then(() => {
+            userService
+                .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
+                .then(() => {
                     
-            //         authStore.onLoginAction(user);
+                    authService.onLoginAction(user);
                     
-            //         router.replace('/u/0/dashboard')
-            //     });
+                    router.replace('/app/dashboard/personal')
+                });
 
         }).catch((error) => {
             const errorCode = error.code;

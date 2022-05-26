@@ -39,7 +39,7 @@ export interface SurahAndAyah {
 export interface Metadata {
     surah: number;
     ayah: number;
-    number: number;
+    number?: number;
 }
 
 export interface PageMetadata {
@@ -51,7 +51,7 @@ export interface PageMetadata {
 export interface SajdaMetadata {
     surah: number;
     ayah: number;
-    number: number;
+    number?: number;
     recommended: boolean;
     obligatory: boolean;
 }
