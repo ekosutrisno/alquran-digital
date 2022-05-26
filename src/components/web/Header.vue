@@ -1,5 +1,5 @@
 <template>
-<div class="relative mx-auto w-full border-b border-slate-800 flex items-center justify-between p-6 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200 bg-[#0B1120]">
+<div class="relative mx-auto w-full border-b border-slate-800 flex items-center justify-between p-6 md:px-10 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200 bg-[#0B1120]">
   <router-link to="/" class="text-xl inline-flex items-center space-x-1.5">
     <span>
       <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-between">
+  <div class="flex flex-col justify-between with-transition">
     <div class="relative flex flex-col justify-center items-center pt-20 px-6 mx-auto">
       <p class="text-slate-900 dark:text-slate-300 font-extrabold text-xl md:text-4xl text-center">Management Bacaan &#38; Hafalan <span class="text-sky-500">Al-Quran</span></p>
       <p class="text-slate-900 dark:text-slate-300 font-extrabold text-xl md:text-4xl text-center md:mt-2">Lebih Mudah Dan Sederhana</p>
@@ -19,5 +19,5 @@
 </template>
 
 <script setup lang="ts">
-import Button from '../../components/shared/Button.vue';
+import Button from '@/components/shared/Button.vue';
 </script>

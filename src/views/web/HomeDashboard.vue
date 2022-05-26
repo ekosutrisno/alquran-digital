@@ -37,7 +37,7 @@ const state = reactive({
             id: 2,
             headerDescription:"Madrasah",
             title: "Mengelola Bacaan dan Hapalan Al-Quran Peserta Didik",
-            footerDescription:"Tipe Madrasah digunakan untuk memanagement kelas hafalan para peserta didik, agar lebih mudah diketahui perkembangannya secara digital",
+            footerDescription:"Tipe Madrasah digunakan untuk memanagement kelas hafalan para peserta didik, agar lebih mudah diketahui perkembangannya secara digital.",
             features: [
                 "All Personal User feature",
                 "+ Pengelolaan Kelas",

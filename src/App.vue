@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from './services';
+import { useAuth } from '@/services';
 import { useDark } from '@vueuse/core'
 import { onBeforeMount } from 'vue';
 

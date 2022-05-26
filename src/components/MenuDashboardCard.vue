@@ -33,7 +33,7 @@
             <router-link :to="`/app/dashboard/${menu.linkToAction}`" type="button" :class="[menu.id == 2 ? 'bg-green-600':'bg-sky-600']" class="text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">{{menu.id == 1 ? 'Sign Up' : 'Setup'}} for Free</router-link>
         </div>
         <p class="mt-4 text-sm leading-6 col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-            {{menu.footerDescription}} <br><br> &bull; <span class="font-semibold">Fitur:</span> <span class="rounded-sm mr-2 text-slate-900 dark:text-slate-100 py1 px-2 w-full inline-flex items-center" v-for="(feat, idx) in menu.features" :key="idx"> {{feat}} </span>
+            {{ menu.footerDescription }} <br><br> &bull; <span class="font-semibold">Fitur</span> <span class="rounded-sm mr-2 text-slate-900 dark:text-slate-100 py1 px-2 w-full inline-flex items-center" v-for="(feat, idx) in menu.features" :key="idx"> {{feat}} </span>
         </p>
     </div>
 </main>
