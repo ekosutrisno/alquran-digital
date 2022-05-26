@@ -8,9 +8,12 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
+      registerType: 'prompt',
+
       manifest: {
         name: "Al-Quran Digital",
         short_name: "Al-Quran Digital",
+        start_url: '/',
         theme_color: "#0B1120",
         background_color: "#0B1120",
         description: "Mengelola bacaan dan hafalan Al-Quran",
