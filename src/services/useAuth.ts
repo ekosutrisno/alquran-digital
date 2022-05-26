@@ -1,8 +1,9 @@
 import { confirmPasswordReset, deleteUser, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signOut, updateEmail, updatePassword } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
 import { auth, db } from './useFirebase';
+import { useUser } from './useUser';
 
 const toast = useToast();
 
@@ -75,7 +76,7 @@ export const useAuth = defineStore('useAuth', {
          */
         authState() {
 
-            // const userStore = useUserStore();
+            const userService = useUser();
 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -87,7 +88,7 @@ export const useAuth = defineStore('useAuth', {
                     // Set Detail Information such as profiderId
                     this.onLoginAction(user);
 
-                    // userStore.fetchCurrentUser(uid);
+                    userService.fetchCurrentUser(uid);
                 } else {
                     localStorage.removeItem('_uid');
                     this.isLoggedIn = false;
@@ -159,32 +160,23 @@ export const useAuth = defineStore('useAuth', {
           * @param  {IUser['email']} email
           */
         async sendPasswordResetEmail(email: string): Promise<void> {
-            // const userRef = collection(db, 'tbl_users');
-            // const q = query(userRef, where('email', '==', email));
-            await sendPasswordResetEmail(auth, email)
-                .then(() => {
-                    toast.info('Reset password link has been sent, please check your email.');
+            const userRef = collection(db, 'user_collections');
+            const q = query(userRef, where('email', '==', email));
+            getDocs(q)
+                .then(async (snapshot) => {
+                    if (snapshot.size === 1) {
+                        await sendPasswordResetEmail(auth, email)
+                            .then(() => {
+                                toast.info('Reset password link has been sent, please check your email.');
+                            })
+                            .catch((error) => {
+                                this.setErrorData(error);
+                            });
+                    } else {
+                        this.emailNotRegiter = true;
+                        toast.warning(`${email} not registered email.`);
+                    }
                 })
-                .catch((error) => {
-                    this.setErrorData(error);
-                });
-
-            // getDocs(q)
-            //     .then(async (snapshot) => {
-            //         if (snapshot.size === 1) {
-            //             await sendPasswordResetEmail(auth, email)
-            //                 .then(() => {
-            //                     toast.info('Reset password link has been sent, please check your email.');
-            //                 })
-            //                 .catch((error) => {
-            //                     this.setErrorData(error);
-            //                 });
-            //         }
-            //         else {
-            //             this.emailNotRegiter = true;
-            //             toast.warning(`${email} not registered email.`);
-            //         }
-            //     })
 
             setTimeout(() => {
                 this.emailNotRegiter = false;

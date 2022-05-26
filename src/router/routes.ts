@@ -54,6 +54,16 @@ const routes: RouteRecordRaw[] = [
                     requiresAuth: false
                 }
             },
+            // {
+            //     path: 'insert-data-page',
+            //     name: 'InsertDataPage',
+            //     component: () => import("@/views/web/InsertDataPage.vue"),
+            //     meta: {
+            //         title: 'Insert Data',
+            //         description: 'Insert Data Page',
+            //         requiresAuth: false
+            //     }
+            // },
         ]
     },
     {
@@ -66,11 +76,21 @@ const routes: RouteRecordRaw[] = [
                 name: 'UnAuthorize',
                 component: () => import("../views/web/401.vue"),
                 meta: {
-                   title: 'UnAuthorize Page',
-                   description: `Oops, sorry it looks like you are not authorized to access this page.`,
-                   requiresAuth: false
+                    title: 'UnAuthorize Page',
+                    description: `Oops, sorry it looks like you are not authorized to access this page.`,
+                    requiresAuth: false
                 }
-             },
+            },
+            {
+                path: '__/auth/action',
+                name: 'ResetPasswordActionPage',
+                component: () => import("../views/auth/ResetPasswordActionPage.vue"),
+                meta: {
+                    title: 'Reset Password Action Page',
+                    description: "If you've forgotten your password, this is the place to fix it.",
+                    requiresAuth: false
+                }
+            },
             {
                 path: 'login',
                 name: 'LoginPage',
@@ -100,7 +120,7 @@ const routes: RouteRecordRaw[] = [
                     description: 'Reset Password Page',
                     requiresAuth: false
                 }
-            },
+            }
         ]
     },
     {

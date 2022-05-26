@@ -1,10 +1,11 @@
 <template>
-    <div class="flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+    <ButtonBack/>
+    <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
         <div class="md:bg-white md:dark:bg-slate-800 max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/75 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
             <div class="max-w-md with-transition w-full space-y-8">
                 <div>
-                    <h2 class="mt-6 text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
+                    <h2 class="text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
                     Sign Up
                     </h2>
                     <p class="mt-2 text-center text-sm text-gray-600 dark:text-slate-300">
@@ -40,6 +41,19 @@
                     </button>
                     </div>
                 </form>
+                <div class="flex flex-col space-y-4 items-center justify-end">
+                    <div class="text-sm">
+                        <p class="font-medium text-gray-600 dark:text-slate-300">
+                            Or continue with Google?
+                        </p>
+                    </div>
+                    <button 
+                        @click="loginWithGoogleHandler"
+                        class="rounded-md inline-flex items-center space-x-2 py-2 px-6 border dark:border-slate-700 dark:hover:bg-slate-700 ring-sky-400 hover:ring-2 transition dark:text-white text-slate-800 dark:bg-slate-800 bg-white"
+                    >
+                        <GoogleIcon class="w-7 h-7"/> <span>Google</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -48,14 +62,17 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
-import { isMatchPassword } from '../../utils/helperFunction';
+import { isMatchPassword } from '@/utils/helperFunction';
 import { useRouter } from 'vue-router';
-import { useAuth } from '../../services';
-import { createUserWithEmailAndPassword } from '@firebase/auth';
-import { auth } from '../../services/useFirebase';
+import { useAuth, useUser } from '@/services';
+import { createUserWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
+import { auth, gProvider } from '@/services/useFirebase';
+import GoogleIcon from '@/components/svg/GoogleIcon.vue';
+import ButtonBack from '@/components/shared/ButtonBack.vue';
 
 const router = useRouter();
 const authService = useAuth()
+const userService = useUser();
 
 const state = reactive({
     auth:{
@@ -74,6 +91,9 @@ const onRegisterAction = () => {
                 const user = userCredential.user;
                 /** Set User Details Data. */
                 authService.onLoginAction(user);
+
+                /** Save User Details To tbl_users. */
+                userService.onRegisterUser({userId: user.uid, email: user.email as string});
 
                 /** Set isRegister to false and Redirect to Dashboard page. */
                 state.isRegisterProcess = false;
@@ -95,6 +115,35 @@ const onRegisterAction = () => {
         }else{
             state.isRegisterProcess = false;
         }
+}
+
+const loginWithGoogleHandler = () => {
+    signInWithPopup(auth, gProvider)
+        .then((result) => {
+            const user = result.user;
+            
+            /** Save user data to DB */
+            userService
+                .onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
+                .then(() => {
+                    
+                    authService.onLoginAction(user);
+                    
+                    router.replace('/app/dashboard/personal')
+                });
+
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            authService.$patch(state => state.error = {
+                errorCode: errorCode,
+                errorMessage: errorMessage
+            });
+
+            state.isRegisterProcess =  false;
+            console.log(`${errorCode} => ${errorMessage}`);
+        });
 }
 
 </script>
