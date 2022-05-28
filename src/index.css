@@ -30,7 +30,7 @@
   }
 
   .with-scroll::-webkit-scrollbar-thumb {
-    background-color: #2a2f32;
+    background-color: @apply bg-slate-800;
     border-radius: 4px;
   }
 
@@ -77,6 +77,6 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply bg-slate-900 bg-opacity-60;
+  @apply bg-slate-800 bg-opacity-60;
   border-radius: 4px;
 }

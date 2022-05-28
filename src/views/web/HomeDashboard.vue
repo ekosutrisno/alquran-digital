@@ -1,5 +1,5 @@
 <template>
-    <div class="grid lg:grid-cols-2 lg:p-6 w-full h-full mx-auto">
+    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="grid lg:grid-cols-2 lg:p-6 w-full h-full mx-auto">
         <div v-for="menu in state.menus" :key="menu.id" class="p-4">
             <MenuDashboardCard
                 :menu="menu"
@@ -10,7 +10,11 @@
 
 <script setup lang="ts">
 import MenuDashboardCard from '@/components/MenuDashboardCard.vue';
+import { useUtil } from '@/services';
+import { computed } from '@vue/reactivity';
 import { reactive } from 'vue';
+
+const utilService = useUtil();
 
 const state = reactive({
     menus:[
@@ -51,6 +55,8 @@ const state = reactive({
                 feature2: "https://images.unsplash.com/photo-1618554844984-d4ed47c7e0c0?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHF1cmFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500"
             }
         }
-    ]
+    ],
+    wideMenu: computed(()=>utilService.wideMenu)
+
 })
 </script>

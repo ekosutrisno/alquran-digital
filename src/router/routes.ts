@@ -129,12 +129,22 @@ const routes: RouteRecordRaw[] = [
         component: AppLayout,
         children: [
             {
+                path: '',
+                name: 'AlquranPage',
+                component: PersonalDashboard,
+                meta: {
+                    title: 'Alquran Page',
+                    description: 'Alquran Page Page',
+                    requiresAuth: false
+                }
+            },
+            {
                 path: 'personal',
                 name: 'PersonalDashboard',
                 component: PersonalDashboard,
                 meta: {
                     title: 'Personal Dashboard',
-                    description: 'Persona Dashboard Page',
+                    description: 'Personal Dashboard Page',
                     requiresAuth: true
                 }
             },
