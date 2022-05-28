@@ -33,7 +33,7 @@
             <li><router-link  class="hover:text-sky-500 dark:hover:text-sky-400 text-gray-50 text-base" to="/blog">Blog</router-link></li>
           </ul>
         </nav>
-        <div class="ml-6 flex items-center border-l border-slate-200 pl-6 dark:border-slate-800">
+        <div class="ml-6 flex items-center border-l pl-6 border-slate-800">
           <label class="sr-only" id="headlessui-listbox-label-2">Theme</label>
           <button @click="toggleDark()" type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
             <span class="dark:hidden">

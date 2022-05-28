@@ -6,7 +6,7 @@ interface UtilState {
 }
 export const useUtil = defineStore('useUtil', {
     state: (): UtilState => ({
-        wideMenu: false
+        wideMenu: true
     }),
 
     actions: {

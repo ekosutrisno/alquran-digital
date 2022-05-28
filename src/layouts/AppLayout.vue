@@ -5,11 +5,11 @@
    </div>
    <div class="absolute inset-0 bg-[url(@/assets/grid-light.svg)] dark:bg-[url(@/assets/grid-dark.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
 
-   <header class="w-full relative text-slate-700 dark:text-slate-200 bg-white border-b border-gray-300/50 dark:border-slate-800 dark:bg-[#0B1120] h-64 p-4">
+   <header class="w-full relative text-slate-700 dark:text-slate-200 bg-gray-50 border-b border-gray-300/50 dark:border-slate-800 dark:bg-[#0B1120] h-64 p-4 transition-colors">
        <NavbarHeader/>
    </header>
 
-   <div class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 max-w-7xl pb-20 md:pb-0">
+   <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-20 md:pb-0">
       <router-view />
    </div>
    <footer class="text-xs hidden sm:block text-slate-900 relative dark:text-white p-3 pb-5 text-center">
@@ -20,4 +20,12 @@
 </template>
 <script setup lang="ts">
 import NavbarHeader from '@/components/app/NavbarHeader.vue';
+import { useUtil } from '@/services';
+import { computed } from '@vue/reactivity';
+import { reactive } from 'vue';
+
+const utilService = useUtil();
+const state = reactive({
+   wideMenu: computed(()=>utilService.wideMenu)
+})
 </script>
