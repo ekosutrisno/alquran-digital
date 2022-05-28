@@ -1,8 +1,12 @@
 import { defineStore } from "pinia";
 
-export const useUtil = defineStore('useUtil', {
-    state: () => ({
 
+interface UtilState {
+    wideMenu: boolean | any
+}
+export const useUtil = defineStore('useUtil', {
+    state: (): UtilState => ({
+        wideMenu: false
     }),
 
     actions: {

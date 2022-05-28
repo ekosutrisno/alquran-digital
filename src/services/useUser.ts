@@ -178,5 +178,28 @@ export const useUser = defineStore('useUser', {
                 getDoc(ref.mentor_id)
                     .then(mentor => this.currentMentor = mentor.data() as User);
         }
+    },
+    getters: {
+        /**
+         * @param  {} state
+         * @returns User.photoUrl
+         */
+        getPhotoUrl(state): User['photo_url'] {
+            return state.currentUser ? state.currentUser.photo_url : '';
+        },
+
+        /**
+         * @param  {} state
+         * @param {User['username']} full_name
+         * @param  {User['email']} email
+         * @returns User
+         */
+        getLoginAsInfo(state): { fullName: User['full_name'], email: User['email'] } {
+            const loginAs = {
+                fullName: state.currentUser?.full_name as string,
+                email: state.currentUser?.email as string
+            }
+            return loginAs;
+        }
     }
 })

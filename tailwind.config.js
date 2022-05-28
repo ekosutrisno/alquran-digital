@@ -9,6 +9,9 @@ module.exports = {
       fontFamily: {
         quicksand: ["Quicksand", "sans-serif"],
       },
+      colors: {
+        'dark-blue': '#151e32'
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],
