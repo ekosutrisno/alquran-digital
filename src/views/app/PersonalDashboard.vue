@@ -2,7 +2,7 @@
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1-->
         <section class="grid gap-y-4 xl:gap-4 grid-cols-1 xl:grid-cols-4">
-            <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-sm ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
+            <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <span>
@@ -14,7 +14,7 @@
                     </p>
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
                 </div>
-                <div class="w-full grid md:grid-cols-2 xl:grid-cols-4 gap-4 pt-6 px-2">
+                <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 px-2">
                     <QuickMenu 
                         v-for="menu in quickMenu" 
                         :key="menu.id"
@@ -22,7 +22,7 @@
                     />
                 </div>
             </div>
-            <div class="bg-white dark:bg-dark-blue overflow-hidden shadow-sm ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
+            <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <span>
@@ -82,7 +82,7 @@
 
         <!-- Section 2-->
         <section>
-            <div class="w-full flex items-center justify-between border-b border-slate-300 dark:border-slate-700/75 pb-2 px-1">
+            <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
                 <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -94,7 +94,7 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua feature dan menu yang tersedia</p>
             </div>
 
-            <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
+            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
                 <MainMenu 
                     v-for="menu in mainMenu" 
                     :key="menu.id"
@@ -122,7 +122,7 @@ const mainMenu: MainMenuType[] = [
         id: '2',
         title: 'Page',
         description: 'Mencari berdasarkan Page yang disajikan secara terurut.',
-        to: '/app/dashboard/page',
+        to: '/app/dashboard/pages',
         total: 604
     },
     {

@@ -138,3 +138,16 @@ export const checkFileExt = (fileName: any) => {
         ? fileName.match(fileExtensionPattern)[0]
         : ".exe";
 };
+
+
+export const convertToArab = (str: string) => {
+    var find = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    var replace = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+    if (str !== undefined)
+        for (var i = 0; i < find.length; i++) {
+            str = str.toString().replace(new RegExp(find[i], "g"), replace[i]);
+        }
+
+    return str;
+};

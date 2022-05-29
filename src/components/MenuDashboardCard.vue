@@ -1,5 +1,5 @@
 <template>
-<main class="bg-white dark:bg-dark-blue p-4 sm:p-6 transition ring-1 ring-gray-700/10 dark:ring-gray-700/50 sm:mx-auto w-full h-full rounded-lg">
+<main class="bg-white card-shadow-md dark:bg-dark-blue p-4 sm:p-6 transition ring-1 ring-gray-700/10 dark:ring-gray-700/50 sm:mx-auto w-full h-full rounded-lg">
     <div class="max-w-4xl mx-auto grid grid-cols-1">
         <div class="relative p-3 col-start-1 row-start-1 flex flex-col-reverse rounded-lg bg-gradient-to-t from-black/75 via-black/0">
             <h1 class="mt-1 text-lg font-semibold text-white dark:sm:text-white">{{ menu.title }}</h1>
