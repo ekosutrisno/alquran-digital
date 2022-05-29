@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "lpmq";
+  src: url(assets/font/lpmq.ttf);
+  font-display: swap;
+  line-height: 2;
+}
+
 @layer utilities {
   .router-link-exact-active {
     color: rgba(129, 140, 248, 1);
@@ -49,6 +56,14 @@
     100% {
       opacity: 1;
     }
+  }
+
+  .card-shadow-sm{
+    @apply shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50
+  }
+
+  .card-shadow-md{
+    @apply shadow-lg shadow-slate-200 dark:shadow-slate-900;
   }
 }
 

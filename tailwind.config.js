@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         quicksand: ["Quicksand", "sans-serif"],
+        quran: ["lpmq", "Arial", "sans-serif"]
       },
       colors: {
         'dark-blue': '#151e32'

@@ -1,8 +1,5 @@
 <template>
 <div class="h-full relative with-scroll overflow-hidden transition-colors antialiased font-quicksand flex min-h-screen flex-col justify-between dark:bg-slate-900">
-   <div class="dark:hidden">
-      <img src="@/assets/beams.jpg" alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" />
-   </div>
    <div class="absolute inset-0 bg-[url(@/assets/grid-light.svg)] dark:bg-[url(@/assets/grid-dark.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
 
    <header class="w-full relative text-slate-700 dark:text-slate-200 bg-gray-50 border-b border-gray-300/50 dark:border-slate-800 dark:bg-[#0B1120] h-64 p-4 transition-colors">

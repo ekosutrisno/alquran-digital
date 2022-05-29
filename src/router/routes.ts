@@ -12,6 +12,16 @@ import HomeDashboard from '@/views/web/HomeDashboard.vue';
 // View App Section Import
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
 import MadrasahDashboard from '@/views/app/MadrasahDashboard.vue';
+import BacaankuPage from '@/views/app/BacaankuPage.vue';
+import FavoritePage from '@/views/app/FavoritePage.vue';
+import TajwidPage from '@/views/app/TajwidPage.vue';
+import AboutPage from '@/views/app/AboutPage.vue';
+import SurahPage from '@/views/app/SurahPage.vue';
+import PagesPage from '@/views/app/PagesPage.vue';
+import ManzilPage from '@/views/app/ManzilPage.vue';
+import RukukPage from '@/views/app/RukukPage.vue';
+import SajdaPage from '@/views/app/SajdaPage.vue';
+import JuzPage from '@/views/app/JuzPage.vue';
 
 // View Auth Section Import
 import LoginPage from '@/views/auth/LoginPage.vue';
@@ -157,6 +167,116 @@ const routes: RouteRecordRaw[] = [
                     description: 'Madrasah Dashboard Page',
                     requiresAuth: true,
                     requiresAdmin: true
+                }
+            },
+            {
+                path: 'bacaanku',
+                name: 'BacaankuPage',
+                component: BacaankuPage,
+                meta: {
+                    title: 'Bacaanku',
+                    description: 'Bacaanku Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'favorite',
+                name: 'FavoritePage',
+                component: FavoritePage,
+                meta: {
+                    title: 'Favorite',
+                    description: 'Favorite Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'tajwid',
+                name: 'TajwidPage',
+                component: TajwidPage,
+                meta: {
+                    title: 'Tajwid',
+                    description: 'Tajwid Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'about',
+                name: 'AboutPage',
+                component: AboutPage,
+                meta: {
+                    title: 'About',
+                    description: 'About Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'surah',
+                name: 'SurahPage',
+                component: SurahPage,
+                meta: {
+                    title: 'Surah',
+                    description: 'Surah Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'manzil',
+                name: 'ManzilPage',
+                component: ManzilPage,
+                meta: {
+                    title: 'Manzil',
+                    description: 'Manzil Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'pages',
+                name: 'PagesPage',
+                component: PagesPage,
+                meta: {
+                    title: 'Pages',
+                    description: 'Pages Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'rukuk',
+                name: 'RukukPage',
+                component: RukukPage,
+                meta: {
+                    title: 'Rukuk',
+                    description: 'Rukuk Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'sajda',
+                name: 'SajdaPage',
+                component: SajdaPage,
+                meta: {
+                    title: 'Sajda',
+                    description: 'Sajda Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'juz',
+                name: 'JuzPage',
+                component: JuzPage,
+                meta: {
+                    title: 'Juz',
+                    description: 'Juz Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
                 }
             },
         ]

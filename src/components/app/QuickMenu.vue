@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="menu.to" class="w-full group relative overflow-hidden cursor-pointer hover:ring-sky-400 dark:hover:ring-sky-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm h-auto bg-white dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded">
+    <router-link :to="menu.to" class="w-full group relative overflow-hidden cursor-pointer hover:ring-sky-400 dark:hover:ring-sky-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition card-shadow-sm h-auto bg-white dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded">
         <div class="p-4 z-20 relative space-y-2">
             <p class="font-semibold inline-flex items-center">
                 <span class="bg-white dark:bg-slate-800 rounded-full p-2 ring-1 dark:ring-slate-700/50 ring-slate-700/10 mr-2 group-hover:ring-sky-500 dark:group-hover:ring-sky-500 delay-75 transition">

@@ -1,0 +1,62 @@
+<template>
+    <div class="wrapper md:p-4 space-y-6">
+        <!-- Section 1 -->
+        <section class="grid lg:grid-cols-2">
+            <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
+                <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
+                    <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                        <span>Surah</span> 
+                    </p>
+                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">114</span> Surah</p>
+                </div>
+                <div class="pt-4">
+                    <p class="text-white rounded bg-sky-500 w-min pl-2 mb-2 pr-4 text-sm">Info</p>
+                    <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi metadata semua surah, dengan informasi nama surah, terjemahan Indonesia, jenis surah Makkiyyah atau Madaniyyah, jumlah ayat, dan nomor surah.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section>
+            <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
+                <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                    </span>
+                    <span>All Surah</span> 
+                </p>
+                <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata surah disini</p>
+            </div>
+
+            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
+                <CardSurahMetadata 
+                    v-for="surah in state.surahMetadata" 
+                    :key="surah.id"
+                    :surah="surah"
+                />
+            </div>
+        </section>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { useSurah } from '@/services';
+import { computed } from '@vue/reactivity';
+import { onMounted, reactive } from 'vue';
+import CardSurahMetadata from './card/CardSurahMetadata.vue';
+
+const surahService = useSurah();
+const state = reactive({
+    surahMetadata: computed(() => surahService.surahs)
+});
+
+onMounted(()=> surahService.getSurahMetada());
+
+</script>
