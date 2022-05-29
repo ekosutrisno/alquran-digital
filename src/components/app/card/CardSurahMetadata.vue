@@ -4,7 +4,7 @@
 
     <div class="w-full flex items-start py-2 justify-between relative">
       <div>
-        <span class="font-bold text-lg text-slate-800 dark:text-white">
+        <span class="font-bold text-lg text-slate-800 dark:text-white group-hover:text-sky-500">
           {{ surah.surat_name }}
         </span>
       <p class="text-sm text-gray-700 dark:text-slate-200"><span> {{ surah.surat_terjemahan}}</span></p>
@@ -18,7 +18,7 @@
     </div>
     <h1 class="text-right text-3xl font-semibold text-slate-800 dark:text-white group-hover:text-sky-500 transition"> <span class="text-sm">( {{ surah.surat_text_full}})</span> {{surah.surat_text}} </h1>
     <div class="inline-flex space-x-2 text-xs mt-2">
-      <div :class="[ surah.revelation_type == 'Meccan' ? 'text-sky-500 dark:text-sky-400' : 'text-gray-700' ]" class="inline-flex items-center space-x-1 font-semibold uppercase">
+      <div :class="[ surah.revelation_type == 'Meccan' ? 'text-sky-500 dark:text-sky-400' : 'text-slate-700 dark:text-slate-300' ]" class="inline-flex items-center space-x-1 font-semibold uppercase">
         <svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
         </svg>

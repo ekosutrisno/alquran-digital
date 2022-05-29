@@ -1,7 +1,7 @@
 <template>
 <router-link v-motion-slide-bottom v-motion-slide-visible-once-bottom :initial="{ opacity: 0, y: 100 }" class="cursor-default sm:cursor-pointer" :to="{path: '/app/dashboard/pages/detail', query:{ sn: page.surat, an: page.ayat}}">
 
-   <div class="hover:ring-sky-400 antialiased group transition dark:hover:ring-sky-400 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none shadow-sm hover:shadow-xl font-quran group sm:cursor-pointer flex flex-col max-h-48 w-full max-w-md h-full mx-auto mb-2 rounded-md p-5 overflow-hidden relative">
+   <div class="hover:ring-sky-400 antialiased group transition dark:hover:ring-sky-400 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none shadow-sm hover:shadow-xl font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-md p-5 overflow-hidden relative">
     <div class="w-full flex items-start py-2 justify-between">
       <div class="text-gray-800  text-xl absolute -right-3 -top-3 w-28 h-16 rounded-l-xl bg-gradient-to-bl from-sky-500/20 to-sky-500/5 dark:from-sky-800/10 dark:to-sky-700/10 flex items-center justify-center font-semibold">
         <span class="font-semibold text-sky-500">
