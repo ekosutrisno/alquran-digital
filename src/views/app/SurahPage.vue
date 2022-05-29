@@ -1,4 +1,5 @@
 <template>
+    <div ref="pageUp" class="absolute -top-20"></div>
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2">
@@ -15,7 +16,7 @@
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">114</span> Surah</p>
                 </div>
                 <div class="pt-4">
-                    <p class="text-white rounded bg-sky-500 w-min pl-2 mb-2 pr-4 text-sm">Info</p>
+                    <p class="text-white rounded bg-sky-500 w-min px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi metadata semua surah, dengan informasi nama surah, terjemahan Indonesia, jenis surah Makkiyyah atau Madaniyyah, jumlah ayat, dan nomor surah.</p>
                 </div>
             </div>
@@ -43,14 +44,23 @@
                 />
             </div>
         </section>
+
+        <div class="fixed group bottom-10 right-5 float-right hover:bg-slate-100 dark:hover:bg-slate-800 transition hover:ring-sky-400 dark:hover:ring-sky-400  bg-slate-50 dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 shadow-xl p-2 rounded-full">
+            <div class="inline-flex space-x-4">
+                <button @click="scrollToPageUp" class="p-2 cursor-default md:cursor-pointer rounded-full focus:outline-none">
+                    <svg class="w-5 text-slate-600 dark:text-sky-400 group-hover:animate-bounce group-hover:text-sky-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useSurah } from '@/services';
-import { computed } from '@vue/reactivity';
-import { onMounted, reactive } from 'vue';
-import CardSurahMetadata from './card/CardSurahMetadata.vue';
+import { computed, onMounted, reactive, ref } from 'vue';
+import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 
 const surahService = useSurah();
 const state = reactive({
@@ -59,4 +69,9 @@ const state = reactive({
 
 onMounted(()=> surahService.getSurahMetada());
 
+const pageUp = ref<any>(null)
+const scrollToPageUp = () => {
+    if(pageUp != null)
+        pageUp.value.scrollIntoView({behavior: 'smooth'});
+}
 </script>

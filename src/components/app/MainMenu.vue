@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="p-2">
-            <span class="text-sm text-slate-400 dark:text-slate-400">Description</span>
+            <p class="text-white rounded bg-sky-500 w-min px-2 mb-2 text-sm">Description</p>
             <h1 class="dark:text-slate-300 text-slate-500"> {{menu.description}} </h1>
         </div>
         <Svg1 aria-hidden="true" class="absolute z-10 -right-20 bottom-[75px] rotate-90"/>
