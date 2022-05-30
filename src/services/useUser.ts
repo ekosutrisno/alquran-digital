@@ -185,7 +185,9 @@ export const useUser = defineStore('useUser', {
          * @returns User.photoUrl
          */
         getPhotoUrl(state): User['photo_url'] {
-            return state.currentUser ? state.currentUser.photo_url : '';
+            return state.currentUser
+                ? state.currentUser.photo_url
+                : 'https://res.cloudinary.com/ekosutrisno/image/upload/v1627464871/avatars/profile1_otttcz.png';
         },
 
         /**

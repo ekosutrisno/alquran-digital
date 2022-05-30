@@ -155,7 +155,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Personal Dashboard',
                     description: 'Personal Dashboard Page',
-                    requiresAuth: true
+                    requiresAuth: false
                 }
             },
             {
@@ -176,7 +176,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Bacaanku',
                     description: 'Bacaanku Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -187,7 +187,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Favorite',
                     description: 'Favorite Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -198,7 +198,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Tajwid',
                     description: 'Tajwid Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -209,7 +209,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'About',
                     description: 'About Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -220,7 +220,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Surah',
                     description: 'Surah Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -231,7 +231,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Manzil',
                     description: 'Manzil Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -242,7 +242,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Pages',
                     description: 'Pages Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -253,7 +253,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Rukuk',
                     description: 'Rukuk Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -264,7 +264,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Sajda',
                     description: 'Sajda Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
@@ -275,7 +275,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Juz',
                     description: 'Juz Page',
-                    requiresAuth: true,
+                    requiresAuth: false,
                     requiresAdmin: false
                 }
             },
