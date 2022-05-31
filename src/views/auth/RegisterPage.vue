@@ -1,14 +1,14 @@
 <template>
     <ButtonBack/>
     <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
-        <div class="md:bg-white md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
+        <div class="md:bg-white card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
             <div class="max-w-md with-transition w-full space-y-8">
                 <div>
                     <h2 class="text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
                     Sign Up
                     </h2>
-                    <p class="mt-2 text-center text-sm text-gray-600 dark:text-slate-100">
+                    <p class="mt-6 text-center text-sm text-gray-600 dark:text-slate-100">
                     Or
                     {{ ' ' }} Already have an Account?
                     <router-link to="/auth/login" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
@@ -49,7 +49,7 @@
                     </div>
                     <button 
                         @click="loginWithGoogleHandler"
-                        class="rounded-md inline-flex items-center space-x-2 py-2 px-6 border dark:border-slate-700/50 dark:hover:bg-slate-800 ring-sky-400 hover:ring-2 transition dark:text-white text-slate-800 dark:bg-dark-blue bg-white"
+                        class="rounded-md inline-flex items-center space-x-2 py-2 px-6 border border-slate-700/10 dark:border-slate-700/50 dark:hover:bg-slate-800 ring-sky-400 hover:ring-2 transition dark:text-white text-slate-800 dark:bg-dark-blue bg-white"
                     >
                         <GoogleIcon class="w-7 h-7"/> <span>Google</span>
                     </button>

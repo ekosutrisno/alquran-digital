@@ -1,11 +1,11 @@
 <template>
-<div class="relative w-full border-b border-slate-800 bg-[#0B1120]">
+<div class="relative w-full border-b transition border-slate-700 border-opacity-[0.15] card-shadow-sm bg-white/90 dark:border-slate-700/50 dark:bg-[#0B1120]">
   <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto w-full flex items-center justify-between p-8 md:px-10 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
     <router-link to="/" class="text-2xl inline-flex items-center space-x-1.5">
       <span>
         <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
       </span>
-       <span class="text-white">Al-Quran Digital</span>
+       <span class="text-slate-800 dark:text-white">Al-Quran Digital</span>
     </router-link>
     <div class="flex items-center">
       <button type="button" class="-my-1 flex h-8 w-8 items-center justify-center text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 md:hidden">
@@ -28,12 +28,12 @@
       <div class="hidden items-center md:flex">
         <nav>
           <ul class="flex items-center space-x-8">
-            <li><router-link class="hover:text-sky-500 dark:hover:text-sky-400 text-gray-50 text-base" to="/docs">Docs</router-link></li>
-            <li><router-link  to="/feature" class="hover:text-sky-500 dark:hover:text-sky-400 text-gray-50 text-base">Features</router-link></li>
-            <li><router-link  class="hover:text-sky-500 dark:hover:text-sky-400 text-gray-50 text-base" to="/blog">Blog</router-link></li>
+            <li><router-link class="hover:text-sky-500 dark:hover:text-sky-400 text-slate-700 dark:text-gray-50 text-base" to="/docs">Docs</router-link></li>
+            <li><router-link  to="/feature" class="hover:text-sky-500 dark:hover:text-sky-400 text-slate-700 dark:text-gray-50 text-base">Features</router-link></li>
+            <li><router-link  class="hover:text-sky-500 dark:hover:text-sky-400 text-slate-700 dark:text-gray-50 text-base" to="/blog">Blog</router-link></li>
           </ul>
         </nav>
-        <div class="ml-6 flex items-center border-l pl-6 border-slate-800">
+        <div class="ml-6 flex items-center border-l pl-6 border-slate-500/50 dark:border-slate-700">
           <label class="sr-only" id="headlessui-listbox-label-2">Theme</label>
           <button @click="toggleDark()" type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
             <span class="dark:hidden">
