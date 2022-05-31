@@ -1,6 +1,6 @@
 <template>
   <Disclosure as="nav">
-    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-10 antialiased">
+    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-6 antialiased">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
           <router-link to="/" class="flex-shrink-0 font-semibold text-slate-800 dark:text-white flex items-center text-2xl">
@@ -15,10 +15,13 @@
                   v-for="item in navigation" 
                   :key="item.name" 
                   :to="item.href"
-                  active-class="bg-slate-800 text-white"
-                  :class="[ $route.name == item.name ? '' : 'text-white bg-sky-500 hover:bg-sky-400 dark:text-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 dark:hover:text-white transition-colors', 'px-3 py-2 rounded-md text-sm font-medium']" 
+                  exact-active-class="hidden transition"
+                  :class="[ $route.name == item.name ? '' : 'text-white bg-sky-500 hover:bg-sky-400 dark:text-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 dark:hover:text-white', 'px-3 py-2 with-transition rounded-md text-sm font-medium']" 
               >
-              {{ item.name }}
+                <span class="sr-only">{{ item.name }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
               </router-link>
             </div>
           </div>
@@ -148,7 +151,7 @@ import Svg2 from '../svg/Svg2.vue'
 import { useDark, useToggle } from '@vueuse/core';
 
 const navigation = [
-  { name: 'Dashboard', href: '/home-dashboard' }
+  { name: 'Dashboard', href: '/app/dashboard' }
 ]
 
 const authService = useAuth();

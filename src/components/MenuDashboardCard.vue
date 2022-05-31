@@ -28,7 +28,7 @@
             </dd>
         </dl>
         <div class="mt-4 col-start-1 row-start-3 self-center space-x-4">
-            <router-link v-if="menu.id == 1" :to="`/app/dashboard`" type="button" class="dark:text-white text-slate-700 ring-1 hover:bg-sky-500 hover:text-white transition text-sm leading-6 font-medium py-2 px-3 rounded-lg">Baca Al-Quran</router-link>
+            <router-link v-if="menu.id == 1" :to="`/app/dashboard`" type="button" class="dark:text-white text-slate-700 ring-1 hover:bg-sky-500 hover:ring-0 hover:text-white transition text-sm leading-6 font-medium py-2 px-3 rounded-lg">Baca Al-Quran</router-link>
             <router-link :to="`/app/dashboard/${menu.linkToAction}`" type="button" :class="[menu.id == 2 ? 'bg-green-500 hover:bg-green-400':'bg-sky-500 hover:bg-sky-400']" class="text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">{{menu.id == 1 ? 'Sign Up' : 'Setup'}} for Free</router-link>
         </div>
         <p class="mt-4 text-sm leading-6 col-start-1 dark:text-slate-400">
