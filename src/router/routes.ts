@@ -22,6 +22,7 @@ import ManzilPage from '@/views/app/ManzilPage.vue';
 import RukukPage from '@/views/app/RukukPage.vue';
 import SajdaPage from '@/views/app/SajdaPage.vue';
 import JuzPage from '@/views/app/JuzPage.vue';
+import AlquranPage from '@/views/app/AlquranPage.vue';
 
 // View Auth Section Import
 import LoginPage from '@/views/auth/LoginPage.vue';
@@ -149,13 +150,23 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
+                path: 'alquran',
+                name: 'AlquranPageDetail',
+                component: AlquranPage,
+                meta: {
+                    title: 'Alquran Page Detail',
+                    description: 'Alquran Page Detail Page',
+                    requiresAuth: false
+                }
+            },
+            {
                 path: 'personal',
                 name: 'PersonalDashboard',
                 component: PersonalDashboard,
                 meta: {
                     title: 'Personal Dashboard',
                     description: 'Personal Dashboard Page',
-                    requiresAuth: false
+                    requiresAuth: true
                 }
             },
             {
