@@ -7,7 +7,7 @@ export interface InfoMetadata {
 }
 
 export interface User extends InfoMetadata {
-    bacaan?: AyahData;
+    bacaanku?: AyahData;
     email: string;
     join_at: number;
     photo_url?: string;

@@ -16,10 +16,10 @@
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">114</span> Surah</p>
                 </div>
                 <div class="pt-4">
-                    <p class="text-white rounded bg-sky-500 w-min px-2 mb-2 text-sm">Info</p>
+                    <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi metadata semua surah, dengan informasi nama surah, terjemahan Indonesia, jenis surah Makkiyyah atau Madaniyyah, jumlah ayat, dan nomor surah.</p>
                 </div>
-                <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                     </svg>
@@ -40,6 +40,10 @@
                     <span>All Surah</span> 
                 </p>
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata surah disini</p>
+            </div>
+
+             <div v-if="state.isLoading" class="flex my-4 items-center justify-center">
+                <Spinner />
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
@@ -67,13 +71,20 @@
 import { useSurah } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
+import Spinner from '@/components/Spinner.vue';
 
 const surahService = useSurah();
 const state = reactive({
-    surahMetadata: computed(() => surahService.surahs)
+    surahMetadata: computed(() => surahService.surahs),
+    isLoading: computed(() => surahService.isLoading)
+
 });
 
-onMounted(()=> surahService.getSurahMetada());
+onMounted(()=> {
+    if(!state.surahMetadata.length)
+        surahService.getSurahMetada();
+    }
+);
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {

@@ -7,6 +7,7 @@ import { useManzil } from './useManzil';
 import { useRukuk } from './useRukuk';
 import { useSajda } from './useSajda';
 import { useJuz } from './useJuz';
+import { useAyah } from './useAyah';
 
 export {
     useAuth,
@@ -17,5 +18,6 @@ export {
     useManzil,
     useRukuk,
     useSajda,
-    useJuz
+    useJuz,
+    useAyah
 }

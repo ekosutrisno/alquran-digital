@@ -37,7 +37,7 @@
   }
 
   .with-scroll::-webkit-scrollbar-thumb {
-    background-color: @apply bg-slate-800;
+    @apply bg-sky-500/90 dark:bg-sky-500/75;
     border-radius: 4px;
   }
 
@@ -68,8 +68,8 @@
 }
 
 .toast-style {
-  @apply bg-slate-900 !important;
-  @apply border-b sm:border border-slate-700 shadow-xl;
+  @apply bg-dark-blue !important;
+  @apply border-b sm:border border-slate-700/50 shadow-2xl;
 }
 
 body {
@@ -92,6 +92,6 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 bg-opacity-60;
+  @apply bg-sky-500/90 dark:bg-sky-500/75;
   border-radius: 4px;
 }

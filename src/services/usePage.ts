@@ -1,5 +1,5 @@
 import { PageMetadata } from "@/types/alquran.interface";
-import { collection, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
+import { collection, DocumentData, DocumentReference, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { db } from "./useFirebase";
 interface UsePageState {
@@ -7,7 +7,7 @@ interface UsePageState {
     isPush: boolean,
     isLast: boolean,
     pages: PageMetadata[],
-    lastPageVisible: any | null
+    lastPageVisible: DocumentData | null
 }
 
 export const usePage = defineStore('usePage', {
@@ -27,10 +27,10 @@ export const usePage = defineStore('usePage', {
             const q = query(pageMetadataRef, orderBy("page", "asc"), limit(100));
 
             getDocs(q)
-                .then(snapshot => {
+                .then((snapshot: QuerySnapshot<DocumentData>) => {
                     const pageMetadata: PageMetadata[] = [];
 
-                    const lastVisible = snapshot.docs[snapshot.docs.length - 1] as any;
+                    const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
 
                     this.lastPageVisible = lastVisible;
 
@@ -43,14 +43,14 @@ export const usePage = defineStore('usePage', {
                 })
         },
 
-        nextPage(data: { lastVisible: any }) {
+        nextPage(data: { lastVisible: DocumentData }) {
             this.isPush = true;
 
             const pageMetadataRef = collection(db, 'page_collections');
             const q = query(pageMetadataRef, orderBy("page", "asc"), limit(100), startAfter(data.lastVisible));
 
-            getDocs(q).then((doc) => {
-                const lastVisible = doc.docs[doc.docs.length - 1] as any;
+            getDocs(q).then((doc: QuerySnapshot<DocumentData>) => {
+                const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
 
                 this.lastPageVisible = lastVisible;
 

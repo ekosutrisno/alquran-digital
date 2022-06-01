@@ -1,0 +1,117 @@
+<template>
+<div class="w-full max-w-screen-xl mx-auto">
+   
+   <CardSurahSeparateMetadata v-if="ayat.is_new_surat" :sura_id="ayat.sura_id"/>
+   
+   <div class="w-full relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
+      <p class="font-quran mb-4"> 
+         <span class="leading-10">{{ayat.aya_text}}</span>   
+         <span class="text-xl text-quran-brown-text font-mono"> -{{convertToArab(`${ayat.aya_number}`)}}</span> 
+      </p> 
+
+      <p class="text-base font-normal text-left dark:text-slate-100"> 
+         <span class="font-medium">[{{ayat.sura_id}}:{{ayat.aya_number}}] </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> | {{ayat.translation_aya_text}}
+      </p>
+      
+      <svg v-if="state.playAudio" @click="togglePlay"  class="absolute top-2 left-2 w-5 text-gray-400 hover:text-slate-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+      </svg> 
+      <svg v-else @click="togglePlay" class="absolute top-2 left-2 w-5 text-gray-400 hover:text-slate-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+      </svg>
+
+      <div class="w-full mt-6">
+         <audio v-if="state.playAudio" class="focus:outline-none mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
+            <source v-for="(aud, idx) in ayat.audio_secondary" :key="idx" :src="aud" type = "audio/mp3" />
+         </audio>
+      </div>
+      
+      <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
+         <span v-if="isIncludeMyFavorite" class="font-semibold text-sky-600">
+         <svg class="w-5 inline animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+         </svg>
+         </span>
+         <span v-if="state.myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
+         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline animate-pulse" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+               <path d="M7 12l5 5l10 -10"></path>
+               <path d="M2 12l5 5m5 -5l5 -5"></path>
+            </svg>
+         </span>
+         <span class="font-medium">Info: (Hal: {{ayat.page_number}}) (Manzil: {{ayat.manzil}}) (Rukuk: {{ayat.rukuk}}) </span>
+         <span v-if="ayat.sajda" class="font-semibold text-yellow-500">
+         - Sajda 
+         <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+         </svg>
+         </span>
+      </div>
+
+      <!-- Menu Options -->
+      <div class="absolute right-0 bottom-0 p-2">
+         <div @click="hideMenuOption" class="relative">
+            <svg class="sm:cursor-pointer w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+            </svg>
+
+            <transition
+               enter-active-class="transition ease-out duration-100 transform"
+               enter-from-class="opacity-0 scale-95"
+               enter-to-class="opacity-100 scale-100"
+               leave-active-class="transition ease-in duration-75 transform"
+               leave-from-class="opacity-100 scale-100"
+               leave-to-class="opacity-0 scale-95"
+            >
+            
+               <div ref="target" v-if="state.option" class="w-40 absolute z-50 shadow-2xl h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+                     <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <span>Tandai bacaan</span>
+                     </button>
+                     <button @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <span>Ayat favorit</span>
+                     </button>
+               </div>
+            </transition>
+         </div>
+      </div>
+   </div>
+
+</div>
+</template>
+
+<script setup lang="ts">
+import { useAyah, useUser } from '@/services';
+import { AyahData } from '@/types/alquran.interface';
+import { computed, reactive, ref } from 'vue';
+import { convertToArab } from '@/utils/helperFunction';
+import CardSurahSeparateMetadata from './CardSurahSeparateMetadata.vue';
+import { onClickOutside } from '@vueuse/core';
+
+const ayahService = useAyah();
+const userService = useUser();
+const props = defineProps<{ayat: AyahData}>()
+
+const state = reactive({
+    playAudio: false,
+    option: false,
+    myBacaanku: computed(() => userService.currentUser?.bacaanku),
+    myFavorite: computed(() => ayahService.ayahFavorite),
+    currentAyat: props.ayat,
+    showModal: false
+});
+
+const togglePlay = ()=>{
+    state.playAudio = !state.playAudio;
+}
+
+const target = ref(null)
+onClickOutside(target, (event) => hideMenuOption())
+
+const hideMenuOption = () => {
+    state.option = !state.option
+}
+
+const isIncludeMyFavorite = computed(()=>state.myFavorite.some(ayat => ayat.aya_id === state.currentAyat.aya_id))
+
+</script>
