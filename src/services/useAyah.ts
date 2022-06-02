@@ -40,7 +40,7 @@ export const useAyah = defineStore('useAyah', {
 
                 getDoc(userRef)
                     .then((user) => {
-                        if (user.exists() && user.data().bacaanku.aya_id !== nextBacaan.aya_id) {
+                        if (user.exists() && user.data().bacaanku?.aya_id !== nextBacaan.aya_id) {
                             setDoc(userRef, { bacaanku: nextBacaan }, { merge: true })
                                 .then(async () => {
                                     this.bacaanku = nextBacaan
