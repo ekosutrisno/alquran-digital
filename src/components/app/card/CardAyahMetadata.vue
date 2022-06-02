@@ -1,5 +1,5 @@
 <template>
-<div class="w-full max-w-screen-xl mx-auto">
+<div class="w-full mx-auto">
    
    <CardSurahSeparateMetadata v-if="ayat.is_new_surat" :sura_id="ayat.sura_id"/>
    

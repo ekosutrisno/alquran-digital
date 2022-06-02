@@ -1,3 +1,4 @@
+import { SurahData } from "@/types/alquran.interface";
 import { Role, User } from "@/types/user.interface";
 import { doc, DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -9,15 +10,16 @@ const toast = useToast();
 interface UserState {
     currentUser: User | null;
     currentMentor: User | null;
-    currentUserMainRole: Role | null
-
+    currentUserMainRole: Role | null;
+    surahBacaanUser: SurahData | null;
 }
 
 export const useUser = defineStore('useUser', {
     state: (): UserState => ({
         currentUser: null,
         currentMentor: null,
-        currentUserMainRole: null
+        currentUserMainRole: null,
+        surahBacaanUser: null
     }),
 
     actions: {
@@ -26,17 +28,6 @@ export const useUser = defineStore('useUser', {
         * @description register user to Database Collection
         */
         async onRegisterUser(newData: { userId: User['user_id'], email: User['email'] }, googleNewData?: { user?: any, oauth?: boolean }) {
-
-            if (googleNewData?.oauth) {
-                const user = await getDoc(doc(db, 'user_collections', newData.userId));
-                if (user.exists())
-                    return
-                else {
-
-                    // TODO save action default data
-                }
-            }
-
             const newUserData: User = {
                 email: newData.email,
                 user_id: newData.userId,
@@ -62,6 +53,18 @@ export const useUser = defineStore('useUser', {
                 is_active: googleNewData?.oauth ? googleNewData.user.emailVerified : false,
             }
 
+
+            // Check if user login with Google
+            if (googleNewData?.oauth) {
+                const user = await getDoc(doc(db, 'user_collections', newData.userId));
+                if (user.exists())
+                    return;
+                else {
+                    await setDoc(doc(db, 'user_collections', newData.userId), newUserData);
+                }
+            }
+
+            // Default Action save user
             await setDoc(doc(db, 'user_collections', newData.userId), newUserData);
         },
 
@@ -75,6 +78,9 @@ export const useUser = defineStore('useUser', {
             onSnapshot(docRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const data: User = docSnap.data() as User;
+
+                    // Get Surah name of bacaan User
+                    this.setSurahBacaan(data.bacaanku?.sura_id as number);
 
                     // Set The Current User
                     this.currentUser = data;
@@ -177,7 +183,24 @@ export const useUser = defineStore('useUser', {
             if (ref.mentor_id)
                 getDoc(ref.mentor_id)
                     .then(mentor => this.currentMentor = mentor.data() as User);
-        }
+        },
+        /**
+         * @param  {SurahData['id']} surah_number
+         * Get Surah Name of Bacaan User
+         */
+        async setSurahBacaan(surah_number: SurahData['id']) {
+
+            if (surah_number != undefined) {
+                const surahRef = doc(db, 'surah_collections', `${surah_number}`);
+
+                getDoc(surahRef)
+                    .then((doc) => {
+                        if (doc.exists())
+                            this.surahBacaanUser = doc.data() as SurahData;
+
+                    });
+            }
+        },
     },
     getters: {
         /**
@@ -202,6 +225,17 @@ export const useUser = defineStore('useUser', {
                 email: state.currentUser?.email as string
             }
             return loginAs;
+        },
+        
+        /**
+         * @param  {} state
+         * @returns string
+         * Get Surah Name of Bacaan User as String
+         */
+        getSurahNameBacaan(state): string {
+            return state.surahBacaanUser
+                ? state.surahBacaanUser?.surat_name
+                : '';
         }
     }
 })

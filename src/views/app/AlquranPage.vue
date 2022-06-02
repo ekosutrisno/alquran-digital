@@ -45,7 +45,20 @@
                     </span>
                     <span>Ayahs</span> 
                 </p>
-                <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
+                <div class="md:inline-flex hidden items-center space-x-2">
+                    <button @click="hideMenuOption" type="button" class="text-slate-500 relative group hover:bg-sky-500 rounded p-0.5 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                        <div v-if="state.option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+                            <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
+                                <div class="col-span-1">{{ size.size }}</div> <div class="text-sm col-span-3 text-left">({{ size.text}})</div>
+                            </button>
+                        </div>
+                    </button>
+                    <p class="text-sky-500 font-medium">{{ state.sizeSelected.size }}</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
+                </div>
             </div>
             
             <div class="mt-8 mx-auto select-none">
@@ -58,7 +71,7 @@
                 <Spinner />
             </div>
 
-            <div class="w-full grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
+            <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                <CardAyahMetadata
                     v-for="ayah in state.ayahs"
                     :key="ayah.aya_id"
@@ -98,6 +111,7 @@ import { SurahData } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import Loader from '@/components/Loader.vue';
+import { onClickOutside } from '@vueuse/core';
 
 const surahService = useSurah();
 const ayahService = useAyah();
@@ -111,7 +125,33 @@ const state = reactive({
     ayahs: computed(() => surahService.ayahs),
     isPush: computed(() => surahService.isPush),
     surah: computed(() => surahService.surah),
-
+    option: false,
+    sizeSelected: {
+        id: 1,
+        size: 'MD',
+        text: 'Medium',
+        class: 'max-w-screen-lg'
+    },
+    sizes: [
+        {
+            id: 1,
+            size: 'MD',
+            text: 'Medium',
+            class: 'max-w-screen-lg'
+        },
+        {
+            id: 2,
+            size: 'LG',
+            text: 'Large',
+            class: 'max-w-screen-xl'
+        },
+        {
+            id: 3,
+            size: 'XL',
+            text: 'Extra Large',
+            class: 'w-full'
+        }
+    ]
 });
 
 onMounted(()=>{
@@ -132,5 +172,16 @@ const scrollToPageUp = () => {
 
     return ayatsSize.value === state.surah?.count_ayat ? true : false;
 })
+
+const target = ref(null)
+onClickOutside(target, (event) => hideMenuOption())
+
+const hideMenuOption = () => {
+    state.option = !state.option
+}
+
+const selectSize = (size: any)=>{
+    state.sizeSelected  = size;
+}
 
 </script>
