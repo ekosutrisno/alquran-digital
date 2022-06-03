@@ -72,20 +72,31 @@
 
           <!-- Profile dropdown -->
           <Menu as="div" class="ml-3 relative z-50">
-            <div>
-              <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-400">
+            <div v-if="state.isLogin">
+              <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
                 <img class="h-10 w-10 p-1  rounded-full" :src="state.photoUrl" alt="profile-avatar" />
               </MenuButton>
             </div>
+            <div v-else>
+              <router-link to="/auth/login" class="dark:bg-gray-800 p-1.5 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
+                <span class="sr-only">Open user menu</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+              </router-link>
+            </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+              <MenuItems class="origin-top-right absolute right-5 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem>
                   <div :class="['p-4 relative h-full flex flex-col space-y-2 items-center justify-center bg-white border-b border-slate-700/10 dark:border-slate-700/50 dark:bg-slate-800 text-slate-800 dark:text-white']">
                      <img class="w-14 h-14 object-cover border border-slate-700/10 dark:border-slate-700/50 rounded-full" :src="state.photoUrl" alt="avatar-drop-menu">
                      <div class="text-center">
                        <p class="font-medium"> {{ state.loginAsInfo.fullName }} </p>
                        <p class="text-sm"> {{ state.loginAsInfo.email }} </p>
+                     </div>
+                     <div>
+                       
                      </div>
                      <Svg2 aria-hidden="true" class="absolute -top-2"/>
                       <button type="button" class="absolute top-2 right-5">
@@ -167,6 +178,7 @@ const state = reactive({
   photoUrl: computed(()=> userService.getPhotoUrl),
   loginAsInfo: computed(()=>userService.getLoginAsInfo),
   userRole: computed(() => localStorage.getItem('_role')),
+  isLogin: computed(() => localStorage.getItem('_uid')),
   haveNotification:  [
     {
       timestamp:1,

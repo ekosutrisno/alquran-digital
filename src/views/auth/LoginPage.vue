@@ -2,7 +2,7 @@
     <ButtonBack/>
 
     <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">        
-        <div class="md:bg-white card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
+        <div class="md:bg-white md:card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
                <!-- Main Form -->
             <div class="with-transition w-full space-y-8">
                 <div>

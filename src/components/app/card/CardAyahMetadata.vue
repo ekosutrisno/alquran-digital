@@ -23,12 +23,14 @@
          <span class="font-medium">[{{ayat.sura_id}}:{{ayat.aya_number}}] </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> | {{ayat.translation_aya_text}}
       </p>
       
-      <svg v-if="state.playAudio" @click="togglePlay"  class="absolute top-2 left-2 w-5 text-gray-400 hover:text-slate-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
-      </svg> 
-      <svg v-else @click="togglePlay" class="absolute top-2 left-2 w-5 text-gray-400 hover:text-slate-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-      </svg>
+      <div class="hidden group-hover:inline with-transition-fast">
+         <svg v-if="state.playAudio" @click="togglePlay"  class="absolute top-2 left-2 w-5 text-gray-400 hover:text-sky-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+         </svg>
+         <svg v-else @click="togglePlay" class="absolute top-2 left-2 w-5 text-gray-400 hover:text-sky-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+         </svg>
+      </div>
 
       <div class="w-full mt-6">
          <audio v-if="state.playAudio" class="focus:outline-none mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
@@ -78,7 +80,10 @@
                      <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Tandai bacaan</span>
                      </button>
-                     <button @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                     <button v-if="isFavorite" @click="ayahService.onRemoveFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <span>Hapus favorit</span>
+                     </button>
+                     <button v-else @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Ayat favorit</span>
                      </button>
                </div>
@@ -100,7 +105,7 @@ import { onClickOutside } from '@vueuse/core';
 
 const ayahService = useAyah();
 const userService = useUser();
-const props = defineProps<{ayat: AyahData, isBacaan?: boolean}>()
+const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean}>()
 
 const state = reactive({
     playAudio: false,

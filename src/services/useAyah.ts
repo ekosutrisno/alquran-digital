@@ -80,7 +80,6 @@ export const useAyah = defineStore('useAyah', {
                         if (!doc.exists()) {
                             setDoc(favoriteAyahRef, payload)
                                 .then(() => {
-                                    this.onGetFavorit()
                                     toast.info(`Ditambahkan ke favorit.`);
                                 });
                         }
@@ -113,7 +112,6 @@ export const useAyah = defineStore('useAyah', {
 
             deleteDoc(favoriteAyahRef)
                 .then(() => {
-                    this.onGetFavorit();
                     toast.error(`Berhasil dihapus dari favorit.`);
                 });
         },
