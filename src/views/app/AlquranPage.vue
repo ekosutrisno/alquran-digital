@@ -117,7 +117,12 @@ const surahService = useSurah();
 const ayahService = useAyah();
 const route = useRoute();
 
-const surah_number: any = route.query.surah_number;
+const routeQuery: any = {
+   surah_number: route.query.surah_number,
+   sn: route.query.sn,
+   an: route.query.an,
+   next_bacaan: route.query.next_bacaan === 'true' ? true : false
+};
 
 const state = reactive({
     currentSurah: computed(() => surahService.surah),
@@ -154,12 +159,16 @@ const state = reactive({
     ]
 });
 
-onMounted(()=>{
-        surahService
-            .setSurah(surah_number as SurahData['id'])
-            .then(()=> ayahService.onGetFavorit());
-    }
-);
+onMounted(()=> loadData());
+
+const loadData = ()=>{
+        if(routeQuery.next_bacaan)
+            console.log(routeQuery.sn, routeQuery.an);
+        else
+            surahService
+                .setSurah(routeQuery.surah_number as SurahData['id'])
+                .then(()=> ayahService.onGetFavorit());
+}
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {

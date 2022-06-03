@@ -35,7 +35,7 @@
                         <span>My Progress</span> 
                     </p>
                 </div>
-                <div v-if="state.isLogedIn" class="grid grid-cols-2 relative w-auto">
+                <div v-if="state.isLogedIn && state.bacaanku" class="grid grid-cols-2 relative w-auto">
                     <div class="p-2">
                         <div>
                             <span class="text-sm text-slate-400 dark:text-slate-100">Juz</span>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <button type="button" @click="$router.back()" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             <span class="mr-2">Lanjut</span>
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -119,8 +119,10 @@ import Svg3 from '@/components/svg/Svg3.vue';
 import MainMenu, { MainMenuType } from '@/components/app/MainMenu.vue';
 import { useUser } from '@/services';
 import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 const userService = useUser();
+const router = useRouter();
 
 const state = reactive({
     bacaanku: computed(()=> userService.currentUser?.bacaanku),
@@ -198,5 +200,15 @@ const quickMenu: QuickMenuType[] = [
         to: '/app/dashboard/about'
     },
 ]
+
+const onLanjutBacaan = ()=>{
+    router.push({
+        path: '/app/dashboard/alquran', 
+        query:{ 
+            sn: state.bacaanku?.sura_id, 
+            an: state.bacaanku?.aya_number, 
+            next_bacaan: 'true'}
+        })
+}
 
 </script>

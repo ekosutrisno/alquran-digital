@@ -1,7 +1,17 @@
 <template>
 <div class="w-full mx-auto">
    
-   <CardSurahSeparateMetadata v-if="ayat.is_new_surat" :sura_id="ayat.sura_id"/>
+   <div v-if="isBacaan">
+      <CardSurahSeparateMetadata 
+         :sura_id="ayat.sura_id"
+      />
+   </div>
+   <div v-else>
+      <CardSurahSeparateMetadata 
+         v-if="ayat.is_new_surat" 
+         :sura_id="ayat.sura_id"
+      />
+   </div>
    
    <div class="w-full relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
       <p class="font-quran mb-4"> 
@@ -90,7 +100,7 @@ import { onClickOutside } from '@vueuse/core';
 
 const ayahService = useAyah();
 const userService = useUser();
-const props = defineProps<{ayat: AyahData}>()
+const props = defineProps<{ayat: AyahData, isBacaan?: boolean}>()
 
 const state = reactive({
     playAudio: false,
