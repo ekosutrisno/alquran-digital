@@ -35,7 +35,7 @@
                         <span>My Progress</span> 
                     </p>
                 </div>
-                <div v-if="state.isLogedIn" class="grid grid-cols-2 relative w-auto">
+                <div v-if="state.isLogedIn && state.bacaanku" class="grid grid-cols-2 relative w-auto">
                     <div class="p-2">
                         <div>
                             <span class="text-sm text-slate-400 dark:text-slate-100">Juz</span>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <button type="button" @click="$router.back()" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             <span class="mr-2">Lanjut</span>
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -77,12 +77,19 @@
                     </div>
                     <Svg3 aria-hidden="true" class="absolute z-10 -right-32 bottom-[85px] sm:bottom-1.5 xl:bottom-20 rotate-90"/>
                 </div>
-                <div v-else class="flex flex-col items-center justify-center h-full">
-                     <router-link to="/auth/login" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                        <span class="mr-2">Create an account</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
+                <div v-else class="mx-auto w-full my-6 with-transition">
+                    <router-link to="/auth/login">
+                        <div class="transition-shadow relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
+                            <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-bl from-sky-400/90 via-sky-500 to-sky-400/90"></div>
+                            <div class="h-16 absolute z-30 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
+                                <span class="font-semibold text-white">Fitur Non Aktif</span> 
+                                <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 text-sky-100 z-50 absolute right-5 bottom-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                            </svg>
+                            <div class="bg-gray-900 absolute inset-0 z-20 bg-opacity-30"></div>
+                        </div>
                     </router-link>
                 </div>
             </div>
@@ -119,8 +126,10 @@ import Svg3 from '@/components/svg/Svg3.vue';
 import MainMenu, { MainMenuType } from '@/components/app/MainMenu.vue';
 import { useUser } from '@/services';
 import { computed, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 const userService = useUser();
+const router = useRouter();
 
 const state = reactive({
     bacaanku: computed(()=> userService.currentUser?.bacaanku),
@@ -198,5 +207,15 @@ const quickMenu: QuickMenuType[] = [
         to: '/app/dashboard/about'
     },
 ]
+
+const onLanjutBacaan = ()=>{
+    router.push({
+        path: '/app/dashboard/alquran', 
+        query:{ 
+            sn: state.bacaanku?.sura_id, 
+            an: state.bacaanku?.aya_number, 
+            next_bacaan: 'true'}
+        })
+}
 
 </script>

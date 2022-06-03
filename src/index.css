@@ -42,7 +42,7 @@
   }
 
   .with-transition-fast {
-    animation: 0.2s appear;
+    animation: 0.1s appear;
   }
 
   .with-transition {
