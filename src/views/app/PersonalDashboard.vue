@@ -80,7 +80,7 @@
                 <div v-else class="mx-auto w-full my-6 with-transition">
                     <router-link to="/auth/login">
                         <div class="transition-shadow relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                            <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-bl from-sky-400/90 via-sky-500 to-sky-400/90"></div>
+                            <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-purple-200/90 via-indigo-400 to-purple-400/90"></div>
                             <div class="h-16 absolute z-30 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                                 <span class="font-semibold text-white">Fitur Non Aktif</span> 
                                 <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>

@@ -6,9 +6,18 @@ interface UtilState {
 }
 export const useUtil = defineStore('useUtil', {
     state: (): UtilState => ({
-        wideMenu: true
+        wideMenu: true,
     }),
 
     actions: {
+
+        setAlquranSize(size: {
+            id: number,
+            size: string,
+            text: string,
+            class: string
+        }) {
+            localStorage.setItem('_a_size', JSON.stringify(size));
+        }
     }
 })

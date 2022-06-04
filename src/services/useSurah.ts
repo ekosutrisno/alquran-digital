@@ -1,5 +1,5 @@
 import { AyahData, SurahData } from "@/types/alquran.interface";
-import { collection, doc, DocumentData, getDoc, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs, limit, orderBy, query, startAfter, startAt, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { db } from "./useFirebase";
 
@@ -10,7 +10,7 @@ interface UseSurahState {
     surahs: SurahData[];
     surah: SurahData | null;
     ayahs: AyahData[];
-    lastAyahVisible: any | null;
+    lastAyahVisible: DocumentData | null;
 }
 
 export const useSurah = defineStore('useSurah', {
@@ -43,18 +43,35 @@ export const useSurah = defineStore('useSurah', {
                 });
         },
 
-        async setSurah(surah_number: SurahData['id']) {
+        async setSurah(surah_number: SurahData['id'],
+            options: {
+                is_surah: boolean,
+                meta: {
+                    next_bacaan?: boolean,
+                    sajda?: boolean,
+                    sn: string,
+                    an: string
+                }
+            }) {
+
             this.isLoading = true;
 
-            const surah_no = surah_number ? surah_number : "1";
-
+            const surah_no = surah_number ? surah_number : parseInt(options.meta.sn);
             const surahRef = doc(db, 'surah_collections', `${surah_no}`);
 
             getDoc(surahRef)
                 .then((doc) => {
                     if (doc.exists()) {
                         this.surah = doc.data() as SurahData;
-                        this.setAyahOfSurah(doc.data().id)
+
+                        if (options.is_surah)
+                            this.setAyahOfSurah(doc.data().id);
+                        else
+                            this.setAyahDetailGeneral({
+                                surat: parseInt(options.meta.sn),
+                                ayat: parseInt(options.meta.an)
+                            }, { next_bacaan: options.meta.next_bacaan });
+
                         this.isLoading = false;
                     }
                 });
@@ -84,15 +101,43 @@ export const useSurah = defineStore('useSurah', {
                 });
         },
 
-        async nextPage(data: { lastVisible: any, surah_id: number }) {
+        async setAyahDetailGeneral(payload: { surat: number, ayat: number }, flagInfo?: { next_bacaan?: boolean }) {
+            const ayahRefs = collection(db, 'ayah_collections');
+            const q0 = query(ayahRefs, where("sura_id", "==", payload.surat), where("aya_number", "==", payload.ayat));
+
+            getDocs(q0)
+                .then((aya) => {
+                    if (!aya.empty) {
+                        const initialAyat = aya.docs[0] as DocumentData;
+
+                        const q1 = query(ayahRefs, orderBy("aya_id", "asc"), flagInfo?.next_bacaan ? startAfter(initialAyat) : startAt(initialAyat), limit(20));
+                        getDocs(q1)
+                            .then((snapshot) => {
+                                const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
+                                this.lastAyahVisible = lastVisible;
+
+                                const dataAyah: AyahData[] = [];
+
+                                snapshot.forEach((ayat) => {
+                                    dataAyah.push(ayat.data() as AyahData);
+                                });
+
+                                this.ayahs = dataAyah;
+                                this.isLoading = false;
+                            });
+                    }
+                });
+        },
+
+        async nextAyahSurahOfSurah(surah_id: SurahData['id']) {
             this.isPush = true;
 
-            const surahRef = doc(db, 'surah_collections', `${data.surah_id}`);
+            const surahRef = doc(db, 'surah_collections', `${surah_id}`);
             const ayahOfSurah = collection(surahRef, 'ayahs');
-            const q = query(ayahOfSurah, orderBy("aya_number", "asc"), limit(20), startAfter(data.lastVisible));
+            const q = query(ayahOfSurah, orderBy("aya_number", "asc"), limit(20), startAfter(this.lastAyahVisible));
 
             getDocs(q).then((doc) => {
-                const lastVisible = doc.docs[doc.docs.length - 1] as any;
+                const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
 
                 this.lastAyahVisible = lastVisible;
 
@@ -108,12 +153,12 @@ export const useSurah = defineStore('useSurah', {
             });
         },
 
-        nextAyat() {
+        async nextAyahSurahOfSurahDetail() {
             this.isPush = true;
 
             const ayahColRefs = collection(db, 'ayah_collections');
             const q = query(ayahColRefs, orderBy("aya_id", "asc"), startAfter(this.lastAyahVisible), limit(20));
-            
+
             getDocs(q)
                 .then((doc) => {
                     const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
