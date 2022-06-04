@@ -1,5 +1,5 @@
 <template>
-<router-link v-motion-slide-bottom v-motion-slide-visible-once-bottom :initial="{ opacity: 0, y: 100 }" class="cursor-default sm:cursor-pointer" :to="{path: '/app/dashboard/sajda/detail', query:{ sn: sajda.surah, an: sajda.ayah, sajda: true}}">
+<router-link v-motion-slide-bottom v-motion-slide-visible-once-bottom class="cursor-default sm:cursor-pointer" :to="{path: '/app/dashboard/alquran', query:{ sn: sajda.surah, an: sajda.ayah, sajda: 'true'}}">
     
     <div :class="[sajda.recommended ? 'hover:ring-sky-400 dark:hover:ring-sky-400' : 'hover:ring-green-400 dark:hover:ring-green-400']" class="antialiased group transition  bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-md p-5 overflow-hidden relative">
         <div :class="[sajda.recommended ? 'bg-sky-200 dark:bg-sky-500/5': 'bg-green-200 dark:bg-green-500/5']" class="absolute -left-10 -top-5 w-64 h-64 rounded-r-full bg-opacity-25">

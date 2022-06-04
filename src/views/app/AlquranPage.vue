@@ -56,7 +56,7 @@
                             </button>
                         </div>
                     </button>
-                    <p class="text-sky-500 font-medium">{{ state.sizeSelected.size }}</p>
+                    <p class="text-white font-medium py-0.5 px-2 rounded bg-sky-500">{{ state.sizeSelected.size }}</p>
                     <p class="text-sm text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
                 </div>
             </div>
@@ -84,26 +84,19 @@
             </div>
 
             <div v-if="$route.query.sajda != 'true' && !state.isLoading && !state.isPush && !isLast" class="flex items-center my-4 justify-center">
-                <button @click="surahService.nextAyat" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <button @click="loadNextAyah" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg></span> 
                 </button>
             </div>
         </section>
-        <div class="fixed group bottom-10 right-5 float-right hover:bg-slate-100 dark:hover:bg-slate-800 transition hover:ring-sky-400 dark:hover:ring-sky-400  bg-slate-50 dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 shadow-xl p-2 rounded-full">
-            <div class="inline-flex space-x-4">
-                <button @click="scrollToPageUp" class="p-2 cursor-default md:cursor-pointer rounded-full focus:outline-none">
-                    <svg class="w-5 text-slate-600 dark:text-sky-400 group-hover:animate-bounce group-hover:text-sky-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+        <ScrollToTop @on-back="scrollToPageUp"/>
+
     </div>
 </template>
 
 <script setup lang="ts">
-import { useAyah, useSurah } from '@/services';
+import { useAyah, useSurah, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
 import { useRoute } from 'vue-router';
@@ -112,16 +105,29 @@ import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import Loader from '@/components/Loader.vue';
 import { onClickOutside } from '@vueuse/core';
+import ScrollToTop from '@/components/ScrollToTop.vue';
 
 const surahService = useSurah();
 const ayahService = useAyah();
+const utilService = useUtil();
 const route = useRoute();
 
-const routeQuery: any = {
+interface RouteQuery {
+    surah_number: any;
+    is_surah: boolean;
+    sn: any;
+    an: any;
+    next_bacaan: boolean;
+    sajda: boolean;
+}
+
+const routeQuery: RouteQuery = {
    surah_number: route.query.surah_number,
+   is_surah: route.query.is_surah === 'true' ? true : false,
    sn: route.query.sn,
    an: route.query.an,
-   next_bacaan: route.query.next_bacaan === 'true' ? true : false
+   next_bacaan: route.query.next_bacaan === 'true' ? true : false,
+   sajda: route.query.sajda === 'true' ? true : false
 };
 
 const state = reactive({
@@ -131,12 +137,14 @@ const state = reactive({
     isPush: computed(() => surahService.isPush),
     surah: computed(() => surahService.surah),
     option: false,
-    sizeSelected: {
-        id: 1,
-        size: 'MD',
-        text: 'Medium',
-        class: 'max-w-screen-lg'
-    },
+    sizeSelected: localStorage.getItem('_a_size') != null
+        ? JSON.parse(localStorage.getItem('_a_size') as string)
+        : {
+            id: 1,
+            size: 'MD',
+            text: 'Medium',
+            class: 'max-w-screen-lg'
+        },
     sizes: [
         {
             id: 1,
@@ -162,12 +170,25 @@ const state = reactive({
 onMounted(()=> loadData());
 
 const loadData = ()=>{
-        if(routeQuery.next_bacaan)
-            console.log(routeQuery.sn, routeQuery.an);
-        else
-            surahService
-                .setSurah(routeQuery.surah_number as SurahData['id'])
-                .then(()=> ayahService.onGetFavorit());
+    surahService
+        .setSurah(routeQuery.surah_number  as SurahData['id'],
+            { 
+                is_surah: routeQuery.is_surah, 
+                meta: {
+                    next_bacaan: routeQuery.next_bacaan,
+                    sajda: routeQuery.sajda,
+                    sn: routeQuery.sn,
+                    an: routeQuery.an
+                }
+            })
+        .then(()=> ayahService.onGetFavorit());
+}
+
+
+const loadNextAyah  = () => {
+    routeQuery?.is_surah 
+        ? surahService.nextAyahSurahOfSurah(routeQuery.surah_number as SurahData['id'] ) 
+        : surahService.nextAyahSurahOfSurahDetail()
 }
 
 const pageUp = ref<any>(null)
@@ -176,7 +197,7 @@ const scrollToPageUp = () => {
         pageUp.value.scrollIntoView({behavior: 'smooth'});
 }
 
- const isLast = computed(()=>{
+const isLast = computed(()=>{
     const ayatsSize = computed(()=> state.ayahs.length);
 
     return ayatsSize.value === state.surah?.count_ayat ? true : false;
@@ -189,7 +210,8 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const selectSize = (size: any)=>{
+const selectSize = (size: any)=> {
+    utilService.setAlquranSize(size); 
     state.sizeSelected  = size;
 }
 

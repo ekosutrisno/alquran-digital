@@ -65,13 +65,13 @@
   .card-shadow-md {
     @apply shadow-lg shadow-slate-200 dark:shadow-slate-900;
   }
+  .toast-style {
+    @apply dark:bg-dark-blue bg-white !important;
+    @apply border-b sm:border border-slate-700/20 dark:border-slate-700/50 shadow-lg shadow-slate-200 dark:shadow-slate-900 !important;
+    @apply text-slate-800 dark:text-slate-100 !important;
+  }
 }
 
-.toast-style {
-  @apply dark:bg-dark-blue bg-white !important;
-  @apply border-b sm:border border-slate-700/20 dark:border-slate-700/50 card-shadow-sm !important;
-  @apply text-slate-800 dark:text-slate-100 !important;
-}
 
 body {
   overflow: overlay;
