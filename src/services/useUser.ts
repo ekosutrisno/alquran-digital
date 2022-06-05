@@ -42,12 +42,13 @@ export const useUser = defineStore('useUser', {
                 photo_url: googleNewData?.oauth
                     ? googleNewData.user.photoURL
                     : "https://res.cloudinary.com/ekosutrisno/image/upload/v1627464871/avatars/profile1_otttcz.png",
-                gender: 0,
+                gender: "",
                 dob: "",
                 pob: "",
-                hobby: "",
-                religion: 0,
-                about: "",
+                nationality:"Indonesia",
+                hobby: "Reading Al-Quran and Learn something new.",
+                religion: "Islam",
+                about: `Hi, my name is ${newData.email}`,
                 createdDate: Date.now(),
                 lastModifiedDate: Date.now(),
                 is_active: googleNewData?.oauth ? googleNewData.user.emailVerified : false,
@@ -210,6 +211,8 @@ export const useUser = defineStore('useUser', {
         getPhotoUrl(state): User['photo_url'] {
             return state.currentUser
                 ? state.currentUser.photo_url
+                    ? state.currentUser.photo_url
+                    : 'https://res.cloudinary.com/ekosutrisno/image/upload/v1627464871/avatars/profile1_otttcz.png'
                 : 'https://res.cloudinary.com/ekosutrisno/image/upload/v1627464871/avatars/profile1_otttcz.png';
         },
 
@@ -226,7 +229,7 @@ export const useUser = defineStore('useUser', {
             }
             return loginAs;
         },
-        
+
         /**
          * @param  {} state
          * @returns string

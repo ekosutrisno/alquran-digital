@@ -104,14 +104,14 @@
                 </router-link>
             </div>
 
-            <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto w-max text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 max-h-16 h-full p-2">
-                <p class="inline-flex items-center space-x-2">
+            <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 h-full p-2">
+                <p class="flex items-center flex-wrap space-x-2">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                         </svg>
                     </span>
-                    <span>Kamu dapat dengan mudah melanjutkan bacaan terakhir Kamu dari sini.</span>
+                    <span>Lanjutkan bacaan terakhir Kamu dari sini.</span>
                 </p>
             </div>
         </section>

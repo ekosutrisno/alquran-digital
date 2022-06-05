@@ -196,14 +196,14 @@ const quickMenu: QuickMenuType[] = [
     },
     {
         id: '3',
-        title: 'Tajwid',
-        description: 'Belajar tajwid memebaca Al-Quran.',
-        to: '/app/dashboard/tajwid'
+        title: 'Surah Pilihan',
+        description: 'Bacaan surah-surah pilihan.',
+        to: '/app/dashboard/surah-pilihan'
     },
     {
         id: '4',
-        title: 'About',
-        description: 'Tentang Aplikasi.',
+        title: 'Class Room',
+        description: 'Ruang kelas hafalan Al-quran.',
         to: '/app/dashboard/about'
     },
 ]

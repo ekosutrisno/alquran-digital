@@ -1,5 +1,10 @@
 <template>
     <ButtonBack/>
+
+    <div v-if="state.isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
+        <Loader/>
+    </div>
+
     <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
         <div class="md:bg-white md:card-shadow-md md:dark:bg-slate-800 max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/75 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
@@ -48,6 +53,7 @@ import { useAuth,  } from '@/services';
 import { isMatchPassword } from '@/utils/helperFunction';
 import { auth } from "@/services/useFirebase";
 import ButtonBack from "@/components/shared/ButtonBack.vue";
+import Loader from "@/components/Loader.vue";
 
 const authService = useAuth();
 const route = useRoute();

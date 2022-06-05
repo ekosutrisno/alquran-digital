@@ -1,6 +1,10 @@
 <template>
     <ButtonBack/>
 
+    <div v-if="state.isLoginProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
+        <Loader/>
+    </div>
+
     <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">        
         <div class="md:bg-white md:card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
                <!-- Main Form -->
@@ -51,7 +55,7 @@
                 <div class="flex flex-col space-y-4 items-center justify-end">
                     <div class="text-sm">
                         <p class="font-medium text-gray-600 dark:text-slate-100">
-                            Or continue with Google?
+                            Or continue with
                         </p>
                     </div>
                     <button 
@@ -75,6 +79,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
 import { auth, gProvider } from '@/services/useFirebase';
 import { useAuth, useUser } from '@/services';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
+import Loader from '@/components/Loader.vue';
 
 const router = useRouter();
 const authService = useAuth();
