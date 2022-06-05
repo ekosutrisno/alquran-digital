@@ -12,6 +12,14 @@ export const formatDateFromNow = (date: any): string => {
  * @param  {any} date
  * @returns string
  */
+export const calculateAge = (date: any): number => {
+    return dayjs().diff(date, 'year');
+}
+
+/**
+ * @param  {any} date
+ * @returns string
+ */
 export const formatDateWithMonth = (date: any): string => {
     return dayjs(date)
         .format('LL')

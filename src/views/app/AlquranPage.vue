@@ -104,7 +104,7 @@ import { SurahData } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import Loader from '@/components/Loader.vue';
-import { onClickOutside } from '@vueuse/core';
+import { onClickOutside, useTitle } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 
 const surahService = useSurah();
@@ -166,6 +166,11 @@ const state = reactive({
         }
     ]
 });
+
+
+// Set Title of this page
+const title = useTitle();
+title.value = `${title.value} | ${state.currentSurah?.surat_text_full}`
 
 onMounted(()=> loadData());
 

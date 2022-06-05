@@ -1,5 +1,10 @@
 <template>
     <ButtonBack/>
+
+    <div v-if="state.isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
+        <Loader/>
+    </div>
+
     <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
         <div class="md:bg-white md:card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/50 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
@@ -10,7 +15,7 @@
                     </h2>
                     <p class="mt-2 text-center text-sm text-gray-600 dark:text-slate-300">
                         Will send email reset password or 
-                    <router-link to="/auth/login" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                    <router-link to="/auth/login" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-500">
                         Back to login
                     </router-link>
                     </p>
@@ -24,7 +29,7 @@
                     </div>
                     </div>
                     <div>
-                    <button type="submit" :disabled="!isValidEmail" class="group relative disabled:bg-opacity-25 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                    <button type="submit" :disabled="!isValidEmail" class="group relative disabled:bg-opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                         Send email
                     </button>
                     </div>
@@ -39,6 +44,7 @@ import { computed, reactive } from 'vue';
 import { useAuth } from '@/services';
 import { validateEmail } from '@/utils/helperFunction';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
+import Loader from '@/components/Loader.vue';
 
 const authService = useAuth();
 
@@ -56,16 +62,17 @@ const onSendEmailVerification = () => {
 
     if(validateEmail(state.auth.email)){
         authService
-        .sendPasswordResetEmail(state.auth.email)
-        .then(()=> {
-            state.isSendProcess = false;
-            state.auth.email = '';
-        })
+            .sendPasswordResetEmail(state.auth.email)
+            .then(()=> {
+                
+                state.auth.email = '';
+                
+                setTimeout(() => {
+                    state.isSendProcess = false;
+                }, 500);
+                
+            })
     }
-
-    setTimeout(() => {
-        state.isSendProcess = false;
-    }, 3000);
 }
 
 const isValidEmail = computed(()=> validateEmail(state.auth.email));

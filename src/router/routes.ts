@@ -23,6 +23,7 @@ import RukukPage from '@/views/app/RukukPage.vue';
 import SajdaPage from '@/views/app/SajdaPage.vue';
 import JuzPage from '@/views/app/JuzPage.vue';
 import AlquranPage from '@/views/app/AlquranPage.vue';
+import SettingPage from '@/views/app/SettingPage.vue';
 
 // View Auth Section Import
 import LoginPage from '@/views/auth/LoginPage.vue';
@@ -141,11 +142,21 @@ const routes: RouteRecordRaw[] = [
         children: [
             {
                 path: '',
-                name: 'AlquranPage',
+                name: 'AppDashboard',
                 component: PersonalDashboard,
                 meta: {
-                    title: 'Alquran Page',
-                    description: 'Alquran Page Page',
+                    title: 'App Dashboard Page',
+                    description: 'App Dashboard Page',
+                    requiresAuth: false
+                }
+            },
+            {
+                path: 'settings',
+                name: 'SettingPage',
+                component: SettingPage,
+                meta: {
+                    title: 'Setting Page Page',
+                    description: 'SettingPage',
                     requiresAuth: false
                 }
             },
@@ -203,12 +214,12 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'tajwid',
-                name: 'TajwidPage',
+                path: 'surah-pilihan',
+                name: 'SurahPilihan',
                 component: TajwidPage,
                 meta: {
-                    title: 'Tajwid',
-                    description: 'Tajwid Page',
+                    title: 'Surah Pilihan',
+                    description: 'Surah Pilihan Page',
                     requiresAuth: false,
                     requiresAdmin: false
                 }

@@ -1,9 +1,9 @@
 <template>
   <Disclosure as="nav">
-    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-6 antialiased">
+    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-autoz sm:px-4 md:px-6 antialiased">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
-          <router-link to="/" class="flex-shrink-0 font-semibold text-slate-800 dark:text-white flex items-center text-2xl">
+          <router-link to="/home-dashboard" class="flex-shrink-0 font-semibold text-slate-800 dark:text-white flex items-center text-2xl">
               <span>
                 <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
               </span>
@@ -28,13 +28,13 @@
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
-            <button type="button" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+            <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
               <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
                 <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
               </svg>
               
-              Quick search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Ctrl K</span>
+              Quick search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "/"</span>
               </button>
           </div>
 
@@ -153,13 +153,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon } from '@heroicons/vue/outline'
 import { useRouter } from 'vue-router'
 import { useAuth, useUser, useUtil } from '@/services';
 import Svg2 from '../svg/Svg2.vue'
-import { useDark, useToggle } from '@vueuse/core';
+import { useDark, useMagicKeys, useToggle } from '@vueuse/core';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }
@@ -169,6 +169,10 @@ const authService = useAuth();
 const userService = useUser();
 const router = useRouter();
 const utilService = useUtil();
+
+const emit = defineEmits<{
+  (e: 'search'): void
+}>()
 
 const state = reactive({
   wideMenu: computed(()=>utilService.wideMenu),
@@ -208,4 +212,12 @@ const notAdmin = computed(()=> {
   return exclude.includes(state.userRole as string);
 })
 
+
+const keys = useMagicKeys()
+const shiftCtrlA = keys['/']
+
+watch(shiftCtrlA, (v) => {
+  if (v)
+    emit('search');
+})
 </script>

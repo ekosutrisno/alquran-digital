@@ -17,11 +17,11 @@ export interface User extends InfoMetadata {
     mentor_id?: DocumentReference;
     telephone?: string;
     main_role: DocumentReference;
-    gender?: number;
+    gender?: string | number;
     dob?: string;
     pob?: string;
     hobby?: string;
-    religion?: number;
+    religion?: string | number;
     about?: string;
     is_active: boolean;
     is_mentor: boolean;
