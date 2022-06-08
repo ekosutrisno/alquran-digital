@@ -63,6 +63,7 @@
             <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90"/>
                 
+                <!-- Header of Details tab -->
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <span>
@@ -74,10 +75,11 @@
                     </p>
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Details content of menu</p>
                 </div>
-                <div class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">
-                    
+
+                <!-- Content of tabs 1 -->
+                <div v-show="state.active == 1" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
                     <!-- Public profile details -->
-                    <div v-if="state.me" class="md:col-span-4 w-full max-w-lg space-y-4">
+                    <div v-if="state.me" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -92,6 +94,7 @@
                                 <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
+                                        disabled
                                         v-model="state.me.email" type="email" name="email" id="email" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
                                     />
@@ -176,6 +179,10 @@
                                     />
                                 </div>
                             </div>
+
+                            <button type="button"  class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                <span>Simpan</span>
+                            </button>
                     </div>
 
                     <!-- Profile Picture -->
@@ -183,12 +190,18 @@
                         <p>Profile picture</p>
                         <div class="rounded-full relative mt-2 ring-2 lg:w-56 lg:h-56 ring-slate-700/20 dark:ring-slate-700/50">
                             <img class="object-cover object-center w-full h-full" :src="state.photoUrl" alt="profile-picture"/>
-                            <button type="button" class="text-slate-800 inline-flex items-center space-x-1 absolute left-0 bottom-6 dark:text-sky-50 bg-white/75 backdrop-blur-sm hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue/75 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                            <label for="file-upload" class="text-slate-800 z-10 md:cursor-pointer inline-flex items-center space-x-1 absolute left-0 bottom-6 dark:text-sky-50 bg-white/75 backdrop-blur-sm hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue/75 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                                 <span class="">Edit</span>
-                            </button>
+                            </label>
+                            <input id="file-upload" name="file-upload" type="file" class="sr-only" @change="onUpdateAvatar">
+                            <label for="file-upload" @click="onUpdateAvatar" class="absolute inset-0 rounded-full flex items-center justify-center bg-transparent group hover:bg-slate-800/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 md:cursor-pointer text-transparent group-hover:text-indigo-100 text-opacity-0 hover:text-opacity-100 transition-al" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </label>
                         </div>
                         <div class="mt-4">
                             <p class="text-sm">{{ state.me?.username }} &bull; {{state.me?.religion}}</p>
@@ -197,19 +210,137 @@
                             <p class="text-xs">{{calculateAge(state.me?.dob)}} years old</p>
                         </div>
                         <div class="inline-flex items-center space-x-2">
-                            <div  class="py-2 text-sm from-indigo-500 via-indigo-400 to-purple-400 text-white px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
+                            <div  class="py-2 text-sm font-medium card-shadwo-md from-indigo-500 via-indigo-400 to-purple-400 text-white px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
                                 <span> Student</span>
                             </div>
-                            <div v-if="state.me?.is_mentor" class="py-2 text-sm text-white from-yellow-500 via-yellow-400 to-orange-400 px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
+                            <div v-if="state.me?.is_mentor" class="py-2 text-sm font-medium card-shadwo-md text-white from-yellow-500 via-yellow-400 to-orange-400 px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
                                 <span> Mentor </span>
                             </div>
                         </div>
+                    </div>
+                    
+                </div>
+                <!-- Content of tabs 2 -->
+                <div v-show="state.active == 2" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
+                    <!-- Public profile details -->
+                    <div v-if="state.me" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.full_name" type="text" name="name" id="name" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">Your name may appear around Al-Quran Digital where you contribute or are mentioned. You can remove it at any time.</p>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        disabled
+                                        v-model="state.me.email" type="email" name="email" id="email" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">You can manage verified email addresses in your email settings.</p>
+                            </div>
+                            <div>
+                                <label for="pob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Place of birth</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.pob" type="text" name="pob" id="pob" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">Place of your birth date.</p>
+                            </div>
+                            <div>
+                                <label for="dob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date of birth</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.dob" type="date" name="dob" id="dob" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">Your date of birth.</p>
+                            </div>
+                            <div>
+                                <label for="telephone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Phone number</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.telephone" type="tel" name="telephone" id="telephone" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">Your phone should an active number.</p>
+                            </div>
+                            <div>
+                                <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.religion" type="tel" name="religion" id="religion" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
+                                    />
+                                </div>
+                                <p class="text-xs mt-2 dark:text-slate-400">Recognized religions, Islam, Protestant Christianity, Catholic Christianity, Buddhism, Hinduism, and Confucianism.</p>
+                            </div>
+                            <div>
+                                <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.gender" type="tel" name="gender" id="gender" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        v-model="state.me.nationality" type="tel" name="nationality" id="nationality" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="hobby" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Hobby</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <textarea
+                                        rows="3"
+                                        v-model="state.me.hobby" type="tel" name="hobby" id="hobby" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="about" class="block text-sm font-medium text-slate-700 dark:text-slate-300">About</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <textarea
+                                        rows="3"
+                                        v-model="state.me.about" type="tel" name="about" id="about" 
+                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                    />
+                                </div>
+                            </div>
+
+                            <button type="button"  class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                <span class="mr-2">Simpan</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </button>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
+                        
                     </div>
                     
                 </div>
@@ -224,8 +355,10 @@ import { useUser } from '@/services';
 import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/helperFunction';
 import { computed, reactive } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
+import { useRouter } from 'vue-router';
 
 const userService = useUser();
+const router = useRouter();
 
 const state = reactive({
     me: computed(()=> userService.currentUser),
@@ -258,4 +391,23 @@ const setCurrentActive = (currentActive: number) => {
             break;
     }
 }
+
+const onUpdateAvatar = (event: any) =>{
+    if (event.target.files && event.target.files[0]) {
+        const fileType = event.target.files[0].type.toString();
+        
+        if(fileType.indexOf('image') != 0){
+            alert('Please Choose an Image'); return;
+        }
+        const newPhotoObject = event.target.files[0];
+        
+        if(newPhotoObject.size > 2097152){
+            alert("Max photo size is 2Mb!")
+        }else{
+            // Realtime updated
+          userService.updateFotoProfile(newPhotoObject as File, state.me?.user_id as string);
+        }
+      }
+}
+
 </script>

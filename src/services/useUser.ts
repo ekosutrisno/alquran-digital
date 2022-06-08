@@ -126,7 +126,7 @@ export const useUser = defineStore('useUser', {
          * @param  {User['userId']} userId
          * @description Update user profile avatar image
          */
-        async updateFotoProfile(photo: any, userId: User['user_id']) {
+        async updateFotoProfile(photo: File, userId: User['user_id']) {
             if (photo) {
                 const storageRef = ref(storage, `profiles/${userId}`);
                 const uploadTask = uploadBytesResumable(storageRef, photo);
@@ -153,7 +153,7 @@ export const useUser = defineStore('useUser', {
                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                             const docRef = doc(db, "user_collections", userId);
                             updateDoc(docRef, {
-                                "photoUrl": downloadURL,
+                                "photo_url": downloadURL,
                                 "lastModifiedDate": Date.now()
                             }).then(() => {
                                 toast.info(`Your profile photo has been updated.`)
