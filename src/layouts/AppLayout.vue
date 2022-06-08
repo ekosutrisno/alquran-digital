@@ -9,11 +9,11 @@
       <router-view />
    </div>
    <footer class="text-xs hidden sm:block text-slate-900 relative dark:text-white p-3 pb-5 text-center">
-      Al-Quran Digital &copy;{{new Date().getFullYear()}}
+      Al-Quran Digital 2.0 &copy;{{new Date().getFullYear()}}
    </footer>
 </div>
 <Teleport to="body">
-   <Modal :open="state.onSearch" @close="showSearchModal"/>
+   <ModalSearch :open="state.onSearch" @close="showSearchModal"/>
  </Teleport>
 </template>
 <script setup lang="ts">
@@ -21,7 +21,7 @@ import NavbarHeader from '@/components/app/NavbarHeader.vue';
 import { useUtil } from '@/services';
 import { computed } from '@vue/reactivity';
 import { reactive } from 'vue';
-import Modal from '@/components/shared/Modal.vue';
+import ModalSearch from '@/components/shared/ModalSearch.vue';
 
 const utilService = useUtil();
 const state = reactive({
