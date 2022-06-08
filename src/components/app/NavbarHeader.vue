@@ -40,7 +40,7 @@
 
           
           <!-- Notification dropdown -->
-          <Menu as="div" class="ml-3 relative z-50">
+          <Menu as="div" class="ml-3 relative">
             <div>
               <MenuButton class=" p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
@@ -71,7 +71,7 @@
           </Menu>
 
           <!-- Profile dropdown -->
-          <Menu as="div" class="ml-3 relative z-50">
+          <Menu as="div" class="ml-3">
             <div v-if="state.isLogin">
               <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
@@ -87,7 +87,7 @@
               </router-link>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right absolute right-5 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+              <MenuItems class="origin-top-right z-10 absolute right-5 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem>
                   <div :class="['p-4 relative h-full flex flex-col space-y-2 items-center justify-center bg-white border-b border-slate-700/10 dark:border-slate-700/50 dark:bg-slate-800 text-slate-800 dark:text-white']">
                      <img class="w-14 h-14 object-cover border border-slate-700/10 dark:border-slate-700/50 rounded-full" :src="state.photoUrl" alt="avatar-drop-menu">
