@@ -53,7 +53,7 @@
               </MenuButton>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+              <MenuItems class="origin-top-right absolute z-10 right-0 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem v-for="notif in state.haveNotification" :key="notif.timestamp" v-slot="{ active }">
                   <router-link to="/" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-2 w-full px-4 py-3 text-slate-900 dark:text-white  dark:bg-slate-800']">
                     <BellIcon class="h-6 w-6 text-sky-300" aria-hidden="true" />
