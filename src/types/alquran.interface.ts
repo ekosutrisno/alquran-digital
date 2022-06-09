@@ -26,9 +26,26 @@ export interface AyahData {
     sajda: boolean | any;
     sura_id: number;
     translation_aya_text: string;
+    translation_aya_text_en: string;
     is_new_surat: boolean;
     is_bacaan?: boolean;
     is_favorite?: boolean;
+    transliteration: Transliteration;
+    tafsir: Tafsir;
+
+}
+
+export interface Transliteration {
+    en: string;
+}
+
+export interface Tafsir {
+    id: TafsirLanguage;
+}
+
+export interface TafsirLanguage {
+    long: string;
+    short: string;
 }
 
 export interface SurahAndAyah {

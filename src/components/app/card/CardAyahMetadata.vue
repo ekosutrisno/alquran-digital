@@ -20,7 +20,7 @@
       </p> 
 
       <p class="text-base font-normal text-left dark:text-slate-100"> 
-         <span class="font-medium">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> |
+         <span class="font-medium">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
       </p>
       <p class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
          <span class="font-medium">Artinya: </span> {{ayat.translation_aya_text}}
