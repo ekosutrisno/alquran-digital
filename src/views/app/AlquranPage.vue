@@ -17,7 +17,7 @@
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{state.currentSurah?.count_ayat}} / {{convertToArab(`${state.currentSurah?.count_ayat}`)}} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
-                    <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ state.currentSurah?.surat_golongan }} ({{ state.currentSurah?.revelation_type }}) </p>
+                    <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ state.currentSurah?.surat_golongan }} ({{ state.currentSurah?.revelation_type }}) &bull; <span class="font-quran">{{state.currentSurah?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span> </p>
                     <p class="text-slate-600 font-quran text-2xl md:text-5xl text-right dark:text-slate-100"> 
                         <span class="text-sm block md:inline md:text-xl font-quicksand">{{ state.currentSurah?.surat_terjemahan }} 
                             <span class="text-xs md:text-sm">({{state.currentSurah?.surat_english_terjemahan}})</span>

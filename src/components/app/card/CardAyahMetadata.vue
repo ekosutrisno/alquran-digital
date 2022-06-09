@@ -16,11 +16,14 @@
    <div class="w-full relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
       <p class="font-quran mb-4"> 
          <span class="leading-10">{{ayat.aya_text}}</span>   
-         <span class="text-xl text-quran-brown-text font-mono"> -{{convertToArab(`${ayat.aya_number}`)}}</span> 
+         <span class="text-xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
       </p> 
 
       <p class="text-base font-normal text-left dark:text-slate-100"> 
-         <span class="font-medium">[{{ayat.sura_id}}:{{ayat.aya_number}}] </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> | {{ayat.translation_aya_text}}
+         <span class="font-medium">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> |
+      </p>
+      <p class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
+         <span class="font-medium">Artinya: </span> {{ayat.translation_aya_text}}
       </p>
       
       <div class="hidden group-hover:inline with-transition-fast">
@@ -51,7 +54,7 @@
                <path d="M2 12l5 5m5 -5l5 -5"></path>
             </svg>
          </span>
-         <span class="font-medium">Info: (Hal: {{ayat.page_number}}) (Manzil: {{ayat.manzil}}) (Rukuk: {{ayat.rukuk}}) </span>
+         <span class="font-medium">Meta: (Page: {{ayat.page_number}}) (Manzil: {{ayat.manzil}}) (Rukuk: {{ayat.rukuk}}) </span>
          <span v-if="ayat.sajda" class="font-semibold text-yellow-500">
          - Sajda 
          <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -77,6 +80,12 @@
             >
             
                <div ref="target" v-if="state.option" class="w-40 absolute z-50 shadow-2xl h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+                     <button type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <span>Buka tafsir in surah</span>
+                     </button>
+                     <button type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <span>Buka tafsir ayah</span>
+                     </button>
                      <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Tandai bacaan</span>
                      </button>
@@ -84,7 +93,7 @@
                         <span>Hapus favorit</span>
                      </button>
                      <button v-else @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
-                        <span>Ayat favorit</span>
+                        <span>Tandai favorit</span>
                      </button>
                </div>
             </transition>

@@ -107,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAyah, useSurah, useUser } from '@/services';
+import { useAyah, useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -119,6 +119,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 const surahService = useSurah();
 const userService = useUser();
 const ayahService = useAyah();
+const utilService = useUtil();
 const route = useRoute();
 const router = useRouter();
 
@@ -129,12 +130,14 @@ const state = reactive({
     ayah: computed(() => userService.currentUser?.bacaanku),
     favorites: computed(() => ayahService.ayahFavorite),
     option: false,
-    sizeSelected: {
-        id: 1,
-        size: 'MD',
-        text: 'Medium',
-        class: 'max-w-screen-lg'
-    },
+    sizeSelected: localStorage.getItem('_a_size') != null
+        ? JSON.parse(localStorage.getItem('_a_size') as string)
+        : {
+            id: 1,
+            size: 'MD',
+            text: 'Medium',
+            class: 'max-w-screen-lg'
+        },
     sizes: [
         {
             id: 1,
@@ -173,18 +176,8 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const selectSize = (size: any)=>{
+const selectSize = (size: any)=> {
+    utilService.setAlquranSize(size); 
     state.sizeSelected  = size;
 }
-
-const onLanjutBacaan = ()=>{
-    router.push({
-        path: '/app/dashboard/alquran', 
-        query:{ 
-            sn: state.ayah?.sura_id, 
-            an: state.ayah?.aya_number, 
-            next_bacaan: 'true'}
-        })
-}
-
 </script>
