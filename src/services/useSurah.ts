@@ -27,7 +27,7 @@ export const useSurah = defineStore('useSurah', {
         async getSurahMetada() {
             this.isLoading = true;
 
-            const surahMetdataRef = collection(db, 'surah_menu_collections');
+            const surahMetdataRef = collection(db, 'surah_collections');
             const q = query(surahMetdataRef, orderBy("id", "asc"));
 
             getDocs(q)
