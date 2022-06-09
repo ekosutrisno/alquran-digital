@@ -121,7 +121,7 @@
 </template>
 
 <script setup lang="ts">
-import {  useSurah, useUser } from '@/services';
+import {  useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
 import { useRouter } from 'vue-router';
@@ -132,6 +132,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 
 const surahService = useSurah();
 const userService = useUser();
+const utilService = useUtil();
 const router = useRouter();
 
 const state = reactive({
@@ -140,12 +141,14 @@ const state = reactive({
     isLogin: computed(()=>localStorage.getItem('_uid')),
     ayah: computed(() => userService.currentUser?.bacaanku),
     option: false,
-    sizeSelected: {
-        id: 1,
-        size: 'MD',
-        text: 'Medium',
-        class: 'max-w-screen-lg'
-    },
+    sizeSelected: localStorage.getItem('_a_size') != null
+        ? JSON.parse(localStorage.getItem('_a_size') as string)
+        : {
+            id: 1,
+            size: 'MD',
+            text: 'Medium',
+            class: 'max-w-screen-lg'
+        },
     sizes: [
         {
             id: 1,
@@ -184,7 +187,8 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const selectSize = (size: any)=>{
+const selectSize = (size: any)=> {
+    utilService.setAlquranSize(size); 
     state.sizeSelected  = size;
 }
 

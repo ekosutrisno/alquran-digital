@@ -28,7 +28,7 @@ const state = reactive({
 onMounted(()=> getSuratDetail());
 
 const getSuratDetail =() => {
-        const surahMetdataRef = doc(db, 'surah_menu_collections', `${state.surat_id}`)  
+        const surahMetdataRef = doc(db, 'surah_collections', `${state.surat_id}`)  
          getDoc(surahMetdataRef)
             .then(doc =>{
                 if (doc.exists()) {

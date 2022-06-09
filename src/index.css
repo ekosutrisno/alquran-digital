@@ -12,6 +12,10 @@
 }
 
 @layer utilities {
+
+  u {
+    @apply text-slate-800 dark:text-slate-300 font-light
+  }
   .router-link-exact-active {
     color: rgba(129, 140, 248, 1);
   }
