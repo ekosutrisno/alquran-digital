@@ -10,13 +10,15 @@ interface UseAyahState {
     isLoading: boolean;
     ayahFavorite: AyahData[];
     isPush: boolean;
+    ayahTafsirSelected: AyahData | null;
 }
 
 export const useAyah = defineStore('useAyah', {
     state: (): UseAyahState => ({
         ayahFavorite: [],
         isLoading: false,
-        isPush: false
+        isPush: false,
+        ayahTafsirSelected: null
     }),
 
     actions: {
@@ -88,5 +90,9 @@ export const useAyah = defineStore('useAyah', {
                     toast.error(`Berhasil dihapus dari favorit.`);
                 });
         },
+
+        async onCheckTafsir(payload: AyahData) {
+            this.ayahTafsirSelected = payload;
+        }
     }
 })

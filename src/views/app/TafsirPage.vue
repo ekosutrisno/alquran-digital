@@ -13,7 +13,7 @@
                             </svg>
                         </span>
                         <span v-if="state.ayah"> {{state.currentSurah?.surat_name}} ({{state.currentSurah?.surat_english_name}})</span> 
-                        <span v-else>Bacaanku</span> 
+                        <span v-else>Tafsir</span> 
                     </p>
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span v-if="state.ayah" class="text-sky-500 font-semibold"> {{state.currentSurah?.count_ayat}} / {{convertToArab(`${state.currentSurah?.count_ayat}`)}} </span> <span v-else class="text-sky-500 font-semibold"> 0 / {{convertToArab(`${0}`)}} </span> Ayah</p>
                 </div>
@@ -70,22 +70,38 @@
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
             </div>
 
-            <div v-if="state.isLoading" class="flex items-center justify-center">
+            <!-- <div v-if="state.isLoading" class="flex items-center justify-center">
                 <Spinner />
-            </div>
+            </div> -->
 
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                <CardAyahMetadata
                     v-if="state.ayah"
                     :ayat="state.ayah"
                />
-            </div>
 
-            <div v-if="$route.query.sajda != 'true' && !state.isLoading && state.isLogin && state.ayah" class="flex items-center my-4 justify-center">
-                <button @click="onLanjutBacaan" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg></span> 
-                </button>
+               <div class="p-4 rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
+                    <div class="flex flex-col">
+                        <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                             <span class="ml-1">Tafsir Ringkas Kemenag</span>
+                        </p>
+                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ state.ayah?.tafsir.id.short}}</span>
+                    </div>
+                    <div class="mt-4 flex flex-col border-t pt-4">
+                        <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                             <span class="ml-1">Tafsir Kemenag</span>
+                        </p>
+                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ state.ayah?.tafsir.id.long}}</span>
+                    
+                        <span class="mt-8 text-xs font-semibold text-right">Tafsir Q.S {{state.ayah?.sura_id}}:{{state.ayah?.aya_number}} Sumber: QUR'AN KEMENAG</span>
+                    </div>
+                </div>
             </div>
 
            <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
@@ -111,7 +127,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                         </svg>
                     </span>
-                    <span>Lanjutkan bacaan terakhir Kamu dari sini.</span>
+                    <span>kamu dapat lebih memahami kandungan tafsir ayah.</span>
                 </p>
             </div>
         </section>
@@ -121,7 +137,7 @@
 </template>
 
 <script setup lang="ts">
-import {  useSurah, useUser, useUtil } from '@/services';
+import {  useAyah, useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
 import { useRouter } from 'vue-router';
@@ -132,6 +148,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 
 const surahService = useSurah();
 const userService = useUser();
+const ayahService = useAyah();
 const utilService = useUtil();
 const router = useRouter();
 
@@ -139,7 +156,7 @@ const state = reactive({
     currentSurah: computed(() => userService.surahBacaanUser),
     isLoading: computed(() => surahService.isLoading),
     isLogin: computed(()=>localStorage.getItem('_uid')),
-    ayah: computed(() => userService.currentUser?.bacaanku),
+    ayah: computed(() => ayahService.ayahTafsirSelected),
     option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)

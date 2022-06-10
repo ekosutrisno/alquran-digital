@@ -23,6 +23,7 @@ import RukukPage from '@/views/app/RukukPage.vue';
 import SajdaPage from '@/views/app/SajdaPage.vue';
 import JuzPage from '@/views/app/JuzPage.vue';
 import AlquranPage from '@/views/app/AlquranPage.vue';
+import TafsirPage from '@/views/app/TafsirPage.vue';
 import SettingPage from '@/views/app/SettingPage.vue';
 
 // View Auth Section Import
@@ -167,6 +168,16 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Alquran Page Detail',
                     description: 'Alquran Page Detail Page',
+                    requiresAuth: false
+                }
+            },
+            {
+                path: 'tafsir',
+                name: 'TafsirPageDetail',
+                component: TafsirPage,
+                meta: {
+                    title: 'Tafsir Page Detail',
+                    description: 'Tafsir Page Detail Page',
                     requiresAuth: false
                 }
             },
