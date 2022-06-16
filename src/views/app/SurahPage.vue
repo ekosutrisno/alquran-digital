@@ -46,7 +46,7 @@
                 <Spinner />
             </div>
 
-            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
+            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardSurahMetadata 
                     v-for="surah in state.surahMetadata" 
                     :key="surah.id"

@@ -75,7 +75,7 @@
             <div v-if="state.isLogin">
               <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
-                <img class="h-10 w-10 p-1  rounded-full" :src="state.photoUrl" alt="profile-avatar" />
+                <img class="h-10 w-10 p-1 object-cover object-top rounded-full" :src="state.photoUrl" alt="profile-avatar" />
               </MenuButton>
             </div>
             <div v-else>
@@ -90,7 +90,7 @@
               <MenuItems class="origin-top-right z-10 absolute right-5 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem>
                   <div :class="['p-4 relative h-full flex flex-col space-y-2 items-center justify-center bg-white border-b border-slate-700/10 dark:border-slate-700/50 dark:bg-slate-800 text-slate-800 dark:text-white']">
-                     <img class="w-14 h-14 object-cover border border-slate-700/10 dark:border-slate-700/50 rounded-full" :src="state.photoUrl" alt="avatar-drop-menu">
+                     <img class="w-14 h-14 object-cover object-top border border-slate-700/10 dark:border-slate-700/50 rounded-full" :src="state.photoUrl" alt="avatar-drop-menu">
                      <div class="text-center">
                        <p class="font-medium"> {{ state.loginAsInfo.fullName }} </p>
                        <p class="text-sm"> {{ state.loginAsInfo.email }} </p>

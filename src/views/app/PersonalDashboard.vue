@@ -14,7 +14,7 @@
                     </p>
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
                 </div>
-                <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 px-2">
+                <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 px-2">
                     <QuickMenu 
                         v-for="menu in quickMenu" 
                         :key="menu.id"
@@ -79,7 +79,7 @@
                 </div>
                 <div v-else class="mx-auto w-full my-6 with-transition">
                     <router-link to="/auth/login">
-                        <div class="transition-shadow relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
+                        <div class="transition-shadow z-0 relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
                             <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-purple-400/90 via-indigo-400 to-blue-400/90"></div>
                             <div class="h-16 z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                                 <span class="font-semibold text-white">Fitur Non Aktif</span> 
@@ -108,7 +108,7 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua feature dan menu yang tersedia</p>
             </div>
 
-            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6 pb-2">
+            <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
                 <MainMenu 
                     v-for="menu in mainMenu" 
                     :key="menu.id"

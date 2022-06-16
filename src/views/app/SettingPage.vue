@@ -5,7 +5,7 @@
             <div class="inline-flex space-x-3 items-center">
                 <div class="flex cursor-default text-sm rounded-full">
                     <span class="sr-only">General user info</span>
-                    <img class="h-16 w-16 p-1 rounded-full" :src="state.photoUrl" alt="profile-avatar" />
+                    <img class="h-16 w-16 object-cover object-top p-1 rounded-full" :src="state.photoUrl" alt="profile-avatar" />
                 </div>
                 <div class="flex flex-col">
                     <h1 class="text-slate-800 inline-flex items-center space-x-2 dark:text-white text-xl font-semibold"> 
@@ -188,14 +188,8 @@
                     <!-- Profile Picture -->
                     <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
                         <p>Profile picture</p>
-                        <div class="rounded-full relative mt-2 ring-2 lg:w-56 lg:h-56 ring-slate-700/20 dark:ring-slate-700/50">
-                            <img class="object-cover object-center w-full h-full" :src="state.photoUrl" alt="profile-picture"/>
-                            <label for="file-upload" class="text-slate-800 z-10 md:cursor-pointer inline-flex items-center space-x-1 absolute left-0 bottom-6 dark:text-sky-50 bg-white/75 backdrop-blur-sm hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue/75 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                </svg>
-                                <span class="">Edit</span>
-                            </label>
+                        <div class="rounded-full overflow-auto relative mt-2 ring-2 lg:w-56 lg:h-56 ring-slate-700/20 dark:ring-slate-700/50">
+                            <img class="object-cover object-top w-full h-full" :src="state.photoUrl" alt="profile-picture"/>
                             <input id="file-upload" name="file-upload" type="file" class="sr-only" @change="onUpdateAvatar">
                             <label for="file-upload" @click="onUpdateAvatar" class="absolute inset-0 rounded-full flex items-center justify-center bg-transparent group hover:bg-slate-800/20">
                                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 md:cursor-pointer text-transparent group-hover:text-indigo-100 text-opacity-0 hover:text-opacity-100 transition-al" viewBox="0 0 20 20" fill="currentColor">
