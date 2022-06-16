@@ -70,10 +70,6 @@
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
             </div>
 
-            <!-- <div v-if="state.isLoading" class="flex items-center justify-center">
-                <Spinner />
-            </div> -->
-
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                <CardAyahMetadata
                     v-if="state.ayah"
@@ -139,22 +135,18 @@
 <script setup lang="ts">
 import {  useAyah, useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
-import Spinner from '@/components/Spinner.vue';
-import { useRouter } from 'vue-router';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 
-const surahService = useSurah();
 const userService = useUser();
 const ayahService = useAyah();
 const utilService = useUtil();
-const router = useRouter();
+const surahService = useSurah();
 
 const state = reactive({
-    currentSurah: computed(() => userService.surahBacaanUser),
-    isLoading: computed(() => surahService.isLoading),
+    currentSurah: computed(() => surahService.surah),
     isLogin: computed(()=>localStorage.getItem('_uid')),
     ayah: computed(() => ayahService.ayahTafsirSelected),
     option: false,
@@ -198,7 +190,7 @@ const scrollToPageUp = () => {
 
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
@@ -209,14 +201,5 @@ const selectSize = (size: any)=> {
     state.sizeSelected  = size;
 }
 
-const onLanjutBacaan = ()=>{
-    router.push({
-        path: '/app/dashboard/alquran', 
-        query:{ 
-            sn: state.ayah?.sura_id, 
-            an: state.ayah?.aya_number, 
-            next_bacaan: 'true'}
-        })
-}
 
 </script>

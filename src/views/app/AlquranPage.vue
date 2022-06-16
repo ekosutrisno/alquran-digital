@@ -167,15 +167,19 @@ const state = reactive({
     ]
 });
 
+onMounted(()=> {
+    setTitle();
+    loadData();
+});
 
-// Set Title of this page
-const title = useTitle();
-title.value = `${title.value} | ${state.currentSurah?.surat_text_full}`
+const setTitle = ()=>{
+    // Set Title of this page
+    const title = useTitle();
+    title.value = `${title.value}${state.currentSurah ? ` | ${state.currentSurah.surat_text_full}` : ''}`
+}
 
-onMounted(()=> loadData());
-
-const loadData = ()=>{
-    surahService
+const loadData = async ()=>{
+   await surahService
         .setSurah(routeQuery.surah_number  as SurahData['id'],
             { 
                 is_surah: routeQuery.is_surah, 
@@ -185,8 +189,7 @@ const loadData = ()=>{
                     sn: routeQuery.sn,
                     an: routeQuery.an
                 }
-            })
-        .then(()=> ayahService.onGetFavorit());
+            });
 }
 
 
