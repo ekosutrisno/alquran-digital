@@ -26,11 +26,11 @@
                     <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" v-model="state.auth.email" name="email" type="email" autocomplete="email" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                        <input id="email-address" v-model="state.auth.email" name="email" type="text" autocomplete="email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
-                        <input id="password" v-model="state.auth.password" name="password" type="password" autocomplete="current-password" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                        <input id="password" v-model="state.auth.password" name="password" type="password" autocomplete="current-password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
                     </div>
                     </div>
 
@@ -41,7 +41,18 @@
                         </router-link>
                     </div>
                     </div>
-
+                    <div v-if="v$.$errors.length" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
+                        <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                        <span class="block text-red-400" v-for="item in v$.$errors" :key="item.$uid">
+                            {{ item.$property }}: {{item.$message}}
+                        </span>
+                    </div>
+                    <div v-if="error.errorMessage" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
+                        <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                        <span class="block text-red-400">
+                            {{ error.errorCode }}
+                        </span>
+                    </div>
                     <div>
                     <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -80,10 +91,19 @@ import { auth, gProvider } from '@/services/useFirebase';
 import { useAuth, useUser } from '@/services';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';
+import {useVuelidate} from '@vuelidate/core'
+import { required, email, minLength } from '@vuelidate/validators';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const authService = useAuth();
 const userService = useUser();
+const rules = {
+    email: {required, email},
+    password: {required, minLength: minLength(6)}
+}
+
+const { error } = storeToRefs(authService)
 
 const state = reactive({
     auth:{
@@ -93,40 +113,48 @@ const state = reactive({
     isLoginProcess: false
 })
 
+const v$ = useVuelidate(rules,state.auth);
+
 onMounted(()=>{
     if (localStorage.getItem('_uid')) 
         router.replace('/app/dashboard/personal');
 })
 
-const onLoginAction = () => {
-    /** Initial Loading. */
-    state.isLoginProcess = true;
+const onLoginAction = async () => {
+    /**
+     * Validate the input
+     */
+    const result = await v$.value.$validate();
 
-    signInWithEmailAndPassword(auth, state.auth.email, state.auth.password)
-        .then((userCredential) => {
-            /** Get User Cred. */
-            const user = userCredential.user;
+    if(result){
+        /** Initial Loading. */
+        state.isLoginProcess = true;
 
-            /** Set User Detail to Context. */
-            authService.onLoginAction(user);
+        signInWithEmailAndPassword(auth, state.auth.email, state.auth.password)
+            .then((userCredential) => {
+                /** Get User Cred. */
+                const user = userCredential.user;
 
-            /** Stop Loading and Redirect in to Dashboard. */
-            state.isLoginProcess =  false;
-            router.replace('/app/dashboard/personal');
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+                /** Set User Detail to Context. */
+                authService.onLoginAction(user);
 
-            authService.$patch(state => state.error = {
-            errorCode: errorCode,
-            errorMessage: errorMessage
+                /** Stop Loading and Redirect in to Dashboard. */
+                state.isLoginProcess =  false;
+                router.replace('/app/dashboard/personal');
+            })
+            .catch((error) => {
+                authService.$patch(state => state.error = {
+                    errorCode: error.code,
+                    errorMessage: error.message
+                });
+
+                state.isLoginProcess =  false;
             });
-
-            state.isLoginProcess =  false;
-            console.log(`${errorCode} => ${errorMessage}`);
-        });
+    }else{
+        state.isLoginProcess = false;
     }
+    
+}
 
  const loginWithGoogleHandler = () => {
     signInWithPopup(auth, gProvider)

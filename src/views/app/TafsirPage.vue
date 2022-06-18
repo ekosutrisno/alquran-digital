@@ -133,14 +133,13 @@
 </template>
 
 <script setup lang="ts">
-import {  useAyah, useSurah, useUser, useUtil } from '@/services';
+import {  useAyah, useSurah, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 
-const userService = useUser();
 const ayahService = useAyah();
 const utilService = useUtil();
 const surahService = useSurah();

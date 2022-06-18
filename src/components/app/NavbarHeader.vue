@@ -1,6 +1,6 @@
 <template>
   <Disclosure as="nav">
-    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-autoz sm:px-4 md:px-6 antialiased">
+    <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-6 antialiased">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
           <router-link to="/home-dashboard" class="flex-shrink-0 font-semibold text-slate-800 dark:text-white flex items-center text-2xl">

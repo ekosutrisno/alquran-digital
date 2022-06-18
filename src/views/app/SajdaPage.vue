@@ -42,13 +42,13 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Sajda disini</p>
             </div>
 
-             <div v-if="state.isLoading" class="flex my-4 items-center justify-center">
+             <div v-if="isLoading" class="flex my-4 items-center justify-center">
                 <Spinner />
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardSajdaMetadata 
-                    v-for="sajda in state.sajdaMetadata" 
+                    v-for="sajda in sajdas" 
                     :key="sajda.number"
                     :sajda="sajda"
                 />
@@ -60,19 +60,17 @@
 
 <script setup lang="ts">
 import { useSajda } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted,  ref } from 'vue';
 import CardSajdaMetadata from '@/components/app/card/CardSajdaMetadata.vue';
 import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
 const sajdaService = useSajda();
-const state = reactive({
-    sajdaMetadata: computed(() => sajdaService.sajdas),
-    isLoading: computed(() => sajdaService.isLoading),
-});
+const { sajdas, isLoading } = storeToRefs(sajdaService);
 
 onMounted(()=> {
-    if(!state.sajdaMetadata.length)
+    if(!sajdas.value.length)
         sajdaService.getSajdaMetadata();
 });
 

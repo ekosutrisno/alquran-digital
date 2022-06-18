@@ -110,7 +110,6 @@
 import { useAyah, useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
-import { useRoute, useRouter } from 'vue-router';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
@@ -120,8 +119,6 @@ const surahService = useSurah();
 const userService = useUser();
 const ayahService = useAyah();
 const utilService = useUtil();
-const route = useRoute();
-const router = useRouter();
 
 const state = reactive({
     currentSurah: computed(() => userService.surahBacaanUser),
@@ -170,7 +167,7 @@ const scrollToPageUp = () => {
 
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option

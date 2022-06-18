@@ -60,7 +60,7 @@ const route = useRoute();
 const router = useRouter();
 const toast = useToast();
 
-const { mode, oobCode } = route.query;
+const { oobCode } = route.query;
 
 const state = reactive({
     auth: {

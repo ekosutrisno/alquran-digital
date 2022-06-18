@@ -138,7 +138,7 @@ const router = useRouter();
 const state = reactive({
     currentSurah: computed(() => userService.surahBacaanUser),
     isLoading: computed(() => surahService.isLoading),
-    isLogin: computed(()=>localStorage.getItem('_uid')),
+    isLogin: computed(()=> localStorage.getItem('_uid')),
     ayah: computed(() => userService.currentUser?.bacaanku),
     option: false,
     sizeSelected: localStorage.getItem('_a_size') != null

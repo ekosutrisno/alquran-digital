@@ -26,24 +26,36 @@
                     <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" v-model="state.auth.email" name="email" type="email" autocomplete="off" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                        <input id="email-address" v-model="state.auth.email" name="email" type="text" autocomplete="off" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
-                        <input id="password" v-model="state.auth.password" name="password" type="password" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                        <input id="password" v-model="state.auth.password" name="password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
                     </div>
                     <div>
                         <label for="confirm-password" class="sr-only">Confirm Password</label>
-                        <input id="confirm-password" v-model="state.auth.confirmPassword" name="confirm-password" type="password" required="true" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Confirm Password" />
+                        <input id="confirm-password" v-model="state.auth.confirmPassword" name="confirm-password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Confirm Password" />
                     </div>
+                    </div>
+                    <div v-if="v$.$errors.length" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
+                        <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                        <span class="block text-red-400" v-for="item in v$.$errors" :key="item.$uid">
+                            {{ item.$property }}: {{item.$message}}
+                        </span>
+                    </div>
+                    <div v-if="error.errorMessage" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
+                        <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                        <span class="block text-red-400">
+                            {{ error.errorCode }}
+                        </span>
                     </div>
                     <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                        <LockClosedIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
-                        </span>
-                        Sign up
-                    </button>
+                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <LockClosedIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
+                            </span>
+                            Sign up
+                        </button>
                     </div>
                 </form>
                 <div class="flex flex-col space-y-4 items-center justify-end">
@@ -67,7 +79,6 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
-import { isMatchPassword } from '@/utils/helperFunction';
 import { useRouter } from 'vue-router';
 import { useAuth, useUser } from '@/services';
 import { createUserWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
@@ -75,10 +86,14 @@ import { auth, gProvider } from '@/services/useFirebase';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';
+import {useVuelidate} from '@vuelidate/core'
+import { required, email, minLength, sameAs } from '@vuelidate/validators';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const authService = useAuth()
 const userService = useUser();
+const { error } = storeToRefs(authService)
 
 const state = reactive({
     auth:{
@@ -88,10 +103,27 @@ const state = reactive({
     },
     isRegisterProcess: false
 })
-const validate = computed(()=>isMatchPassword(state.auth.password, state.auth.confirmPassword))
 
-const onRegisterAction = () => {
-    if(validate.value){
+const rules = computed(()=> {
+    return {
+        email: {required, email},
+        password: {required, minLength: minLength(6)},
+        confirmPassword: {required, sameAs: sameAs(state.auth.password)}
+    }
+})
+
+const v$ = useVuelidate(rules,state.auth);
+
+const onRegisterAction =async () => {
+    /**
+     * Validate the input
+     */
+    const result = await v$.value.$validate();
+    
+    if(result){
+        /** Initial Loading. */
+        state.isRegisterProcess = true;
+
         createUserWithEmailAndPassword(auth, state.auth.email, state.auth.password)
             .then((userCredential: { user: any; }) => {
                 const user = userCredential.user;
@@ -106,19 +138,16 @@ const onRegisterAction = () => {
 
                 router.replace('/app/dashboard/personal');
             })
-            .catch((error:any) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                authService.$patch((state: { error: { errorCode: any; errorMessage: any; }; }) => state.error = {
-                    errorCode: errorCode,
-                    errorMessage: errorMessage
+            .catch((error) => {
+                authService.$patch((state) => state.error = {
+                    errorCode: error.code,
+                    errorMessage: error.message
                 });
 
                 state.isRegisterProcess = false;
-                console.log(`${errorCode} => ${errorMessage}`);
             });
-        }else{
+        }
+        else{
             state.isRegisterProcess = false;
         }
 }
@@ -139,17 +168,12 @@ const loginWithGoogleHandler = () => {
                 });
 
         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-
             authService.$patch(state => state.error = {
-                errorCode: errorCode,
-                errorMessage: errorMessage
+                errorCode: error.code,
+                errorMessage: error.message
             });
 
             state.isRegisterProcess =  false;
-            console.log(`${errorCode} => ${errorMessage}`);
         });
 }
-
 </script>

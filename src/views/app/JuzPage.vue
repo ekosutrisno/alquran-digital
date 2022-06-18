@@ -43,15 +43,15 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Juz disini</p>
             </div>
             
-            <div v-if="state.isLoading" class="flex items-center justify-center">
+            <div v-if="isLoading" class="flex items-center justify-center">
                 <Spinner />
             </div>
 
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardJuzMetadata 
-                    v-for="juz in state.jusMetadata" 
-                    :key="juz.number"
-                    :juz="juz"
+                    v-for="juzData in juz" 
+                    :key="juzData.number"
+                    :juz="juzData"
                 />
             </div>
         </section>
@@ -61,19 +61,17 @@
 
 <script setup lang="ts">
 import { useJuz } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardJuzMetadata from '@/components/app/card/CardJuzMetadata.vue';
 import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
 const juzService = useJuz();
-const state = reactive({
-    jusMetadata: computed(() => juzService.juz),
-    isLoading: computed(() => juzService.isLoading)
-});
+const { juz, isLoading } = storeToRefs(juzService);
 
 onMounted(()=> {
-    if(!state.jusMetadata.length)
+    if(!juz.value.length)
         juzService.getJuzMetadata();
 });
 

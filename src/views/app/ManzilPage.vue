@@ -42,15 +42,15 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Manzil disini</p>
             </div>
            
-            <div v-if="state.isLoading" class="flex my-4 items-center justify-center">
+            <div v-if="isLoading" class="flex my-4 items-center justify-center">
                 <Spinner />
             </div>
 
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardManzilMetadata 
-                    v-for="manzil in state.manzilMetadata" 
-                    :key="manzil.number"
-                    :manzil="manzil"
+                    v-for="manzilData in manzil" 
+                    :key="manzilData.number"
+                    :manzil="manzilData"
                 />
             </div>
         </section>
@@ -60,25 +60,23 @@
 
 <script setup lang="ts">
 import { useManzil } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardManzilMetadata from '@/components/app/card/CardManzilMetadata.vue';
 import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
 const manzilService = useManzil();
-const state = reactive({
-    manzilMetadata: computed(() => manzilService.manzil),
-    isLoading: computed(() => manzilService.isLoading)
-});
+const { manzil, isLoading}  = storeToRefs(manzilService);
 
 onMounted(()=> {
-    if(!state.manzilMetadata.length)
+    if(!manzil.value.length)
         manzilService.getManzilMetadata();
 });
+
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {
     if(pageUp != null)
         pageUp.value.scrollIntoView({behavior: 'smooth'});
 }
-
 </script>

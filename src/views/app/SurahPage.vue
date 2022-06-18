@@ -42,13 +42,13 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata surah disini</p>
             </div>
 
-             <div v-if="state.isLoading" class="flex my-4 items-center justify-center">
+             <div v-if="isLoading" class="flex my-4 items-center justify-center">
                 <Spinner />
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardSurahMetadata 
-                    v-for="surah in state.surahMetadata" 
+                    v-for="surah in surahs" 
                     :key="surah.id"
                     :surah="surah"
                 />
@@ -61,20 +61,17 @@
 
 <script setup lang="ts">
 import { useSurah } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
 const surahService = useSurah();
-const state = reactive({
-    surahMetadata: computed(() => surahService.surahs),
-    isLoading: computed(() => surahService.isLoading)
-
-});
+const { surahs, isLoading} = storeToRefs(surahService);
 
 onMounted(()=> {
-    if(!state.surahMetadata.length)
+    if(!surahs.value.length)
         surahService.getSurahMetada();
     }
 );
