@@ -5,7 +5,7 @@
       <NavbarHeader @search="showSearchModal"/>
    </header>
 
-   <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-20 md:pb-0">
+   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-20 md:pb-0">
       <router-view />
    </div>
    <footer class="text-xs hidden sm:block text-slate-900 relative dark:text-white p-3 pb-5 text-center">
@@ -19,13 +19,13 @@
 <script setup lang="ts">
 import NavbarHeader from '@/components/app/NavbarHeader.vue';
 import { useUtil } from '@/services';
-import { computed } from '@vue/reactivity';
 import { reactive } from 'vue';
 import ModalSearch from '@/components/shared/ModalSearch.vue';
+import { storeToRefs } from 'pinia';
 
 const utilService = useUtil();
+const {wideMenu} = storeToRefs(utilService);
 const state = reactive({
-   wideMenu: computed(()=> utilService.wideMenu),
    onSearch: false
 })
 

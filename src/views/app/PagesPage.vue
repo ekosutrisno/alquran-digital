@@ -42,21 +42,21 @@
                 <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata page disini</p>
             </div>
 
-            <div v-if="state.isLoading" class="flex items-center justify-center">
+            <div v-if="isLoading" class="flex items-center justify-center">
                 <Spinner />
             </div>
 
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardPageMetadata 
-                    v-for="page in state.pageMetadata" 
+                    v-for="page in pages" 
                     :key="page.page"
                     :page="page"
                 />
             </div>
-            <div v-if="state.isPush" class="max-w-7xl text-center mx-auto">
+            <div v-if="isPush" class="max-w-7xl text-center mx-auto">
                 <Loader />
             </div>
-             <div v-if="!state.isLast && !state.isLoading && !state.isPush" class="flex items-center my-4 justify-center">
+             <div v-if="!isLast && !isLoading && !isPush" class="flex items-center my-4 justify-center">
                 <button @click="nextPage" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg></span> 
@@ -69,23 +69,18 @@
 
 <script setup lang="ts">
 import { usePage } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardPageMetadata from '@/components/app/card/CardPageMetadata.vue';
 import Loader from '@/components/Loader.vue';
 import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
 const pageService = usePage();
-const state = reactive({
-    pageMetadata: computed(() => pageService.pages),
-    lastVisible: computed(() => pageService.lastPageVisible),
-    isLast: computed(()=> pageService.isLast),
-    isPush: computed(()=> pageService.isPush),
-    isLoading: computed(()=> pageService.isLoading)
-});
+const { pages, lastPageVisible, isLast, isLoading, isPush } = storeToRefs(pageService);
 
 onMounted(()=> {
-    if(!state.pageMetadata.length)
+    if(!pages.value.length)
         pageService.getPageMetadata();
 });
 
@@ -96,7 +91,7 @@ const scrollToPageUp = () => {
 }
 
 const nextPage = ()=>{
-    pageService.nextPage({lastVisible: state.lastVisible as any});
+    pageService.nextPage({lastVisible: lastPageVisible.value as any});
 }
 
 </script>
