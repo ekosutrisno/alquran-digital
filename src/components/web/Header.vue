@@ -1,5 +1,5 @@
 <template>
-<div class="relative w-full border-b transition backdrop-blur-sm border-slate-700 border-opacity-[0.15] card-shadow-sm bg-white/10 dark:border-slate-700/50 dark:bg-[#0B1120]">
+<div class="relative w-full border-b transition border-slate-700 border-opacity-[0.15] bg-white dark:border-slate-700/50 dark:bg-[#0B1120]">
   <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto w-full flex items-center justify-between p-8 md:px-10 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
     <router-link to="/" class="text-2xl inline-flex items-center space-x-1.5">
       <span>

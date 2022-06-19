@@ -2,7 +2,7 @@
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10 font-quicksand" @close="$emit('close')">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 bg-gray-500/50 dark:bg-gray-800/75 transition-opacity" />
+        <div class="fixed inset-0 bg-gray-900/80 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed z-10 inset-0 overflow-y-auto">
@@ -27,7 +27,7 @@
                     class="w-full flex items-center justify-between transition-colors py-3 px-3 border-b border-slate-700/10 dark:border-slate-700/50 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700"
                    >
                       <div class="flex flex-col items-start space-y-2">
-                        <span class="text-xs font-semibold bg-slate-100 text-slate-700 dark:text-slate-300 dark:bg-slate-700 border dark:border-slate-500/50 w-max rounded-full px-2"> {{search.info}} </span>
+                        <span class="text-xs bg-slate-100 text-slate-700 dark:text-slate-300 dark:bg-slate-700/30 border dark:border-slate-500/50 w-max rounded-full px-2"> {{search.info}} </span>
                         <span class="font-medium">{{ search.text }}</span>
                       </div>
                       <div>
