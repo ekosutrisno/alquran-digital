@@ -24,12 +24,19 @@
                         </span>
                         <span class="text-lg md:text-3xl font-light"> ({{surah?.surat_text_full}})</span> {{surah?.surat_text}}
                     </p>
-                    <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                        </svg>
-                        <span class="ml-2">Back</span>
-                    </button>
+                    <div class="mt-8 flex justify-between">
+                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                            </svg>
+                            <span class="ml-2">Back</span>
+                        </button>
+                        <button type="button" @click="addToSurahPilihan" class="font-semibold">
+                            <svg :class="[isIncludeMyPilihan ? ' animate-bounce text-sky-600' : 'text-slate-400 hover:text-sky-600']" class="w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -96,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSurah, useUtil } from '@/services';
+import { useAyah, useSurah, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Spinner from '@/components/Spinner.vue';
 import { useRoute } from 'vue-router';
@@ -109,6 +116,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 
 const surahService = useSurah();
+const ayahService = useAyah();
 const utilService = useUtil();
 const route = useRoute();
 
@@ -131,6 +139,7 @@ const routeQuery: RouteQuery = {
 };
 
 const { surah, isLoading, isPush, ayahs, } = storeToRefs(surahService)
+const { surahPilihan } = storeToRefs(ayahService);
 
 const state = reactive({
     option: false,
@@ -174,8 +183,8 @@ const setTitle = ()=>{
     title.value = `${title.value}${surah ? ` | ${surah.value?.surat_text_full}` : ''}`
 }
 
-const loadData = async ()=>{
-   await surahService
+const loadData = ()=>{
+    surahService
         .setSurah(routeQuery.surah_number  as SurahData['id'],
             { 
                 is_surah: routeQuery.is_surah, 
@@ -185,7 +194,8 @@ const loadData = async ()=>{
                     sn: routeQuery.sn,
                     an: routeQuery.an
                 }
-            });
+            })
+            .then(()=>ayahService.onGetSurahPilihan());
 }
 
 const loadNextAyah  = () => {
@@ -218,4 +228,12 @@ const selectSize = (size: any)=> {
     state.sizeSelected  = size;
 }
 
+const isIncludeMyPilihan = computed(()=>surahPilihan.value.some(surat => surat.id === surah.value?.id));
+
+const addToSurahPilihan = async ()=> {
+    if(isIncludeMyPilihan.value)
+        ayahService.onRemoveSurahPilihan(surah.value?.id as SurahData['id']);
+    else
+        ayahService.onMarkPilihan(surah.value as SurahData);
+}
 </script>
