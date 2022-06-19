@@ -14,7 +14,7 @@
                     </p>
                     <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
                 </div>
-                <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 px-2">
+                <div class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 sm:px-2">
                     <QuickMenu 
                         v-for="menu in quickMenu" 
                         :key="menu.id"
@@ -202,7 +202,7 @@ const quickMenu: QuickMenuType[] = [
     {
         id: '4',
         title: 'Class Room',
-        description: 'Ruang kelas hafalan Al-quran.',
+        description: 'Ruang kelas hafalan.',
         to: '/app/dashboard/about'
     },
 ]
