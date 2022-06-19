@@ -14,7 +14,7 @@ import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
 import MadrasahDashboard from '@/views/app/MadrasahDashboard.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
-import TajwidPage from '@/views/app/TajwidPage.vue';
+import SurahPilihan from '@/views/app/SurahPilihan.vue';
 import AboutPage from '@/views/app/AboutPage.vue';
 import SurahPage from '@/views/app/SurahPage.vue';
 import PagesPage from '@/views/app/PagesPage.vue';
@@ -227,7 +227,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'surah-pilihan',
                 name: 'SurahPilihan',
-                component: TajwidPage,
+                component: SurahPilihan,
                 meta: {
                     title: 'Surah Pilihan',
                     description: 'Surah Pilihan Page',

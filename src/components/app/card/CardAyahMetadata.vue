@@ -43,12 +43,12 @@
       
       <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
          <span v-if="isIncludeMyFavorite" class="font-semibold text-sky-600">
-         <svg class="w-5 inline animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-         </svg>
+            <svg class="w-5 inline animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+            </svg>
          </span>
          <span v-if="state.myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
-         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline animate-pulse" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline animate-pulse" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                <path d="M7 12l5 5l10 -10"></path>
                <path d="M2 12l5 5m5 -5l5 -5"></path>
@@ -57,9 +57,9 @@
          <span class="font-medium">Meta: (Page: {{ayat.page_number}}) (Manzil: {{ayat.manzil}}) (Rukuk: {{ayat.rukuk}}) </span>
          <span v-if="ayat.sajda" class="font-semibold text-yellow-500">
          - Sajda 
-         <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-         </svg>
+            <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+               <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+            </svg>
          </span>
       </div>
 
@@ -86,7 +86,7 @@
                      <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Tandai bacaan</span>
                      </button>
-                     <button v-if="isFavorite" @click="ayahService.onRemoveFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                     <button v-if="isFavorite" @click="ayahService.onRemoveFavorit(ayat.aya_id)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Hapus favorit</span>
                      </button>
                      <button v-else @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">

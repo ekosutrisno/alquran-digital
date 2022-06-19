@@ -15,7 +15,7 @@ export const usePage = defineStore('usePage', {
         isLast: false,
         isLoading: false,
         isPush: false,
-        pages: [],
+        pages: new Array<PageMetadata>(),
         lastPageVisible: null
     }),
 

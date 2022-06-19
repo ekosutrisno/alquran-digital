@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="relative z-10 font-quicksand" @close="$emit('close')">
+    <Dialog as="div" class="relative z-10 font-quicksand" @close="onCloseModal">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-gray-900/80 transition-opacity" />
       </TransitionChild>
@@ -51,12 +51,12 @@
 
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const emit  = defineEmits<{(e: 'close'): void}>();
+const emit  = defineEmits<{(e: 'close-modal', open:boolean): void}>();
 defineProps<{open: boolean}>();
 
 interface SearchItem{
@@ -67,10 +67,13 @@ interface SearchItem{
 }
 
 const goToPage = (path: string) =>{
-  
-  emit('close');
-
+  onCloseModal();
   router.push(path);
+}
+
+const onCloseModal = ()=>{
+  emit('close-modal', false);
+  state.query= '';
 }
 
 const state = reactive({

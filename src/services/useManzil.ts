@@ -11,7 +11,7 @@ interface UseManzilState {
 export const useManzil = defineStore('useManzil', {
     state: (): UseManzilState => ({
         isLoading: false,
-        manzil: []
+        manzil: new Array<Metadata>()
     }),
 
     actions: {

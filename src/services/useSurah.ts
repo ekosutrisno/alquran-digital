@@ -15,12 +15,12 @@ interface UseSurahState {
 
 export const useSurah = defineStore('useSurah', {
     state: (): UseSurahState => ({
-        ayahs: [],
+        ayahs: new Array<AyahData>(),
         isLoading: false,
         isPush: false,
         lastAyahVisible: null,
         surah: null,
-        surahs: []
+        surahs: new Array<SurahData>()
     }),
 
     actions: {

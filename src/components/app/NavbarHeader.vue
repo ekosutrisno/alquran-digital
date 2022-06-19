@@ -34,7 +34,7 @@
                 <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
               </svg>
               
-              Quick search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "/"</span>
+              Menu search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "/"</span>
               </button>
           </div>
 
