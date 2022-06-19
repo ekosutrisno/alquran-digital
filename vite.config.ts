@@ -1,10 +1,11 @@
 /* eslint-disable no-alert, no-console */
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import * as path from 'path';
 
 export default defineConfig({
+  test:{},
   plugins: [
     vue(),
     VitePWA({
