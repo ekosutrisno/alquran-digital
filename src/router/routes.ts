@@ -11,7 +11,7 @@ import HomeDashboard from '@/views/web/HomeDashboard.vue';
 
 // View App Section Import
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
-import MadrasahDashboard from '@/views/app/MadrasahDashboard.vue';
+import ClassRoomPage from '@/views/app/ClassRoomPage.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
 import SurahPilihan from '@/views/app/SurahPilihan.vue';
@@ -192,14 +192,14 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'madrasah',
-                name: 'MadrasahDashboard',
-                component: MadrasahDashboard,
+                path: 'class-room',
+                name: 'ClassRoomPage',
+                component: ClassRoomPage,
                 meta: {
-                    title: 'Madrasah Dashboard',
-                    description: 'Madrasah Dashboard Page',
+                    title: 'Class Room Dashboard',
+                    description: 'Class Room Dashboard Page',
                     requiresAuth: true,
-                    requiresAdmin: true
+                    requiresAdmin: false
                 }
             },
             {

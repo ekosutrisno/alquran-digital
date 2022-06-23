@@ -203,7 +203,7 @@ const quickMenu: QuickMenuType[] = [
         id: '4',
         title: 'Class Room',
         description: 'Ruang kelas hafalan.',
-        to: '/app/dashboard/about'
+        to: '/app/dashboard/class-room'
     },
 ]
 
