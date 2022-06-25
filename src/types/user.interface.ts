@@ -7,7 +7,7 @@ export interface InfoMetadata {
 }
 
 export interface User extends InfoMetadata {
-    bacaanku?: AyahData;
+    bacaanku?: AyahData | null;
     email: string;
     join_at: number;
     photo_url?: string;
@@ -26,6 +26,7 @@ export interface User extends InfoMetadata {
     is_active: boolean;
     is_mentor: boolean;
     nationality?: string;
+    rooms?: string[]
 }
 
 export interface Role {

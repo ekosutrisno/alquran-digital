@@ -12,6 +12,7 @@ import HomeDashboard from '@/views/web/HomeDashboard.vue';
 // View App Section Import
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
 import ClassRoomPage from '@/views/app/ClassRoomPage.vue';
+import ClassRoomDetailPage from '@/views/app/ClassRoomDetailPage.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
 import SurahPilihan from '@/views/app/SurahPilihan.vue';
@@ -198,6 +199,17 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Class Room Dashboard',
                     description: 'Class Room Dashboard Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'class-room/detail',
+                name: 'ClassRoomDetailPage',
+                component: ClassRoomDetailPage,
+                meta: {
+                    title: 'Class Room Detail Dashboard',
+                    description: 'Class Room Detail Dashboard Page',
                     requiresAuth: true,
                     requiresAdmin: false
                 }
