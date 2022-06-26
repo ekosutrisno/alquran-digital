@@ -2,51 +2,75 @@
     <div ref="pageUp" class="absolute -top-20"></div>
 
     <div class="wrapper md:p-4 space-y-6">
+        <!-- Section 0 -->
+        <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
+            <div class="inline-flex space-x-3 items-center">
+                <div class="flex cursor-default text-sm rounded-full">
+                    <span class="sr-only">General user info</span>
+                    <img class="h-16 w-16 object-cover object-top p-1 rounded-full" :src="currentUser?.photo_url" alt="profile-avatar" />
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-slate-800 inline-flex items-center space-x-2 dark:text-white text-xl font-semibold"> 
+                        <span>Hallo, {{ currentUser?.full_name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" :class="[currentUser?.is_active ? 'text-green-500': '']" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Your personal class</p>
+                </div>
+            </div>
+            <div class="pl-20 md:pl-0 space-x-2">
+                <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="lg:hidden">Class Room</span>
+                    <span class="hidden lg:inline">Go to class room dashboard</span>
+                </router-link>
+                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="inline">Edit</span>
+                </router-link>
+                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span>Advanced</span>
+                </router-link>
+            </div>
+        </section>
+
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2 gap-4">
             <!-- Left -->
-            <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
-                <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
-                    <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+            <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
+                <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://i.pinimg.com/564x/68/be/3b/68be3b967fa1ac30f7da5633fff3e9f0.jpg'" :alt="room?.name">
+                <div class="absolute flex flex-col inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/10">
+                    <div class="w-full p-4 space-y-4 text-slate-50 transition flex flex-col justify-between min-h-[150px] rounded">
+                        <!-- Header -->
+                        <div class="flex items-start justify-between">
+                            <div class="flex flex-col items-start justify-between">
+                                <p class="font-semibold">Room &bull; <span class="text-xs font-normal">Since {{ formatDateWithMonth(room?.createdDate)}}</span></p>
+                                <p class="text-sm">{{ room?.scheduleDay }} {{ room?.scheduleTime }}</p>
+                            </div>
+                            <div>
+                                {{ room?.totalMember }} members
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-5xl font-medium"> {{room?.name}} </p>
+                            <p class="text-sm mt-2 text-slate-300 font-light">{{ room?.description }}</p>
+                        </div>   
+                        <!-- Member preview Footer-->
+                        <div class="flex items-center justify-between">
+                            <p> {{ room?.organization }} </p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex items-center justify-between">
+                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                             </svg>
-                        </span>
-                       <span >Hallo, {{ currentUser?.full_name }}</span> 
-                    </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua kelasmu ada di sini</p>
-                </div>
-                <div class="pt-4">
-                    <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
-                    <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi semua kelas yang kamu buat atau pun ikuti, kamu dapat menambahkan anggota baru yang sudah terdaftar sebagai User di Al-quran Digital</p>
-
-                    <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                        </svg>
-                        <span class="ml-2">Back</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right -->
-            <div class="card-shadow-md relative dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded overflow-hidden max-h-60 flex flex-col">
-                <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage" :alt="room?.name">
-                <div class="absolute p-4 flex flex-col inset-0 bg-gradient-to-t from-slate-900/30 to-transparent">
-                    <div class="w-full z-0 flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
-                        <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-                                </svg>
-                            </span>
-                        <span >Hallo, {{ currentUser?.full_name }}</span> 
-                        </p>
-                        <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua kelasmu ada di sini</p>
+                            <span class="ml-2">Back</span>
+                        </button>
+                        <div class="flex -space-x-1 overflow-hidden p-1">
+                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-700" :src="mentor?.photo_url" :alt="mentor?.full_name" />
+                        </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -59,10 +83,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
                     </span>
-                    <span>Class Room</span> 
+                    <span>Members</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <p class="text-sm text-slate-500 dark:text-slate-50">List semua kelasmu ada disini.</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-50">List semua anggota kelas.</p>
                 </div>
             </div>
 
@@ -124,11 +148,11 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
 import { useClassRoom, useUser } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import { Room } from '@/types/room.interface';
+import { formatDateWithMonth } from '@/utils/helperFunction';
 
 const router = useRouter();
 const route = useRoute();

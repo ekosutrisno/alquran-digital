@@ -16,7 +16,6 @@
                 </div>
                 <div class="overflow-auto w-full flex-1 flex flex-col custom-scroll">
                   <button 
-                    v-motion-slide-bottom
                     type="button"
                     @click="goToPage(search.to)" 
                     v-for="search in filteredData"
