@@ -91,22 +91,20 @@ export const useClassRoom = defineStore('useClassRoom', {
 
         async getRoom(roomId: Room['id']) {
             this.isLoading = true;
-            
+
             const roomRef = doc(db, 'room_collections', `${localStorage.getItem('_uid')}`);
             const roomData = doc(roomRef, 'rooms', roomId);
 
+            onSnapshot(roomData, (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.data() as Room;
+                    this.loadMentor(data.mentor);
 
-            getDoc(roomData)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.data() as Room;
-                        this.loadMentor(data.mentor);
+                    this.room = data;
 
-                        this.room = data;
-
-                        this.isLoading = false;
-                    }
-                })
+                    this.isLoading = false;
+                }
+            })
         },
 
         loadMentor(mentorRef: DocumentReference) {
