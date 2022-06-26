@@ -8,6 +8,7 @@ import { useRukuk } from './useRukuk';
 import { useSajda } from './useSajda';
 import { useJuz } from './useJuz';
 import { useAyah } from './useAyah';
+import { useClassRoom } from './useClassRoom';
 
 export {
     useAuth,
@@ -19,5 +20,6 @@ export {
     useRukuk,
     useSajda,
     useJuz,
-    useAyah
+    useAyah,
+    useClassRoom
 }

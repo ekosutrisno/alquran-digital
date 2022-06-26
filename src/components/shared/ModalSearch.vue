@@ -1,21 +1,18 @@
 <template>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10 font-quicksand" @close="onCloseModal">
-      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 bg-gray-900/80 transition-opacity" />
-      </TransitionChild>
-
+      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur" />
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex w-full items-start justify-center min-h-full p-4 sm:p-0">
-          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-            <DialogPanel class="relative w-full bg-white rounded-lg overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
-              <div class="bg-white max-h-[36rem] flex flex-col justify-between dark:bg-slate-800 border border-transparent dark:border-slate-700/75">
+            <DialogPanel class="relative w-full bg-white bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
+              <div class="bg-white max-h-[36rem] flex flex-col rounded-2xl justify-between dark:bg-slate-800 border-2 border-transparent dark:border-slate-700/75">
                 <div class="w-full border-b px-4 inline-flex items-center border-slate-700/10 dark:border-slate-700/50 flex-shrink-0 h-max">
                   <svg width="24" height="24" fill="none" aria-hidden="true" class="flex-none text-slate-400">
                     <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
                   </svg>
                   <input type="text" v-model="state.query" class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
+                  <button type="button" @click="onCloseModal" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Cancel</button>
                 </div>
                 <div class="overflow-auto w-full flex-1 flex flex-col custom-scroll">
                   <button 
@@ -42,7 +39,6 @@
                 </div>
               </div>
             </DialogPanel>
-          </TransitionChild>
         </div>
       </div>
     </Dialog>
