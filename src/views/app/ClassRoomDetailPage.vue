@@ -47,7 +47,7 @@
                         <!-- Header -->
                         <div class="flex items-start justify-between">
                             <div class="flex flex-col items-start justify-between">
-                                <p class="font-semibold inline-flex items-center space-x-2"><span>Room</span> &bull; <span class="text-xs font-normal mx-1.5">Since {{ formatDateWithMonth(room?.createdDate)}}</span> &bull; <span class="text-xs font-normal ml-1.5">{{ room?.isActive ? 'Active' : 'InActive'}}</span></p>
+                                <p class="font-semibold inline-flex items-center"><span>Room</span><span class="text-xs font-normal mx-1.5">&bull;  Since {{ formatDateWithMonth(room?.createdDate)}}</span><span class="text-xs font-normal">&bull; {{ room?.isActive ? 'Active' : 'InActive'}}</span></p>
                                 <p class="text-sm">{{ room?.scheduleDay }} {{ room?.scheduleTime }}</p>
                             </div>
                             <div>

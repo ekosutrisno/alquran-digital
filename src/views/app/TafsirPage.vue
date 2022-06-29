@@ -134,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import {  useAyah, useSurah, useUtil } from '@/services';
+import {  useAyah, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
@@ -144,7 +144,6 @@ import { storeToRefs } from 'pinia';
 
 const utilService = useUtil();
 const { ayahTafsirSelected, surahTafsirSelected } = storeToRefs(useAyah());
-const { surah } = storeToRefs(useSurah());
 
 const state = reactive({
     isLogin: computed(()=>localStorage.getItem('_uid')),
