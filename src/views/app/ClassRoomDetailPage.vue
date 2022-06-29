@@ -5,9 +5,13 @@
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
-                <div class="flex cursor-default text-sm rounded-full">
+                <div class="flex cursor-default text-sm rounded-full p-1 bg-slate-100 ring-1 ring-slate-700/10 dark:bg-slate-700/50">
                     <span class="sr-only">General user info</span>
-                    <img class="h-16 w-16 object-cover object-top p-1 rounded-full" :src="currentUser?.photo_url" alt="profile-avatar" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-800 dark:text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
                 </div>
                 <div class="flex flex-col">
                     <h1 class="text-slate-800 inline-flex items-center space-x-2 dark:text-white text-xl font-semibold"> 
@@ -39,11 +43,11 @@
             <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
                 <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://i.pinimg.com/564x/68/be/3b/68be3b967fa1ac30f7da5633fff3e9f0.jpg'" :alt="room?.name">
                 <div class="absolute flex flex-col inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/10">
-                    <div class="w-full p-4 space-y-4 text-slate-50 transition flex flex-col justify-between min-h-[150px] rounded">
+                    <div class="w-full p-4 space-y-4 text-white transition flex flex-col justify-between min-h-[150px] rounded">
                         <!-- Header -->
                         <div class="flex items-start justify-between">
                             <div class="flex flex-col items-start justify-between">
-                                <p class="font-semibold">Room &bull; <span class="text-xs font-normal">Since {{ formatDateWithMonth(room?.createdDate)}}</span></p>
+                                <p class="font-semibold inline-flex items-center space-x-2"><span>Room</span> &bull; <span class="text-xs font-normal mx-1.5">Since {{ formatDateWithMonth(room?.createdDate)}}</span> &bull; <span class="text-xs font-normal ml-1.5">{{ room?.isActive ? 'Active' : 'InActive'}}</span></p>
                                 <p class="text-sm">{{ room?.scheduleDay }} {{ room?.scheduleTime }}</p>
                             </div>
                             <div>
@@ -51,8 +55,9 @@
                             </div>
                         </div>
                         <div>
-                            <p class="text-5xl font-medium"> {{room?.name}} </p>
-                            <p class="text-sm mt-2 text-slate-300 font-light">{{ room?.description }}</p>
+                            <!-- Max 14 Char -->
+                            <p class="text-5xl font-semibold truncate max-w-xs"> {{room?.name}} </p> 
+                            <p class="text-sm mt-2 text-slate-200 font-light">{{ room?.description }}</p>
                         </div>   
                         <!-- Member preview Footer-->
                         <div class="flex items-center justify-between">
@@ -60,15 +65,17 @@
                         </div>
                     </div>
                     <div class="p-4 flex items-center justify-between">
-                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent hover:border-sky-500 shadow-sm text-sm font-medium rounded-md text-white transition focus:outline-none w-max">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                             </svg>
                             <span class="ml-2">Back</span>
                         </button>
-                        <div class="flex -space-x-1 overflow-hidden p-1">
-                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-700" :src="mentor?.photo_url" :alt="mentor?.full_name" />
+                        <div class="flex cursor-default text-sm rounded-full">
+                            <span class="sr-only">General user info</span>
+                            <img class="h-12 w-12 object-cover object-top p-1 rounded-full" :src="mentor?.photo_url" :alt="mentor?.full_name" />
                         </div>
+                                
                     </div>
                 </div>
             </div>
@@ -91,14 +98,11 @@
             </div>
 
             <div class="w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
-             
-                <router-link to="/app/dashboard/class-room/detail?a=create">
-                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-2 border-dashed border-slate-700/10 card-shadow-sm min-h-[14rem] rounded dark:border-slate-700/50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-300 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                    </div>
-                </router-link>
+                <CardClassRoomMember
+                    v-for="member in state.dataMemebers"
+                    :key="member.user_id"
+                    :member="member"
+                />
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />
                 </div>
@@ -134,7 +138,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                         </svg>
                     </span>
-                    <span>Tambahkan kelas kamu disini, dan mulai mengajar.</span>
+                    <span>Details kelas kamu disini.</span>
                 </p>
             </div>
         </section>
@@ -144,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, onUpdated, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
@@ -153,6 +157,7 @@ import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import { Room } from '@/types/room.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
+import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -160,14 +165,15 @@ const roomService = useClassRoom();
 const userService = useUser();
 
 const { currentUser } = storeToRefs(userService);
-const { isLoading, room, mentor} = storeToRefs(roomService);
+const { isLoading, room, members, mentor} = storeToRefs(roomService);
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
+    dataMemebers:computed(()=> members.value),
     option: false
 });
 
-onMounted(()=>{ 
+onMounted(async () => { 
     roomService.getRoom(route.query.id as Room['id']);
 })
 

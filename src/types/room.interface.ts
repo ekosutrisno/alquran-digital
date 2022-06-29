@@ -12,6 +12,8 @@ export interface Room extends InfoMetadata {
     mentor: DocumentReference;
     ratings: number;
     heroImage: string;
+    isActive: boolean;
+    members: string[];
 }
 
 export interface RoomData extends InfoMetadata {
@@ -25,5 +27,7 @@ export interface RoomData extends InfoMetadata {
     mentor: User;
     ratings: number;
     heroImage: string;
+    isActive: boolean;
+    members: User[];
 }
 

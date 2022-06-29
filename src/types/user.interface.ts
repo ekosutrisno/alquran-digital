@@ -26,6 +26,7 @@ export interface User extends InfoMetadata {
     is_active: boolean;
     is_mentor: boolean;
     nationality?: string;
+    key?: string;
     rooms?: string[]
 }
 

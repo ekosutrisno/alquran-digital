@@ -12,14 +12,14 @@
                 </div>
             </div>
             <div>
-                <p class="text-5xl font-medium"> {{room.name}} </p>
+                <p class="text-5xl max-w-xs font-medium truncate"> {{room.name}} </p>
                 <p class="text-sm mt-2 truncate max-w-xs text-slate-500/75 dark:text-slate-300 font-light">{{ room.description }}</p>
             </div>   
             <!-- Member preview Footer-->
             <div class="flex items-center justify-between">
                 <p> {{ room.organization }} </p>
                 <div class="flex -space-x-1 overflow-hidden p-1">
-                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-700" :src="mentor.photo_url" :alt="mentor.full_name" />
+                    <img class="inline-block object-cover object-top h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-700" :src="mentor.photo_url" :alt="mentor.full_name" />
                 </div>
             </div>
         </div>
