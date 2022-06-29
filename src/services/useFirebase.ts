@@ -1,4 +1,3 @@
-import { getDatabase } from '@firebase/database';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -25,7 +24,6 @@ const analytics = getAnalytics(app);
 logEvent(analytics, 'notification_received');
 
 const db = getFirestore(app);
-const dbRealtime = getDatabase(app)
 const storage = getStorage(app);
 
 /** Sign With Google Provider */
@@ -35,8 +33,6 @@ export {
     auth,
     db,
     gProvider,
-    dbRealtime,
-    storage,
-    analytics
+    storage
 }
 

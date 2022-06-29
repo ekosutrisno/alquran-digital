@@ -105,12 +105,13 @@ import { useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
-import { useClassRoom } from '@/services';
+import { useClassRoom, useUser } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 
 const router = useRouter();
 const roomService = useClassRoom();
+const userService = useUser();
 const { isLast, isPush, isLoading, rooms} = storeToRefs(roomService);
 
 const state = reactive({
@@ -118,7 +119,9 @@ const state = reactive({
     option: false,
 });
 
-onMounted(()=>{ roomService.getRooms() })
+onMounted(()=>{ 
+    roomService.getRooms(userService.currentUser?.rooms as string[])
+})
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {

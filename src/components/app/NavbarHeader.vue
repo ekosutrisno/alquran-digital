@@ -7,7 +7,7 @@
               <span>
                 <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
               </span>
-              <span class="font-semibold ml-1.5">Al-Quran Digital</span>
+              <p class="font-semibold ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span></p>
           </router-link>
           <div class="hidden sm:block sm:ml-6 with-transition">
             <div class="flex space-x-4">
@@ -75,7 +75,7 @@
             <div v-if="state.isLogin">
               <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
-                <img class="h-10 w-10 p-1 object-cover object-top rounded-full" :src="state.photoUrl" alt="profile-avatar" />
+                <img class="h-10 w-10 object-cover object-top rounded-full" :src="state.photoUrl" alt="profile-avatar" />
               </MenuButton>
             </div>
             <div v-else>
