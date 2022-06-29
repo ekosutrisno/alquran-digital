@@ -75,7 +75,7 @@
                             </svg>
                         </button>
                     </div>
-                    <Svg3 aria-hidden="true" class="absolute z-10 -right-32 bottom-[85px] sm:bottom-1.5 xl:bottom-20 rotate-90"/>
+                    <Svg3 aria-hidden="true" class="absolute -right-32 bottom-[85px] sm:bottom-1.5 xl:bottom-20 rotate-90"/>
                 </div>
                 <div v-else class="mx-auto w-full my-6 with-transition">
                     <router-link to="/auth/login">

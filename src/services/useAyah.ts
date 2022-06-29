@@ -12,6 +12,7 @@ interface UseAyahState {
     surahPilihan: SurahData[];
     isPush: boolean;
     ayahTafsirSelected: AyahData | null;
+    surahTafsirSelected: SurahData | null;
 }
 
 export const useAyah = defineStore('useAyah', {
@@ -20,7 +21,8 @@ export const useAyah = defineStore('useAyah', {
         surahPilihan: new Array<SurahData>(),
         isLoading: false,
         isPush: false,
-        ayahTafsirSelected: null
+        ayahTafsirSelected: null,
+        surahTafsirSelected: null
     }),
 
     actions: {
@@ -142,7 +144,14 @@ export const useAyah = defineStore('useAyah', {
         },
 
         async onCheckTafsir(payload: AyahData) {
-            this.ayahTafsirSelected = payload;
+            const surahRef = doc(db, 'surah_collections', `${payload.sura_id}`)
+                getDoc(surahRef)
+                    .then(snapshot=>{
+                        if(snapshot.exists()){
+                            this.surahTafsirSelected = snapshot.data() as SurahData
+                            this.ayahTafsirSelected = payload;
+                        }
+                    })
         }
     }
 })
