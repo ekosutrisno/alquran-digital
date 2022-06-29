@@ -12,19 +12,19 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
                             </svg>
                         </span>
-                        <span v-if="state.ayah"> {{state.currentSurah?.surat_name}} ({{state.currentSurah?.surat_english_name}})</span> 
+                        <span v-if="ayahTafsirSelected"> {{surahTafsirSelected?.surat_name}} ({{surahTafsirSelected?.surat_english_name}})</span> 
                         <span v-else>Tafsir</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span v-if="state.ayah" class="text-sky-500 font-semibold"> {{state.currentSurah?.count_ayat}} / {{convertToArab(`${state.currentSurah?.count_ayat}`)}} </span> <span v-else class="text-sky-500 font-semibold"> 0 / {{convertToArab(`${0}`)}} </span> Ayah</p>
+                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span v-if="ayahTafsirSelected" class="text-sky-500 font-semibold"> {{surahTafsirSelected?.count_ayat}} / {{convertToArab(`${surahTafsirSelected?.count_ayat}`)}} </span> <span v-else class="text-sky-500 font-semibold"> 0 / {{convertToArab(`${0}`)}} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
-                    <div v-if="state.ayah">
-                        <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ state.currentSurah?.surat_golongan }} ({{ state.currentSurah?.revelation_type }}) &bull; <span class="font-quran">{{state.currentSurah?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span></p>
+                    <div v-if="ayahTafsirSelected">
+                        <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ surahTafsirSelected?.surat_golongan }} ({{ surahTafsirSelected?.revelation_type }}) &bull; <span class="font-quran">{{surahTafsirSelected?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span></p>
                         <p class="text-slate-600 font-quran text-2xl md:text-5xl text-right dark:text-slate-100">
-                            <span class="text-base block md:inline md:text-xl font-quicksand">{{ state.currentSurah?.surat_terjemahan }}
-                            <span class="text-xs md:text-sm">({{state.currentSurah?.surat_english_terjemahan}})</span>
+                            <span class="text-base block md:inline md:text-xl font-quicksand">{{ surahTafsirSelected?.surat_terjemahan }}
+                            <span class="text-xs md:text-sm">({{surahTafsirSelected?.surat_english_terjemahan}})</span>
                             </span>
-                            <span class="text-2xl md:text-3xl font-light"> ({{state.currentSurah?.surat_text_full}})</span> {{state.currentSurah?.surat_text}}
+                            <span class="text-2xl md:text-3xl font-light"> ({{surahTafsirSelected?.surat_text_full}})</span> {{surahTafsirSelected?.surat_text}}
                         </p>
                     </div>
                     <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
@@ -65,15 +65,16 @@
             </div>
             
             <div class="mt-8 mx-auto select-none">
-                <div v-if="state.ayah" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{state.currentSurah?.surat_golongan}})</span> | {{state.currentSurah?.surat_text_full}} </div>
+                <div v-if="ayahTafsirSelected" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{surahTafsirSelected?.surat_golongan}})</span> | {{surahTafsirSelected?.surat_text_full}} </div>
                 <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
             </div>
 
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                <CardAyahMetadata
-                    v-if="state.ayah"
-                    :ayat="state.ayah"
+                    :is-tafsir="true"
+                    v-if="ayahTafsirSelected"
+                    :ayat="ayahTafsirSelected"
                />
 
                <div class="p-4 rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
@@ -84,18 +85,18 @@
                             </svg>
                              <span class="ml-1">Tafsir Ringkas Kemenag</span>
                         </p>
-                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ state.ayah?.tafsir.id.short}}</span>
+                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ ayahTafsirSelected?.tafsir.id.short}}</span>
                     </div>
-                    <div class="mt-4 flex flex-col border-t pt-4">
+                    <div class="mt-4 flex flex-col border-t dark:border-slate-700/50 pt-4">
                         <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                              <span class="ml-1">Tafsir Kemenag</span>
                         </p>
-                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ state.ayah?.tafsir.id.long}}</span>
+                        <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ ayahTafsirSelected?.tafsir.id.long}}</span>
                     
-                        <span class="mt-8 text-xs font-semibold text-right">Tafsir Q.S {{state.ayah?.sura_id}}:{{state.ayah?.aya_number}} Sumber: QUR'AN KEMENAG</span>
+                        <span class="mt-8 text-xs font-semibold text-right">Tafsir Q.S {{ayahTafsirSelected?.sura_id}}:{{ayahTafsirSelected?.aya_number}} Sumber: QUR'AN KEMENAG</span>
                     </div>
                 </div>
             </div>
@@ -139,15 +140,14 @@ import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import { storeToRefs } from 'pinia';
 
-const ayahService = useAyah();
 const utilService = useUtil();
-const surahService = useSurah();
+const { ayahTafsirSelected, surahTafsirSelected } = storeToRefs(useAyah());
+const { surah } = storeToRefs(useSurah());
 
 const state = reactive({
-    currentSurah: computed(() => surahService.surah),
     isLogin: computed(()=>localStorage.getItem('_uid')),
-    ayah: computed(() => ayahService.ayahTafsirSelected),
     option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)

@@ -8,7 +8,7 @@
    </div>
    <div v-else>
       <CardSurahSeparateMetadata 
-         v-if="ayat.is_new_surat" 
+         v-if="ayat.is_new_surat && isTafsir == false && isFavorite == false" 
          :sura_id="ayat.sura_id"
       />
    </div>
@@ -113,7 +113,7 @@ import { useRouter } from 'vue-router';
 const ayahService = useAyah();
 const userService = useUser();
 const router = useRouter();
-const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean}>()
+const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const state = reactive({
     playAudio: false,
