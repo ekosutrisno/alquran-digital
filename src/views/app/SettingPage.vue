@@ -5,12 +5,12 @@
             <div class="inline-flex space-x-3 items-center">
                 <div class="flex cursor-default text-sm rounded-full">
                     <span class="sr-only">General user info</span>
-                    <img class="h-16 w-16 object-cover object-top p-1 rounded-full" :src="state.photoUrl" alt="profile-avatar" />
+                    <img class="h-16 w-16 object-cover object-top p-1 rounded-full" :src="getPhotoUrl" alt="profile-avatar" />
                 </div>
                 <div class="flex flex-col">
                     <h1 class="text-slate-800 inline-flex items-center space-x-2 dark:text-white text-xl font-semibold"> 
-                        <span>{{ state.me?.full_name }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" :class="[state.me?.is_active ? 'text-green-500': '']" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <span>{{ currentUser?.full_name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" :class="[currentUser?.is_active ? 'text-green-500': '']" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                         </svg>
                     </h1>
@@ -79,12 +79,13 @@
                 <!-- Content of tabs 1 -->
                 <div v-show="state.active == 1" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
                     <!-- Public profile details -->
-                    <div v-if="state.me" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
+                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.full_name" type="text" name="name" id="name" 
+                                        v-model="currentUser.full_name" type="text" name="name" id="name" 
+                                        :class="[v$.full_name.$error ? 'border-red-500' : '']"
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
                                     />
                                 </div>
@@ -95,7 +96,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         disabled
-                                        v-model="state.me.email" type="email" name="email" id="email" 
+                                        v-model="currentUser.email" type="email" name="email" id="email" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
                                     />
                                 </div>
@@ -105,7 +106,7 @@
                                 <label for="pob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Place of birth</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.pob" type="text" name="pob" id="pob" 
+                                        v-model="currentUser.pob" type="text" name="pob" id="pob" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
                                     />
                                 </div>
@@ -115,7 +116,7 @@
                                 <label for="dob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date of birth</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.dob" type="date" name="dob" id="dob" 
+                                        v-model="currentUser.dob" type="date" name="dob" id="dob" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
                                     />
                                 </div>
@@ -125,7 +126,7 @@
                                 <label for="telephone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Phone number</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.telephone" type="tel" name="telephone" id="telephone" 
+                                        v-model="currentUser.telephone" type="tel" name="telephone" id="telephone" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
                                     />
                                 </div>
@@ -135,7 +136,7 @@
                                 <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.religion" type="tel" name="religion" id="religion" 
+                                        v-model="currentUser.religion" type="tel" name="religion" id="religion" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
                                     />
                                 </div>
@@ -145,7 +146,7 @@
                                 <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.gender" type="tel" name="gender" id="gender" 
+                                        v-model="currentUser.gender" type="tel" name="gender" id="gender" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -154,7 +155,7 @@
                                 <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.nationality" type="tel" name="nationality" id="nationality" 
+                                        v-model="currentUser.nationality" type="tel" name="nationality" id="nationality" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -164,7 +165,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="state.me.hobby" type="tel" name="hobby" id="hobby" 
+                                        v-model="currentUser.hobby" type="tel" name="hobby" id="hobby" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -174,13 +175,20 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="state.me.about" type="tel" name="about" id="about" 
+                                        v-model="currentUser.about" type="tel" name="about" id="about" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
                             </div>
+                            
+                            <div v-if="v$.$errors.length" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
+                                <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                                <span class="block text-red-400" v-for="item in v$.$errors" :key="item.$uid">
+                                    {{ item.$property }}: {{item.$message}}
+                                </span>
+                            </div>
 
-                            <button type="button"  class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            <button type="button" @click="updateData" class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                                 <span>Simpan</span>
                             </button>
                     </div>
@@ -188,8 +196,8 @@
                     <!-- Profile Picture -->
                     <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
                         <p>Profile picture</p>
-                        <div class="rounded-full overflow-auto relative mt-2 ring-2 lg:w-56 lg:h-56 ring-slate-700/20 dark:ring-slate-700/50">
-                            <img class="object-cover object-top w-full h-full" :src="state.photoUrl" alt="profile-picture"/>
+                        <div class="rounded-full overflow-auto relative mt-2 ring-2 w-56 h-56 ring-slate-700/20 dark:ring-slate-700/50">
+                            <img class="object-cover object-top w-full h-full rounded-full" :src="getPhotoUrl" alt="profile-picture"/>
                             <input id="file-upload" name="file-upload" type="file" class="sr-only" @change="onUpdateAvatar">
                             <label for="file-upload" @click="onUpdateAvatar" class="absolute inset-0 rounded-full flex items-center justify-center bg-transparent group hover:bg-slate-800/20">
                                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 md:cursor-pointer text-transparent group-hover:text-indigo-100 text-opacity-0 hover:text-opacity-100 transition-al" viewBox="0 0 20 20" fill="currentColor">
@@ -198,10 +206,10 @@
                             </label>
                         </div>
                         <div class="mt-4">
-                            <p class="text-sm">{{ state.me?.username }} &bull; {{state.me?.religion}}</p>
+                            <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}}</p>
                             <p class="font-semibold mt-2">Joined on</p>
-                            <p class="text-xs">{{formatDateWithMonth(state.me?.join_at)}} ({{formatDateFromNow(state.me?.join_at)}})</p>
-                            <p class="text-xs">{{calculateAge(state.me?.dob)}} years old</p>
+                            <p class="text-xs">{{formatDateWithMonth(currentUser?.join_at)}} ({{formatDateFromNow(currentUser?.join_at)}})</p>
+                            <p class="text-xs">{{calculateAge(currentUser?.dob)}} years old</p>
                         </div>
                         <div class="inline-flex items-center space-x-2">
                             <div  class="py-2 text-sm font-medium card-shadwo-md from-indigo-500 via-indigo-400 to-purple-400 text-white px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
@@ -210,7 +218,7 @@
                                 </svg>
                                 <span> Student</span>
                             </div>
-                            <div v-if="state.me?.is_mentor" class="py-2 text-sm font-medium card-shadwo-md text-white from-yellow-500 via-yellow-400 to-orange-400 px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
+                            <div v-if="currentUser?.is_mentor" class="py-2 text-sm font-medium card-shadwo-md text-white from-yellow-500 via-yellow-400 to-orange-400 px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
@@ -223,12 +231,12 @@
                 <!-- Content of tabs 2 -->
                 <div v-show="state.active == 2" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
                     <!-- Public profile details -->
-                    <div v-if="state.me" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
+                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.full_name" type="text" name="name" id="name" 
+                                        v-model="currentUser.full_name" type="text" name="name" id="name" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
                                     />
                                 </div>
@@ -239,7 +247,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         disabled
-                                        v-model="state.me.email" type="email" name="email" id="email" 
+                                        v-model="currentUser.email" type="email" name="email" id="email" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
                                     />
                                 </div>
@@ -249,7 +257,7 @@
                                 <label for="pob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Place of birth</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.pob" type="text" name="pob" id="pob" 
+                                        v-model="currentUser.pob" type="text" name="pob" id="pob" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
                                     />
                                 </div>
@@ -259,7 +267,7 @@
                                 <label for="dob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date of birth</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.dob" type="date" name="dob" id="dob" 
+                                        v-model="currentUser.dob" type="date" name="dob" id="dob" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
                                     />
                                 </div>
@@ -269,7 +277,7 @@
                                 <label for="telephone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Phone number</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.telephone" type="tel" name="telephone" id="telephone" 
+                                        v-model="currentUser.telephone" type="tel" name="telephone" id="telephone" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
                                     />
                                 </div>
@@ -279,7 +287,7 @@
                                 <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.religion" type="tel" name="religion" id="religion" 
+                                        v-model="currentUser.religion" type="tel" name="religion" id="religion" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
                                     />
                                 </div>
@@ -289,7 +297,7 @@
                                 <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.gender" type="tel" name="gender" id="gender" 
+                                        v-model="currentUser.gender" type="tel" name="gender" id="gender" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -298,7 +306,7 @@
                                 <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="state.me.nationality" type="tel" name="nationality" id="nationality" 
+                                        v-model="currentUser.nationality" type="tel" name="nationality" id="nationality" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -308,7 +316,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="state.me.hobby" type="tel" name="hobby" id="hobby" 
+                                        v-model="currentUser.hobby" type="tel" name="hobby" id="hobby" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -318,7 +326,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="state.me.about" type="tel" name="about" id="about" 
+                                        v-model="currentUser.about" type="tel" name="about" id="about" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -350,14 +358,25 @@ import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/he
 import { computed, reactive } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { User } from '@/types/user.interface';
+import { required, email} from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 
 const userService = useUser();
 const router = useRouter();
+const { currentUser, getPhotoUrl } = storeToRefs(userService);
+
+const rules = computed(()=> {
+    return {
+        full_name: { required },
+        email: {required, email}
+    }
+})
+
+const v$ = useVuelidate(rules.value, currentUser.value as any);
 
 const state = reactive({
-    me: computed(()=> userService.currentUser),
-    photoUrl: computed(()=> userService.getPhotoUrl),
-    surahName: computed(()=> userService.getSurahNameBacaan),
     isLogedIn: computed(()=> localStorage.getItem('_uid')),
     active: 1,
     titile: 'Public profile'
@@ -399,9 +418,15 @@ const onUpdateAvatar = (event: any) =>{
             alert("Max photo size is 2Mb!")
         }else{
             // Realtime updated
-          userService.updateFotoProfile(newPhotoObject as File, state.me?.user_id as string);
+          userService.updateFotoProfile(newPhotoObject as File, currentUser?.value?.user_id as string);
         }
       }
+}
+
+async function updateData() {
+    const result = await v$.value.$validate();
+    if(result)
+        userService.updateCurrentUserData(currentUser.value as User)
 }
 
 </script>

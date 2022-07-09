@@ -117,7 +117,7 @@ export const useUser = defineStore('useUser', {
             const docRef = doc(db, "user_collections", user.user_id);
             setDoc(docRef, user, { merge: true })
                 .then(() => {
-                    toast.info(`Profile data has been updated.`)
+                    toast.info(`Public Profile has been updated.`)
                 });
         },
 

@@ -35,11 +35,11 @@
                     </div>
 
                     <div class="flex items-center justify-end">
-                    <div class="text-sm">
-                        <router-link to="/auth/reset-password" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
-                        Forgot your password?
-                        </router-link>
-                    </div>
+                        <div class="text-sm">
+                            <router-link to="/auth/reset-password" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                            Forgot your password?
+                            </router-link>
+                        </div>
                     </div>
                     <div v-if="v$.$errors.length" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
                         <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { LockClosedIcon } from '@heroicons/vue/solid';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import { useRouter } from 'vue-router';
@@ -98,10 +98,12 @@ import { storeToRefs } from 'pinia';
 const router = useRouter();
 const authService = useAuth();
 const userService = useUser();
-const rules = {
-    email: {required, email},
-    password: {required, minLength: minLength(6)}
-}
+const rules = computed(()=>{
+    return {
+        email: {required, email},
+        password: {required, minLength: minLength(6)}
+    }
+})
 
 const { error } = storeToRefs(authService)
 
@@ -113,7 +115,7 @@ const state = reactive({
     isLoginProcess: false
 })
 
-const v$ = useVuelidate(rules,state.auth);
+const v$ = useVuelidate(rules, state.auth);
 
 onMounted(()=>{
     if (localStorage.getItem('_uid')) 
