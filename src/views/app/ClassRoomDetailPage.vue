@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="p-4 flex items-center justify-between">
-                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent hover:border-sky-500 shadow-sm text-sm font-medium rounded-md text-white transition focus:outline-none w-max">
+                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border-2 border-transparent hover:border-sky-500 shadow-sm text-sm font-medium rounded-md text-white transition focus:outline-none w-max">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                             </svg>

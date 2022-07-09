@@ -5,7 +5,7 @@
             <div class="flex cursor-default text-sm rounded-full">
                 <span class="sr-only">Member user info</span>
                 <div class="h-12 w-12 rounded-full overflow-hidden">
-                    <img class="object-cover object-top" :src="member.photo_url" alt="profile-avatar" />
+                    <img class="object-cover h-full w-full object-top" :src="member.photo_url" alt="profile-avatar" />
                 </div>
             </div>
             <div class="flex w-full items-start justify-between">
