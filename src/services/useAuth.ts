@@ -1,3 +1,4 @@
+import { User } from '@/types/user.interface';
 import { confirmPasswordReset, deleteUser, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
@@ -135,7 +136,9 @@ export const useAuth = defineStore('useAuth', {
           * @returns Promise
           */
         async updateCurrentUserPasswod(newPassword: string, currentUserPassword: string): Promise<void> {
-            const currentUser = auth.currentUser as any
+            const currentUser = auth.currentUser as any;
+            const userService = useUser();
+            const user = userService.currentUser as User;
 
             const credential = EmailAuthProvider.credential(
                 currentUser.email as string,
@@ -143,9 +146,10 @@ export const useAuth = defineStore('useAuth', {
             );
 
             reauthenticateWithCredential(currentUser, credential).then(() => {
-                updatePassword(auth.currentUser as any, newPassword)
+                updatePassword(currentUser, newPassword)
                     .then(() => {
-                        toast.success("Your Password has been update succesfully.")
+                        userService.updateCurrentUserData(user,{isSilent: true})
+                            .then(() => toast.success("Password has been updated."))
                     }).catch((error) => {
                         this.setErrorData(error);
                     });

@@ -113,11 +113,15 @@ export const useUser = defineStore('useUser', {
          * @param  {User} user
          * @description Update All Detail User Data Property
          */
-        async updateCurrentUserData(user: User) {
+        async updateCurrentUserData(user: User, options: {isSilent: boolean}) {
             const docRef = doc(db, "user_collections", user.user_id);
+
+            user.lastModifiedDate = Date.now();
+
             setDoc(docRef, user, { merge: true })
                 .then(() => {
-                    toast.info(`Public Profile has been updated.`)
+                    if(!options.isSilent)
+                        toast.info(`Public Profile has been updated.`)
                 });
         },
 
