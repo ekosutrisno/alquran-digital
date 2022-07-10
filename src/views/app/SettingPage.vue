@@ -77,7 +77,7 @@
                 </div>
 
                 <!-- Content of tabs 1 -->
-                <div v-show="state.active == 1" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
+                <div v-show="state.active == 1" class="w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 pt-6 px-2">                   
                     <!-- Public profile details -->
                     <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
                             <div>
@@ -229,122 +229,9 @@
                     
                 </div>
                 <!-- Content of tabs 2 -->
-                <div v-show="state.active == 2" class="w-full grid md:grid-cols-6 md:gap-4 pt-6 px-2">                   
-                    <!-- Public profile details -->
-                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.full_name" type="text" name="name" id="name" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Your name may appear around Al-Quran Digital where you contribute or are mentioned. You can remove it at any time.</p>
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        disabled
-                                        v-model="currentUser.email" type="email" name="email" id="email" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">You can manage verified email addresses in your email settings.</p>
-                            </div>
-                            <div>
-                                <label for="pob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Place of birth</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.pob" type="text" name="pob" id="pob" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Place of your birth date.</p>
-                            </div>
-                            <div>
-                                <label for="dob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date of birth</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.dob" type="date" name="dob" id="dob" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Your date of birth.</p>
-                            </div>
-                            <div>
-                                <label for="telephone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Phone number</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.telephone" type="tel" name="telephone" id="telephone" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Your phone should an active number.</p>
-                            </div>
-                            <div>
-                                <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.religion" type="tel" name="religion" id="religion" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
-                                    />
-                                </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Recognized religions, Islam, Protestant Christianity, Catholic Christianity, Buddhism, Hinduism, and Confucianism.</p>
-                            </div>
-                            <div>
-                                <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.gender" type="tel" name="gender" id="gender" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input
-                                        v-model="currentUser.nationality" type="tel" name="nationality" id="nationality" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label for="hobby" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Hobby</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <textarea
-                                        rows="3"
-                                        v-model="currentUser.hobby" type="tel" name="hobby" id="hobby" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label for="about" class="block text-sm font-medium text-slate-700 dark:text-slate-300">About</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <textarea
-                                        rows="3"
-                                        v-model="currentUser.about" type="tel" name="about" id="about" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
-                                    />
-                                </div>
-                            </div>
-
-                            <button type="button"  class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                                <span class="mr-2">Simpan</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </button>
-                    </div>
-
-                    <!-- Profile Picture -->
-                    <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
-                        
-                    </div>
-                    
+                <div v-show="state.active == 2" class="w-full grid md:grid-cols-2 md:gap-4 pt-6 px-2">                   
+                    <!-- Update Password-->
+                    <UpdatePassword />
                 </div>
             </div>
            
@@ -362,6 +249,7 @@ import { storeToRefs } from 'pinia';
 import { User } from '@/types/user.interface';
 import { required, email} from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
+import UpdatePassword from '@/components/app/UpdatePassword.vue';
 
 const userService = useUser();
 const router = useRouter();
@@ -426,7 +314,8 @@ const onUpdateAvatar = (event: any) =>{
 async function updateData() {
     const result = await v$.value.$validate();
     if(result)
-        userService.updateCurrentUserData(currentUser.value as User)
+        userService.updateCurrentUserData(currentUser.value as User, {isSilent: false});
 }
+
 
 </script>

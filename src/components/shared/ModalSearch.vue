@@ -4,7 +4,7 @@
       <div class="fixed inset-0 bg-gray-900/75 backdrop-blur" />
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex w-full items-start justify-center min-h-full p-4 sm:p-0">
-            <DialogPanel class="relative w-full bg-white bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
+            <DialogPanel class="relative w-full bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
               <div class="bg-white max-h-[36rem] flex flex-col rounded-2xl justify-between dark:bg-slate-800 border-2 border-transparent dark:border-slate-700/75">
                 <div class="w-full border-b px-4 inline-flex items-center border-slate-700/10 dark:border-slate-700/50 flex-shrink-0 h-max">
                   <svg width="24" height="24" fill="none" aria-hidden="true" class="flex-none text-slate-400">
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue'
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
