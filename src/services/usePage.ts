@@ -1,5 +1,5 @@
 import { PageMetadata } from "@/types/alquran.interface";
-import { collection, DocumentData, DocumentReference, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
+import { collection, DocumentData, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { db } from "./useFirebase";
 interface UsePageState {
@@ -68,5 +68,10 @@ export const usePage = defineStore('usePage', {
                 this.isPush = false;
             });
         },
+    },
+    getters: {
+        filteredPage(state: UsePageState) {
+            return (q: string) => state.pages.filter(s => s.page.toString().includes(q.trim().toLowerCase()));
+        }
     }
 })

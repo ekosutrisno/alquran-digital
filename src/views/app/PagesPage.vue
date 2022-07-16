@@ -45,10 +45,23 @@
             <div v-if="isLoading" class="flex items-center justify-center">
                 <Spinner />
             </div>
-
+            <div class="flex items-center justify-center mt-6 w-full mx-auto">
+                <div class="w-full flex flex-col justify-center">
+                    <input
+                        type="text"
+                        v-model="searchQuery"
+                        placeholder="Type the page number"
+                        class="bg-white dark:bg-slate-800 dark:text-white card-shadow-sm rounded-md w-full max-w-lg mx-auto appearance-none focus:ring-sky-500 border-slate-700/20 dark:border-slate-700/50"
+                    >
+                                
+                    <div v-if="!filteredPage(searchQuery).length" class="w-full with-transition ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto mt-10 card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
+                        <p class="mx-auto">No Result data found!</p>
+                    </div>
+                </div>
+            </div>
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardPageMetadata 
-                    v-for="page in pages" 
+                    v-for="page in filteredPage(searchQuery)" 
                     :key="page.page"
                     :page="page"
                 />
@@ -77,12 +90,14 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 
 const pageService = usePage();
-const { pages, lastPageVisible, isLast, isLoading, isPush } = storeToRefs(pageService);
+const { pages, lastPageVisible, isLast, isLoading, isPush, filteredPage } = storeToRefs(pageService);
 
 onMounted(()=> {
     if(!pages.value.length)
         pageService.getPageMetadata();
 });
+
+const searchQuery = ref('');
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {

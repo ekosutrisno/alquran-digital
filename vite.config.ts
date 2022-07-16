@@ -5,12 +5,15 @@ import { VitePWA } from 'vite-plugin-pwa'
 import * as path from 'path';
 
 export default defineConfig({
-  test:{},
+  test:{
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+    },
+  },
   plugins: [
     vue(),
     VitePWA({
-      registerType: 'prompt',
-
+      registerType: 'autoUpdate',
       manifest: {
         name: "Al-Quran Digital",
         short_name: "Al-Quran Digital",

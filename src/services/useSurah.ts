@@ -176,5 +176,10 @@ export const useSurah = defineStore('useSurah', {
                     this.isPush = false;
                 });
         },
+    },
+    getters: {
+        filteredSurah(state: UseSurahState) {
+            return (q: string) => state.surahs.filter(s => s.surat_name.toLowerCase().includes(q.trim().toLowerCase()));
+        }
     }
 })
