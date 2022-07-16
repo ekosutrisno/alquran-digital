@@ -47,7 +47,7 @@
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" fill="currentColor" data-view-component="true" class="text-slate-600 w-4 h-4 mr-2">
                         <path fill-rule="evenodd" d="M11.134 1.535C9.722 2.562 8.16 4.057 6.889 5.312 5.8 6.387 5.041 7.401 4.575 8.294a3.745 3.745 0 00-3.227 1.054c-.43.431-.69 1.066-.86 1.657a11.982 11.982 0 00-.358 1.914A21.263 21.263 0 000 15.203v.054l.75-.007-.007.75h.054a14.404 14.404 0 00.654-.012 21.243 21.243 0 001.63-.118c.62-.07 1.3-.18 1.914-.357.592-.17 1.226-.43 1.657-.861a3.745 3.745 0 001.055-3.217c.908-.461 1.942-1.216 3.04-2.3 1.279-1.262 2.764-2.825 3.775-4.249.501-.706.923-1.428 1.125-2.096.2-.659.235-1.469-.368-2.07-.606-.607-1.42-.55-2.069-.34-.66.213-1.376.646-2.076 1.155zm-3.95 8.48a3.76 3.76 0 00-1.19-1.192 9.758 9.758 0 011.161-1.607l1.658 1.658a9.853 9.853 0 01-1.63 1.142zM.742 16l.007-.75-.75.008A.75.75 0 00.743 16zM12.016 2.749c-1.224.89-2.605 2.189-3.822 3.384l1.718 1.718c1.21-1.205 2.51-2.597 3.387-3.833.47-.662.78-1.227.912-1.662.134-.444.032-.551.009-.575h-.001V1.78c-.014-.014-.112-.113-.548.027-.432.14-.995.462-1.655.942zM1.62 13.089a19.56 19.56 0 00-.104 1.395 19.55 19.55 0 001.396-.104 10.528 10.528 0 001.668-.309c.526-.151.856-.325 1.011-.48a2.25 2.25 0 00-3.182-3.182c-.155.155-.329.485-.48 1.01a10.515 10.515 0 00-.309 1.67z"></path>
                     </svg>
-                    <span class="">Appereance</span>
+                    <span class="">Appearance</span>
                 </button>
                 <button type="button" @click="setCurrentActive(4)" :class="[state.active == 4 ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <div :class="[state.active == 4 ? 'bg-sky-500': '']" class="absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
@@ -75,9 +75,9 @@
                 </div>
 
                 <!-- Content of tabs 1 -->
-                <div v-show="state.active == 1" class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 pt-6 px-2">                   
+                <div v-show="state.active == 1" class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 py-6 px-2">                   
                     <!-- Public profile details -->
-                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
+                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-5">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Full name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -228,7 +228,7 @@
                 </div>
                 
                 <!-- Content of tabs 2 -->
-                <div v-show="state.active == 2" class="with-transition w-full grid pt-6 px-2 space-y-8">                   
+                <div v-show="state.active == 2" class="with-transition w-full grid py-6 px-2 space-y-8">                   
                     <!-- Connected Account -->
                     <ConnectedAccount/>
 
@@ -240,7 +240,13 @@
                 </div>
 
                 <!-- Content of tabs 3 -->
-                <div v-show="state.active == 4" class="with-transition w-full grid pt-6 px-2 space-y-8">                   
+                <div v-show="state.active == 3" class="with-transition w-full grid py-6 px-2 space-y-8">                   
+                    <!-- Appearance -->
+                    <Appearance />
+                </div>
+
+                <!-- Content of tabs 4 -->
+                <div v-show="state.active == 4" class="with-transition w-full grid py-6 px-2 space-y-8">                   
                     <!-- Danger Zone -->
                     <DangerZone />
                 </div>
@@ -264,6 +270,7 @@ import UpdatePassword from '@/components/app/UpdatePassword.vue';
 import UpdateEmail from '@/components/app/UpdateEmail.vue';
 import ConnectedAccount from '@/components/app/ConnectedAccount.vue';
 import DangerZone from '@/components/app/DangerZone.vue';
+import Appearance from '@/components/app/Appearance.vue';
 
 const userService = useUser();
 const router = useRouter();
@@ -295,7 +302,7 @@ const setCurrentActive = (currentActive: number) => {
             state.titile = 'Account';
             break;
         case 3:
-            state.titile = 'Appereance';
+            state.titile = 'Appearance';
             break;
         case 4:
             state.titile = 'Danger zone';

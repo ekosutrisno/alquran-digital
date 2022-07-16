@@ -15,7 +15,7 @@
       "@/*": ["./src/*"]
     },
     "skipLibCheck": true,
-    "types": ["vite-plugin-pwa/client", "vite/client", "node"]
+    "types": ["vitest", "vite/client", "vite-plugin-pwa/client", "node"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

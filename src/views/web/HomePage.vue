@@ -6,8 +6,7 @@
       <p class="text-center text-sm md:text-lg text-slate-700 dark:text-slate-300 max-w-2xl mt-4 md:mt-8 leading-6">Mengelola bacaan dan hafalan <span class="text-sky-500 font-semibold">Al-Quran</span> lebih mudah dengan fitur Personal Bacaan, Organization/Madrasah, Bacaan Terakhir, Menyimpan Ayat-ayat Favorit, dan juga bisa mendengarkan langsung via audio.</p>
 
       <div class="mt-10">
-       <Button v-if="isLoggedIn" :text="`Go to dahsboard`" :to="`/app/dashboard`" />
-       <Button v-else :text="`Get started`" :to="`/home-dashboard`" />
+       <Button :text="`Baca Al-Quran`" :to="`/app/dashboard`" />
       </div>
   </div>
   <footer class="text-sm relative leading-6">
@@ -22,13 +21,10 @@
 <script setup lang="ts">
 import Button from '@/components/shared/Button.vue';
 import { useAuth } from '@/services';
-import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const authService = useAuth();
 const router = useRouter();
-
-const { isLoggedIn } = storeToRefs(authService);
 
 const onLogoutAction = () => {
   localStorage.removeItem('_uid');
