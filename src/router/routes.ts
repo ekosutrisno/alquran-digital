@@ -7,7 +7,6 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 
 // View Web Section Import
 import HomePage from '@/views/web/HomePage.vue';
-import HomeDashboard from '@/views/web/HomeDashboard.vue';
 
 // View App Section Import
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
@@ -57,27 +56,7 @@ const routes: RouteRecordRaw[] = [
                     description: 'Welcome to the Al-Quran Digital app.',
                     requiresAuth: false
                 }
-            },
-            {
-                path: 'home-dashboard',
-                name: 'HomeDashboard',
-                component: HomeDashboard,
-                meta: {
-                    title: 'Home Dashboard',
-                    description: 'Home Dashboard Page',
-                    requiresAuth: false
-                }
-            },
-            // {
-            //     path: 'insert-data-page',
-            //     name: 'InsertDataPage',
-            //     component: () => import("@/views/web/InsertDataPage.vue"),
-            //     meta: {
-            //         title: 'Insert Data',
-            //         description: 'Insert Data Page',
-            //         requiresAuth: false
-            //     }
-            // },
+            }
         ]
     },
     {

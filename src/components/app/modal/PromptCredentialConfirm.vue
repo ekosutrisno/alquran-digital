@@ -1,7 +1,7 @@
 <template>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10 font-quicksand" @close="closeModal">
-      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur" />
+      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur-sm" />
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex w-full items-start justify-center min-h-full p-4 sm:p-0">
             <DialogPanel class="relative w-full rounded-2xl overflow-hidden transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">

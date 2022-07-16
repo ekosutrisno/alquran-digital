@@ -3,16 +3,22 @@
         <!-- Section 1-->
         <section class="grid gap-y-4 xl:gap-4 grid-cols-1 xl:grid-cols-4">
             <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
-                <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
-                    <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-                            </svg>
-                        </span>
-                        <span>Quick Menu</span> 
-                    </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
+                <div class="flex items-center justify-between">
+                    <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
+                        <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+                                </svg>
+                            </span>
+                            <span>Quick Menu</span>
+                        </p>
+                        <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
+                    </div>
+                    <svg fill="none" aria-hidden="true" @click="onSearch(true)" class="flex-none sm:hidden w-8 h-8">
+                        <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                    </svg>
                 </div>
                 <div class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 sm:px-2">
                     <QuickMenu 
@@ -116,6 +122,7 @@
                 />
             </div>
         </section>
+        <ModalSearch :open="state.isSearch" @close-modal="onSearch"/>
     </div>
 </template>
 
@@ -126,6 +133,7 @@ import MainMenu, { MainMenuType } from '@/components/app/MainMenu.vue';
 import { useUser } from '@/services';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import ModalSearch from '@/components/shared/ModalSearch.vue';
 
 const userService = useUser();
 const router = useRouter();
@@ -133,7 +141,8 @@ const router = useRouter();
 const state = reactive({
     bacaanku: computed(()=> userService.currentUser?.bacaanku),
     surahName: computed(()=> userService.getSurahNameBacaan),
-    isLogedIn: computed(()=> localStorage.getItem('_uid'))
+    isLogedIn: computed(()=> localStorage.getItem('_uid')),
+    isSearch: false
 })
 
 const mainMenu: MainMenuType[] = [
@@ -215,6 +224,10 @@ const onLanjutBacaan = ()=>{
             an: state.bacaanku?.aya_number, 
             next_bacaan: 'true'}
         })
+}
+
+const onSearch = (flag: boolean)=>{
+    state.isSearch = flag;
 }
 
 </script>

@@ -1,7 +1,7 @@
 <template>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10 font-quicksand" @close="onCloseModal">
-      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur" />
+      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur-sm" />
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex w-full items-start justify-center min-h-full p-4 sm:p-0">
             <DialogPanel class="relative w-full bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
@@ -12,7 +12,7 @@
                     <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
                   </svg>
                   <input type="text" v-model="state.query" class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
-                  <button type="button" @click="onCloseModal" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Cancel</button>
+                  <button type="button" @click="onCloseModal" class="text-xs bg-slate-100 hover:bg-slate-200 shadow-md text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Cancel</button>
                 </div>
                 <div class="overflow-auto w-full flex-1 flex flex-col custom-scroll">
                   <button 
