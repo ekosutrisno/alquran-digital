@@ -107,26 +107,42 @@ export const useAuth = defineStore('useAuth', {
 
             const currentUser = auth.currentUser as any
 
-            const credential = EmailAuthProvider.credential(
-                currentUser.email as string,
-                currentUserPassword
-            );
+            if(currentUser.email.toLowerCase() == newEmail.toLowerCase())
+                toast.success("Your email is the same as the current one.")
 
-            reauthenticateWithCredential(currentUser, credential).then(() => {
-                updateEmail(currentUser, newEmail)
-                    .then(async () => {
-                        const userRef = doc(db, 'tbl_users', currentUser.uid);
-                        await updateDoc(userRef, {
-                            email: newEmail
+            const user_collections = collection(db, 'user_collections');
+            const q = query(user_collections, where('email', '==', newEmail));
+
+            getDocs(q)
+                .then((snapshot) => {
+                    if (snapshot.empty) {
+
+                        const credential = EmailAuthProvider.credential(
+                            currentUser.email as string,
+                            currentUserPassword
+                        );
+
+                        reauthenticateWithCredential(currentUser, credential).then(() => {
+                            updateEmail(currentUser, newEmail)
+                                .then(async () => {
+                                    const userRef = doc(db, 'user_collections', currentUser.uid);
+                                    await updateDoc(userRef, {
+                                        lastModifiedDate: Date.now(),
+                                        email: newEmail
+                                    });
+
+                                    toast.success("Your Email has been update succesfully.")
+                                }).catch((error) => {
+                                    this.setErrorData(error);
+                                });
+                        }).catch((error) => {
+                            this.setErrorData(error)
                         });
+                    } else {
+                        toast.success("The Email has been taken.")
+                    }
+                })
 
-                        toast.success("Your Email has been update succesfully.")
-                    }).catch((error) => {
-                        this.setErrorData(error);
-                    });
-            }).catch((error) => {
-                this.setErrorData(error)
-            });
         },
 
         /**
@@ -148,7 +164,7 @@ export const useAuth = defineStore('useAuth', {
             reauthenticateWithCredential(currentUser, credential).then(() => {
                 updatePassword(currentUser, newPassword)
                     .then(() => {
-                        userService.updateCurrentUserData(user,{isSilent: true})
+                        userService.updateCurrentUserData(user, { isSilent: true })
                             .then(() => toast.success("Password has been updated."))
                     }).catch((error) => {
                         this.setErrorData(error);
