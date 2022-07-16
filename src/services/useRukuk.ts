@@ -68,5 +68,10 @@ export const useRukuk = defineStore('useRukuk', {
 
                 });
         },
+    },
+    getters: {
+        filteredRukuk(state: UseRukukState) {
+            return (q: string) => state.rukuk.filter(s => s.number.toString().includes(q.trim().toLowerCase()));
+        }
     }
 })

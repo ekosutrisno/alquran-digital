@@ -45,10 +45,23 @@
              <div v-if="isLoading" class="flex my-4 items-center justify-center">
                 <Spinner />
             </div>
-
+            <div class="flex items-center justify-center mt-6 w-full mx-auto">
+                <div class="w-full flex flex-col justify-center">
+                    <input
+                        type="text"
+                        v-model="searchQuery"
+                        placeholder="Type the surah name"
+                        class="bg-white dark:bg-slate-800 dark:text-white card-shadow-sm rounded-md w-full max-w-lg mx-auto appearance-none focus:ring-sky-500 border-slate-700/20 dark:border-slate-700/50"
+                    >
+                                
+                    <div v-if="!filteredSurah(searchQuery).length" class="w-full with-transition ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto mt-10 card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
+                        <p class="mx-auto">No Result data found!</p>
+                    </div>
+                </div>
+            </div>
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
                 <CardSurahMetadata 
-                    v-for="surah in surahs" 
+                    v-for="surah in filteredSurah(searchQuery)" 
                     :key="surah.id"
                     :surah="surah"
                 />
@@ -68,13 +81,15 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 
 const surahService = useSurah();
-const { surahs, isLoading} = storeToRefs(surahService);
+const { surahs, isLoading, filteredSurah} = storeToRefs(surahService);
 
 onMounted(()=> {
     if(!surahs.value.length)
         surahService.getSurahMetada();
     }
 );
+
+const searchQuery = ref('');
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {
