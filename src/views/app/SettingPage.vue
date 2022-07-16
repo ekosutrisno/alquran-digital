@@ -56,8 +56,6 @@
                     </svg>
                     <span class="">Danger zone</span>
                 </button>
-
-
             </div>
 
             <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
@@ -77,11 +75,11 @@
                 </div>
 
                 <!-- Content of tabs 1 -->
-                <div v-show="state.active == 1" class="w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 pt-6 px-2">                   
+                <div v-show="state.active == 1" class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 pt-6 px-2">                   
                     <!-- Public profile details -->
                     <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-4">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Full name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.full_name" type="text" name="name" id="name" 
@@ -206,10 +204,10 @@
                             </label>
                         </div>
                         <div class="mt-4">
-                            <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}}</p>
+                            <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}} &bull; {{calculateAge(currentUser?.dob)}} years old</p>
                             <p class="font-semibold mt-2">Joined on</p>
                             <p class="text-xs">{{formatDateWithMonth(currentUser?.join_at)}} ({{formatDateFromNow(currentUser?.join_at)}})</p>
-                            <p class="text-xs">{{calculateAge(currentUser?.dob)}} years old</p>
+                            <p class="text-white rounded bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>
                         </div>
                         <div class="inline-flex items-center space-x-2">
                             <div  class="py-2 text-sm font-medium card-shadwo-md from-indigo-500 via-indigo-400 to-purple-400 text-white px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
@@ -228,10 +226,23 @@
                     </div>
                     
                 </div>
+                
                 <!-- Content of tabs 2 -->
-                <div v-show="state.active == 2" class="w-full grid md:grid-cols-2 md:gap-4 pt-6 px-2">                   
+                <div v-show="state.active == 2" class="with-transition w-full grid pt-6 px-2 space-y-8">                   
+                    <!-- Connected Account -->
+                    <ConnectedAccount/>
+
                     <!-- Update Password-->
                     <UpdatePassword />
+
+                    <!-- Update Email -->
+                    <UpdateEmail />
+                </div>
+
+                <!-- Content of tabs 3 -->
+                <div v-show="state.active == 4" class="with-transition w-full grid pt-6 px-2 space-y-8">                   
+                    <!-- Danger Zone -->
+                    <DangerZone />
                 </div>
             </div>
            
@@ -250,6 +261,9 @@ import { User } from '@/types/user.interface';
 import { required, email} from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 import UpdatePassword from '@/components/app/UpdatePassword.vue';
+import UpdateEmail from '@/components/app/UpdateEmail.vue';
+import ConnectedAccount from '@/components/app/ConnectedAccount.vue';
+import DangerZone from '@/components/app/DangerZone.vue';
 
 const userService = useUser();
 const router = useRouter();

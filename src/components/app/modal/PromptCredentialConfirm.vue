@@ -13,11 +13,11 @@
                       </div>
                       <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                         <DialogTitle as="h3" class="text-lg leading-6 font-medium text-slate-800 dark:text-slate-50">
-                          Update password
+                           Confirm access
                         </DialogTitle>
                         <div class="mt-2">
                           <p class="text-sm text-slate-700 dark:text-slate-300">
-                            Are you sure you want to update your password? Beacuse this password replace your login password and will be the default password. Type your password bellow to confirm.
+                            Are you sure you want to update? If you are sure type your password below to confirm.
                           </p>
                         </div>
                         <form id="passwordConfirm" class="mt-4">
