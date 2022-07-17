@@ -14,11 +14,11 @@
                         </span>
                         <span> {{surah?.surat_name}} ({{surah?.surat_english_name}})</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{surah?.count_ayat}} / {{convertToArab(`${surah?.count_ayat}`)}} </span> Ayah</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{surah?.count_ayat}} / {{convertToArab(`${surah?.count_ayat}`)}} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ surah?.surat_golongan }} ({{ surah?.revelation_type }}) &bull; <span class="font-quran">{{surah?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span> </p>
-                    <p class="text-slate-600 font-quran text-2xl md:text-5xl text-right dark:text-slate-100"> 
+                    <p class="text-slate-700 font-quran text-2xl md:text-5xl text-right dark:text-slate-100"> 
                         <span class="text-sm block md:inline md:text-xl font-quicksand">{{ surah?.surat_terjemahan }} 
                             <span class="text-xs md:text-sm">({{surah?.surat_english_terjemahan}})</span>
                         </span>
@@ -53,7 +53,7 @@
                     <span>Ayahs</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <button @click="hideMenuOption" type="button" class="text-slate-500 relative group hover:bg-sky-500 rounded p-0.5 transition">
+                    <button @click="hideMenuOption" type="button" class="text-slate-700 relative group hover:bg-sky-500 rounded p-0.5 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
@@ -64,7 +64,7 @@
                         </div>
                     </button>
                     <p class="text-white font-medium py-0.5 px-2 rounded bg-sky-500">{{ state.sizeSelected.size }}</p>
-                    <p class="text-sm text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
                 </div>
             </div>
             

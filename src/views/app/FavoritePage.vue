@@ -14,7 +14,7 @@
                         </span>
                         <span>Favorit</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{state.favorites.length}} / {{convertToArab(`${state.favorites.length}`)}} </span> Ayah</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{state.favorites.length}} / {{convertToArab(`${state.favorites.length}`)}} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
@@ -41,7 +41,7 @@
                     <span>Ayahs</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <button @click="hideMenuOption" type="button" class="text-slate-500 relative group hover:bg-sky-500 rounded p-0.5 transition">
+                    <button @click="hideMenuOption" type="button" class="text-slate-700 relative group hover:bg-sky-500 rounded p-0.5 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
@@ -52,7 +52,7 @@
                         </div>
                     </button>
                     <p class="text-sky-500 font-medium">{{ state.sizeSelected.size }}</p>
-                    <p class="text-sm text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
                 </div>
             </div>
             
