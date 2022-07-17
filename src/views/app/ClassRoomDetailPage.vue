@@ -5,7 +5,7 @@
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
-                <div class="flex cursor-default text-sm rounded-full p-1 bg-slate-100 ring-1 ring-slate-700/10 dark:bg-slate-700/50">
+                <div class="flex cursor-default text-sm rounded-full p-1 bg-slate-100 ring-1 ring-slate-700/20 dark:bg-slate-700/50">
                     <span class="sr-only">General user info</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-800 dark:text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                         <path d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -20,18 +20,18 @@
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                         </svg>
                     </h1>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">Your personal class</p>
+                    <p class="text-slate-700 dark:text-slate-400 text-sm">Your personal class</p>
                 </div>
             </div>
             <div class="pl-20 md:pl-0 space-x-2">
-                <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="lg:hidden">Class Room</span>
                     <span class="hidden lg:inline">Go to class room dashboard</span>
                 </router-link>
-                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="inline">Edit</span>
                 </router-link>
-                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span>Advanced</span>
                 </router-link>
             </div>
@@ -93,7 +93,7 @@
                     <span>Members</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <p class="text-sm text-slate-500 dark:text-slate-50">List semua anggota kelas.</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">List semua anggota kelas.</p>
                 </div>
             </div>
 

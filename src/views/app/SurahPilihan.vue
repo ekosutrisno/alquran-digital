@@ -13,7 +13,7 @@
                         </span>
                         <span>Surah Pilihan</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">114</span> Surah</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">114</span> Surah</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
@@ -39,7 +39,7 @@
                     </span>
                     <span>All Surah</span> 
                 </p>
-                <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Kamu dapat mencari semua metadata surah disini</p>
+                <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Kamu dapat mencari semua metadata surah disini</p>
             </div>
 
              <div v-if="isLoading" class="flex my-4 items-center justify-center">

@@ -14,11 +14,11 @@
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                         </svg>
                     </h1>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">Your personal account</p>
+                    <p class="text-slate-700 dark:text-slate-400 text-sm">Your personal account</p>
                 </div>
             </div>
             <div class="pl-20 md:pl-0">
-                <router-link to="/app/dashboard" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link to="/app/dashboard" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="lg:hidden">Dashboard</span>
                     <span class="hidden lg:inline">Go to your personal dashboard</span>
                 </router-link>
@@ -71,7 +71,7 @@
                         </span>
                         <span> {{ state.titile }} </span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Details content of menu</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Details content of menu</p>
                 </div>
 
                 <!-- Content of tabs 1 -->

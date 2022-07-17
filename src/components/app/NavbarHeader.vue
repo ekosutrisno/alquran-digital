@@ -28,7 +28,7 @@
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
-            <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+            <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-700 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
               <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
                 <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
@@ -112,7 +112,7 @@
 
                 <MenuItem v-slot="{ active }">
                   <router-link to="/app/dashboard/settings" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="text-slate-400 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="text-slate-700 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>

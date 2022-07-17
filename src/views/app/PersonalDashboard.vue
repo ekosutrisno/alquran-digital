@@ -13,9 +13,9 @@
                             </span>
                             <span>Quick Menu</span>
                         </p>
-                        <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Menu yang sering digunakan</p>
+                        <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Menu yang sering digunakan</p>
                     </div>
-                    <svg fill="none" aria-hidden="true" @click="onSearch(true)" class="flex-none sm:hidden w-8 h-8">
+                    <svg fill="none" aria-hidden="true" @click="onSearch(true)" class="flex-none sm:hidden dark:text-white w-8 h-8">
                         <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                         <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
                     </svg>
@@ -44,32 +44,32 @@
                 <div v-if="state.isLogedIn && state.bacaanku" class="grid grid-cols-2 relative w-auto">
                     <div class="p-2">
                         <div>
-                            <span class="text-sm text-slate-400 dark:text-slate-100">Juz</span>
+                            <span class="text-sm text-slate-700 dark:text-slate-100">Juz</span>
                             <h1 class="text-6xl font-semibold text-sky-500 dark:text-sky-400"> {{state.bacaanku?.juz_id}}</h1>
                         </div>
                         <div>
-                            <span class="text-sm text-slate-400 dark:text-slate-100">Surah</span>
+                            <span class="text-sm text-slate-700 dark:text-slate-100">Surah</span>
                             <h1 class="md:text-lg font-semibold dark:text-white">{{state.surahName}}</h1>
                         </div>
                     </div>
                     <div>
                         <div class="grid grid-cols-2">
                             <div>
-                                <span class="text-sm text-slate-400 dark:text-slate-100">Manzil</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Manzil</span>
                                 <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.manzil}}</h1>
                             </div>
                             <div>
-                                <span class="text-sm text-slate-400 dark:text-slate-100">Ayat</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Ayat</span>
                                 <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.aya_number}}</h1>
                             </div>
                         </div>
                         <div class="grid grid-cols-2">
                             <div>
-                                <span class="text-sm text-slate-400 dark:text-slate-100">Halaman</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Halaman</span>
                                 <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.page_number}}</h1>
                             </div>
                             <div>
-                                <span class="text-sm text-slate-400 dark:text-slate-100">Rukuk</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Rukuk</span>
                                 <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.rukuk}}</h1>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                     </span>
                     <span>All Menu</span> 
                 </p>
-                <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua feature dan menu yang tersedia</p>
+                <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua feature dan menu yang tersedia</p>
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">

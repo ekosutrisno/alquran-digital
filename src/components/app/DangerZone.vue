@@ -8,7 +8,7 @@
             <span>Danger zone</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">
-            <p class="text-sm text-slate-600 dark:text-slate-300">This action cannot be undone, please think again before clicking the button below.</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300">This action cannot be undone, please think again before clicking the button below.</p>
         </div>
     </div>
     <div class="flex items-center space-x-4 text-sm dark:text-white">

@@ -8,7 +8,7 @@
    <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-20 md:pb-0">
       <router-view />
    </div>
-   <footer class="text-xs hidden sm:block text-slate-900 relative dark:text-white p-3 pb-5 text-center">
+   <footer class="text-xs text-slate-900 relative dark:text-white p-3 pb-5 text-center">
       Al-Quran Digital 2.0 &copy;{{new Date().getFullYear()}}
    </footer>
 </div>

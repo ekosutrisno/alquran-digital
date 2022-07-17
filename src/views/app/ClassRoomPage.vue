@@ -14,7 +14,7 @@
                         </span>
                        <span >Class Room</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-500 dark:text-slate-50">Semua kelasmu ada di sini</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua kelasmu ada di sini</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
@@ -42,7 +42,7 @@
                     <span>Your Class</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <p class="text-sm text-slate-500 dark:text-slate-50">List semua kelasmu ada disini.</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">List semua kelasmu ada disini.</p>
                 </div>
             </div>
 
