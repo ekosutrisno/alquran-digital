@@ -5,12 +5,10 @@
       <NavbarHeader @search="openModal"/>
    </header>
 
-   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-20 md:pb-0">
+   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-4 md:pb-0">
       <router-view />
    </div>
-   <footer class="text-xs text-slate-900 relative dark:text-white p-3 pb-5 text-center">
-      Al-Quran Digital 2.0 &copy;{{new Date().getFullYear()}}
-   </footer>
+   <Footer />
 </div>
 <Teleport to="body">
    <ModalSearch :open="state.onSearch" @close-modal="closeModal"/>
@@ -22,6 +20,7 @@ import { useUtil } from '@/services';
 import { reactive } from 'vue';
 import ModalSearch from '@/components/shared/ModalSearch.vue';
 import { storeToRefs } from 'pinia';
+import Footer from '@/components/Footer.vue';
 
 const utilService = useUtil();
 const {wideMenu} = storeToRefs(utilService);

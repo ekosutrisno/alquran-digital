@@ -3,11 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth, useAyah } from '@/services';
+import { useAuth } from '@/services';
 import { useDark } from '@vueuse/core'
-import { onBeforeMount, onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 
-// For handling and checking dark mode configuration from localStorage
 useDark();
 
 // Authentication checking point

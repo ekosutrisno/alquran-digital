@@ -9,11 +9,6 @@
        <Button :text="`Baca Al-Quran`" :to="`/app/dashboard`" />
       </div>
   </div>
-  <footer class="text-sm relative leading-6">
-    <div class="mt-16 pt-10 text-center text-slate-900 dark:text-slate-100">
-      Al-Quran <span @click="onLogoutAction" class="cursor-pointer">Digital</span> &copy;{{new Date().getFullYear()}}
-    </div>
-  </footer>
 </div>
 
 </template>
