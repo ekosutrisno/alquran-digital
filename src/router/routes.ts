@@ -7,6 +7,8 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 
 // View Web Section Import
 import HomePage from '@/views/web/HomePage.vue';
+import PrivacyPolicyPage from '@/views/web/PrivacyPolicyPage.vue';
+import DocumentationPage from '@/views/web/DocumentationPage.vue';
 
 // View App Section Import
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
@@ -15,7 +17,6 @@ import ClassRoomDetailPage from '@/views/app/ClassRoomDetailPage.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
 import SurahPilihan from '@/views/app/SurahPilihan.vue';
-import AboutPage from '@/views/app/AboutPage.vue';
 import SurahPage from '@/views/app/SurahPage.vue';
 import PagesPage from '@/views/app/PagesPage.vue';
 import ManzilPage from '@/views/app/ManzilPage.vue';
@@ -43,8 +44,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import("../views/web/404.vue"),
                 meta: {
                     title: 'Not Found Page',
-                    description: 'The page you are looking for is not available or not found.',
-                    requiresAuth: false
+                    description: 'The page you are looking for is not available or not found.'
                 }
             },
             {
@@ -53,8 +53,25 @@ const routes: RouteRecordRaw[] = [
                 component: HomePage,
                 meta: {
                     title: 'Home Page',
-                    description: 'Welcome to the Al-Quran Digital app.',
-                    requiresAuth: false
+                    description: 'Welcome to the Al-Quran Digital app.'
+                }
+            },
+            {
+                path: 'privacy-policy',
+                name: 'PrivacyPolicyPage',
+                component: PrivacyPolicyPage,
+                meta: {
+                    title: 'About',
+                    description: 'About Page'
+                }
+            },
+            {
+                path: 'doc',
+                name: 'DocumentationPage',
+                component: DocumentationPage,
+                meta: {
+                    title: 'DocumentationPage',
+                    description: 'DocumentationPage Page'
                 }
             }
         ]
@@ -222,17 +239,6 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Surah Pilihan',
                     description: 'Surah Pilihan Page',
-                    requiresAuth: false,
-                    requiresAdmin: false
-                }
-            },
-            {
-                path: 'about',
-                name: 'AboutPage',
-                component: AboutPage,
-                meta: {
-                    title: 'About',
-                    description: 'About Page',
                     requiresAuth: false,
                     requiresAdmin: false
                 }
