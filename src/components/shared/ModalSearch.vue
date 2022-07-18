@@ -14,7 +14,7 @@
                   <input type="text" v-model="state.query" class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
                   <button type="button" @click="onCloseModal" class="text-xs bg-slate-100 hover:bg-slate-200 shadow-md text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Cancel</button>
                 </div>
-                <div class="overflow-auto w-full flex-1 flex flex-col custom-scroll">
+                <div class="overflow-auto w-full flex-1 flex flex-col with-scroll">
                   <button 
                     type="button"
                     @click="goToPage(search.to)" 

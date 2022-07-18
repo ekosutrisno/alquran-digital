@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-md mx-auto dark:text-white p-4">
+    <div class="max-w-screen-lg mx-auto dark:text-white p-4">
         <div>
             <h1 class="font-semibold text-4xl mt-4 text-center">Privacy Policy</h1>
             <p class="text-center text-sm mt-2">Last updated on July 17, 2022</p>
