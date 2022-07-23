@@ -79,6 +79,8 @@
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Vue v3+</span> (The Progressive JavaScript Framework)</li> 
                         <li><span class="font-semibold">Tailwind CSS v3+</span> (A utility-first CSS framework)</li> 
+                        <li><span class="font-semibold">Font Arab</span> (LPMQ Kemenag Indonesia)</li> 
+                        <li><span class="font-semibold">Font Latin</span> (Quicksand Google Font)</li> 
                     </ul>
                 </li>
                 <li>

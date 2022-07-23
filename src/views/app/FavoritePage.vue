@@ -63,7 +63,7 @@
             </div>
 
             <div v-if="state.isLoading" class="flex items-center justify-center">
-                <Spinner />
+                <Loader />
             </div>
 
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
@@ -74,21 +74,7 @@
                />
             </div>
 
-            <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
-                <router-link to="/auth/login">
-                    <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                        <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
-                        <div class="h-16 absolute z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
-                            <span class="font-semibold text-white">Fitur Non Aktif</span> 
-                            <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 text-sky-100 z-10 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                        </svg>
-                        <div class="bg-gray-900 absolute inset-0 z-0 bg-opacity-30"></div>
-                    </div>
-                </router-link>
-            </div>
+            <CardNotLogin v-if="!state.isLogin"/>
 
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 max-h-16 h-full p-2">
                 <p class="inline-flex items-center space-x-2">
@@ -109,11 +95,12 @@
 <script setup lang="ts">
 import { useAyah, useSurah, useUser, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
-import Spinner from '@/components/Spinner.vue';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
+import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
+import Loader from '@/components/Loader.vue';
 
 const surahService = useSurah();
 const userService = useUser();

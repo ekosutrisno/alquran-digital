@@ -44,7 +44,7 @@
             </div>
             
             <div v-if="isLoading" class="flex items-center justify-center">
-                <Spinner />
+                <Loader />
             </div>
 
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
@@ -63,9 +63,9 @@
 import { useJuz } from '@/services';
 import { onMounted, ref } from 'vue';
 import CardJuzMetadata from '@/components/app/card/CardJuzMetadata.vue';
-import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import Loader from '@/components/Loader.vue';
 
 const juzService = useJuz();
 const { juz, isLoading } = storeToRefs(juzService);

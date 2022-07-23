@@ -1,4 +1,4 @@
-import { Room } from "@/types/room.interface";
+import { Room, RoomData } from "@/types/room.interface";
 import { User } from "@/types/user.interface";
 import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, orderBy, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
@@ -35,20 +35,23 @@ export const useClassRoom = defineStore('useClassRoom', {
     }),
 
     actions: {
-        async init() {
+        async addRoom(roomData: Room) {
+
+            const userService = useUser();
+
             const roomId = Date.now();
             const user_id = localStorage.getItem('_uid') as string;
 
             const roomUserRef = doc(db, 'room_collections', `${roomId}`);
             const room: Room = {
                 id: `${roomId}`,
-                scheduleDay: "Rabu-Kamis",
-                scheduleTime: "09:00 - 14:00",
-                totalMember: 8,
-                organization: "MAN 1 Model Bandar Lampung",
+                scheduleDay: roomData.scheduleDay,
+                scheduleTime: roomData.scheduleTime,
+                totalMember: 1,
+                organization: roomData.organization,
                 createdDate: Date.now(),
-                description: "Merupakan kelas unggulan di MAN 1 Model Bandar Lampung dan telah terakreditasi A",
-                name: "Gajah Mada",
+                description: roomData.description,
+                name: roomData.name,
                 mentor: doc(db, 'user_collections', user_id),
                 heroImage: '',
                 ratings: 0,
@@ -57,7 +60,16 @@ export const useClassRoom = defineStore('useClassRoom', {
             }
 
             setDoc(roomUserRef, room)
-                .then(() => toast.info('Room succesfully created.'));
+                .then(() =>
+                    userService.updateUserClassRoom(user_id, `${roomId}`, { isSilent: true })
+                        .then(() => toast.info('Room succesfully created.'))
+                );
+        },
+
+        async editRoom(roomData: Room) {
+            const roomUserRef = doc(db, 'room_collections', `${roomData.id}`);
+            setDoc(roomUserRef, roomData, { merge: true })
+                .then(() => toast.info('Room succesfully updated.'))
         },
 
         async getRooms(roomId: Room['id'][]) {
@@ -118,7 +130,7 @@ export const useClassRoom = defineStore('useClassRoom', {
             const userRef = collection(db, 'user_collections');
             const q = query(userRef, where('user_id', 'in', listMemberRef))
 
-            onSnapshot(q,(snapshot) => {
+            onSnapshot(q, (snapshot) => {
                 const membersTemp: User[] = [];
 
                 snapshot.docs.forEach(user => {

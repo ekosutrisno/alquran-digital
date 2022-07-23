@@ -28,7 +28,7 @@
                     <span class="lg:hidden">Class Room</span>
                     <span class="hidden lg:inline">Go to class room dashboard</span>
                 </router-link>
-                <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link :to="`/app/dashboard/class-room/create?id=${room?.id}&a=edit`" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="inline">Edit</span>
                 </router-link>
                 <router-link to="" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <!-- Max 14 Char -->
-                            <p class="text-5xl font-semibold truncate max-w-xs"> {{room?.name}} </p> 
+                            <p class="text-3xl font-semibold truncate max-w-xs md:max-w-sm"> {{room?.name}} </p> 
                             <p class="text-sm mt-2 text-slate-200 font-light">{{ room?.description }}</p>
                         </div>   
                         <!-- Member preview Footer-->
@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
+            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                 <CardClassRoomMember
                     v-for="member in state.dataMemebers"
                     :key="member.user_id"
@@ -106,13 +106,6 @@
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />
                 </div>
-            </div>
-
-            <div v-if="!isLoading && state.isLogin" class="hidden items-center my-4 justify-center">
-                <button @click="onLanjutBacaan" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg></span> 
-                </button>
             </div>
 
            <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
@@ -148,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUpdated, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
@@ -174,7 +167,7 @@ const state = reactive({
 });
 
 onMounted(async () => { 
-    roomService.getRoom(route.query.id as Room['id']);
+    roomService.getRoom(route.params.room_id as Room['id']);
 })
 
 

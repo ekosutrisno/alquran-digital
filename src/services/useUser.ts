@@ -1,4 +1,5 @@
 import { SurahData } from "@/types/alquran.interface";
+import { Room } from "@/types/room.interface";
 import { Role, User } from "@/types/user.interface";
 import { doc, DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -45,7 +46,7 @@ export const useUser = defineStore('useUser', {
                 gender: "",
                 dob: "",
                 pob: "",
-                nationality:"Indonesia",
+                nationality: "Indonesia",
                 hobby: "Reading Al-Quran and Learn something new.",
                 religion: "Islam",
                 about: `Hi, my name is ${newData.email}`,
@@ -113,14 +114,14 @@ export const useUser = defineStore('useUser', {
          * @param  {User} user
          * @description Update All Detail User Data Property
          */
-        async updateCurrentUserData(user: User, options: {isSilent: boolean}) {
+        async updateCurrentUserData(user: User, options: { isSilent: boolean }) {
             const docRef = doc(db, "user_collections", user.user_id);
 
             user.lastModifiedDate = Date.now();
 
             setDoc(docRef, user, { merge: true })
                 .then(() => {
-                    if(!options.isSilent)
+                    if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`)
                 });
         },
@@ -205,6 +206,22 @@ export const useUser = defineStore('useUser', {
 
                     });
             }
+        },
+
+        /**
+         * @param  {User} user
+         * @description Update All Detail User Data Property
+         */
+        async updateUserClassRoom(userId: User['user_id'], roomId: Room['id'], options: { isSilent: boolean }) {
+            const docRef = doc(db, "user_collections", userId);
+
+            this.currentUser?.rooms?.push(roomId);
+
+            setDoc(docRef, this.currentUser, { merge: true })
+                .then(() => {
+                    if (!options.isSilent)
+                        toast.info(`Public Profile has been updated.`)
+                });
         },
     },
     getters: {

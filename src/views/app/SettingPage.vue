@@ -134,7 +134,7 @@
                                 <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="currentUser.religion" type="tel" name="religion" id="religion" 
+                                        v-model="currentUser.religion" type="text" name="religion" id="religion" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
                                     />
                                 </div>
@@ -144,7 +144,7 @@
                                 <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="currentUser.gender" type="tel" name="gender" id="gender" 
+                                        v-model="currentUser.gender" type="text" name="gender" id="gender" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -153,7 +153,7 @@
                                 <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        v-model="currentUser.nationality" type="tel" name="nationality" id="nationality" 
+                                        v-model="currentUser.nationality" type="text" name="nationality" id="nationality" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -163,7 +163,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="currentUser.hobby" type="tel" name="hobby" id="hobby" 
+                                        v-model="currentUser.hobby" type="text" name="hobby" id="hobby" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
@@ -173,7 +173,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="3"
-                                        v-model="currentUser.about" type="tel" name="about" id="about" 
+                                        v-model="currentUser.about" type="text" name="about" id="about" 
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
