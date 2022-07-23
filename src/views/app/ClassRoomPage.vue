@@ -46,10 +46,10 @@
                 </div>
             </div>
 
-            <div class="w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
-             <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
-                <router-link to="/app/dashboard/class-room/detail?a=create">
-                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-2 border-dashed border-slate-700/10 card-shadow-sm min-h-[14rem] rounded dark:border-slate-700/50">
+            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
+                <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
+                <router-link to="/app/dashboard/class-room/create?a=create">
+                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-2 border-dashed border-slate-700/10 card-shadow-sm min-h-[10rem] rounded dark:border-slate-700/50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-300 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                         </svg>
@@ -67,21 +67,7 @@
                 </button>
             </div>
 
-           <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
-                <router-link to="/auth/login">
-                    <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                        <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
-                        <div class="h-16 absolute z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
-                            <span class="font-semibold text-white">Fitur Non Aktif</span> 
-                            <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 text-sky-100 z-10 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                        </svg>
-                        <div class="bg-gray-900 absolute inset-0 z-0 bg-opacity-30"></div>
-                    </div>
-                </router-link>
-            </div>
+            <CardNotLogin v-if="!state.isLogin"/>
 
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 h-full p-2">
                 <p class="flex items-center flex-wrap space-x-2">
@@ -108,6 +94,7 @@ import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
 import { useClassRoom, useUser } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
+import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 
 const router = useRouter();
 const roomService = useClassRoom();

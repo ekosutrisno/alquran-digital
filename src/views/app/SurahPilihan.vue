@@ -43,7 +43,7 @@
             </div>
 
              <div v-if="isLoading" class="flex my-4 items-center justify-center">
-                <Spinner />
+                <Loader />
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
@@ -54,6 +54,9 @@
                 />
             </div>
         </section>
+
+        <CardNotLogin v-if="!isLogin"/>
+
         <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 max-h-16 h-full p-2">
             <p class="inline-flex items-center space-x-2">
                 <span>
@@ -72,12 +75,14 @@
 import { useAyah } from '@/services';
 import { onMounted, ref } from 'vue';
 import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
-import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import CardNotLogin from '../../components/app/card/CardNotLogin.vue';
+import Loader from '@/components/Loader.vue';
 
 const ayahService = useAyah();
 const { surahPilihan, isLoading} = storeToRefs(ayahService);
+const isLogin = ref(localStorage.getItem("_uid") as string);
 
 onMounted(()=> {
     if(!surahPilihan.value.length)

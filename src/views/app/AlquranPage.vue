@@ -75,7 +75,7 @@
             </div>
 
             <div v-if="isLoading" class="flex items-center justify-center">
-                <Spinner />
+                <Loader />
             </div>
 
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
@@ -105,7 +105,6 @@
 <script setup lang="ts">
 import { useAyah, useSurah, useUtil } from '@/services';
 import { computed, onMounted, reactive, ref } from 'vue';
-import Spinner from '@/components/Spinner.vue';
 import { useRoute } from 'vue-router';
 import { SurahData } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';

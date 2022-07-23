@@ -14,6 +14,7 @@ import DocumentationPage from '@/views/web/DocumentationPage.vue';
 import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
 import ClassRoomPage from '@/views/app/ClassRoomPage.vue';
 import ClassRoomDetailPage from '@/views/app/ClassRoomDetailPage.vue';
+import ClassRoomCreatePage from '@/views/app/ClassRoomCreatePage.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
 import SurahPilihan from '@/views/app/SurahPilihan.vue';
@@ -155,7 +156,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Setting Page Page',
                     description: 'SettingPage',
-                    requiresAuth: false
+                    requiresAuth: true
                 }
             },
             {
@@ -179,16 +180,6 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'personal',
-                name: 'PersonalDashboard',
-                component: PersonalDashboard,
-                meta: {
-                    title: 'Personal Dashboard',
-                    description: 'Personal Dashboard Page',
-                    requiresAuth: true
-                }
-            },
-            {
                 path: 'class-room',
                 name: 'ClassRoomPage',
                 component: ClassRoomPage,
@@ -200,12 +191,23 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/detail',
+                path: 'class-room/detail/:room_id',
                 name: 'ClassRoomDetailPage',
                 component: ClassRoomDetailPage,
                 meta: {
                     title: 'Class Room Detail Dashboard',
                     description: 'Class Room Detail Dashboard Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'class-room/create',
+                name: 'ClassRoomCreatePage',
+                component: ClassRoomCreatePage,
+                meta: {
+                    title: 'Class Room Create Dashboard',
+                    description: 'Class Room Create Dashboard Page',
                     requiresAuth: true,
                     requiresAdmin: false
                 }

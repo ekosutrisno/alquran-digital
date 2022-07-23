@@ -14,6 +14,7 @@ export interface Room extends InfoMetadata {
     heroImage: string;
     isActive: boolean;
     members: string[];
+    about?: string;
 }
 
 export interface RoomData extends InfoMetadata {
@@ -29,5 +30,6 @@ export interface RoomData extends InfoMetadata {
     heroImage: string;
     isActive: boolean;
     members: User[];
+    about?: string;
 }
 

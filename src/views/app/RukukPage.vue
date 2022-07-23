@@ -42,9 +42,6 @@
                 <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Kamu dapat mencari semua metadata Rukuk disini</p>
             </div>
 
-            <div v-if="isLoading" class="flex items-center justify-center">
-                <Spinner />
-            </div>
             <div class="flex items-center justify-center mt-6 w-full mx-auto">
                 <div class="w-full flex flex-col justify-center">
                     <input
@@ -53,8 +50,12 @@
                         placeholder="Type the rukuk number"
                         class="bg-white dark:bg-slate-800 dark:text-white card-shadow-sm rounded-md w-full max-w-lg mx-auto appearance-none focus:ring-sky-500 border-slate-700/20 dark:border-slate-700/50"
                     >
-                                
-                    <div v-if="!filteredRukuk(searchQuery).length" class="w-full with-transition ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto mt-10 card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
+
+                     <div v-if="isLoading" class="flex items-center justify-center">
+                        <Loader />
+                    </div>
+
+                    <div v-if="!filteredRukuk(searchQuery).length" class="w-full with-transition ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
                         <p class="mx-auto">No Result data found!</p>
                     </div>
                 </div>
@@ -86,10 +87,9 @@
 import { useRukuk } from '@/services';
 import { onMounted, ref } from 'vue';
 import CardRukukMetadata from '@/components/app/card/CardRukukMetadata.vue';
-import Loader from '@/components/Loader.vue';
-import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import Loader from '@/components/Loader.vue';
 
 const rukukService = useRukuk();
 const { rukuk, lastRukukVisible, isLast, isLoading, isPush, filteredRukuk } = storeToRefs(rukukService);

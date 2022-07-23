@@ -43,7 +43,7 @@
             </div>
            
             <div v-if="isLoading" class="flex my-4 items-center justify-center">
-                <Spinner />
+                <Loader />
             </div>
 
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 pt-6 pb-2">
@@ -62,9 +62,9 @@
 import { useManzil } from '@/services';
 import { onMounted, ref } from 'vue';
 import CardManzilMetadata from '@/components/app/card/CardManzilMetadata.vue';
-import Spinner from '@/components/Spinner.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import Loader from '@/components/Loader.vue';
 
 const manzilService = useManzil();
 const { manzil, isLoading}  = storeToRefs(manzilService);
