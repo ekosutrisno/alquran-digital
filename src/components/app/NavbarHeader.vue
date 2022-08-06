@@ -28,7 +28,7 @@
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
-            <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-700 dark:text-slate-200 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+            <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-700 dark:text-slate-200 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
               <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
                 <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
@@ -53,7 +53,7 @@
               </MenuButton>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right absolute z-10 right-0 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+              <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem v-for="notif in state.haveNotification" :key="notif.timestamp" v-slot="{ active }">
                   <router-link to="/" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-2 w-full px-4 py-3 text-slate-900 dark:text-white  dark:bg-slate-800']">
                     <BellIcon class="h-6 w-6 text-sky-300" aria-hidden="true" />
@@ -87,7 +87,7 @@
               </router-link>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right z-10 absolute right-5 mt-2 w-64 rounded-md shadow-lg overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+              <MenuItems class="origin-top-right z-10 absolute right-5 mt-2 w-64 rounded-md card-shadow-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem>
                   <div :class="['p-4 relative h-full flex flex-col space-y-2 items-center justify-center bg-white border-b border-slate-700/10 dark:border-slate-700/50 dark:bg-slate-800 text-slate-800 dark:text-white']">
                      <img class="w-14 h-14 object-cover object-top border border-slate-700/10 dark:border-slate-700/50 rounded-full" :src="state.photoUrl" alt="avatar-drop-menu">
@@ -135,6 +135,9 @@
                     <span>Sign out</span>
                   </button>
                 </MenuItem>
+                <div class="p-4 text-xs text-right border-t border-slate-700/10 dark:border-slate-700/50">
+                  App Version v1.0.0
+                </div>
               </MenuItems>
             </transition>
           </Menu>

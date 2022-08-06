@@ -136,7 +136,7 @@ const onRegisterAction =async () => {
                 /** Set isRegister to false and Redirect to Dashboard page. */
                 state.isRegisterProcess = false;
 
-                router.replace('/app/dashboard/personal');
+                router.replace('/app/dashboard');
             })
             .catch((error) => {
                 authService.$patch((state) => state.error = {
@@ -164,7 +164,7 @@ const loginWithGoogleHandler = () => {
                     
                     authService.onLoginAction(user);
                     
-                    router.replace('/app/dashboard/personal')
+                    router.replace('/app/dashboard')
                 });
 
         }).catch((error) => {

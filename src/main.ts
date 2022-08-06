@@ -28,9 +28,15 @@ dayjs.extend(localeData)
 dayjs.extend(relativeTime)
 
 const updateSW = registerSW({
-    onNeedRefresh() { },
-    onOfflineReady() { },
+    onNeedRefresh() { 
+        console.log("Al-Quran Digital Need Refresh, new Content Available.");
+     },
+    onOfflineReady() {
+        console.log("Al-Quran Digital Ready for Ofline.");
+     },
 })
+
+updateSW();
 
 const app = createApp(App);
 
