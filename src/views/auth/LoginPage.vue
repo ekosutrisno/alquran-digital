@@ -119,7 +119,7 @@ const v$ = useVuelidate(rules, state.auth);
 
 onMounted(()=>{
     if (localStorage.getItem('_uid')) 
-        router.replace('/app/dashboard/personal');
+        router.replace('/app/dashboard');
 })
 
 const onLoginAction = async () => {
@@ -142,7 +142,7 @@ const onLoginAction = async () => {
 
                 /** Stop Loading and Redirect in to Dashboard. */
                 state.isLoginProcess =  false;
-                router.replace('/app/dashboard/personal');
+                router.replace('/app/dashboard');
             })
             .catch((error) => {
                 authService.$patch(state => state.error = {
@@ -169,7 +169,7 @@ const onLoginAction = async () => {
                     
                     authService.onLoginAction(user);
                     
-                    router.replace('/app/dashboard/personal')
+                    router.replace('/app/dashboard')
                 });
 
         }).catch((error) => {
