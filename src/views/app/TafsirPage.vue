@@ -77,7 +77,7 @@
                     :ayat="ayahTafsirSelected"
                />
 
-               <div class="p-4 rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
+               <div class="p-4 rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none md:select-text">
                     <div class="flex flex-col">
                         <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -135,7 +135,7 @@
 
 <script setup lang="ts">
 import {  useAyah, useUtil } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
@@ -177,8 +177,6 @@ const state = reactive({
         }
     ]
 });
-
-onMounted(()=>{});
 
 const pageUp = ref<any>(null)
 const scrollToPageUp = () => {
