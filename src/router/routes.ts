@@ -15,6 +15,7 @@ import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
 import ClassRoomPage from '@/views/app/ClassRoomPage.vue';
 import ClassRoomDetailPage from '@/views/app/ClassRoomDetailPage.vue';
 import ClassRoomCreatePage from '@/views/app/ClassRoomCreatePage.vue';
+import ClassRoomAdvancedPage from '@/views/app/ClassRoomAdvancedPage.vue';
 import BacaankuPage from '@/views/app/BacaankuPage.vue';
 import FavoritePage from '@/views/app/FavoritePage.vue';
 import SurahPilihan from '@/views/app/SurahPilihan.vue';
@@ -197,6 +198,17 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Class Room Detail Dashboard',
                     description: 'Class Room Detail Dashboard Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'class-room/advanced/:room_id',
+                name: 'ClassRoomAdvancedPage',
+                component: ClassRoomAdvancedPage,
+                meta: {
+                    title: 'Class Room Advanced',
+                    description: 'Class Room Advanced Page',
                     requiresAuth: true,
                     requiresAdmin: false
                 }
