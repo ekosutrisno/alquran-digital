@@ -67,7 +67,7 @@
   }
 
   .card-shadow-md {
-    @apply shadow-lg shadow-slate-200 dark:shadow-slate-900;
+    @apply shadow-lg shadow-slate-900/10 dark:shadow-slate-900;
   }
   .toast-style {
     @apply dark:bg-dark-blue/50 backdrop-blur-sm bg-white/50 !important;

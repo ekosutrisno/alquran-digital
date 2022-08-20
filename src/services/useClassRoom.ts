@@ -139,6 +139,42 @@ export const useClassRoom = defineStore('useClassRoom', {
 
                 this.members = membersTemp;
             })
+        },
+
+        async addRoomMember(roomId: string, userEmail: string) {
+
+            const userRef = collection(db, 'user_collections');
+            const q = query(userRef, where('email', '==', userEmail));
+
+            getDocs(q)
+                .then(snapshot=> {
+                    if(!snapshot.empty) {
+                        const userReadyToInvite = snapshot.docs[0].data() as User;
+
+                        const roomRef = doc(db, 'room_collections', `${roomId}`);
+
+                        getDoc(roomRef)
+                            .then((room)=>{
+                                const roomData = room.data() as Room;
+
+                                if(!roomData.members.includes(userReadyToInvite.user_id)){
+                                    // Add New Member ID
+                                    roomData.members.push(userReadyToInvite.user_id);
+
+                                    // Save Updated The Room
+                                    setDoc(roomRef, roomData, { merge: true})
+                                        .then(()=> toast.info("New Member Added"))
+                                }else{
+                                    toast.info("The User already member!")
+                                }
+
+                            });
+                    }else{
+                        toast.info("The Email Member not registered!")
+                    };
+
+                })
+            
         }
 
     }
