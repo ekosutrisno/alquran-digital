@@ -3,6 +3,7 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
@@ -15,6 +16,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Cloud Messaging and get a reference to the service
+const messaging = getMessaging(app);
 
 /** Auth Instance */
 const auth = getAuth(app)
@@ -29,10 +33,36 @@ const storage = getStorage(app);
 /** Sign With Google Provider */
 const gProvider = new GoogleAuthProvider();
 
+
+const requestPermission = () => {
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') { console.log('Notification permission granted.') } else { console.log('Notification permission denied.') }
+    })
+}
+
+const getTokenFcm = (): void => {
+    getToken(messaging, { vapidKey: import.meta.env.VITE_BASE_FIREBASE_VAPID })
+        .then((currentToken) => {
+            if (currentToken) {
+                console.log(currentToken);
+            } else {
+                console.log('No registration token available. Request permission to generate one.');
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+        });
+}
+
+
 export {
     auth,
     db,
     gProvider,
-    storage
+    storage,
+    messaging,
+    onMessage,
+    requestPermission,
+    getTokenFcm
+
 }
 
