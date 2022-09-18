@@ -4,6 +4,8 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { User } from '@/types/user.interface';
+import { useNotification } from '@/services';
 
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
@@ -40,11 +42,13 @@ const requestPermission = () => {
     })
 }
 
-const getTokenFcm = (): void => {
+const getTokenFcm = (userId: User['user_id']): void => {
+    const notificationService = useNotification();
+    
     getToken(messaging, { vapidKey: import.meta.env.VITE_BASE_FIREBASE_VAPID })
-        .then((currentToken) => {
+        .then(async (currentToken) => {
             if (currentToken) {
-                console.log(currentToken);
+                await notificationService.addFcmsToken({ userId: userId, token: currentToken }, { isSilent: true });
             } else {
                 console.log('No registration token available. Request permission to generate one.');
             }
@@ -52,7 +56,6 @@ const getTokenFcm = (): void => {
             console.log('An error occurred while retrieving token. ', err);
         });
 }
-
 
 export {
     auth,
@@ -63,6 +66,5 @@ export {
     onMessage,
     requestPermission,
     getTokenFcm
-
 }
 

@@ -28,6 +28,7 @@ import JuzPage from '@/views/app/JuzPage.vue';
 import AlquranPage from '@/views/app/AlquranPage.vue';
 import TafsirPage from '@/views/app/TafsirPage.vue';
 import SettingPage from '@/views/app/SettingPage.vue';
+import NotificationPage from '@/views/app/NotificationPage.vue';
 
 // View Auth Section Import
 import LoginPage from '@/views/auth/LoginPage.vue';
@@ -320,6 +321,17 @@ const routes: RouteRecordRaw[] = [
                     title: 'Juz',
                     description: 'Juz Page',
                     requiresAuth: false,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'notification',
+                name: 'NotificationPage',
+                component: NotificationPage,
+                meta: {
+                    title: 'NotificationPage',
+                    description: 'Notification Page',
+                    requiresAuth: true,
                     requiresAdmin: false
                 }
             },

@@ -3,32 +3,24 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/services';
+import { useAuth, useNotification } from '@/services';
 import { useDark } from '@vueuse/core'
-import { onBeforeMount, onMounted } from 'vue';
-import { getTokenFcm, requestPermission, messaging, onMessage } from '@/services/useFirebase';
-import { useToast } from 'vue-toastification';
+import { onBeforeMount, onMounted, ref } from 'vue';
+import { getTokenFcm, requestPermission} from '@/services/useFirebase';
 
-const toast = useToast();
+const isLogin = ref<string | null>(localStorage.getItem('_uid'))
+const notificationService = useNotification();
 
 onMounted(() => {
-  onMessage(messaging, (payload) => {
-        const notif = payload.notification as any;
-        const notificationOptions = {
-            title: `${notif?.title}`,
-            body: notif.body,
-            image: notif.image || `https://res.cloudinary.com/ekosutrisno/image/upload/v1662785818/briix/notif_n0ogoj.jpg`,
-            icon: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1662786263/briix/n_pyzbuz.png',
-        };
-        var n = new Notification(notificationOptions.title, notificationOptions);
-        toast.info(notificationOptions.title);
-        n.onshow;
-    });
   useDark();
-  requestPermission();
-  getTokenFcm();
-})
+  if(isLogin.value != null){
+    requestPermission();
+    getTokenFcm(isLogin.value);
 
+    notificationService.loadNotifications();
+    notificationService.onMessageForeground();
+  }
+})
 
 // Authentication checking point
 const authService = useAuth()

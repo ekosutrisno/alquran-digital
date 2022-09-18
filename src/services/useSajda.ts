@@ -8,7 +8,7 @@ interface UseSajdaState {
     sajdas: SajdaMetadata[];
 }
 
-export const useSajda = defineStore('useSajda', {
+export const useSajda = defineStore('sajdaService', {
     state: (): UseSajdaState => ({
         isLoading: false,
         sajdas: new Array<SajdaMetadata>()

@@ -8,7 +8,7 @@ interface UseManzilState {
     manzil: Metadata[];
 }
 
-export const useManzil = defineStore('useManzil', {
+export const useManzil = defineStore('manzilService', {
     state: (): UseManzilState => ({
         isLoading: false,
         manzil: new Array<Metadata>()

@@ -13,7 +13,7 @@ interface UseSurahState {
     lastAyahVisible: DocumentData | null;
 }
 
-export const useSurah = defineStore('useSurah', {
+export const useSurah = defineStore('surahService', {
     state: (): UseSurahState => ({
         ayahs: new Array<AyahData>(),
         isLoading: false,

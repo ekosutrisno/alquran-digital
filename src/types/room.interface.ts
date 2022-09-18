@@ -13,7 +13,7 @@ export interface Room extends InfoMetadata {
     ratings: number;
     heroImage: string;
     isActive: boolean;
-    members: string[];
+    members: Array<string>;
     about?: string;
 }
 
@@ -29,7 +29,7 @@ export interface RoomData extends InfoMetadata {
     ratings: number;
     heroImage: string;
     isActive: boolean;
-    members: User[];
+    members: Array<User>;
     about?: string;
 }
 

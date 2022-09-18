@@ -46,26 +46,39 @@
                 <span class="sr-only">View notifications</span>
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
                 <div 
-                  v-if="state.haveNotification.length" 
-                  class="bg-sky-500 text-white absolute -top-0.5 -right-2 rounded-full h-4 w-4 p-1 flex items-center justify-center text-xs">
-                    {{state.haveNotification.length <= 3 ? state.haveNotification.length : `3+`}}
+                  v-if="state.notifications.length" 
+                  class="bg-sky-500 text-white absolute -top-0.5 -right-1 rounded-full h-4 w-4 p-1 flex items-center justify-center text-[11px]">
+                    {{state.notifications.length <= 3 ? state.notifications.length : `3+`}}
                 </div>
               </MenuButton>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-              <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
-                <MenuItem v-for="notif in state.haveNotification" :key="notif.timestamp" v-slot="{ active }">
-                  <router-link to="/" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-2 w-full px-4 py-3 text-slate-900 dark:text-white  dark:bg-slate-800']">
-                    <BellIcon class="h-6 w-6 text-sky-300" aria-hidden="true" />
+              <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 lg:min-w-[20rem] lg:w-auto lg:max-w-md rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
+                <MenuItem v-for="notif in state.notifications" :key="notif.id" v-slot="{ active }">
+                  <router-link to="" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
+                    <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                     <div class="flex flex-col">
-                      <span class="text-xs font-semibold">{{ notif.text }}</span>
-                      <span class="text-xs dark:text-slate-100">{{ notif.data }}</span>
+                      <span class="text-sm font-semibold">{{ notif.title }}</span>
+                      <span class="text-sm dark:text-slate-100 truncate max-w-[190px] lg:max-w-sm">{{ notif.body }}</span>
+                      <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
                     </div>
                   </router-link>
                 </MenuItem>
 
-                <!-- TODO integrate with notification service-->
-
+                <div v-if="!state.notifications.length" class="py-4">
+                  <img src="/empty-box.png" alt="empty-notification-state">
+                  <p class="text-xs text-center">Saat ini belum ada notifikasi yang masuk. </p>
+                </div>
+                <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-100 dark:hover:bg-slate-700">
+                  <router-link to="/app/dashboard/notification" class="inline-flex items-center justify-end space-x-3 text-sm">
+                    <span>See all notifications </span>
+                    <span>
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                  </router-link>
+                </div>
               </MenuItems>
             </transition>
           </Menu>
@@ -152,9 +165,11 @@ import { computed, reactive, watch } from 'vue'
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon } from '@heroicons/vue/outline'
 import { useRouter } from 'vue-router'
-import { useAuth, useUser, useUtil } from '@/services';
+import { useAuth, useNotification, useUser, useUtil } from '@/services';
 import Svg2 from '../svg/Svg2.vue'
+import NotificationType from '../shared/NotificationType.vue';
 import { useDark, useMagicKeys, useToggle } from '@vueuse/core';
+import { formatDateFromNow } from '@/utils/helperFunction';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }
@@ -164,6 +179,7 @@ const authService = useAuth();
 const userService = useUser();
 const router = useRouter();
 const utilService = useUtil();
+const notificationService = useNotification();
 
 const emit = defineEmits<{
   (e: 'search'): void
@@ -178,18 +194,7 @@ const state = reactive({
   loginAsInfo: computed(()=>userService.getLoginAsInfo),
   userRole: computed(() => localStorage.getItem('_role')),
   isLogin: computed(() => localStorage.getItem('_uid')),
-  haveNotification:  [
-    {
-      timestamp:1,
-      text: 'One Notfication',
-      data: 'Chat from Bu Ina'
-    },
-    {
-      timestamp:2,
-      text: 'Two Notfication',
-      data: 'Hi, semua tugas...'
-    },
-  ],
+  notifications: computed(()=> notificationService.notifications.filter(notif=> !notif.read))
 })
 
 const isDark = useDark()

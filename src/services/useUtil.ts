@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 interface UtilState {
     wideMenu: boolean | any
 }
-export const useUtil = defineStore('useUtil', {
+export const useUtil = defineStore('utilityService', {
     state: (): UtilState => ({
         wideMenu: true,
     }),
