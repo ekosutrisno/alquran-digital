@@ -9,7 +9,7 @@ import { useSajda } from './useSajda';
 import { useJuz } from './useJuz';
 import { useAyah } from './useAyah';
 import { useClassRoom } from './useClassRoom';
-import { useNotfication } from './useNotification';
+import { useNotification } from './useNotification';
 
 export {
     useAuth,
@@ -23,5 +23,5 @@ export {
     useJuz,
     useAyah,
     useClassRoom,
-    useNotfication
+    useNotification
 }

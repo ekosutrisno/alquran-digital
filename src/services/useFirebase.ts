@@ -5,7 +5,7 @@ import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { User } from '@/types/user.interface';
-import { useNotfication } from '@/services';
+import { useNotification } from '@/services';
 
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
@@ -43,7 +43,7 @@ const requestPermission = () => {
 }
 
 const getTokenFcm = (userId: User['user_id']): void => {
-    const notificationService = useNotfication();
+    const notificationService = useNotification();
     
     getToken(messaging, { vapidKey: import.meta.env.VITE_BASE_FIREBASE_VAPID })
         .then(async (currentToken) => {

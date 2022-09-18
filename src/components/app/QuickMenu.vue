@@ -21,7 +21,7 @@
             <p class="text-sm hidden sm:inline-flex text-slate-700 dark:text-slate-300">{{ menu.description }}</p>
         </div>
 
-        <Svg2 aria-hidden="true" class="absolute z-10 h-8 -right-16 sm:right-0 sm:h-auto -top-0.5"/>
+        <Svg2 aria-hidden="true" class="absolute h-8 -right-16 sm:right-0 sm:h-auto -top-0.5"/>
     </router-link>
 </template>
 

@@ -14,7 +14,7 @@
             <p class="text-white rounded bg-sky-500 w-min py-1 px-2 mb-2 text-sm">Description</p>
             <h1 class="dark:text-slate-300 text-slate-700"> {{menu.description}} </h1>
         </div>
-        <Svg1 aria-hidden="true" class="absolute z-10 -right-20 bottom-[75px] rotate-90"/>
+        <Svg1 aria-hidden="true" class="absolute -right-20 bottom-[75px] rotate-90"/>
 
     </router-link>
 </template>

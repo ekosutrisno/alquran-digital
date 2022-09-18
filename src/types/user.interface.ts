@@ -38,10 +38,23 @@ export interface Role {
 }
 
 export interface UserNotification{
+    id: string;
     user_id: User['user_id'];
     title: string;
     body: string;
+    image: string;
     timestamp: number;
+    icon: string;
+    type: string;
+    read: boolean;
+}
+
+export enum UserNotificationType{
+    ACCOUNT = 'A',
+    NEWS = 'N',
+    CHAT = 'C',
+    REMINDER = 'R',
+    INFO = 'I'
 }
 
 export enum FlagUseOn {
