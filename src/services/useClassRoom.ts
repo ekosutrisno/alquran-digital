@@ -21,7 +21,7 @@ interface ClassRoomState {
     rooms: Room[];
 }
 
-export const useClassRoom = defineStore('useClassRoom', {
+export const useClassRoom = defineStore('classRoomService', {
     state: (): ClassRoomState => ({
         isLoading: false,
         isLast: false,

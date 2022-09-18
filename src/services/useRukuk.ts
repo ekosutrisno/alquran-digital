@@ -11,7 +11,7 @@ interface UseRukukState {
     lastRukukVisible: DocumentData | null;
 }
 
-export const useRukuk = defineStore('useRukuk', {
+export const useRukuk = defineStore('rukukService', {
     state: (): UseRukukState => ({
         isLast: false,
         isLoading: false,

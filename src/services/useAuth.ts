@@ -28,7 +28,7 @@ type CurrentUserSession = {
     providedId: string[]
 }
 
-export const useAuth = defineStore('useAuth', {
+export const useAuth = defineStore('authService', {
     state: (): AuthState => ({
         currentUserSession: null,
         emailNotRegiter: false,

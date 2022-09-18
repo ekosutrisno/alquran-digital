@@ -27,13 +27,21 @@ export interface User extends InfoMetadata {
     is_mentor: boolean;
     nationality?: string;
     key?: string;
-    rooms?: string[]
+    rooms?: Array<string>;
+    fcms?: Array<string>;
 }
 
 export interface Role {
     id: number;
     name: string;
     description: string;
+}
+
+export interface UserNotification{
+    user_id: User['user_id'];
+    title: string;
+    body: string;
+    timestamp: number;
 }
 
 export enum FlagUseOn {

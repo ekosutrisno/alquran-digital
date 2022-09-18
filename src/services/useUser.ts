@@ -15,7 +15,7 @@ interface UserState {
     surahBacaanUser: SurahData | null;
 }
 
-export const useUser = defineStore('useUser', {
+export const useUser = defineStore('userService', {
     state: (): UserState => ({
         currentUser: null,
         currentMentor: null,
@@ -46,6 +46,7 @@ export const useUser = defineStore('useUser', {
                 gender: "",
                 dob: "",
                 pob: "",
+                fcms: [],
                 nationality: "Indonesia",
                 hobby: "Reading Al-Quran and Learn something new.",
                 religion: "Islam",

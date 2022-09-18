@@ -10,7 +10,7 @@ interface UsePageState {
     lastPageVisible: DocumentData | null
 }
 
-export const usePage = defineStore('usePage', {
+export const usePage = defineStore('pageService', {
     state: (): UsePageState => ({
         isLast: false,
         isLoading: false,

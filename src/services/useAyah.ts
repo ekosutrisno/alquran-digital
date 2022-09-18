@@ -15,7 +15,7 @@ interface UseAyahState {
     surahTafsirSelected: SurahData | null;
 }
 
-export const useAyah = defineStore('useAyah', {
+export const useAyah = defineStore('ayatService', {
     state: (): UseAyahState => ({
         ayahFavorite: new Array<AyahData>(),
         surahPilihan: new Array<SurahData>(),

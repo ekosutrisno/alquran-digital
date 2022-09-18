@@ -8,7 +8,7 @@ interface UseJuzState {
     juz: Metadata[];
 }
 
-export const useJuz = defineStore('useJuz', {
+export const useJuz = defineStore('juzService', {
     state: (): UseJuzState => ({
         isLoading: false,
         juz: new Array<Metadata>()

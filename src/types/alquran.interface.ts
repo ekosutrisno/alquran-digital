@@ -14,7 +14,7 @@ export interface SurahData {
 
 export interface AyahData {
     audio: string;
-    audio_secondary: string[];
+    audio_secondary: Array<string>;
     aya_id: number;
     aya_number: number;
     aya_text: string;
@@ -50,7 +50,7 @@ export interface TafsirLanguage {
 
 export interface SurahAndAyah {
     surah_data: SurahData;
-    ayah_data: AyahData[];
+    ayah_data: Array<AyahData>;
 }
 
 export interface Metadata {
