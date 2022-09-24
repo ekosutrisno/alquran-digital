@@ -38,7 +38,7 @@ const gProvider = new GoogleAuthProvider();
 
 const requestPermission = () => {
     Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') { console.log('Notification permission granted.') } else { console.log('Notification permission denied.') }
+        if (permission === 'granted') { } else { console.log('Notification permission denied.') }
     })
 }
 

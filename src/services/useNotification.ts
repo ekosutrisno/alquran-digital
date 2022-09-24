@@ -1,5 +1,5 @@
 import { User, UserNotification, UserNotificationType } from "@/types/user.interface";
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { messaging, onMessage, db } from '@/services/useFirebase';
@@ -27,7 +27,7 @@ export const useNotification = defineStore('notificationService', {
          */
         async loadNotifications() {
             const docRef = collection(db, "notification_collections");
-            const q = query(docRef, where('user_id', '==', this.userId), orderBy('timestamp', 'desc'));
+            const q = query(docRef, where('user_id', '==', this.userId), orderBy('timestamp', 'desc'), limit(25));
 
             onSnapshot(q, (snapshot) => {
                 const tempNotifications: UserNotification[] = [];

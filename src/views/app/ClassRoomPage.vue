@@ -91,23 +91,24 @@ import { useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
-import { useClassRoom, useUser } from '@/services';
+import { useClassRoom } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 
 const router = useRouter();
 const roomService = useClassRoom();
-const userService = useUser();
-const { isLast, isPush, isLoading, rooms} = storeToRefs(roomService);
+const { isLoading, rooms} = storeToRefs(roomService);
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
+    rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') as string) ),
     option: false,
 });
 
 onMounted(()=>{ 
-    roomService.getRooms(userService.currentUser?.rooms as string[])
+    if(state.rooms)
+        roomService.getRooms( state.rooms as string[])
 })
 
 const pageUp = ref<any>(null)
@@ -118,7 +119,7 @@ const scrollToPageUp = () => {
 
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option

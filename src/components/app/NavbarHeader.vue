@@ -55,10 +55,13 @@
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
               <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 lg:min-w-[20rem] lg:w-auto lg:max-w-md rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem v-for="notif in state.notifications" :key="notif.id" v-slot="{ active }">
-                  <router-link to="" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
+                  <router-link to="/app/dashboard/notification" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
                     <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                     <div class="flex flex-col">
-                      <span class="text-sm font-semibold">{{ notif.title }}</span>
+                      <div class="text-sm font-semibold flex items-center justify-between">
+                          <div>{{ notif.title }}</div>
+                          <div> <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div> </div>
+                      </div>  
                       <span class="text-sm dark:text-slate-100 truncate max-w-[190px] lg:max-w-sm">{{ notif.body }}</span>
                       <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
                     </div>

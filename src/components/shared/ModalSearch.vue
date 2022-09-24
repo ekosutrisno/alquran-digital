@@ -116,6 +116,12 @@ const state = reactive({
     info: 'List of Surah Metadata',
     text: 'Surah'
   },
+  {
+    to:'/app/dashboard/notification',
+    id: 8,
+    info: 'List of Notifications',
+    text: 'Notifications'
+  },
 ] as SearchItem[]
 })
 
