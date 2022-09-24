@@ -37,7 +37,7 @@
                         </svg>
                     </span>
                     <p>Notifications 
-                        <span class="text-xs ml-5">Show and filter notifications by 
+                        <span class="text-xs ml-5">Filter by 
                             <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ state.filter }} </span>
                         </span>
                     </p> 
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="grid lg:grid-cols-2 h-full lg:pt-10">
+            <div class="grid lg:grid-cols-2 h-full">
                 <div class="w-full mx-auto grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                     <div v-for="item in state.notificationsList" :key="item.key">
                         <div class="mt-5 font-semibold" style="font-size: 12px; color: #666666;">
@@ -66,12 +66,12 @@
                             <span v-else-if="item.key == state.yesterday" class="text-left">YESTERDAY</span>
                             <span v-else class="text-left" style="text-transform: uppercase;">{{formatDateWithMonth(item.actualDate)}}</span>
                         </div>
-                        <button type="button" @click="selectNotif(notif)" v-for="notif in item.data" :key="notif.id" :class="[notif.read ? '': 'border-l-2 border-sky-500', 'inline-flex items-start text-left space-x-3 w-full px-4 py-3 text-slate-900 hover:bg-white hover:card-shadow-sm rounded-r-lg dark:text-white dark:hover:bg-slate-800 with-transition transition']">
+                        <button type="button" @click="selectNotif(notif)" v-for="notif in item.data" :key="notif.id" :class="[notif.read ? '': 'border-l-2 border-l-sky-500', 'inline-flex items-start text-left space-x-3 w-full my-1 px-4 py-3 text-slate-900 bg-white hover:bg-slate-50 dark:bg-slate-800 border dark:border-slate-700/50 rounded-r-lg dark:text-white dark:hover:bg-slate-700 with-transition transition']">
                             <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                             <div class="flex flex-col w-full">
                             <div class="text-sm font-semibold flex items-center justify-between">
                                 <div>{{ notif.title }}</div>
-                                <div> <div v-if="!notif.read" class="w-2 h-2 rounded-full bg-red-600"></div> </div>
+                                <div> <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div> </div>
                             </div>
                             <span class="text-sm dark:text-slate-100">{{ notif.body }}</span>
                             <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
@@ -79,7 +79,7 @@
                         </button>
                     </div>
                 </div>
-                <div v-if="state.notif.title" class="flex flex-col">
+                <div v-if="state.notif.title" class="flex flex-col lg:p-12">
                     <h1 class="font-semibold text-lg"> {{ state.notif.title }} <span class="text-xs ml-3 rounded px-2 py-1 bg-purple-200 text-purple-800">{{ typeMapper(state.notif.type) }}</span> </h1>
                     <div class="flex flex-col lg:flex-row items-start space-x-4 my-5">
                         <img class="w-10 h-10 rounded-full" :src="state.notif.icon" alt="notif_icon">
@@ -126,8 +126,8 @@
 
 <script setup lang="ts">
 import {  useNotification, useUtil } from '@/services';
-import { computed, onBeforeUpdate, onMounted, onUpdated, reactive, ref } from 'vue';
-import { convertToArab, formatDateFromNow, formatDateWithMonth} from '@/utils/helperFunction';
+import { computed, onBeforeUpdate, onMounted, reactive, ref } from 'vue';
+import { convertToArab, formatDateFromNow, formatDateWithMonth, formatToString, yesterday} from '@/utils/helperFunction';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import NotificationType from '@/components/shared/NotificationType.vue';
@@ -180,8 +180,8 @@ const state = reactive({
     filteredNotif: computed(()=> notificationService.notifications || []),
     notificationsList: [] as NotificationMapper[],
     filter: 'All',
-    today: computed(()=> new Intl.DateTimeFormat(['ban', 'id']).format(new Date())),
-    yesterday: computed(()=> new Intl.DateTimeFormat(['ban', 'id']).format(new Date().getDay() - 1))
+    today: computed(()=> formatToString(new Date())),
+    yesterday: computed(()=> yesterday())
 });
 
 onBeforeUpdate(()=>{
@@ -244,13 +244,13 @@ const filterAndReduced = computed(()=>{
 const notificationMapper = ()=>{
     const dataReduced =  filterAndReduced.value.reduce((group: any, notifs) => {
         const { timestamp } = notifs;
-        const d = new Intl.DateTimeFormat(['ban', 'id']).format(new Date(timestamp));
+        const d = formatToString(timestamp);
         group[d] = group[d] ?? [];
         group[d].push(notifs);
         return group;
     }, {});
 
-    const tempData:any = [];
+    const tempData:NotificationMapper[] = [];
     Object.keys(dataReduced).forEach((d)=> {
         const indexedData:UserNotification[] = dataReduced[d];
         const dataMapper:NotificationMapper = {
@@ -261,7 +261,7 @@ const notificationMapper = ()=>{
         tempData.push(dataMapper)
     })
 
-    state.notificationsList = tempData.sort((a: any,b: any)=> (new Date(b.actualDate).getTime()) - (new Date(a.actualDate).getTime()));;
+    state.notificationsList = tempData.sort((a: NotificationMapper, b: NotificationMapper)=> (new Date(b.actualDate).valueOf()) - (new Date(a.actualDate).valueOf()));;
 
 }
 

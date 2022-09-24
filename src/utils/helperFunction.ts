@@ -87,6 +87,22 @@ export const isToday = (date: any): boolean => {
 }
 
 /**
+ * To Check is Today Timesheet
+ * @returns boolean
+ */
+ export const yesterday = (): string => {
+    return dayjs().add(-1, 'day').format('l');
+}
+
+/**
+ * To Check is Today Timesheet
+ * @returns boolean
+ */
+ export const formatToString = (date: any): string => {
+    return dayjs(date).format('l');
+}
+
+/**
  * To return current Month And Year only
  * @returns string
  */

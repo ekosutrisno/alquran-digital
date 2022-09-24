@@ -79,6 +79,9 @@ export const useClassRoom = defineStore('classRoomService', {
             const q = query(rommColl, where('id', 'in', roomId), limit(10));
 
             onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
+                if(snapshot.empty)
+                    this.isLoading = false;
+
                 const roomsTemp: Room[] = [];
 
                 const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;

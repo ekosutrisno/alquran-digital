@@ -88,6 +88,9 @@ export const useUser = defineStore('userService', {
                     // Set The Current User
                     this.currentUser = data;
 
+                    // Rooms
+                    localStorage.setItem('_rooms', JSON.stringify(data.rooms))
+
                     // Parse all reference data
                     // this.parseFromReference(data);
 
