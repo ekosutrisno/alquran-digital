@@ -55,8 +55,9 @@
                         <Loader />
                     </div>
 
-                    <div v-if="!filteredSurah(searchQuery).length" class="w-full with-transition mt-5 ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
-                        <p class="mx-auto">No Result data found!</p>
+                    <div v-if="!filteredSurah(searchQuery).length" class="w-full py-5 h-auto flex flex-col with-transition mt-5 ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto card-shadow-sm bg-white dark:bg-slate-800">
+                        <Vue3Lottie :animationData="animData" :height="75" :width="75" />
+                        <p class="mx-auto text-sm py-5">No Result data found!</p>
                     </div>
                 </div>
             </div>
@@ -82,6 +83,8 @@ import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
+import { Vue3Lottie } from 'vue3-lottie'
+import NotFound from '@/assets/animations/anim_not_found.json'
 
 const surahService = useSurah();
 const { surahs, isLoading, filteredSurah} = storeToRefs(surahService);
@@ -92,6 +95,7 @@ onMounted(()=> {
     }
 );
 
+const animData = ref(NotFound);
 const searchQuery = ref('');
 
 const pageUp = ref<any>(null)

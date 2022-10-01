@@ -60,13 +60,6 @@
                 </div>
             </div>
 
-            <div v-if="!isLoading && state.isLogin" class="hidden items-center my-4 justify-center">
-                <button @click="onLanjutBacaan" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg></span> 
-                </button>
-            </div>
-
             <CardNotLogin v-if="!state.isLogin"/>
 
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 h-full p-2">
@@ -102,12 +95,12 @@ const { isLoading, rooms} = storeToRefs(roomService);
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
-    rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') as string) ),
+    rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') != 'undefined' ?   localStorage.getItem('_rooms') as string : '[]')),
     option: false,
 });
 
 onMounted(()=>{ 
-    if(state.rooms)
+    if(state.rooms.length > 0)
         roomService.getRooms( state.rooms as string[])
 })
 
@@ -117,7 +110,6 @@ const scrollToPageUp = () => {
         pageUp.value.scrollIntoView({behavior: 'smooth'});
 }
 
-
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
@@ -125,12 +117,4 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const onLanjutBacaan = ()=>{
-    router.push({
-        path: '/app/dashboard/class-room/',
-        params:{
-            act: 'next'
-        } 
-})
-}
 </script>
