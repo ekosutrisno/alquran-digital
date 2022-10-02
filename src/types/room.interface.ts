@@ -3,7 +3,6 @@ import { InfoMetadata, User } from "./user.interface";
 
 export interface Room extends InfoMetadata {
     id: string;
-    totalMember: number;
     name: string;
     description: string;
     organization: string;

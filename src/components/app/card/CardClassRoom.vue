@@ -11,7 +11,7 @@
                     <p class="text-sm">{{ room.scheduleDay }} {{ room.scheduleTime }}</p>
                 </div>
                 <div>
-                    {{ room.totalMember }} members
+                    {{ room.members.length }} members
                 </div>
             </div>
             <div>

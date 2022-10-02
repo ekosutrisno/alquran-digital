@@ -90,7 +90,7 @@ export const isToday = (date: any): boolean => {
  * To Check is Today Timesheet
  * @returns boolean
  */
- export const yesterday = (): string => {
+export const yesterday = (): string => {
     return dayjs().add(-1, 'day').format('l');
 }
 
@@ -98,8 +98,16 @@ export const isToday = (date: any): boolean => {
  * To Check is Today Timesheet
  * @returns boolean
  */
- export const formatToString = (date: any): string => {
+export const formatToString = (date: any): string => {
     return dayjs(date).format('l');
+}
+
+/**
+ * To Check is Today Timesheet
+ * @returns boolean
+ */
+export const formatToStringWithDash = (): string => {
+    return dayjs().format('YYYY-MM-DD');
 }
 
 /**

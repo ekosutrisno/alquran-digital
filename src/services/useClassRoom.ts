@@ -47,7 +47,6 @@ export const useClassRoom = defineStore('classRoomService', {
                 id: `${roomId}`,
                 scheduleDay: roomData.scheduleDay,
                 scheduleTime: roomData.scheduleTime,
-                totalMember: 1,
                 organization: roomData.organization,
                 createdDate: Date.now(),
                 description: roomData.description,
