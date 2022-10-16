@@ -106,6 +106,22 @@ export const formatToString = (date: any): string => {
  * To Check is Today Timesheet
  * @returns boolean
  */
+ export const formatChatTime = (date: any): string => {
+    return dayjs(date).format('HH:mm');
+}
+
+/**
+ * To Check is Today Timesheet
+ * @returns boolean
+ */
+ export const formatAtTime = (date: any): string => {
+    return dayjs().calendar(dayjs(date))
+}
+
+/**
+ * To Check is Today Timesheet
+ * @returns boolean
+ */
 export const formatToStringWithDash = (): string => {
     return dayjs().format('YYYY-MM-DD');
 }

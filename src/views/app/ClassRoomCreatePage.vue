@@ -61,7 +61,7 @@
                 <!-- Content of tabs 1 -->
                 <div class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 py-6 px-2">
                     <!-- Room Data -->
-                    <FormClassRoom :room="state.room" @send="saveRoom" />
+                    <FormClassRoom v-model:room="state.room" @send="saveRoom" />
 
                     <!-- Profile Picture -->
                     <div

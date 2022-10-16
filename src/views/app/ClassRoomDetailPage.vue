@@ -102,6 +102,7 @@
                     v-for="member in state.dataMemebers"
                     :key="member.user_id"
                     :member="member"
+                    :roomId="($route.params.room_id as string)"
                 />
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />

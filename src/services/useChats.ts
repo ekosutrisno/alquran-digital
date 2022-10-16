@@ -1,8 +1,8 @@
 import { useToast } from 'vue-toastification';
 import { Chat, ChatGroup } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
-import { onDisconnect, onValue, push, ref, serverTimestamp, set } from "firebase/database";
-import { doc, getDoc } from "firebase/firestore";
+import { get, onDisconnect, onValue, push, ref, serverTimestamp, set } from "firebase/database";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { database, db } from "./useFirebase";
 import { formatToStringWithDash } from '@/utils/helperFunction';
@@ -12,7 +12,8 @@ const toast = useToast();
 interface ChatState {
     chat: Chat | null;
     chats: Array<ChatGroup>;
-    peerUser: User | null;
+    peerUser: User;
+    currentChatBucket: string;
 }
 
 type ChatPayload = {
@@ -25,7 +26,8 @@ export const useChats = defineStore('chatService', {
     state: (): ChatState => ({
         chat: null,
         chats: new Array<ChatGroup>(),
-        peerUser: null
+        peerUser: {} as User,
+        currentChatBucket: ''
     }),
 
     actions: {
@@ -38,27 +40,24 @@ export const useChats = defineStore('chatService', {
             // Prepare Chat Object
             const chat: Chat = {
                 content: paylaod.content,
-                from: `user_collections/${paylaod.from}`,
-                to: `user_collections/${paylaod.to}`,
+                from: `${paylaod.from}`,
+                to: `${paylaod.to}`,
                 isGroup: false,
                 timestamps: Date.now()
             }
 
-            // Generate Chat Group ID combinations from sender ID and receiver ID
-            const chatGroupId = `${paylaod.from}@${paylaod.to}`;
-
             const currentDay = formatToStringWithDash()
 
             // Send and Push Chat in to the Realtime Database
-            await push(ref(database, `personal_chats/${chatGroupId}/${currentDay}`), chat)
+            await push(ref(database, `personal_chats/${this.currentChatBucket}/${currentDay}`), chat)
         },
 
         /**
          * @param  {string} peerPathCollection
          * Get Detail of Peer User
          */
-        async fetchCurrentPeerUser(peerPathCollection: string) {
-            await getDoc(doc(db, peerPathCollection))
+        async fetchCurrentPeerUser(peerId: string) {
+            await getDoc(doc(db, 'user_collections', peerId))
                 .then((snapshot) => {
                     this.peerUser = snapshot.data() as User;
                 })
@@ -74,8 +73,10 @@ export const useChats = defineStore('chatService', {
             // stores the timestamp of my last disconnect (the last time I was seen online)
             const lastOnlineRef = ref(database, `users_connections/${userId}/lastOnline`);
 
+            const userRef = doc(db, 'user_collections', userId);
+
             const connectedRef = ref(database, `.info/connected`);
-            onValue(connectedRef, (snap) => {
+            onValue(connectedRef, async (snap) => {
                 if (snap.val() === true) {
                     // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
                     const con = push(myConnectionsRef);
@@ -88,7 +89,10 @@ export const useChats = defineStore('chatService', {
                     set(con, true);
 
                     // When I disconnect, update the last time I was seen online
-                    onDisconnect(lastOnlineRef).set(serverTimestamp());
+                    onDisconnect(lastOnlineRef)
+                        .set(serverTimestamp());
+                } else {
+                    updateDoc(userRef, { lastActive: Date.now() })
                 }
             });
         },
@@ -97,8 +101,26 @@ export const useChats = defineStore('chatService', {
          * @param  {string} chatGroupId
          * Get Realtime Chats Messages
          */
-        getChats(chatGroupId: string) {
-            const dbRef = ref(database, `personal_chats/${chatGroupId}`);
+        async getChats(peerId: string) {
+            // Get Me ID
+            const meId = localStorage.getItem("_uid") as string;
+
+            // Get Detail Data Peer User
+            await this.fetchCurrentPeerUser(peerId);
+
+            const toMe = `${peerId}@${meId}`; // ID: peer:me
+            const fromMe = `${meId}@${peerId}`; // ID: me:peer
+
+            // By Default Check from Peer as Base, if not exist will create new bucket address
+            let dbRef = ref(database, `personal_chats/${toMe}`);
+            const reference = await get(dbRef);
+
+            if (reference.exists()) {
+                this.currentChatBucket = toMe;
+            } else {
+                this.currentChatBucket = fromMe;
+                dbRef = ref(database, `personal_chats/${this.currentChatBucket}`);
+            }
 
             onValue(dbRef, (snapshot) => {
                 const messages: ChatGroup[] = [];
@@ -118,7 +140,6 @@ export const useChats = defineStore('chatService', {
                 this.chats = messages;
             });
         }
-
     }
 
 })

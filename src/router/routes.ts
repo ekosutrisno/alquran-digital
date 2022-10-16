@@ -229,7 +229,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/chat',
+                path: 'class-room/chat/:roomId',
                 name: 'ClassRoomChatPage',
                 component: ChatPage,
                 meta: {

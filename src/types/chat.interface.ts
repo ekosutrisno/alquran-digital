@@ -11,3 +11,10 @@ export interface ChatGroup {
     key: string;
     chats: Array<Chat>
 }
+
+export interface MemberList {
+    name: string;
+    id: string;
+    color: string;
+    avatar: string;
+}

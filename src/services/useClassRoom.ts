@@ -1,4 +1,5 @@
-import { Room, RoomData } from "@/types/room.interface";
+import { MemberList } from "@/types/chat.interface";
+import { Room } from "@/types/room.interface";
 import { User } from "@/types/user.interface";
 import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, orderBy, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
@@ -78,7 +79,7 @@ export const useClassRoom = defineStore('classRoomService', {
             const q = query(rommColl, where('id', 'in', roomId), limit(10));
 
             onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-                if(snapshot.empty)
+                if (snapshot.empty)
                     this.isLoading = false;
 
                 const roomsTemp: Room[] = [];
@@ -149,35 +150,45 @@ export const useClassRoom = defineStore('classRoomService', {
             const q = query(userRef, where('email', '==', userEmail));
 
             getDocs(q)
-                .then(snapshot=> {
-                    if(!snapshot.empty) {
+                .then(snapshot => {
+                    if (!snapshot.empty) {
                         const userReadyToInvite = snapshot.docs[0].data() as User;
 
                         const roomRef = doc(db, 'room_collections', `${roomId}`);
 
                         getDoc(roomRef)
-                            .then((room)=>{
+                            .then((room) => {
                                 const roomData = room.data() as Room;
 
-                                if(!roomData.members.includes(userReadyToInvite.user_id)){
+                                if (!roomData.members.includes(userReadyToInvite.user_id)) {
                                     // Add New Member ID
                                     roomData.members.push(userReadyToInvite.user_id);
 
                                     // Save Updated The Room
-                                    setDoc(roomRef, roomData, { merge: true})
-                                        .then(()=> toast.info("New Member Added"))
-                                }else{
+                                    setDoc(roomRef, roomData, { merge: true })
+                                        .then(() => toast.info("New Member Added"))
+                                } else {
                                     toast.info("The User already member!")
                                 }
 
                             });
-                    }else{
+                    } else {
                         toast.info("The Email Member not registered!")
                     };
-
                 })
-            
         }
 
+    },
+    getters:{
+        getMembers(state: ClassRoomState): MemberList[]{
+            return state.members.map(member=> {
+                return {
+                    name: member.full_name,
+                    id: member.user_id,
+                    color: member.colorCode || '#a8071a',
+                    avatar: member.photo_url
+                } as MemberList
+            })
+        }
     }
 })

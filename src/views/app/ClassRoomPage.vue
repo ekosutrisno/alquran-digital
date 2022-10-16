@@ -80,7 +80,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
@@ -89,7 +88,6 @@ import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 
-const router = useRouter();
 const roomService = useClassRoom();
 const { isLoading, rooms} = storeToRefs(roomService);
 

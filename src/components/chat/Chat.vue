@@ -1,26 +1,30 @@
 <template>
-    <div>
-        <button class="bg-sky-500 text-white py-2 px-3 rounded" type="button" @click="sendChat"> Send Chat </button>
+ <div class="chat-message">
+    <div class="flex items-end" :class="[me ? 'justify-end' : '']">
+        <div class="flex flex-col space-y-2 text-sm max-w-xs mx-2" :class="[me ? 'order-1 items-end' : 'order-2 items-start']">
+            <div>
+                <p class="px-4 pt-2 pb-1 rounded-lg inline-block rounded-bl-none" :class="[me ? 'bg-sky-500 text-white' : 'bg-gray-300 text-gray-800']">
+                    {{ chat.content }}
+                    <span class="block text-right text-[10px]" :class="[me? 'text-white' : 'text-gray-600']">{{formatChatTime(chat.timestamps)}}</span>
+                </p>
+                
+            </div>
+        </div>
+        <img :src="me ? getPhotoUrl :  peer ? peer.photo_url : ''" :alt="`peer-${peer.username}`" class="w-6 h-6 object-cover object-top rounded-full order-1">
     </div>
+</div>
 </template>
 
 <script setup lang="ts">
-import { useChats } from '@/services';
-import { onMounted } from 'vue';
-const { send, getChats } = useChats();
+import { useUser } from '@/services';
+import { Chat } from '@/types/chat.interface';
+import { User } from '@/types/user.interface';
+import { formatChatTime } from '@/utils/helperFunction';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+const props = defineProps<{chat: Chat, peer: User}>();
 
-const sendChat = ()=>{
-    const chat = {
-        content: "Uji Coba Test Chat",
-        from: "Qu5fQK09a5R5YWIcG2yFiuKEpJ03",
-        to: "nwZ2U6E2UOTMQ2e0ES8XXaC6F5F2"
-    }
+const { getPhotoUrl } = storeToRefs(useUser());
 
-    send(chat);
-}
-
-onMounted(()=>{
-    getChats('Qu5fQK09a5R5YWIcG2yFiuKEpJ03@nwZ2U6E2UOTMQ2e0ES8XXaC6F5F2')
-})
-
+const me = computed(()=> localStorage.getItem("_uid") as string == props.chat.from)
 </script>

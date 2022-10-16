@@ -228,7 +228,7 @@ export const useUser = defineStore('userService', {
                     if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`)
                 });
-        },
+        }
     },
     getters: {
         /**
