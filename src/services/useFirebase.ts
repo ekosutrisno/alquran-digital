@@ -1,11 +1,14 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from "firebase/database";
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
 import { User } from '@/types/user.interface';
 import { useNotification } from '@/services';
+
 
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
@@ -22,6 +25,9 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Cloud Messaging and get a reference to the service
 const messaging = getMessaging(app);
+
+// Initialize Firebase Realtime Database for Chats
+const database = getDatabase();
 
 /** Auth Instance */
 const auth = getAuth(app)
@@ -61,6 +67,7 @@ const getTokenFcm = (userId: User['user_id']): void => {
 export {
     auth,
     db,
+    database,
     gProvider,
     storage,
     messaging,

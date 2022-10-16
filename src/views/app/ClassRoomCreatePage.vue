@@ -61,7 +61,7 @@
                 <!-- Content of tabs 1 -->
                 <div class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 py-6 px-2">
                     <!-- Room Data -->
-                    <FormClassRoom :room="state.room" @send="saveRoom" />
+                    <FormClassRoom v-model:room="state.room" @send="saveRoom" />
 
                     <!-- Profile Picture -->
                     <div
@@ -82,7 +82,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { useClassRoom, useUser } from '@/services';
 import { storeToRefs } from 'pinia';
@@ -91,6 +91,7 @@ import FormClassRoom from '@/components/app/FormClassRoom.vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 
 const route = useRoute();
+const router = useRouter();
 const roomService = useClassRoom();
 const userService = useUser();
 
@@ -112,10 +113,13 @@ onMounted(async () => {
 const saveRoom = () => {
     if(route.query.a == 'create')
         roomService.addRoom(state.room)
-            .then(() => state.room = {} as Room);
+            .then(() => {
+                state.room = {} as Room
+                router.push(`/app/dashboard/class-room`)
+        });
     else {
         roomService.editRoom(state.room)
-            .then(() => state.room = {} as Room);
+            .then();
     }
 }
 

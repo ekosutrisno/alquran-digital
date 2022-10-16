@@ -6,6 +6,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { db, storage } from "./useFirebase";
+import randomColorCode from '@/utils/randomColors';
 
 const toast = useToast();
 interface UserState {
@@ -47,6 +48,7 @@ export const useUser = defineStore('userService', {
                 dob: "",
                 pob: "",
                 fcms: [],
+                colorCode: randomColorCode(),
                 nationality: "Indonesia",
                 hobby: "Reading Al-Quran and Learn something new.",
                 religion: "Islam",
@@ -226,7 +228,7 @@ export const useUser = defineStore('userService', {
                     if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`)
                 });
-        },
+        }
     },
     getters: {
         /**

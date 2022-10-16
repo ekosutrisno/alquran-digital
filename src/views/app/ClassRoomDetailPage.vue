@@ -51,7 +51,7 @@
                                 <p class="text-sm">{{ room?.scheduleDay }} {{ room?.scheduleTime }}</p>
                             </div>
                             <div>
-                                {{ room?.totalMember }} members
+                                {{ room?.members ?  room?.members.length : 0 }} members
                             </div>
                         </div>
                         <div>
@@ -102,6 +102,7 @@
                     v-for="member in state.dataMemebers"
                     :key="member.user_id"
                     :member="member"
+                    :roomId="($route.params.room_id as string)"
                 />
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />

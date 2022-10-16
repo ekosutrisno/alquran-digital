@@ -26,9 +26,10 @@ export interface User extends InfoMetadata {
     is_active: boolean;
     is_mentor: boolean;
     nationality?: string;
-    key?: string;
+    colorCode?: string;
     rooms?: Array<string>;
     fcms?: Array<string>;
+    lastActive?: number;
 }
 
 export interface Role {
@@ -59,5 +60,4 @@ export enum UserNotificationType{
 
 export enum FlagUseOn {
     REGISTRATION = 'REGISTRATION'
-
 }

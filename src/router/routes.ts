@@ -30,6 +30,9 @@ import TafsirPage from '@/views/app/TafsirPage.vue';
 import SettingPage from '@/views/app/SettingPage.vue';
 import NotificationPage from '@/views/app/NotificationPage.vue';
 
+// // View Chat Section Import
+import ChatPage from '@/views/chat/ChatPage.vue';
+
 // View Auth Section Import
 import LoginPage from '@/views/auth/LoginPage.vue';
 import RegisterPage from '@/views/auth/RegisterPage.vue';
@@ -221,6 +224,17 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Class Room Create Dashboard',
                     description: 'Class Room Create Dashboard Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'class-room/chat/:roomId',
+                name: 'ClassRoomChatPage',
+                component: ChatPage,
+                meta: {
+                    title: 'Class Room Chat Dashboard',
+                    description: 'Class Room Chat Dashboard Page',
                     requiresAuth: true,
                     requiresAdmin: false
                 }

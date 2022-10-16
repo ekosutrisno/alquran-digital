@@ -10,6 +10,7 @@ import { useJuz } from './useJuz';
 import { useAyah } from './useAyah';
 import { useClassRoom } from './useClassRoom';
 import { useNotification } from './useNotification';
+import { useChats } from './useChats';
 
 export {
     useAuth,
@@ -23,5 +24,6 @@ export {
     useJuz,
     useAyah,
     useClassRoom,
-    useNotification
+    useNotification,
+    useChats
 }

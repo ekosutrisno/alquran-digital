@@ -68,9 +68,7 @@ import { useUser } from '@/services';
 import { Room } from '@/types/room.interface';
 import { useVModel } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
 const { currentUser } = storeToRefs(useUser())
 
 const props = defineProps<{ room: Room }>()
@@ -79,7 +77,6 @@ const data = useVModel(props, 'room', emit)
 
 const send = ()=>{
     emit('send');
-    router.push('/app/dashboard/class-room')
 }
 
 </script>

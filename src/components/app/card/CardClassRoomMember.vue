@@ -18,13 +18,16 @@
                     </h1>
                     <p class="text-slate-500 dark:text-slate-400 text-sm"> {{ member.email }} </p>
                 </div>
-                <div class="dark:text-slate-100 text-slate-400 mt-4 inline-flex space-x-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hover:text-sky-500 cursor-pointer transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25">
+                <div v-if="member.user_id !== me" class="dark:text-slate-100 text-slate-400 mt-2 inline-flex space-x-4">
+                    <svg @click="$router.push({name: 'ClassRoomChatPage',params:{ roomId: roomId }})" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hover:text-sky-500 cursor-pointer transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hover:text-sky-500 cursor-pointer transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
+                </div>
+                <div v-else class="dark:text-slate-100 mt-2 text-slate-400">
+                    <span class="text-xs py-px px-2 rounded-full bg-green-200 text-green-800">You</span>
                 </div>
             </div>
         </div>
@@ -36,7 +39,10 @@
 
 <script setup lang="ts">
 import { User } from '@/types/user.interface';
+import { ref } from 'vue';
 
-defineProps<{member: User}>()
+defineProps<{member: User, roomId: string}>()
+
+const me = ref<string | null>(localStorage.getItem('_uid'));
 
 </script>
