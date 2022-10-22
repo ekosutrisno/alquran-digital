@@ -45,7 +45,7 @@
                     <div class="p-2">
                         <div>
                             <span class="text-sm text-slate-700 dark:text-slate-100">Juz</span>
-                            <h1 class="text-6xl font-semibold text-sky-500 dark:text-sky-400"> {{state.bacaanku?.juz_id}}</h1>
+                            <h1 class="text-6xl font-semibold text-gradien"> {{state.bacaanku?.juz_id}}</h1>
                         </div>
                         <div>
                             <span class="text-sm text-slate-700 dark:text-slate-100">Surah</span>

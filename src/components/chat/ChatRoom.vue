@@ -2,7 +2,7 @@
 <div class="flex-1 p:2 sm:py-4 justify-between flex flex-col h-full">
    <ChatHeder :peer="peerUser"/>
    <div ref="messages" class="flex flex-col p-4 overflow-y-auto light-scroll bg-chat h-full">
-      <ul v-for="chatParent in chats" :key="chatParent.key" class="space-y-2">
+      <ul v-if="!onLoadChats" v-for="chatParent in chats" :key="chatParent.key" class="space-y-2 with-transition">
          <div class="mt-5 font-semibold text-center" style="font-size: 12px; color: #666666;">
                <span v-if="chatParent.key == state.today">TODAY</span>
                <span v-else-if="chatParent.key == state.yesterday">YESTERDAY</span>
@@ -30,7 +30,7 @@ import ChatInput from './ChatInput.vue';
 const messages = ref<HTMLElement| undefined>(undefined);
 
 const chatService = useChats();
-const { chats, peerUser } = storeToRefs(chatService);
+const { chats, peerUser, onLoadChats } = storeToRefs(chatService);
 
 const state = reactive({
    today: computed(()=> formatToString(new Date())),

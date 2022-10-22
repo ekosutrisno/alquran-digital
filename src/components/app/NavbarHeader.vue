@@ -3,11 +3,11 @@
     <div :class="[state.wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-6 antialiased">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
-          <router-link to="/" class="flex-shrink-0 font-semibold text-slate-800 dark:text-white flex items-center text-2xl">
+          <router-link to="/" class="flex-shrink-0 flex items-center text-2xl">
               <span>
                 <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
               </span>
-              <p class="font-semibold ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span></p>
+              <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span></p>
           </router-link>
           <div class="hidden sm:block sm:ml-6 with-transition">
             <div class="flex space-x-4">
@@ -34,7 +34,7 @@
                 <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
               </svg>
               
-              Menu search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "/"</span>
+              Menu search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "ctrl + /"</span>
               </button>
           </div>
 
@@ -215,7 +215,7 @@ const onLogoutAction = () => {
 }
 
 const keys = useMagicKeys()
-const shiftCtrlA = keys['/']
+const shiftCtrlA = keys['ctrl + /']
 
 watch(shiftCtrlA, (v) => {
   if (v)
