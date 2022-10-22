@@ -1,7 +1,7 @@
 import { useToast } from 'vue-toastification';
 import { Chat, ChatGroup } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
-import { get, onDisconnect, onValue, push, ref, serverTimestamp, set } from "firebase/database";
+import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { database, db } from "./useFirebase";
@@ -14,6 +14,7 @@ interface ChatState {
     chats: Array<ChatGroup>;
     peerUser: User;
     currentChatBucket: string;
+    onLoadChats: boolean;
 }
 
 type ChatPayload = {
@@ -27,7 +28,8 @@ export const useChats = defineStore('chatService', {
         chat: null,
         chats: new Array<ChatGroup>(),
         peerUser: {} as User,
-        currentChatBucket: ''
+        currentChatBucket: '',
+        onLoadChats: false
     }),
 
     actions: {
@@ -104,6 +106,7 @@ export const useChats = defineStore('chatService', {
         async getChats(peerId: string) {
             // Get Me ID
             const meId = localStorage.getItem("_uid") as string;
+            this.onLoadChats = true;
 
             // Get Detail Data Peer User
             await this.fetchCurrentPeerUser(peerId);
@@ -122,7 +125,8 @@ export const useChats = defineStore('chatService', {
                 dbRef = ref(database, `personal_chats/${this.currentChatBucket}`);
             }
 
-            onValue(dbRef, (snapshot) => {
+            const q = query(dbRef, limitToLast(10));
+            onValue(q, (snapshot) => {
                 const messages: ChatGroup[] = [];
 
                 snapshot.forEach((childSnapshot) => {
@@ -138,6 +142,7 @@ export const useChats = defineStore('chatService', {
                 });
 
                 this.chats = messages;
+                this.onLoadChats = false;
             });
         }
     }
