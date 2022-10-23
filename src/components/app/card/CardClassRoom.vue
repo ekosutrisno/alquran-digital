@@ -13,7 +13,7 @@
             </div>
         </div>
         <div>
-            <p class="text-2xl max-w-xs md:max-w-sm font-medium truncate"> {{ room.name }} </p>
+            <p class="text-2xl text-gradien max-w-xs md:max-w-sm font-medium truncate"> {{ room.name }} </p>
             <p class="text-sm mt-2 truncate max-w-[290px] text-slate-700 dark:text-slate-300 font-light">{{
                     room.description
             }}</p>

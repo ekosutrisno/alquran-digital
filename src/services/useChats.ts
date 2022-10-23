@@ -1,7 +1,7 @@
 import { useToast } from 'vue-toastification';
 import { Chat, ChatGroup } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
-import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
+import { get, limitToLast, onChildAdded, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { database, db } from "./useFirebase";

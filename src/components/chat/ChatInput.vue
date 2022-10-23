@@ -7,7 +7,7 @@
         </svg>
     </button>
     </span>
-    <input type="text" v-model="data" placeholder="Write your message!" class="w-full border-none focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 lg:pl-12 focus:border-none bg-gray-200 rounded-md py-3">
+    <input type="text" v-model="data" placeholder="Write your message!" class="w-full border-none focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 lg:pl-12 focus:ring-sky-400 focus:border-none bg-gray-200 rounded-md py-3">
     <div class="absolute right-3.5 items-center inset-y-0 flex">
         <button type="button" class="hidden lg:inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">

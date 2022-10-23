@@ -2,8 +2,8 @@
 <div class="flex-1 p:2 sm:py-4 justify-between flex flex-col h-full">
    <ChatHeder :peer="peerUser"/>
    <div ref="messages" class="flex flex-col p-4 overflow-y-auto light-scroll bg-chat h-full">
-      <ul v-if="!onLoadChats" v-for="chatParent in chats" :key="chatParent.key" class="space-y-2 with-transition">
-         <div class="mt-5 font-semibold text-center" style="font-size: 12px; color: #666666;">
+      <ul v-if="!onLoadChats" v-for="chatParent in chats" :key="chatParent.key" class="space-y-1 with-transition">
+         <div class="mt-5 font-semibold text-center text-xs bg-slate-200 border border-slate-300/50 w-max mx-auto py-1 px-3 rounded">
                <span v-if="chatParent.key == state.today">TODAY</span>
                <span v-else-if="chatParent.key == state.yesterday">YESTERDAY</span>
                <span v-else style="text-transform: uppercase;">{{formatDateWithMonth(chatParent.key)}}</span>

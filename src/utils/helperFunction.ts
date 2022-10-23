@@ -106,7 +106,7 @@ export const formatToString = (date: any): string => {
  * To Check is Today Timesheet
  * @returns boolean
  */
- export const formatChatTime = (date: any): string => {
+export const formatChatTime = (date: any): string => {
     return dayjs(date).format('HH:mm');
 }
 
@@ -114,7 +114,7 @@ export const formatToString = (date: any): string => {
  * To Check is Today Timesheet
  * @returns boolean
  */
- export const formatAtTime = (date: any): string => {
+export const formatAtTime = (date: any): string => {
     return dayjs().calendar(dayjs(date))
 }
 
@@ -199,3 +199,21 @@ export const convertToArab = (str: string) => {
 
     return str;
 };
+
+/**
+ * @returns string
+ * Greetings the User
+ */
+export const dayGreeting = (): string => {
+    var hr = new Date().getHours();
+    
+    if (hr >= 0 && hr < 12) {
+        return "Good Morning!";
+    } else if (hr == 12) {
+        return "Good Noon!";
+    } else if (hr >= 12 && hr <= 17) {
+        return "Good Afternoon!";
+    } else {
+        return "Good Evening!";
+    }
+}

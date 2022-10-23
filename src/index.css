@@ -15,9 +15,11 @@
   .text-gradien {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-purple-600;
   }
+
   u {
     @apply text-slate-800 dark:text-slate-300 font-light;
   }
+
   .router-link-exact-active {
     color: rgba(129, 140, 248, 1);
   }
