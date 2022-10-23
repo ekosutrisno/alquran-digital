@@ -11,7 +11,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <span>Quick Menu</span>
+                            <span>Hi <span class="text-gradien">{{ getLoginAsInfo.fullName }}</span>, {{ dayGreeting() }}</span>
                         </p>
                         <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Menu yang sering digunakan</p>
                     </div>
@@ -134,13 +134,17 @@ import { useUser } from '@/services';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import ModalSearch from '@/components/shared/ModalSearch.vue';
+import { dayGreeting } from '@/utils/helperFunction';
+import { storeToRefs } from 'pinia';
 
 const userService = useUser();
 const router = useRouter();
 
+const { currentUser, getSurahNameBacaan, getLoginAsInfo }  = storeToRefs(userService);
+
 const state = reactive({
-    bacaanku: computed(()=> userService.currentUser?.bacaanku),
-    surahName: computed(()=> userService.getSurahNameBacaan),
+    bacaanku: computed(()=> currentUser.value?.bacaanku),
+    surahName: computed(()=> getSurahNameBacaan.value),
     isLogedIn: computed(()=> localStorage.getItem('_uid')),
     isSearch: false
 })

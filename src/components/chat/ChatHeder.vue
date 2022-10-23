@@ -42,7 +42,3 @@ import { formatAtTime} from '@/utils/helperFunction';
 
 defineProps<{peer: User}>();
 </script>
-
-<style scoped>
-
-</style>
