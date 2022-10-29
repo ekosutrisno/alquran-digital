@@ -5,13 +5,13 @@
             <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <div class="flex items-center justify-between">
                     <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
-                        <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 lg:text-xl">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <span>Hi <span class="text-gradien">{{ getLoginAsInfo.fullName }}</span>, {{ dayGreeting() }}</span>
+                            <span>Hi <span class="text-gradien">{{ getFirstName(getLoginAsInfo.fullName as string) }}</span>, {{ dayGreeting() }}</span>
                         </p>
                         <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Menu yang sering digunakan</p>
                     </div>
@@ -232,6 +232,10 @@ const onLanjutBacaan = ()=>{
 
 const onSearch = (flag: boolean)=>{
     state.isSearch = flag;
+}
+
+const getFirstName = (fullName: string) =>{
+    return fullName ?  fullName.split(" ")[0] : '';
 }
 
 </script>

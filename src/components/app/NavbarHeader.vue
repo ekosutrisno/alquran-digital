@@ -7,7 +7,7 @@
               <span>
                 <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
               </span>
-              <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span></p>
+              <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span><span class="align-super ml-1.5 text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
           </router-link>
           <div class="hidden sm:block sm:ml-6 with-transition">
             <div class="flex space-x-4">
