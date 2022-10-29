@@ -5,7 +5,7 @@
       <span>
         <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7">
       </span>
-      <p class="text-gradien font-semibold lg:font-bold">Al-Quran<span class="hidden md:inline"> Digital</span></p>
+      <p class="text-gradien font-semibold lg:font-bold">Al-Quran<span class="hidden md:inline"> Digital</span> <span class="align-super text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
     </router-link>
     <div class="flex items-center">
       <div class="items-center flex">
