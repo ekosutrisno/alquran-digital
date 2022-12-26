@@ -77,7 +77,7 @@
                     :ayat="ayahTafsirSelected"
                />
 
-               <div class="p-4 rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none md:select-text">
+               <div class="p-4 prose max-w-none rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none md:select-text">
                     <div class="flex flex-col">
                         <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

@@ -55,8 +55,8 @@
                         <Loader />
                     </div>
 
-                    <div v-if="!filteredSurah(searchQuery).length" class="w-full py-5 h-auto flex flex-col with-transition mt-5 ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto card-shadow-sm bg-white dark:bg-slate-800">
-                        <Vue3Lottie :animationData="animData" :height="75" :width="75" />
+                    <div v-if="!filteredSurah(searchQuery).length" class="w-full py-5 h-auto flex flex-col justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
+                        <img src="/empty-box.png" class="mx-auto" width="150" alt="empty-result" />
                         <p class="mx-auto text-sm py-5">No Result data found!</p>
                     </div>
                 </div>
@@ -83,7 +83,6 @@ import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
-import { Vue3Lottie } from 'vue3-lottie'
 import NotFound from '@/assets/animations/anim_not_found.json'
 
 const surahService = useSurah();

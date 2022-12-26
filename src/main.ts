@@ -7,10 +7,6 @@ import App from './App.vue'
 import router from './router';
 import './index.css'
 
-// Vue Lottie
-import Vue3Lottie from 'vue3-lottie'
-import 'vue3-lottie/dist/style.css'
-
 //Vue Toastification
 import Toast, { PluginOptions } from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -51,7 +47,6 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(Toast, options);
-app.use(Vue3Lottie);
 app.use(MotionPlugin);
 
 app.mount('#app');
