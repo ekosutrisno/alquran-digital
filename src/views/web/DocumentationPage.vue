@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-screen-lg mx-auto p-4 dark:text-white">
         <h1 class="text-3xl font-semibold">Al-Quran Digital</h1>
-        <p class="mt-4">Al-Quran Digital Bahasa Indonesia merupakan Al-Quran Digital Terjemahan Bahasa Indonesia mempunyai fitur lengkap sperti mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
+        <p class="mt-4">Al-Quran Digital merupakan Al-Quran Digital Terjemahan Bahasa Indonesia mempunyai fitur lengkap sperti mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
         <section class="mt-4">
             <h2 class="text-2xl font-semibold"> &bull; Nama</h2>
             <ul class="mt-4 ml-8 space-y-4">
