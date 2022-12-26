@@ -5,7 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import * as path from 'path';
 
 export default defineConfig({
-  test:{
+  test: {
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
@@ -59,7 +59,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src")
     }
   },
-  server:{
+  server: {
     port: 3000
-  }
+  },
 })
