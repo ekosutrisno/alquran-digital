@@ -29,6 +29,7 @@ import AlquranPage from '@/views/app/AlquranPage.vue';
 import TafsirPage from '@/views/app/TafsirPage.vue';
 import SettingPage from '@/views/app/SettingPage.vue';
 import NotificationPage from '@/views/app/NotificationPage.vue';
+import SearchPage from '@/views/app/SearchPage.vue';
 
 // // View Chat Section Import
 import ChatPage from '@/views/chat/ChatPage.vue';
@@ -290,6 +291,17 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: 'Manzil',
                     description: 'Manzil Page',
+                    requiresAuth: false,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'search',
+                name: 'SearchPage',
+                component: SearchPage,
+                meta: {
+                    title: 'Search',
+                    description: 'Search Page',
                     requiresAuth: false,
                     requiresAdmin: false
                 }

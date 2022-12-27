@@ -28,7 +28,7 @@
                     />
                 </div>
             </div>
-            <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
+            <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1 h-min">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <span>
@@ -151,6 +151,13 @@ const state = reactive({
 
 const mainMenu: MainMenuType[] = [
     {
+        id: '0',
+        title: 'Search',
+        description: 'Mencari secara spesifik berdasarkan nomor Surah dan nomor Ayah',
+        to: '/app/dashboard/search',
+        total: 6236
+    },
+    {
         id: '1',
         title: 'Surah',
         description: 'Mencari berdasarkan Surat yang disajikan secara terurut.',
@@ -217,7 +224,7 @@ const quickMenu: QuickMenuType[] = [
         title: 'Class Room',
         description: 'Ruang kelas hafalan.',
         to: '/app/dashboard/class-room'
-    },
+    }
 ]
 
 const onLanjutBacaan = ()=>{

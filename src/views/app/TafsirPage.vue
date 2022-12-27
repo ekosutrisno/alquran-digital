@@ -83,7 +83,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
-                             <span class="ml-1">Tafsir Ringkas Kemenag</span>
+                             <span class="ml-1 font-medium">Tafsir Ringkas Kemenag (Wajiz)</span>
                         </p>
                         <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ ayahTafsirSelected?.tafsir.id.short}}</span>
                     </div>
@@ -92,11 +92,19 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
-                             <span class="ml-1">Tafsir Kemenag</span>
+                             <span class="ml-1 font-medium">Tafsir Kemenag (Tahlili)</span>
                         </p>
                         <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ ayahTafsirSelected?.tafsir.id.long}}</span>
                     
-                        <span class="mt-8 text-xs font-semibold text-right">Tafsir Q.S {{ayahTafsirSelected?.sura_id}}:{{ayahTafsirSelected?.aya_number}} Sumber: QUR'AN KEMENAG</span>
+                        <span class="mt-8 text-xs inline-flex items-center font-semibold text-right">
+                            Tafsir Q.S {{ayahTafsirSelected?.sura_id}}:{{ayahTafsirSelected?.aya_number}} Sumber: QUR'AN KEMENAG 
+                            <a class="ml-2 hover:text-sky-500" target="_blank" :href="`https://quran.kemenag.go.id/surah/${surahTafsirSelected?.id}`">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                                </svg>
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>

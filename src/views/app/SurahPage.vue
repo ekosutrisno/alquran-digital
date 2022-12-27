@@ -83,7 +83,6 @@ import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
-import NotFound from '@/assets/animations/anim_not_found.json'
 
 const surahService = useSurah();
 const { surahs, isLoading, filteredSurah} = storeToRefs(surahService);
@@ -94,7 +93,6 @@ onMounted(()=> {
     }
 );
 
-const animData = ref(NotFound);
 const searchQuery = ref('');
 
 const pageUp = ref<any>(null)
