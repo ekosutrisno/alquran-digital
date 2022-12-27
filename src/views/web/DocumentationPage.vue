@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-screen-lg mx-auto p-4 dark:text-white">
-        <h1 class="text-3xl font-semibold">Al-Quran Digital</h1>
+    <div class="max-w-screen-lg mx-auto p-4 prose dark:text-white">
+        <h1 class="text-3xl font-semibold dark:text-white">Al-Quran Digital</h1>
         <p class="mt-4">Al-Quran Digital merupakan Al-Quran Digital Terjemahan Bahasa Indonesia mempunyai fitur lengkap sperti mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
-        <section class="mt-4">
-            <h2 class="text-2xl font-semibold"> &bull; Nama</h2>
+        <section>
+            <h2 class="text-2xl font-semibold dark:text-white"> &bull; Nama</h2>
             <ul class="mt-4 ml-8 space-y-4">
                 Official Name: <span class="font-bold">Al-Quran Digital Bahasa Indonesia</span>
             </ul>
@@ -12,12 +12,12 @@
             </ul>
         </section>
 
-        <section class="mt-4">
-            <h2 class="text-2xl font-semibold"> &bull; Fitur</h2>
+        <section>
+            <h2 class="text-2xl font-semibold dark:text-white"> &bull; Fitur</h2>
             <ul class="mt-4 ml-8 space-y-4 list-decimal">
             
                 <li>
-                    <h3 class="text-lg font-semibold">Fitur Dasar</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Fitur Dasar</h3>
                     <ul class="list-disc ml-8">
                         <li>List data dari 114 Surah</li>
                         <li>List data dari 30 Jus Metadata</li>
@@ -28,7 +28,7 @@
                     </ul>
                 </li>
                 <li>
-                    <h3 class="text-lg font-semibold">Fitur Tambahan</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Fitur Tambahan</h3>
                     <ul class="list-disc ml-8">
                         <li>Management Profile</li>
                         <li>Simpan Bacaanku</li>
@@ -40,12 +40,12 @@
             </ul>
         </section>
 
-        <section class="mt-4">
-            <h2 class="text-2xl font-semibold"> &bull; Developer</h2>
+        <section>
+            <h2 class="text-2xl font-semibold dark:text-white"> &bull; Developer</h2>
             <ul class="mt-4 ml-8 space-y-4 list-decimal">
             
                 <li>
-                    <h3 class="text-lg font-semibold">Main Developer</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Main Developer</h3>
                     <ul class="list-disc ml-8">
                         <li class="inline-flex items-center space-x-2 font-semibold">
                             <span>Eko Sutrisno</span> 
@@ -56,7 +56,7 @@
                     </ul>
                 </li>
                 <li>
-                    <h3 class="text-lg font-semibold">Tester</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Tester</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Safrizal</span> (Backend Developer at Prudential)</li>
                         <li><span class="font-semibold">Windi</span> (Frontend Developer at Prudential)</li>
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
                 <li>
-                    <h3 class="text-lg font-semibold">Superviser</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Superviser</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Belum Ada</span> (Masih mencari)</li> 
                     </ul>
@@ -73,12 +73,12 @@
             </ul>
         </section>
 
-        <section class="mt-4">
-            <h2 class="text-2xl font-semibold"> &bull; Technology Stack</h2>
+        <section>
+            <h2 class="text-2xl font-semibold dark:text-white"> &bull; Technology Stack</h2>
             <ul class="mt-4 ml-8 space-y-4 list-decimal">
             
                 <li>
-                    <h3 class="text-lg font-semibold">Frontend</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Frontend</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Vue v3+</span> (The Progressive JavaScript Framework)</li> 
                         <li><span class="font-semibold">Tailwind CSS v3+</span> (A utility-first CSS framework)</li> 
@@ -87,7 +87,7 @@
                     </ul>
                 </li>
                 <li>
-                    <h3 class="text-lg font-semibold">Backend</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Backend</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Firebase v9+</span> (Make your app the best it can be)</li>
                     </ul>
@@ -95,25 +95,25 @@
             </ul>
         </section>
 
-        <section class="mt-4">
-            <h2 class="text-2xl font-semibold"> &bull; Sumber Data</h2>
+        <section>
+            <h2 class="text-2xl font-semibold dark:text-white"> &bull; Sumber Data</h2>
             <ul class="mt-4 ml-8 space-y-4 list-decimal">
             
                 <li>
-                    <h3 class="text-lg font-semibold">Primary</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Primary</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Quran Kemenag</span> (LAJNAH PENTASHIHAN MUSHAF AL-QUR'AN)</li>
                     </ul>
                 </li>
                 <li>
-                    <h3 class="text-lg font-semibold">Secondary</h3>
+                    <h3 class="text-lg font-semibold dark:text-white">Secondary</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Al Quran Cloud</span> (A Full Featured Quran App)</li>
                     </ul>
                 </li>
             </ul>
         </section>
-        <p class="mt-8">
+        <p>
             Terimakasih: Puji Syukur kepada Allah SWT❤ dan Sholawat kepada Nabi Muhammad SAW❤, serta terimaksih kepada semua pihak yang telah memberikan Doa dan dukungan🎀.
         </p>
     </div>

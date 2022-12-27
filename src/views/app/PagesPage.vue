@@ -55,8 +55,9 @@
                         <Loader />
                     </div>                    
                                 
-                    <div v-if="!filteredPage(searchQuery).length" class="w-full with-transition mt-5 ring-1 ring-slate-700/10 rounded-md dark:ring-slate-700/50 dark:text-white max-w-xs mx-auto card-shadow-sm flex items-center justify-center h-20 bg-white dark:bg-slate-800">
-                        <p class="mx-auto">No Result data found!</p>
+                    <div v-if="!filteredPage(searchQuery).length" class="w-full py-5 h-auto flex flex-col justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
+                        <img src="/empty-box.png" class="mx-auto" width="150" alt="empty-result" />
+                        <p class="mx-auto text-sm py-5">No Result data found!</p>
                     </div>
                 </div>
             </div>

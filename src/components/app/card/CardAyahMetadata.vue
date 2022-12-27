@@ -13,7 +13,7 @@
       />
    </div>
    
-   <div class="w-full relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none">
+   <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700/50 select-none md:select-auto">
       <p class="font-quran mb-4"> 
          <span class="leading-10 dark:font-normal">{{ayat.aya_text}}</span>   
          <span class="text-xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
@@ -43,12 +43,12 @@
       
       <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
          <span v-if="isIncludeMyFavorite" class="font-semibold text-sky-600">
-            <svg class="w-5 inline animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
             </svg>
          </span>
          <span v-if="state.myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline animate-pulse" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                <path d="M7 12l5 5l10 -10"></path>
                <path d="M2 12l5 5m5 -5l5 -5"></path>
@@ -79,7 +79,7 @@
                leave-to-class="opacity-0 scale-95"
             >
             
-               <div ref="target" v-if="state.option" class="w-40 absolute z-50 shadow-2xl h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+               <div ref="target" v-if="state.option" class="w-40 font-normal absolute z-50 shadow-2xl h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
                      <button type="button" @click="checkTafsir(ayat)" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                         <span>Buka tafsir ayah</span>
                      </button>

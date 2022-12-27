@@ -43,6 +43,21 @@ export const useSurah = defineStore('surahService', {
                 });
         },
 
+        async getSurah(surahId: SurahData['id']) {
+            this.isLoading = true;
+
+            const surahMetdataRef = doc(db, 'surah_collections',`${surahId}`);
+
+            getDoc(surahMetdataRef)
+                .then(snapshot => {
+                    if(snapshot.exists()){
+                        this.surah = snapshot.data() as SurahData;
+                        this.isLoading = false;
+                    }
+                })
+                .finally(() => this.isLoading = false);
+        },
+
         async setSurah(surah_number: SurahData['id'],
             options: {
                 is_surah: boolean,
@@ -101,16 +116,18 @@ export const useSurah = defineStore('surahService', {
                 });
         },
 
-        async setAyahDetailGeneral(payload: { surat: number, ayat: number }, flagInfo?: { next_bacaan?: boolean }) {
+        async setAyahDetailGeneral(payload: { surat: number, ayat: number }, flagInfo?: { next_bacaan?: boolean, max_limit?: number }) {
             const ayahRefs = collection(db, 'ayah_collections');
             const q0 = query(ayahRefs, where("sura_id", "==", payload.surat), where("aya_number", "==", payload.ayat));
+
+            const limitData = flagInfo?.max_limit ? flagInfo.max_limit : 20;
 
             getDocs(q0)
                 .then((aya) => {
                     if (!aya.empty) {
                         const initialAyat = aya.docs[0] as DocumentData;
 
-                        const q1 = query(ayahRefs, orderBy("aya_id", "asc"), flagInfo?.next_bacaan ? startAfter(initialAyat) : startAt(initialAyat), limit(20));
+                        const q1 = query(ayahRefs, orderBy("aya_id", "asc"), flagInfo?.next_bacaan ? startAfter(initialAyat) : startAt(initialAyat), limit(limitData));
                         getDocs(q1)
                             .then((snapshot) => {
                                 const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
