@@ -1,5 +1,5 @@
 <template>
-<div class="flex-1 p:2 sm:py-4 justify-between flex flex-col h-full">
+<div class="flex-1 sm:py-4 justify-between flex flex-col h-full">
    <ChatHeder :peer="peerUser"/>
    <div ref="messages" class="flex flex-col p-4 overflow-y-auto light-scroll bg-chat h-full">
       <ul v-if="!onLoadChats" v-for="chatParent in chats" :key="chatParent.key" class="space-y-1 with-transition">

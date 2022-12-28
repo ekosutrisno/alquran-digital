@@ -1,5 +1,5 @@
 <template>
-  <div class="group lg:cursor-pointer flex h-auto w-full bg-white p-4 text-slate-500 transition hover:bg-slate-50">
+  <div @click="setMember(room.id)" class="with-transition group lg:cursor-pointer flex h-auto w-full bg-white p-4 text-slate-500 transition hover:bg-slate-50">
     <div>
       <svg class="transition-colors group-hover:text-sky-500" width="32" height="32" viewBox="0 0 24 24">
         <g fill="none" stroke="currentColor" stroke-width="2">
@@ -26,7 +26,14 @@
 </template>
 
 <script setup lang="ts">
+import { useClassRoom } from '@/services';
 import { Room } from '@/types/room.interface';
 
-defineProps<{room: Room}>()
+defineProps<{room: Room}>();
+
+const roomService =  useClassRoom();
+
+async function setMember(roomId: Room['id']) {
+     await roomService.getRoom(roomId);
+}
 </script>

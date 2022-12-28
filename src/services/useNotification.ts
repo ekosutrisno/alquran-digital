@@ -87,7 +87,7 @@ export const useNotification = defineStore('notificationService', {
         onMessageForeground() {
             const userService = useUser();
 
-            onMessage(messaging, (payload) => {
+            onMessage(messaging, async (payload) => {
                 const notif = payload.notification as any;
                 const options = {
                     title: `${notif?.title}`,
@@ -95,10 +95,6 @@ export const useNotification = defineStore('notificationService', {
                     image: notif.image || `https://res.cloudinary.com/ekosutrisno/image/upload/v1662785818/briix/notif_n0ogoj.jpg`,
                     icon: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1662786263/briix/n_pyzbuz.png',
                 };
-                var n = new Notification(options.title, options);
-                toast.info(options.title);
-                n.onshow;
-
                 const notify: UserNotification = {
                     id: Date.now().toString(),
                     timestamp: Date.now(),
@@ -111,7 +107,13 @@ export const useNotification = defineStore('notificationService', {
                     type: UserNotificationType.NEWS
                 }
 
-                this.saveNotification(notify);
+                await this.saveNotification(notify);
+
+                var n = new Notification(options.title, options);
+                toast.info(options.title);
+                n.onshow;
+                
+
             });
         },
 
