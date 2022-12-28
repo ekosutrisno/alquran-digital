@@ -196,7 +196,9 @@ const state = reactive({
   theme: 'dark',
   userRole: computed(() => localStorage.getItem('_role')),
   isLogin: computed(() => localStorage.getItem('_uid')),
-  notifications: computed(()=> notificationService.notifications.filter(notif=> !notif.read))
+  notifications: computed(()=> notificationService.notifications.filter(notif=> !notif.read)
+        .sort((a: UserNotification, b: UserNotification) => (new Date(b.timestamp).valueOf()) - (new Date(a.timestamp).valueOf()))
+  )
 })
 
 const readNotif = async (notif: UserNotification) =>{

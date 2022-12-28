@@ -1,7 +1,7 @@
 import { MemberList } from "@/types/chat.interface";
 import { Room } from "@/types/room.interface";
 import { User } from "@/types/user.interface";
-import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, orderBy, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
+import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { db } from "./useFirebase";

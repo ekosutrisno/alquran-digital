@@ -1,5 +1,5 @@
 <template>
-  <div @click="getChats(member.id)" v-if="member.id !== me" class="group flex h-auto w-full lg:cursor-pointer bg-white px-4 py-2 text-slate-500 transition hover:bg-slate-50">
+  <div @click="getChats(member.id)" v-if="member.id !== me" class="with-transition group flex h-auto w-full lg:cursor-pointer bg-white px-4 py-2 text-slate-500 transition hover:bg-slate-50">
     <div>
       <div class="h-12 w-12 overflow-hidden rounded-full bg-slate-100">
         <img class="h-full w-full object-cover object-top" :src=" member.avatar ? member.avatar : 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGZhY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'" :alt="member.name"/>

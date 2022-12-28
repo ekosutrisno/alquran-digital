@@ -9,7 +9,7 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import { getTokenFcm, requestPermission } from '@/services/useFirebase';
 
 const { loadNotifications, onMessageForeground } = useNotification();
-const { chatUtilityInfo } = useChats();
+const { chatInfo } = useChats();
 const { authState } = useAuth()
 const isLogin = ref<string | null>(localStorage.getItem('_uid'))
 
@@ -19,7 +19,7 @@ onMounted(() => {
   useDark();
   if (isLogin.value != null) {
     // Check Utility Info
-    chatUtilityInfo(isLogin.value);
+    chatInfo(isLogin.value);
 
     // FCM Token handling
     requestPermission();

@@ -247,6 +247,7 @@ const notificationMapper = ()=>{
         const d = formatToString(timestamp);
         group[d] = group[d] ?? [];
         group[d].push(notifs);
+        group[d].sort((a: UserNotification, b: UserNotification) => (new Date(b.timestamp).valueOf()) - (new Date(a.timestamp).valueOf()));
         return group;
     }, {});
 

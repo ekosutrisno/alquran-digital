@@ -1,19 +1,15 @@
 <template>
    <div class="flex p-4 sm:items-center justify-between py-3 border-b-2 border-gray-200">
       <div class="relative flex items-center space-x-4">
-         <div class="relative rounded-full border">
-            <span class="absolute text-green-500 right-0 bottom-0">
-               <svg width="20" height="20">
-                  <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
-               </svg>
-            </span>
-         <img :src="peer ? peer.photo_url : ''" :alt="peer.full_name" class="w-10 sm:w-16 h-10 sm:h-16 object-cover object-top rounded-full">
+         <div class="rounded-full border">
+            <img :src="peer ? peer.photo_url : ''" :alt="peer.full_name" class="w-10 sm:w-16 h-10 sm:h-16 object-cover object-top rounded-full">
          </div>
          <div class="flex flex-col leading-tight">
             <div class="text-lg font-semibold mt-1 flex items-center">
                <span class="text-gray-700 mr-3">{{ peer.full_name }}</span>
             </div>
-            <span class="text-gray-600 text-sm">Last seen {{ formatAtTime(peer.lastActive) }}</span>
+            <span v-if="peerUserStatus.state == 'online'" class="text-gray-600 text-sm">Online</span>
+            <span v-else class="text-gray-600 text-sm">Last seen {{ formatAtTime(peerUserStatus.last_changed) }}</span>
          </div>
       </div>
       <div class="flex items-center space-x-2">
@@ -37,8 +33,13 @@
 </template>
 
 <script setup lang="ts">
+import { useChats } from '@/services';
 import { User } from '@/types/user.interface';
 import { formatAtTime} from '@/utils/helperFunction';
+import { storeToRefs } from 'pinia';
 
 defineProps<{peer: User}>();
+
+const chatService = useChats();
+const { peerUserStatus } = storeToRefs(chatService);
 </script>

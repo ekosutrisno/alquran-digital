@@ -29,7 +29,6 @@ export interface User extends InfoMetadata {
     colorCode?: string;
     rooms?: Array<string>;
     fcms?: Array<string>;
-    lastActive?: number;
 }
 
 export interface Role {
