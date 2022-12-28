@@ -1,8 +1,8 @@
 import { useToast } from 'vue-toastification';
-import { Chat, ChatGroup } from "@/types/chat.interface";
+import { Chat, ChatGroup, UserOnlineStatus } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
-import { get, limitToLast, onChildAdded, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
+import { doc, getDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { database, db } from "./useFirebase";
 import { formatToStringWithDash } from '@/utils/helperFunction';
@@ -13,6 +13,7 @@ interface ChatState {
     chat: Chat | null;
     chats: Array<ChatGroup>;
     peerUser: User;
+    peerUserStatus: UserOnlineStatus;
     currentChatBucket: string;
     onLoadChats: boolean;
 }
@@ -29,7 +30,8 @@ export const useChats = defineStore('chatService', {
         chats: new Array<ChatGroup>(),
         peerUser: {} as User,
         currentChatBucket: '',
-        onLoadChats: false
+        onLoadChats: false,
+        peerUserStatus: {} as UserOnlineStatus
     }),
 
     actions: {
@@ -69,34 +71,26 @@ export const useChats = defineStore('chatService', {
          * @param  {User['user_id']} userId
          * Handling User is Online or not, set last seen timestamp
          */
-        chatUtilityInfo(userId: User['user_id']) {
-            const myConnectionsRef = ref(database, `users_connections/${userId}/connections`);
+        chatInfo(userId: User['user_id']) {
+            const connectedRef = ref(database, `/users_connection/${userId}`);
 
-            // stores the timestamp of my last disconnect (the last time I was seen online)
-            const lastOnlineRef = ref(database, `users_connections/${userId}/lastOnline`);
+            var isOfflineForFirestore: UserOnlineStatus = {
+                state: 'offline',
+                last_changed: serverTimestamp(),
+            };
 
-            const userRef = doc(db, 'user_collections', userId);
+            var isOnlineForFirestore: UserOnlineStatus = {
+                state: 'online',
+                last_changed: serverTimestamp(),
+            };
 
-            const connectedRef = ref(database, `.info/connected`);
-            onValue(connectedRef, async (snap) => {
-                if (snap.val() === true) {
-                    // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
-                    const con = push(myConnectionsRef);
+            onValue(ref(database, '.info/connected'), (snap) => {
+                if (snap.val() == false) return;
 
-                    // When I disconnect, remove this device
-                    onDisconnect(con).remove();
-
-                    // Add this device to my connections list
-                    // this value could contain info about the device or a timestamp too
-                    set(con, true);
-
-                    // When I disconnect, update the last time I was seen online
-                    onDisconnect(lastOnlineRef)
-                        .set(serverTimestamp());
-                } else {
-                    updateDoc(userRef, { lastActive: Date.now() })
-                }
+                onDisconnect(connectedRef).set(isOfflineForFirestore)
+                    .then(() => set(connectedRef, isOnlineForFirestore))
             });
+
         },
 
         /**
@@ -107,6 +101,9 @@ export const useChats = defineStore('chatService', {
             // Get Me ID
             const meId = localStorage.getItem("_uid") as string;
             this.onLoadChats = true;
+
+            // This Will get latest status online/offline from peer user
+            this.getPeerOnlineStatus(peerId);
 
             // Get Detail Data Peer User
             await this.fetchCurrentPeerUser(peerId);
@@ -144,6 +141,21 @@ export const useChats = defineStore('chatService', {
                 this.chats = messages;
                 this.onLoadChats = false;
             });
+        },
+
+        /**
+         * @param  {User['user_id']} peerId
+         * This will watching for User Online Status
+         */
+        getPeerOnlineStatus(peerId: User['user_id']) {
+            const connectedRef = ref(database, `/users_connection/${peerId}`);
+            onValue(connectedRef, snap => {
+                if (snap.exists()) {
+                    this.peerUserStatus = snap.val() as UserOnlineStatus;
+                } else {
+                    this.peerUserStatus = { state: 'offline', last_changed: 0 }
+                }
+            })
         }
     }
 

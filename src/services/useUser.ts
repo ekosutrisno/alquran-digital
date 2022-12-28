@@ -235,7 +235,7 @@ export const useUser = defineStore('userService', {
          * @param  {} state
          * @returns User.photoUrl
          */
-        getPhotoUrl(state): User['photo_url'] {
+        getPhotoUrl(state: UserState): User['photo_url'] {
             return state.currentUser
                 ? state.currentUser.photo_url
                     ? state.currentUser.photo_url
@@ -249,7 +249,7 @@ export const useUser = defineStore('userService', {
          * @param  {User['email']} email
          * @returns User
          */
-        getLoginAsInfo(state): { fullName: User['full_name'], email: User['email'] } {
+        getLoginAsInfo(state: UserState): { fullName: User['full_name'], email: User['email'] } {
             const loginAs = {
                 fullName: state.currentUser?.full_name as string,
                 email: state.currentUser?.email as string
@@ -262,7 +262,7 @@ export const useUser = defineStore('userService', {
          * @returns string
          * Get Surah Name of Bacaan User as String
          */
-        getSurahNameBacaan(state): string {
+        getSurahNameBacaan(state: UserState): string {
             return state.surahBacaanUser
                 ? state.surahBacaanUser?.surat_name
                 : '';

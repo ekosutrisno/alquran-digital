@@ -115,7 +115,7 @@ export const formatChatTime = (date: any): string => {
  * @returns boolean
  */
 export const formatAtTime = (date: any): string => {
-    return dayjs().calendar(dayjs(date))
+    return dayjs(date).calendar(dayjs(date))
 }
 
 /**

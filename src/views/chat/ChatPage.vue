@@ -36,7 +36,6 @@ onMounted(() => {
         roomService.getRooms(JSON.parse(state.roomsIds))
             .then( async () => {
                 await roomService.getRoom(route.params.roomId as string);
-                await chatService.getChats('nwZ2U6E2UOTMQ2e0ES8XXaC6F5F2');
             });
     }
 })

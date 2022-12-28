@@ -18,3 +18,8 @@ export interface MemberList {
     color: string;
     avatar: string;
 }
+
+export interface UserOnlineStatus {
+    state: string;
+    last_changed: number | object;
+}
