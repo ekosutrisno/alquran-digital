@@ -24,10 +24,30 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar  from 'dayjs/plugin/calendar';
-dayjs.extend(localizedFormat)
-dayjs.extend(localeData)
-dayjs.extend(relativeTime)
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import updateLocale from 'dayjs/plugin/updateLocale';
+dayjs.extend(localizedFormat);
+dayjs.extend(localeData);
+dayjs.extend(relativeTime);
 dayjs.extend(calendar);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault(dayjs.tz.guess());
+
+dayjs.extend(updateLocale)
+
+dayjs.updateLocale('en', {
+    calendar: {
+        lastDay: '[Yesterday at] LT',
+        sameDay: '[Today at] LT',
+        nextDay: '[Tomorrow at] LT',
+        lastWeek: '[Last seen] dddd [at] LT',
+        nextWeek: 'dddd [at] LT',
+        sameElse: 'L'
+    }
+})
 
 const updateSW = registerSW({
     onNeedRefresh() { 

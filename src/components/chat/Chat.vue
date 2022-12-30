@@ -1,5 +1,5 @@
 <template>
- <div class="chat-message w-full">
+ <div :id="`chat-${chat.timestamps}`" class="chat-message w-full">
     <div class="flex items-end" :class="[me ? 'justify-end' : '']">
         <div class="flex flex-col space-y-2 text-sm max-w-xs mx-2" :class="[me ? 'order-1 items-end' : 'order-2 items-start']">
             <div>

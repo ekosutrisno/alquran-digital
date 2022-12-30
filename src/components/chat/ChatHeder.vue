@@ -8,8 +8,7 @@
             <div class="text-lg font-semibold mt-1 flex items-center">
                <span class="text-gray-700 mr-3">{{ peer.full_name }}</span>
             </div>
-            <span v-if="peerUserStatus.state == 'online'" class="text-gray-600 text-sm">Online</span>
-            <span v-else class="text-gray-600 text-sm">Last seen {{ formatAtTime(peerUserStatus.last_changed) }}</span>
+            <span class="text-gray-600 text-xs">{{ peerUserStatus.state == 'online' ? 'Online': formatAtTime(peerUserStatus.last_changed) }}</span>
          </div>
       </div>
       <div class="flex items-center space-x-2">
