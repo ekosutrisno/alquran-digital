@@ -99,7 +99,7 @@ export const yesterday = (): string => {
  * @returns boolean
  */
 export const formatToString = (date: any): string => {
-    return dayjs(date).format('l');
+    return dayjs(date).format('YYYY-MM-DD');
 }
 
 /**
@@ -115,7 +115,7 @@ export const formatChatTime = (date: any): string => {
  * @returns boolean
  */
 export const formatAtTime = (date: any): string => {
-    return dayjs(date).calendar(dayjs(date))
+    return dayjs(date).calendar()
 }
 
 /**

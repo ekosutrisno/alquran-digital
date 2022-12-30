@@ -150,11 +150,11 @@ export const useChats = defineStore('chatService', {
         getPeerOnlineStatus(peerId: User['user_id']) {
             const connectedRef = ref(database, `/users_connection/${peerId}`);
             onValue(connectedRef, snap => {
-                if (snap.exists()) {
+                if (snap.exists())
                     this.peerUserStatus = snap.val() as UserOnlineStatus;
-                } else {
-                    this.peerUserStatus = { state: 'offline', last_changed: 0 }
-                }
+                else
+                    this.peerUserStatus = { state: 'offline', last_changed: Date.now() }
+
             })
         }
     }

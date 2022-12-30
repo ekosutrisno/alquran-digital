@@ -48,12 +48,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
                         <div v-if="state.option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50">
-                            <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
-                                <div class="col-span-1">{{ size.size }}</div> <div class="text-sm col-span-3 text-left">({{ size.text}})</div>
+                            <button type="button" @click="selectFilter(size.size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
+                                <div class="col-span-1">{{ size.size }}</div>
                             </button>
                         </div>
                     </button>
-                    <p class="text-sky-500 font-medium">{{ state.sizeSelected.size }}</p>
                     <p class="text-sm text-slate-700 dark:text-slate-50">Semua notifikasi</p>
                 </div>
             </div>
@@ -61,15 +60,15 @@
             <div class="grid lg:grid-cols-2 h-full">
                 <div class="w-full mx-auto grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                     <div v-for="item in state.notificationsList" :key="item.key">
-                        <div class="mt-5 font-semibold" style="font-size: 12px; color: #666666;">
-                            <span v-if="item.key == state.today" class="text-left">TODAY</span>
-                            <span v-else-if="item.key == state.yesterday" class="text-left">YESTERDAY</span>
-                            <span v-else class="text-left" style="text-transform: uppercase;">{{formatDateWithMonth(item.actualDate)}}</span>
+                        <div class="mt-5 text-xs dark:text-slate-300 text-slate-500">
+                            <span v-if="item.key == state.today" class="text-left">Today</span>
+                            <span v-else-if="item.key == state.yesterday" class="text-left">Yesterday</span>
+                            <span v-else class="text-left">{{formatDateWithMonth(item.actualDate)}}</span>
                         </div>
                         <button type="button" @click="selectNotif(notif)" v-for="notif in item.data" :key="notif.id" :class="[notif.read ? '': 'border-l-2 border-l-sky-500', 'inline-flex items-start text-left space-x-3 w-full my-1 px-4 py-3 text-slate-900 bg-white hover:bg-slate-50 dark:bg-slate-800 border dark:border-slate-700/50 rounded-r-lg dark:text-white dark:hover:bg-slate-700 with-transition transition']">
                             <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                             <div class="flex flex-col w-full">
-                            <div class="text-sm font-semibold flex items-center justify-between">
+                            <div class="text-sm font-medium flex items-center justify-between">
                                 <div>{{ notif.title }}</div>
                                 <div> <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div> </div>
                             </div>
@@ -148,32 +147,18 @@ interface NotificationMapper{
 const state = reactive({
     isLogin: computed(()=>localStorage.getItem('_uid')),
     option: false,
-    sizeSelected: localStorage.getItem('_a_size') != null
-        ? JSON.parse(localStorage.getItem('_a_size') as string)
-        : {
-            id: 1,
-            size: 'MD',
-            text: 'Medium',
-            class: 'max-w-screen-lg'
-        },
     sizes: [
         {
             id: 1,
-            size: 'MD',
-            text: 'Medium',
-            class: 'max-w-screen-lg'
+            size: 'All'
         },
         {
             id: 2,
-            size: 'LG',
-            text: 'Large',
-            class: 'max-w-screen-xl'
+            size: 'Unread'
         },
         {
             id: 3,
-            size: 'XL',
-            text: 'Extra Large',
-            class: 'w-full'
+            size: 'Read'
         }
     ],
     notif: {} as UserNotification,
@@ -216,10 +201,6 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const selectSize = (size: any)=> {
-    utilService.setAlquranSize(size); 
-    state.sizeSelected  = size;
-}
 
 const typeMapper = (type: string)=>{
     switch (type) {
