@@ -4,7 +4,7 @@ import { User } from "@/types/user.interface";
 import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { db } from "./useFirebase";
+import { auth, db } from "./useFirebase";
 import { useUser } from "./useUser";
 
 
@@ -19,7 +19,8 @@ interface ClassRoomState {
     mentor: User | null;
     members: User[];
     memberRef: string[];
-    rooms: Room[];
+    rooms: Array<Room>;
+    asMentorInRoom: Array<Room>;
 }
 
 export const useClassRoom = defineStore('classRoomService', {
@@ -32,7 +33,8 @@ export const useClassRoom = defineStore('classRoomService', {
         mentor: {} as User,
         members: new Array<User>(),
         memberRef: new Array<string>(),
-        rooms: new Array<Room>()
+        rooms: new Array<Room>(),
+        asMentorInRoom: new Array<Room>()
     }),
 
     actions: {
@@ -176,12 +178,30 @@ export const useClassRoom = defineStore('classRoomService', {
                         toast.info("The Email Member not registered!")
                     };
                 })
+        },
+
+        haveClassRoom() {
+            const me = localStorage.getItem('_uid') as string;
+
+            const rommColl = collection(db, 'room_collections');
+            const q = query(rommColl, where('mentor', '==', doc(db, 'user_collections', `${me}`)));
+
+            getDocs(q)
+                .then((snapshot) => {
+                    if (!snapshot.empty) {
+                        const temporaryRoom: Room[] = [];
+
+                        snapshot.forEach(room => temporaryRoom.push(room.data() as Room));
+
+                        this.asMentorInRoom = temporaryRoom;
+                    }
+                })
         }
 
     },
-    getters:{
-        getMembers(state: ClassRoomState): MemberList[]{
-            return state.members.map(member=> {
+    getters: {
+        getMembers(state: ClassRoomState): MemberList[] {
+            return state.members.map(member => {
                 return {
                     name: member.full_name,
                     id: member.user_id,
