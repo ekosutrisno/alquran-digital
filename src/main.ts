@@ -40,11 +40,11 @@ dayjs.extend(updateLocale)
 
 dayjs.updateLocale('en', {
     calendar: {
-        lastDay: '[Yesterday at] LT',
-        sameDay: '[Today at] LT',
-        nextDay: '[Tomorrow at] LT',
-        lastWeek: '[Last seen] dddd [at] LT',
-        nextWeek: 'dddd [at] LT',
+        lastDay: '[Yesterday at] HH:mm',
+        sameDay: '[Today at] HH:mm',
+        nextDay: '[Tomorrow at] HH:mm',
+        lastWeek: '[Last seen] dddd [at] HH:mm',
+        nextWeek: 'dddd [at] HH:mm',
         sameElse: 'L'
     }
 })

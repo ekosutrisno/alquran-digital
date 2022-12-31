@@ -32,56 +32,69 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                            </svg>
+                            <svg class="h-6 w-6 text-sky-500" viewBox="0 0 512 512"><path fill="currentColor" d="M463 20.3L315.6 75.65L368.5 109C274 228 137.3 301.3 21.8 329.2l32.72 59.6C184.3 346.5 321.7 270.2 410.2 135.4l40.3 25.4L463 20.3zm7.7 116.7l-4.8 54.8l-51.3-32.4c-1.8 2.7-3.7 5.3-5.6 8V487h78V137h-16.3zM320.1 265c-12.7 11-25.8 21.4-39.1 31.2V487h78V265h-38.9zm-123.7 84c-14.4 7.6-28.8 14.6-43.4 21.2V487h78V349h-34.6zM25 393v94h78v-94h-5.68c-14.82 5.5-29.63 10.6-44.35 15.3l-7.06 2.2l-9.6-17.5H25z"/></svg>
                         </span>
                         <span>My Progress</span> 
                     </p>
                 </div>
-                <div v-if="state.isLogedIn && state.bacaanku" class="grid grid-cols-2 relative w-auto">
-                    <div class="p-2">
-                        <div>
-                            <span class="text-sm text-slate-700 dark:text-slate-100">Juz</span>
-                            <h1 class="text-6xl font-semibold text-gradien"> {{state.bacaanku?.juz_id}}</h1>
-                        </div>
-                        <div>
-                            <span class="text-sm text-slate-700 dark:text-slate-100">Surah</span>
-                            <h1 class="md:text-lg font-semibold dark:text-white">{{state.surahName}}</h1>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="grid grid-cols-2">
-                            <div>
-                                <span class="text-sm text-slate-700 dark:text-slate-100">Manzil</span>
-                                <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.manzil}}</h1>
-                            </div>
-                            <div>
-                                <span class="text-sm text-slate-700 dark:text-slate-100">Ayat</span>
-                                <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.aya_number}}</h1>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2">
-                            <div>
-                                <span class="text-sm text-slate-700 dark:text-slate-100">Halaman</span>
-                                <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.page_number}}</h1>
-                            </div>
-                            <div>
-                                <span class="text-sm text-slate-700 dark:text-slate-100">Rukuk</span>
-                                <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.rukuk}}</h1>
-                            </div>
-                        </div>
 
-                        <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
-                            <span class="mr-2">Lanjut</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </button>
+                <div v-if="state.isLogedIn">
+                    <div v-if="state.bacaanku" class="grid grid-cols-2 relative w-auto">
+                        <div class="p-2">
+                            <div>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Juz</span>
+                                <h1 class="text-6xl font-semibold text-gradien"> {{state.bacaanku?.juz_id}}</h1>
+                            </div>
+                            <div>
+                                <span class="text-sm text-slate-700 dark:text-slate-100">Surah</span>
+                                <h1 class="md:text-lg font-semibold dark:text-white">{{state.surahName}}</h1>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-2">
+                                <div>
+                                    <span class="text-sm text-slate-700 dark:text-slate-100">Manzil</span>
+                                    <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.manzil}}</h1>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-slate-700 dark:text-slate-100">Ayat</span>
+                                    <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.aya_number}}</h1>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <div>
+                                    <span class="text-sm text-slate-700 dark:text-slate-100">Halaman</span>
+                                    <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.page_number}}</h1>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-slate-700 dark:text-slate-100">Rukuk</span>
+                                    <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.rukuk}}</h1>
+                                </div>
+                            </div>
+
+                            <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                <span class="mr-2">Lanjut</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <Svg3 aria-hidden="true" class="absolute -right-32 bottom-[85px] sm:bottom-1.5 xl:bottom-20 rotate-90"/>
                     </div>
-                    <Svg3 aria-hidden="true" class="absolute -right-32 bottom-[85px] sm:bottom-1.5 xl:bottom-20 rotate-90"/>
+                    <div v-else class="mx-auto w-full my-6 with-transition">
+                        <router-link to="/app/dashboard/surah">
+                            <div class="transition-shadow z-0 relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
+                                <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-pink-300/90 via-purple-400 to-indigo-400/90"></div>
+                                <div class="h-16 z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
+                                    <span class="font-semibold text-white">Upss... Ayo mulai progresmu</span> 
+                                    <p class="text-xs text-gray-100">Kamu bisa memulai bacaan dari sini, click untuk mencari surah.</p>
+                                </div>
+                                <svg aria-hidden="true" class="h-8 w-8 text-sky-100 z-50 absolute right-5 bottom-5" viewBox="0 0 2048 2048">
+                                    <path fill="currentColor" d="M384 1536h128v128H256V384H128v1408h384v128H0V256h256V128h384q88 0 169 27t151 81q69-54 150-81t170-27h384v128h256v819l-128-58V384h-128v575l-128-59V256h-256q-71 0-136 24t-120 71v608l-128 58V351q-54-46-119-70t-137-25H384v1280zm1408 255l-448 225l-448-225q0-36 1-76t8-81t20-77t36-67l-193-88v582H640v-640l704-320l704 320l-321 146l8 11q21 31 32 67t17 73t7 76t1 74zm-448-627l-395 180l395 180l395-180l-395-180zm0 709l320-161q-1-26-4-47t-11-41t-16-39t-23-42l-266 121l-266-121q-15 24-24 43t-16 38t-9 40t-4 49l319 160z" />
+                                </svg>
+                            </div>
+                        </router-link>
+                    </div>
                 </div>
                 <div v-else class="mx-auto w-full my-6 with-transition">
                     <router-link to="/auth/login">
