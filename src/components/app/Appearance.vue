@@ -50,7 +50,7 @@
             </div>
         </div>
 
-         <div class="grid grid-cols-3 gap-2">
+         <div class="grid sm:grid-cols-3 gap-2">
             <ul v-for="size in state.sizes" :key="size.id">
                 <button type="button" @click="selectSize(size)" :class="[size.id == state.sizeSelected.id ? 'bg-sky-500 ring-0 text-white' : '']" class="py-2 rounded-lg ring-1 ring-slate-700/20 dark:ring-slate-700/50 dark:hover:ring-sky-500 hover:ring-sky-500 px-3 inline-flex items-center justify-center space-x-1 w-full relative dark:text-white transition">
                     <div class="col-span-1 hidden md:inline">{{ size.size }}</div> <div class="text-sm col-span-3 text-left"> &bull; {{ size.text}}</div>
