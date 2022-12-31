@@ -1,14 +1,14 @@
 <template>
    <div class="flex p-4 sm:items-center justify-between py-3 border-b-2 border-gray-200">
       <div class="relative flex items-center space-x-4">
-         <div class="rounded-full border">
+         <div class="rounded-full border with-transition">
             <img :src="peer ? peer.photo_url : ''" :alt="peer.full_name" class="w-10 sm:w-16 h-10 sm:h-16 object-cover object-top rounded-full">
          </div>
-         <div class="flex flex-col leading-tight">
+         <div class="flex flex-col leading-tight with-transition">
             <div class="text-lg font-semibold mt-1 flex items-center">
                <span class="text-gray-700 mr-3">{{ peer.full_name }}</span>
             </div>
-            <span class="text-gray-600 text-xs">{{ peerUserStatus.state == 'online' ? 'Online': formatAtTime(peerUserStatus.last_changed) }}</span>
+            <span class="text-gray-600 text-xs lowercase">{{ peerUserStatus.state == 'online' ? 'Online': formatAtTime(peerUserStatus.last_changed) }}</span>
          </div>
       </div>
       <div class="flex items-center space-x-2">

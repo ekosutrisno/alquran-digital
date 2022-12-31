@@ -115,7 +115,8 @@ export const formatChatTime = (date: any): string => {
  * @returns boolean
  */
 export const formatAtTime = (date: any): string => {
-    return dayjs(date).calendar()
+    const dateFormated = dayjs(date).calendar();
+    return dateFormated.startsWith('Last seen') ? dateFormated : `Last seen ${dateFormated}`
 }
 
 /**

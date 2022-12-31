@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="flex items-center justify-end w-full">
-            <p class="text-xs text-slate-800 dark:text-sky-500">Active 7 minutes ago</p>
+            <p class="text-xs text-slate-800 dark:text-sky-500">{{ getPresence(member.user_id).value.state == 'online' ? 'Online' : `Active ${formatDateFromNow(getPresence(member.user_id).value.last_changed)}` }}</p>
         </div>
     </div>
 </template>
@@ -40,6 +40,8 @@
 <script setup lang="ts">
 import { User } from '@/types/user.interface';
 import { ref } from 'vue';
+import { formatDateFromNow } from '@/utils/helperFunction';
+import { getPresence } from '@/utils/firebaseHelperFunction';
 
 defineProps<{member: User, roomId: string}>()
 
