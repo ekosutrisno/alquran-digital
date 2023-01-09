@@ -35,11 +35,11 @@
          </svg>
       </div>
 
-      <div class="w-full mt-6">
+      <!-- <div class="w-full mt-6">
          <audio v-if="state.playAudio" class="focus:outline-none mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
             <source v-for="(aud, idx) in ayat.audio_secondary" :key="idx" :src="aud" type = "audio/mp3" />
          </audio>
-      </div>
+      </div> -->
       
       <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
          <span v-if="isIncludeMyFavorite" class="font-semibold text-sky-600">
@@ -47,7 +47,7 @@
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
             </svg>
          </span>
-         <span v-if="state.myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
+         <span v-if="myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                <path d="M7 12l5 5l10 -10"></path>
@@ -109,23 +109,26 @@ import { convertToArab } from '@/utils/helperFunction';
 import CardSurahSeparateMetadata from './CardSurahSeparateMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
+const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const ayahService = useAyah();
-const userService = useUser();
+const { setCurrentPlay, onCheckTafsir } = ayahService;
+const { myFavorite } =  storeToRefs(ayahService);
+
+const { myBacaanku } = storeToRefs(useUser());
 const router = useRouter();
-const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const state = reactive({
     playAudio: false,
     option: false,
-    myBacaanku: computed(() => userService.currentUser?.bacaanku),
-    myFavorite: computed(() => ayahService.ayahFavorite),
-    currentAyat: props.ayat,
     showModal: false
 });
 
 const togglePlay = ()=>{
     state.playAudio = !state.playAudio;
+    setCurrentPlay(props.ayat);
 }
 
 const target = ref(null)
@@ -135,11 +138,11 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const isIncludeMyFavorite = computed(()=>state.myFavorite.some(ayat => ayat.aya_id === state.currentAyat.aya_id))
+const isIncludeMyFavorite = computed(()=> myFavorite.value.some(ayat => ayat.aya_id === props.ayat.aya_id))
 
 
 const checkTafsir = (ayah: AyahData) =>{
-   ayahService.onCheckTafsir(ayah);
+   onCheckTafsir(ayah);
    router.push({
          path: '/app/dashboard/tafsir',
          query:{an: ayah.aya_id, sn: ayah.sura_id}

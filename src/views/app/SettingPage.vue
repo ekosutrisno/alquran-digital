@@ -261,7 +261,6 @@ import { useUser } from '@/services';
 import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/helperFunction';
 import { computed, reactive } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
-import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { User } from '@/types/user.interface';
 import { required, email} from '@vuelidate/validators';
@@ -273,7 +272,6 @@ import DangerZone from '@/components/app/DangerZone.vue';
 import Appearance from '@/components/app/Appearance.vue';
 
 const userService = useUser();
-const router = useRouter();
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const rules = computed(()=> {

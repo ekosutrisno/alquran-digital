@@ -1,7 +1,7 @@
 <template>
     <div ref="pageUp" class="absolute -top-20"></div>
 
-    <div class="wrapper md:p-4 space-y-6">
+    <div class="wrapper md:p-4 space-y-6 relative">
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2">
             <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
@@ -99,6 +99,7 @@
         </section>
         <ScrollToTop @on-back="scrollToPageUp"/>
 
+        <Player v-if="isPlayingAyah"/>
     </div>
 </template>
 
@@ -113,6 +114,7 @@ import Loader from '@/components/Loader.vue';
 import { onClickOutside, useTitle } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import Player from '@/components/app/Player.vue';
 
 const surahService = useSurah();
 const ayahService = useAyah();
@@ -138,7 +140,7 @@ const routeQuery: RouteQuery = {
 };
 
 const { surah, isLoading, isPush, ayahs, } = storeToRefs(surahService)
-const { surahPilihan } = storeToRefs(ayahService);
+const { surahPilihan, isPlayingAyah } = storeToRefs(ayahService);
 
 const state = reactive({
     option: false,
