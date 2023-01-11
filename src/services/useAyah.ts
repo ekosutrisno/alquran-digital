@@ -13,6 +13,8 @@ interface UseAyahState {
     isPush: boolean;
     ayahTafsirSelected: AyahData | null;
     surahTafsirSelected: SurahData | null;
+    currentPlay: AyahData | null;
+    isPlayingAyah: boolean
 }
 
 export const useAyah = defineStore('ayatService', {
@@ -22,7 +24,9 @@ export const useAyah = defineStore('ayatService', {
         isLoading: false,
         isPush: false,
         ayahTafsirSelected: null,
-        surahTafsirSelected: null
+        surahTafsirSelected: null,
+        currentPlay: null,
+        isPlayingAyah: false
     }),
 
     actions: {
@@ -152,6 +156,14 @@ export const useAyah = defineStore('ayatService', {
                             this.ayahTafsirSelected = payload;
                         }
                     })
+        },
+
+        setCurrentPlay(ayah: AyahData){
+            this.currentPlay =  ayah;
+            this.isPlayingAyah = !this.isPlayingAyah;
         }
+    },
+    getters:{
+        myFavorite: (state: UseAyahState) => state.ayahFavorite
     }
 })

@@ -43,8 +43,8 @@ export const useSurah = defineStore('surahService', {
                 });
         },
 
-        async getSurah(surahId: SurahData['id']) {
-            this.isLoading = true;
+        async getSurah(surahId: SurahData['id'], isSilent?: boolean) {
+            isSilent ? this.isLoading = false : this.isLoading = true;
 
             const surahMetdataRef = doc(db, 'surah_collections',`${surahId}`);
 

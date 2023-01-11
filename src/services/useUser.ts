@@ -266,6 +266,7 @@ export const useUser = defineStore('userService', {
             return state.surahBacaanUser
                 ? state.surahBacaanUser?.surat_name
                 : '';
-        }
+        },
+        myBacaanku: (state: UserState) => state.currentUser?.bacaanku
     }
 })

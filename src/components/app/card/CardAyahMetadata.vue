@@ -47,7 +47,7 @@
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
             </svg>
          </span>
-         <span v-if="state.myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
+         <span v-if="myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                <path d="M7 12l5 5l10 -10"></path>
@@ -109,18 +109,20 @@ import { convertToArab } from '@/utils/helperFunction';
 import CardSurahSeparateMetadata from './CardSurahSeparateMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
+const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const ayahService = useAyah();
-const userService = useUser();
+const { onCheckTafsir } = ayahService;
+const { myFavorite } =  storeToRefs(ayahService);
+
+const { myBacaanku } = storeToRefs(useUser());
 const router = useRouter();
-const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const state = reactive({
     playAudio: false,
     option: false,
-    myBacaanku: computed(() => userService.currentUser?.bacaanku),
-    myFavorite: computed(() => ayahService.ayahFavorite),
-    currentAyat: props.ayat,
     showModal: false
 });
 
@@ -129,17 +131,17 @@ const togglePlay = ()=>{
 }
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const isIncludeMyFavorite = computed(()=>state.myFavorite.some(ayat => ayat.aya_id === state.currentAyat.aya_id))
+const isIncludeMyFavorite = computed(()=> myFavorite.value.some(ayat => ayat.aya_id === props.ayat.aya_id))
 
 
 const checkTafsir = (ayah: AyahData) =>{
-   ayahService.onCheckTafsir(ayah);
+   onCheckTafsir(ayah);
    router.push({
          path: '/app/dashboard/tafsir',
          query:{an: ayah.aya_id, sn: ayah.sura_id}
