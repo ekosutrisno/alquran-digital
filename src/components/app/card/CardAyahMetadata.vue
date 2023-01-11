@@ -35,11 +35,11 @@
          </svg>
       </div>
 
-      <!-- <div class="w-full mt-6">
+      <div class="w-full mt-6">
          <audio v-if="state.playAudio" class="focus:outline-none mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
             <source v-for="(aud, idx) in ayat.audio_secondary" :key="idx" :src="aud" type = "audio/mp3" />
          </audio>
-      </div> -->
+      </div>
       
       <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
          <span v-if="isIncludeMyFavorite" class="font-semibold text-sky-600">
@@ -114,7 +114,7 @@ import { storeToRefs } from 'pinia';
 const props = defineProps<{ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir?: boolean}>()
 
 const ayahService = useAyah();
-const { setCurrentPlay, onCheckTafsir } = ayahService;
+const { onCheckTafsir } = ayahService;
 const { myFavorite } =  storeToRefs(ayahService);
 
 const { myBacaanku } = storeToRefs(useUser());
@@ -128,11 +128,10 @@ const state = reactive({
 
 const togglePlay = ()=>{
     state.playAudio = !state.playAudio;
-    setCurrentPlay(props.ayat);
 }
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option

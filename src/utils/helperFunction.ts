@@ -18,11 +18,20 @@ export const calculateAge = (date: any): number => {
 
 /**
  * @param  {any} date
- * @returns string
+ * @returns string, ex: August 16, 2018
  */
 export const formatDateWithMonth = (date: any): string => {
     return dayjs(date)
         .format('LL')
+}
+
+/**
+ * @param  {any} date
+ * @returns string, ex: 8:02 PM
+ */
+export const formatDateTimeOnly = (date: any): string => {
+    return dayjs(date)
+        .format('LT')
 }
 
 /**
