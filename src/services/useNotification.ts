@@ -18,7 +18,7 @@ export const useNotification = defineStore('notificationService', {
     state: (): UseNotficationState => ({
         notification: null,
         notifications: new Array<UserNotification>(),
-        userId: localStorage.getItem('_uid') as string
+        userId: String(localStorage.getItem('_uid'))
     }),
 
     actions: {
@@ -30,14 +30,9 @@ export const useNotification = defineStore('notificationService', {
             const q = query(docRef, where('user_id', '==', this.userId), orderBy('timestamp', 'desc'), limit(25));
 
             onSnapshot(q, (snapshot) => {
-                const tempNotifications: UserNotification[] = [];
-
-                snapshot.docs.forEach(notif => {
-                    tempNotifications.push(notif.data() as UserNotification);
-                })
-
-                this.notifications = tempNotifications;
+                this.notifications = snapshot.docs.map((notif) => notif.data() as UserNotification);
             });
+            
         },
         /**
          * @param  {string} notifId
@@ -72,11 +67,10 @@ export const useNotification = defineStore('notificationService', {
             getDocs(q)
                 .then((snapshot) => {
                     if (!snapshot.empty) {
-                        const currentNotif = snapshot.docs.at(0)?.data();
                         notif.read = true;
 
-                        const currentDocRef = doc(db, 'notification_collections', snapshot.docs.at(0)?.id as string)
-                        setDoc(currentDocRef, notif, { merge: true }).then(() => {});
+                        const currentDocRef = doc(db, 'notification_collections', String(snapshot.docs.at(0)?.id))
+                        setDoc(currentDocRef, notif, { merge: true });
                     }
                 })
         },
@@ -98,7 +92,7 @@ export const useNotification = defineStore('notificationService', {
                 const notify: UserNotification = {
                     id: Date.now().toString(),
                     timestamp: Date.now(),
-                    user_id: userService.currentUser?.user_id as string,
+                    user_id: String(userService.currentUser?.user_id),
                     title: options.title,
                     image: options.image,
                     icon: options.icon,
@@ -112,7 +106,7 @@ export const useNotification = defineStore('notificationService', {
                 var n = new Notification(options.title, options);
                 toast.info(options.title);
                 n.onshow;
-                
+
 
             });
         },
@@ -126,7 +120,7 @@ export const useNotification = defineStore('notificationService', {
             getDoc(docRef)
                 .then((snapshot) => {
                     const user = snapshot.data() as User;
-                    const fcmsExist = user.fcms?.includes(payload.token);
+                    const fcmsExist = user.fcms ? user.fcms?.includes(payload.token) : false;
 
                     if (!fcmsExist) {
                         user.lastModifiedDate = Date.now();
