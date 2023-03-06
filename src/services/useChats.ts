@@ -1,4 +1,3 @@
-import { useToast } from 'vue-toastification';
 import { Chat, ChatGroup, UserOnlineStatus } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
 import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
@@ -7,7 +6,6 @@ import { defineStore } from "pinia";
 import { database, db } from "./useFirebase";
 import { formatToStringWithDash } from '@/utils/helperFunction';
 
-const toast = useToast();
 
 interface ChatState {
     chat: Chat | null;
@@ -112,29 +110,18 @@ export const useChats = defineStore('chatService', {
             const fromMe = `${meId}@${peerId}`; // ID: me:peer
 
             // By Default Check from Peer as Base, if not exist will create new bucket address
-            let dbRef = ref(database, `personal_chats/${toMe}`);
+            const dbRef = ref(database, `personal_chats/${toMe}`);
             const reference = await get(dbRef);
 
-            if (reference.exists()) {
-                this.currentChatBucket = toMe;
-            } else {
-                this.currentChatBucket = fromMe;
-                dbRef = ref(database, `personal_chats/${this.currentChatBucket}`);
-            }
+            this.currentChatBucket = reference.exists() ? toMe : fromMe;
 
-            const q = query(dbRef, limitToLast(10));
+            const q = query(ref(database, `personal_chats/${this.currentChatBucket}`), limitToLast(10));
             onValue(q, (snapshot) => {
                 const messages: ChatGroup[] = [];
-
                 snapshot.forEach((childSnapshot) => {
-                    const chats: Chat[] = [];
-                    Object.keys(childSnapshot.val()).forEach((key) => {
-                        chats.push(childSnapshot.val()[key])
-                    });
-
                     messages.push({
                         key: childSnapshot.key as string,
-                        chats: chats
+                        chats: Object.values(childSnapshot.val())
                     });
                 });
 
