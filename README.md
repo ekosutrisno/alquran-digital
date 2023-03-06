@@ -1,4 +1,4 @@
-## <img alt="vue" src="https://avatars.githubusercontent.com/u/51039205?s=460&u=cb1d242b6a9b13a3b6383e46b5410fafe471b63d&v=4" width="20" height="20" /> Al-Quran Digital (Dev)
+## <img alt="vue" src="https://avatars.githubusercontent.com/u/51039205?s=460&u=cb1d242b6a9b13a3b6383e46b5410fafe471b63d&v=4" width="20" height="20" /> Al-Quran Digital (BETA)
 
 [![ExoApps](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://exoappsv2.netlify.app/)
 
