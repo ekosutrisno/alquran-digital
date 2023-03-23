@@ -60,3 +60,5 @@ export enum UserNotificationType{
 export enum FlagUseOn {
     REGISTRATION = 'REGISTRATION'
 }
+
+export type LocalesSupport = "en" | "id";

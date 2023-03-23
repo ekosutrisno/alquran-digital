@@ -24,6 +24,9 @@ interface ImportMetaEnv {
   readonly VITE_BASE_FIREBASE_MEASUREMENTID: string;
   readonly VITE_BASE_FIREBASE_VAPID: string;
   readonly VITE_BASE_APP_VERSION: string;
+  readonly VITE_DEFAULT_LOCALE: string;
+  readonly VITE_FALLBACK_LOCALE: string;
+  readonly VITE_SUPPORTED_LOCALES: string;
 }
 
 interface ImportMeta {

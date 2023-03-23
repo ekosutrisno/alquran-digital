@@ -1,0 +1,24 @@
+{
+  "locale": {
+    "en": "English",
+    "id": "Indonesian"
+  },
+  "brand": "Al-Quran Digital",
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang"
+  },
+  "home": {
+    "quran": "Al-Quran",
+    "s1": "Membaca",
+    "s2": "Menghafal",
+    "s3": "Lebih Mudah dan Sederhana",
+    "s4": "Mengelola bacaan dan hafalan",
+    "s5": "lebih mudah dengan fitur personal bacaan, class room, menyimpan ayat favorit, menyimpan surah pilihan, dan juga bisa mendengarkan langsung via audio.",
+    "cta": "Baca @:home.quran"
+  },
+  "about": {
+    "header": "About us",
+    "donations": "Donations raised: {donations}"
+  }
+}
