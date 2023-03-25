@@ -49,6 +49,12 @@ export interface UserNotification{
     read: boolean;
 }
 
+export interface NotificationMapper{
+    actualDate: string | Date;
+    key: string;
+    data: Array<UserNotification>
+}
+
 export enum UserNotificationType{
     ACCOUNT = 'A',
     NEWS = 'N',
