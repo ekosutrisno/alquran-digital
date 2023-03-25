@@ -57,25 +57,10 @@
                 </div>
             </div>
 
-            <div class="grid lg:grid-cols-2 h-full">
+            <div class="grid h-full">
                 <div class="w-full mx-auto grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
-                    <div v-for="item in state.notificationsList" :key="item.key">
-                        <div class="mt-5 text-xs dark:text-slate-300 text-slate-500">
-                            <span v-if="item.key == state.today" class="text-left">Today</span>
-                            <span v-else-if="item.key == state.yesterday" class="text-left">Yesterday</span>
-                            <span v-else class="text-left">{{formatDateWithMonth(item.actualDate)}}</span>
-                        </div>
-                        <button type="button" @click="selectNotif(notif)" v-for="notif in item.data" :key="notif.id" :class="[notif.read ? '': 'border-l-2 border-l-sky-500', 'inline-flex items-start text-left space-x-3 w-full my-1 px-4 py-3 text-slate-900 bg-white hover:bg-slate-50 dark:bg-slate-800 border dark:border-slate-700/50 rounded-r-lg dark:text-white dark:hover:bg-slate-700 with-transition transition']">
-                            <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
-                            <div class="flex flex-col w-full">
-                            <div class="text-sm font-medium flex items-center justify-between">
-                                <div>{{ notif.title }}</div>
-                                <div> <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div> </div>
-                            </div>
-                            <span class="text-sm dark:text-slate-100">{{ notif.body }}</span>
-                            <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
-                            </div>
-                        </button>
+                    <div v-for="(item, idx) in state.notificationsList" :key="item.key">
+                        <CardTimeline :item="item" :idx="idx"/>
                     </div>
                 </div>
                 <div v-if="state.notif.title" class="flex flex-col lg:p-12">
@@ -130,19 +115,14 @@ import { convertToArab, formatDateFromNow, formatDateWithMonth, formatToString, 
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import NotificationType from '@/components/shared/NotificationType.vue';
-import { UserNotification } from '@/types/user.interface';
+import { UserNotification, NotificationMapper } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
+import CardTimeline from '@/components/app/card/CardTimeline.vue';
 
 const utilService = useUtil();
 const notificationService = useNotification();
 
 const { notifications } =  storeToRefs(notificationService);
-
-interface NotificationMapper{
-    actualDate: string | Date;
-    key: string;
-    data: Array<UserNotification>
-}
 
 const state = reactive({
     isLogin: computed(()=>localStorage.getItem('_uid')),

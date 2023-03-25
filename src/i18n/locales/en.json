@@ -1,0 +1,24 @@
+{
+  "locale": {
+    "en": "English",
+    "id": "Indonesian"
+  },
+  "brand": "Al-Quran Digital",
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "home": {
+    "quran": "Al-Quran",
+    "s1": "Read",
+    "s2": "Memorize",
+    "s3": "Easier and Simpler",
+    "s4": "Manage reading and memorization",
+    "s5": "easier with personal reading features, a class room, saving favorite verses and selected surahs, and also being able to listen directly via audio.",
+    "cta": "Read @:home.quran"
+  },
+  "about": {
+    "header": "About us",
+    "donations": "Donations raised: {donations}"
+  }
+}
