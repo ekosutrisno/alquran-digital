@@ -8,7 +8,7 @@
                     <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div>
                 </div>
             </div>
-            <span class="text-sm dark:text-slate-100 prose max-w-none">{{ notif.body }}</span>
+            <span class="text-sm dark:text-slate-100 prose max-w-none whitespace-pre-wrap">{{ notif.body }}</span>
             <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
         </div>
     </div>

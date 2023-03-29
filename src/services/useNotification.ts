@@ -85,7 +85,7 @@ export const useNotification = defineStore('notificationService', {
                 const notif = payload.notification as any;
                 const options = {
                     title: `${notif?.title}`,
-                    body: `Hi ${userService.getLoginAsInfo.fullName}, ${notif.body}`,
+                    body: `Hi ${userService.getLoginAsInfo.fullName}✋, ${notif.body}`,
                     image: notif.image || `https://res.cloudinary.com/ekosutrisno/image/upload/v1662785818/briix/notif_n0ogoj.jpg`,
                     icon: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1662786263/briix/n_pyzbuz.png',
                 };
