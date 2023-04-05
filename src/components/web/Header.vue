@@ -27,7 +27,7 @@
                 <span class="hidden md:block">Privacy policy</span>
               </router-link>
             </li>
-            <li class="hidden md:inline">
+            <li class="hidden">
               <LanguageSwitcher/>
             </li>
           </ul>

@@ -3,7 +3,6 @@ import { confirmPasswordReset, EmailAuthProvider, onAuthStateChanged, reauthenti
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { defineStore, storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
-import { useClassRoom } from './useClassRoom';
 import { auth, db } from './useFirebase';
 import { useUser } from './useUser';
 
