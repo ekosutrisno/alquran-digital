@@ -49,7 +49,7 @@ import { verifyPasswordResetCode } from "@firebase/auth";
 import { computed, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from "vue-toastification";
-import { useAuth,  } from '@/services';
+import { useAuth  } from '@/services/useAuth';
 import { isMatchPassword } from '@/utils/helperFunction';
 import { auth } from "@/services/useFirebase";
 import ButtonBack from "@/components/shared/ButtonBack.vue";
