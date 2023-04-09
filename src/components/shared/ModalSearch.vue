@@ -11,27 +11,38 @@
                     <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
                   </svg>
-                  <input type="text" v-model="state.query" class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
-                  <button type="button" @click="onCloseModal" class="text-xs bg-slate-100 hover:bg-slate-200 shadow-md text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Cancel</button>
+                  <input type="text" v-model="query" placeholder="Type something..." class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
+                  <button type="button" @click="onCloseModal" class="text-xs bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Esc</button>
                 </div>
-                <div class="overflow-auto w-full flex-1 flex flex-col light-scroll">
+                <div v-if="filteredData.length" class="overflow-auto w-full flex-1 flex flex-col light-scroll">
                   <button 
                     type="button"
-                    @click="goToPage(search.to)" 
-                    v-for="search in filteredData"
-                    :key="search.id"
-                    class="w-full flex items-center justify-between transition-colors py-3 px-3 border-b border-slate-700/10 dark:border-slate-700/50 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700"
+                    @click="goToPage(search.item.to)" 
+                    v-for="(search, idx) in filteredData"
+                    :key="search.item.id"
+                    class="w-full flex items-center justify-between transition-colors py-3 px-5 border-b border-slate-700/10 dark:border-slate-700/50 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700"
                    >
                       <div class="flex flex-col items-start space-y-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 dark:text-slate-300 dark:bg-slate-700/30 border dark:border-slate-500/50 w-max rounded-full px-2"> {{search.info}} </span>
-                        <span class="font-medium">{{ search.text }}</span>
+                        <p class="text-xs inline-flex items-center font-semibold text-slate-600 dark:text-slate-300 dark:bg-slate-700/30 border dark:border-slate-500/50 w-max rounded-full px-2"> 
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 36 36"><path id="clarityHashtagSolid0" fill="currentColor" d="M31.87 10h-5.55l1-4.83A1 1 0 0 0 26.35 4h-2a1 1 0 0 0-1 .78L22.33 10h-5.4l1-4.83A1 1 0 0 0 17 4h-2a1 1 0 0 0-1 .78L13 10H7a1 1 0 0 0-1 .8l-.41 2a1 1 0 0 0 1 1.2h5.55l-1.64 8h-6a1 1 0 0 0-1 .8l-.41 2a1 1 0 0 0 1 1.2h5.59l-1 4.83a1 1 0 0 0 1 1.17h2a1 1 0 0 0 .95-.78L13.67 26h5.4l-1 4.83A1 1 0 0 0 19 32h2a1 1 0 0 0 1-.78L23.05 26h6a1 1 0 0 0 1-.8l.4-2a1 1 0 0 0-1-1.2h-5.58l1.63-8h6a1 1 0 0 0 1-.8l.41-2a1 1 0 0 0-1.04-1.2Zm-12 12h-5.4l1.64-8h5.4Z"/></svg>
+                          <span>{{search.item.info}} </span>
+                        </p>
+                        <p>
+                          <span>{{ search.item.text }}</span>
+                          <span class="text-sm text-slate-500 hidden md:inline">, {{ search.item.desc }}</span>
+                        </p>
                       </div>
-                      <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                      <div v-show="idx == 0">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-sky-400">
+                          <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
                         </svg>
+
                       </div>
                    </button>
+                </div>
+                <div v-else class="w-full flex-1 flex justify-center space-x-2 items-center p-5 text-sky-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="19" cy="3" r="3" fill="currentColor"/><path fill="currentColor" d="M7 8c-.55 0-1-.45-1-1s.45-1 1-1h8.03a4.906 4.906 0 0 1-.92-4H4.01a2 2 0 0 0-2 2L2 19.58c0 .89 1.08 1.34 1.71.71L6 18h14c1.1 0 2-.9 2-2V6.97C21.16 7.61 20.13 8 19 8H7zm6 6H7c-.55 0-1-.45-1-1s.45-1 1-1h6c.55 0 1 .45 1 1s-.45 1-1 1zm4-3H7c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"/></svg>
+                  <p class="text-sm text-slate-400">Empty Result</p>
                 </div>
                 <div class="h-10 text-xs float-right py-3 pr-4 border-t border-slate-700/10 dark:border-slate-700/50">
                     <div class="float-right text-slate-800 dark:text-white">Search by <span class="font-semibold text-sky-500">Al-Quran Digital 2.0</span></div>
@@ -46,87 +57,31 @@
 
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue'
-import { computed, reactive } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { doSearch, SearchOption } from '@/utils/searchFunction';
+import { menuSearchList } from '@/assets/data/menu-search';
 
 const router = useRouter();
+const query = ref('')
 
 const emit  = defineEmits<{(e: 'close-modal', open:boolean): void}>();
 defineProps<{open: boolean}>();
 
-interface SearchItem{
-  id: number;
-  info: string;
-  text: string;
-  to: string;
-}
-
-const goToPage = (path: string) =>{
+const goToPage = (path: string) => {
   onCloseModal();
   router.push(path);
 }
 
-const onCloseModal = ()=>{
+const onCloseModal = ()=> {
   emit('close-modal', false);
-  state.query= '';
+  query.value= '';
 }
 
-const state = reactive({
-  query: '',
-  data: [
-  {
-    to:'/app/dashboard',
-    id: 1,
-    info: 'Dashboard',
-    text: 'Dashboard'
-  },
-  {
-    to:'/app/dashboard/bacaanku',
-    id: 2,
-    info: 'Bacaanku Page',
-    text: 'Bacaanku'
-  },
-  {
-    to:'/app/dashboard/favorite',
-    id: 3,
-    info: 'Favorite Page',
-    text: 'Favorite'
-  },
-  {
-    to:'/app/dashboard/settings',
-    id: 4,
-    info: 'User Settings Page',
-    text: 'User Settings'
-  },
-  {
-    to:'/app/dashboard/surah-pilihan',
-    id: 5,
-    info: 'Surah Pilihan Page',
-    text: 'Surah Pilihan'
-  },
-  {
-    to:'/app/dashboard/class-room',
-    id: 6,
-    info: 'Class Room Page',
-    text: 'Class Room'
-  },
-  {
-    to:'/app/dashboard/surah',
-    id: 7,
-    info: 'List of Surah Metadata',
-    text: 'Surah'
-  },
-  {
-    to:'/app/dashboard/notification',
-    id: 8,
-    info: 'List of Notifications',
-    text: 'Notifications'
-  },
-] as SearchItem[]
-})
+const options: SearchOption = {
+  keys: ["info", "text"],
+  minMatchCharLength: 2
+};
 
-
-const filteredData = computed(()=> state.data
-  .filter((data) => data.text.toLowerCase().includes(state.query.toLowerCase().trim()))
-)
+const filteredData = computed(() => doSearch(menuSearchList, query.value, options));
 </script>

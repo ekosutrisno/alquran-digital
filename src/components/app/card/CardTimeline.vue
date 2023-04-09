@@ -4,7 +4,7 @@
             <svg v-if="idx == 0" viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-sky-400">
                 <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
                 <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2"></circle>
-                <path d="M 6 18 V 5000" fill="none" stroke-width="2" stroke="currentColor" class="text-sky-200"></path>
+                <path d="M 6 18 V 5000" fill="none" stroke-width="1.5" stroke="currentColor" class="text-sky-200 dark:text-slate-700"></path>
             </svg>
             <svg v-else viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-sky-400">
                 <circle cx="6" cy="6" r="6" fill="currentColor"></circle>

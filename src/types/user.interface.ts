@@ -55,6 +55,14 @@ export interface NotificationMapper{
     data: Array<UserNotification>
 }
 
+export interface SearchItem{
+    id: number;
+    info: string;
+    text: string;
+    desc: string;
+    to: string;
+  }
+
 export enum UserNotificationType{
     ACCOUNT = 'A',
     NEWS = 'N',
