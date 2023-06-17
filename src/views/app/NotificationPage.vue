@@ -58,21 +58,10 @@
             </div>
 
             <div class="grid h-full">
-                <div class="w-full mx-auto grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
+                <div class="w-full mx-auto px-4 grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                     <div v-for="(item, idx) in state.notificationsList" :key="item.key">
                         <CardTimeline :item="item" :idx="idx"/>
                     </div>
-                </div>
-                <div v-if="state.notif.title" class="flex flex-col lg:p-12">
-                    <h1 class="font-semibold text-lg"> {{ state.notif.title }} <span class="text-xs ml-3 rounded px-2 py-1 bg-purple-200 text-purple-800">{{ typeMapper(state.notif.type) }}</span> </h1>
-                    <div class="flex flex-col lg:flex-row items-start space-x-4 my-5">
-                        <img class="w-10 h-10 rounded-full" :src="state.notif.icon" alt="notif_icon">
-                        <div class="h-56 w-full border max-w-xs lg:max-w-md overflow-hidden rounded-lg">
-                            <img class="h-full w-full object-cover" :src="state.notif.image" alt="notif_image">
-                        </div>
-                    </div>
-                    <p>{{ state.notif.body }}</p>
-                    <span class="mt-1.5 text-xs">Received {{ formatDateFromNow(state.notif.timestamp) }}</span>
                 </div>
             </div>
 
@@ -111,15 +100,13 @@
 <script setup lang="ts">
 import {  useNotification, useUtil } from '@/services';
 import { computed, onBeforeUpdate, onMounted, reactive, ref } from 'vue';
-import { convertToArab, formatDateFromNow, formatDateWithMonth, formatToString, yesterday} from '@/utils/helperFunction';
+import { convertToArab, formatToString, yesterday} from '@/utils/helperFunction';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import NotificationType from '@/components/shared/NotificationType.vue';
 import { UserNotification, NotificationMapper } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
 import CardTimeline from '@/components/app/card/CardTimeline.vue';
 
-const utilService = useUtil();
 const notificationService = useNotification();
 
 const { notifications } =  storeToRefs(notificationService);
@@ -163,10 +150,6 @@ const scrollToPageUp = () => {
         pageUp.value.scrollIntoView({behavior: 'smooth'});
 }
 
-const selectNotif = (notif: UserNotification) => {
-    state.notif = notif;
-    notificationService.readNotification(notif);
-}
 
 const selectFilter = (opt: string) =>{
     state.filter = opt;
@@ -182,16 +165,6 @@ const hideMenuOption = () => {
 }
 
 
-const typeMapper = (type: string)=>{
-    switch (type) {
-        case 'C': return 'Chat'
-        case 'R': return 'Reminder'
-        case 'I': return 'Info'
-        case 'A': return 'Account'
-        case 'N': return 'News'
-        default: return ''
-    }
-} 
 
 const filterAndReduced = computed(()=>{
     if(state.filter == 'Read')
