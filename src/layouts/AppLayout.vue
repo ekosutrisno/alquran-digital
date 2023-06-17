@@ -17,10 +17,13 @@
 <script setup lang="ts">
 import NavbarHeader from '@/components/app/NavbarHeader.vue';
 import { useUtil } from '@/services';
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import ModalSearch from '@/components/shared/ModalSearch.vue';
 import { storeToRefs } from 'pinia';
 import Footer from '@/components/Footer.vue';
+import { initFlowbite } from 'flowbite';
+
+onMounted(() => initFlowbite());
 
 const utilService = useUtil();
 const {wideMenu} = storeToRefs(utilService);

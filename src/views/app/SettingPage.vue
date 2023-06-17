@@ -207,18 +207,33 @@
                             <p class="text-xs">{{formatDateWithMonth(currentUser?.join_at)}} ({{formatDateFromNow(currentUser?.join_at)}})</p>
                             <p class="text-white rounded bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>
                         </div>
-                        <div class="inline-flex items-center space-x-2">
-                            <div  class="py-2 text-sm font-medium card-shadwo-md from-indigo-500 via-indigo-400 to-purple-400 text-white px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <span> Student</span>
+                        <div class="inline-flex items-center space-x-2 mt-4">
+                            <div class="group inline-flex cursor-pointer font-sans focus:outline-none"  aria-expanded="false">
+                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                    <div class="bg-red-500/20 flex h-8 w-8 items-center justify-center rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-red-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M12 23a7.5 7.5 0 0 1-5.138-12.963C8.204 8.774 11.5 6.5 11 1.5c6 4 9 8 3 14c1 0 2.5 0 5-2.47c.27.773.5 1.604.5 2.47A7.5 7.5 0 0 1 12 23Z"></path>
+                                            </svg>
+                                    </div>
+                                </div>
                             </div>
-                            <div v-if="currentUser?.is_mentor" class="py-2 text-sm font-medium card-shadwo-md text-white from-yellow-500 via-yellow-400 to-orange-400 px-3 inline-flex items-center space-x-px mt-4 bg-gradient-to-tr w-max rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <span> Mentor </span>
+                            <div class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
+                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                    <div class="bg-green-500/20 flex h-8 w-8 items-center justify-center rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-green-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M12 7a8 8 0 1 1 0 16a8 8 0 0 1 0-16Zm0 3.5l-1.322 2.68l-2.958.43l2.14 2.085l-.505 2.946L12 17.25l2.645 1.39l-.505-2.945l2.14-2.086l-2.958-.43L12 10.5Zm1-8.501L18 2v3l-1.363 1.138A9.935 9.935 0 0 0 13 5.05V1.999Zm-2 0v3.05a9.935 9.935 0 0 0-3.636 1.088L6 5V2l5-.001Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                           <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
+                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400/25">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon h-5 w-5 text-orange-500" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M13.005 16.941v2.062h5v2h-12v-2h5V16.94a8.001 8.001 0 0 1-7-7.938v-6h16v6a8.001 8.001 0 0 1-7 7.938Zm-12-11.938h2v4h-2v-4Zm20 0h2v4h-2v-4Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

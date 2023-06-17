@@ -1,28 +1,21 @@
 <template>
-    <div class="grid md:grid-cols-8 xl:grid-cols-9 items-start relative rounded-xl p-3 overflow-hidden">
-        <time :datetime="String(item.actualDate)" class="md:col-start-1 md:col-span-2 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
-            <svg v-if="idx == 0" viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-sky-400">
-                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2"></circle>
-                <path d="M 6 18 V 5000" fill="none" stroke-width="1.5" stroke="currentColor" class="text-sky-200 dark:text-slate-700"></path>
-            </svg>
-            <svg v-else viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-sky-400">
-                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                <path d="M 6 -6 V -50" fill="none" stroke-width="1.5" stroke="currentColor" class="text-sky-200 dark:text-slate-700"></path>
-                <path d="M 6 18 V 5000" fill="none" stroke-width="1.5" stroke="currentColor" class="text-sky-200 dark:text-slate-700"></path>
-            </svg>
-
-
-            <div class="dark:text-slate-300 text-sm text-slate-500">
+    <ol class="relative border-l border-gray-200 dark:border-gray-700">                  
+        <li class="mb-10 ml-6">            
+            <span class="absolute flex items-center justify-center w-6 h-6 bg-sky-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-sky-900">
+                <svg aria-hidden="true" class="w-3 h-3 text-sky-800 dark:text-sky-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+            </span>
+            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                 <span v-if="item.key == today" class="text-left">Today</span>
                 <span v-else-if="item.key == yesterdays" class="text-left">Yesterday</span>
                 <span v-else class="text-left">{{ formatDateWithMonth(item.actualDate) }}</span>
+                <span v-if="idx == 0" class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300 ml-3">Latest</span>
+            </h3>
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Notification received {{ formatDateWithMonth(item.actualDate) }}</time>
+            <div class="mt-4">
+                <CardNotification v-for="notif in item.data" :notif="notif"/>
             </div>
-        </time>
-        <p class="md:col-start-3 md:col-span-6 xl:col-span-7">
-            <CardNotification v-for="notif in item.data" :notif="notif"/>
-        </p>
-    </div>
+        </li>
+    </ol>
 </template>
 
 <script lang="ts" setup>
