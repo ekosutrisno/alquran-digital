@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { registerSW } from 'virtual:pwa-register'
 import { MotionPlugin } from '@vueuse/motion'
 import i18n from "./i18n"
+import { updateSW } from './utils/serviceWorker'
 
 import App from './App.vue'
 import router from './router';
@@ -24,7 +24,7 @@ import * as dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import calendar  from 'dayjs/plugin/calendar';
+import calendar from 'dayjs/plugin/calendar';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import updateLocale from 'dayjs/plugin/updateLocale';
@@ -48,15 +48,6 @@ dayjs.updateLocale('en', {
         nextWeek: 'dddd [at] HH:mm',
         sameElse: 'L'
     }
-})
-
-const updateSW = registerSW({
-    onNeedRefresh() { 
-        console.log("Al-Quran Digital Need Refresh, new Content Available.");
-     },
-    onOfflineReady() {
-        console.log("Al-Quran Digital Ready for Ofline.");
-     },
 })
 
 updateSW();

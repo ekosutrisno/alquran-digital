@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vite" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -8,11 +8,6 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
-  test: {
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-    },
-  },
   plugins: [
     vue(),
     VueI18nPlugin({
@@ -20,7 +15,7 @@ export default defineConfig({
       include: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       manifest: {
         name: "Al-Quran Digital",
         short_name: "Al-Quran Digital",

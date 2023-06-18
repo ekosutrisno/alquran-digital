@@ -4,11 +4,13 @@ import { defineStore } from "pinia";
 interface UtilState {
     wideMenu: boolean | any,
     appVersion: string;
+    newAppAvailable: boolean;
 }
 export const useUtil = defineStore('utilityService', {
     state: (): UtilState => ({
         wideMenu: true,
-        appVersion: `${import.meta.env.VITE_BASE_APP_VERSION}`
+        appVersion: `${import.meta.env.VITE_BASE_APP_VERSION}`,
+        newAppAvailable: false
     }),
 
     actions: {
