@@ -1,5 +1,6 @@
 <template>
   <router-view />
+  <ToastUpdateAvailabelVue />
 </template>
 
 <script setup lang="ts">
@@ -7,6 +8,7 @@ import { useAuth, useChats, useNotification } from '@/services';
 import { useDark } from '@vueuse/core'
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { getTokenFcm, requestPermission } from '@/services/useFirebase';
+import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
 
 const { loadNotifications, onMessageForeground } = useNotification();
 const { chatInfo } = useChats();
