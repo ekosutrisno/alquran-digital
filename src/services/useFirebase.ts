@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 import { getDatabase } from "firebase/database";
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
@@ -36,6 +36,9 @@ auth.useDeviceLanguage();
 const analytics = getAnalytics(app);
 logEvent(analytics, 'notification_received');
 
+// Config to enable Offline Data Persistance
+initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
+
 const db = getFirestore(app);
 const storage = getStorage(app);
 
@@ -51,7 +54,7 @@ const requestPermission = () => {
 
 const getTokenFcm = (userId: User['user_id']): void => {
     const notificationService = useNotification();
-    
+
     getToken(messaging, { vapidKey: import.meta.env.VITE_BASE_FIREBASE_VAPID })
         .then(async (currentToken) => {
             if (currentToken) {

@@ -1,0 +1,1 @@
+npm run build && rm -rf dist
