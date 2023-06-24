@@ -140,7 +140,7 @@ export const useChats = defineStore('chatService', {
                 if (snap.exists())
                     this.peerUserStatus = snap.val() as UserOnlineStatus;
                 else
-                    this.peerUserStatus = { state: 'offline', last_changed: Date.now() }
+                    this.peerUserStatus = { state: 'offline', last_changed: serverTimestamp() }
 
             })
         }

@@ -1,7 +1,7 @@
 
 import { database } from '@/services/useFirebase';
 import { UserOnlineStatus } from '@/types/chat.interface';
-import { onValue, ref as reference } from 'firebase/database';
+import { onValue, ref as reference, serverTimestamp } from 'firebase/database';
 import { ref } from 'vue';
 
 export function getPresence(userId: string) {
@@ -12,7 +12,7 @@ export function getPresence(userId: string) {
         if (snap.exists())
             status.value = snap.val() as UserOnlineStatus;
         else
-            status.value = { state: 'offline', last_changed: Date.now() }
+            status.value = { state: 'offline', last_changed: serverTimestamp() }
     })
 
     return status;
