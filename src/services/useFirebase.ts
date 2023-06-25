@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
+import { getFirestore, initializeFirestore, memoryLocalCache, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 import { getDatabase } from "firebase/database";
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
@@ -37,7 +37,7 @@ const analytics = getAnalytics(app);
 logEvent(analytics, 'notification_received');
 
 // Config to enable Offline Data Persistance
-initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
+initializeFirestore(app, { localCache: memoryLocalCache() });
 
 const db = getFirestore(app);
 const storage = getStorage(app);

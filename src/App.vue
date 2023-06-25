@@ -1,6 +1,7 @@
 <template>
   <router-view />
   <ToastUpdateAvailabelVue />
+  <OfflineBanner />
 </template>
 
 <script setup lang="ts">
@@ -9,6 +10,7 @@ import { useDark } from '@vueuse/core'
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { getTokenFcm, requestPermission } from '@/services/useFirebase';
 import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
+import OfflineBanner from './components/shared/OfflineBanner.vue';
 
 const { loadNotifications, onMessageForeground } = useNotification();
 const { chatInfo } = useChats();

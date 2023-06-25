@@ -89,9 +89,12 @@
           <!-- Profile dropdown -->
           <Menu as="div" class="ml-3">
             <div v-if="state.isLogin">
-              <MenuButton class="dark:bg-gray-800 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
+              <MenuButton class="dark:bg-gray-800 bg-slate-100 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none">
                 <span class="sr-only">Open user menu</span>
-                <img class="h-10 w-10 object-cover object-top rounded-full" :src="getPhotoUrl" alt="profile-avatar" />
+                <div class="relative">
+                    <img class="w-10 h-10 rounded-full" :src="getPhotoUrl" alt="Photo Profile">
+                    <span :class="[online ? 'bg-green-400' : 'bg-red-600']" class="top-0 left-7 absolute  w-3.5 h-3.5 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                </div>
               </MenuButton>
             </div>
             <div v-else>
@@ -171,7 +174,7 @@ import { useRouter } from 'vue-router'
 import { useAuth, useNotification, useUser, useUtil } from '@/services';
 import Svg2 from '../svg/Svg2.vue'
 import NotificationType from '../shared/NotificationType.vue';
-import { useDark, useMagicKeys, useToggle } from '@vueuse/core';
+import { useDark, useMagicKeys, useToggle, useOnline } from '@vueuse/core';
 import { formatDateFromNow } from '@/utils/helperFunction';
 import { UserNotification } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
@@ -186,9 +189,7 @@ const router = useRouter();
 const { wideMenu, getAppVersion } = storeToRefs(useUtil());
 const notificationService = useNotification();
 
-const emit = defineEmits<{
-  (e: 'search'): void
-}>()
+const emit = defineEmits<{ (e: 'search'): void }>();
 
 const state = reactive({
   open: false,
@@ -205,8 +206,10 @@ const readNotif = async (notif: UserNotification) =>{
   await notificationService.readNotification(notif);
 }
 
-const isDark = useDark()
-const togleDarkLightMode = useToggle(isDark)
+const isDark = useDark();
+const togleDarkLightMode = useToggle(isDark);
+
+const online = useOnline();
 
 const onLogoutAction = () => {
     localStorage.removeItem('_uid');
