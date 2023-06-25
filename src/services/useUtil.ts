@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 
-
 interface UtilState {
     wideMenu: boolean | any,
     appVersion: string;
@@ -14,18 +13,12 @@ export const useUtil = defineStore('utilityService', {
     }),
 
     actions: {
-
-        setAlquranSize(size: {
-            id: number,
-            size: string,
-            text: string,
-            class: string
-        }) {
+        setAlquranSize(size: { id: number, size: string, text: string, class: string }) {
             localStorage.setItem('_a_size', JSON.stringify(size));
         }
     },
-    getters:{
-        getAppVersion(state: UtilState){
+    getters: {
+        getAppVersion(state: UtilState) {
             return state.appVersion;
         }
     }

@@ -5,11 +5,11 @@ import { NavigationGuardWithThis } from "vue-router"
 
 const Trans = {
   get defaultLocale() {
-    return import.meta.env.VITE_DEFAULT_LOCALE
+    return import.meta.env.VITE_DEFAULT_LOCALE;
   },
 
   get supportedLocales() {
-    return import.meta.env.VITE_SUPPORTED_LOCALES.split(",")
+    return import.meta.env.VITE_SUPPORTED_LOCALES.split(",").map(s => s as LocalesSupport);
   },
 
   get currentLocale() {
@@ -37,23 +37,23 @@ const Trans = {
     return nextTick()
   },
 
-  isLocaleSupported(locale: string | null) {
+  isLocaleSupported(locale: LocalesSupport | null) {
     return Trans.supportedLocales.includes(locale!)
   },
 
-  getUserLocale() {
+  getUserLocale(): { locale: LocalesSupport, localeNoRegion: LocalesSupport } {
     const locale = window.navigator.language ||
       window.navigator.language ||
       Trans.defaultLocale
 
     return {
-      locale: locale,
-      localeNoRegion: locale.split('-')[0]
+      locale: locale as LocalesSupport,
+      localeNoRegion: locale.split('-')[0] as LocalesSupport
     }
   },
 
   getPersistedLocale() {
-    const persistedLocale = localStorage.getItem("user-locale")
+    const persistedLocale = localStorage.getItem("user-locale") as LocalesSupport;
 
     if (Trans.isLocaleSupported(persistedLocale)) {
       return persistedLocale
