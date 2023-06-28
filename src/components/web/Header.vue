@@ -50,8 +50,12 @@ import { useUtil } from '@/services';
 import { useDark, useToggle } from '@vueuse/core'
 import LanguageSwitcher from '../shared/LanguageSwitcher.vue';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+import { initDropdowns } from 'flowbite';
 
 const { wideMenu } = storeToRefs(useUtil());
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+
+onMounted(() => initDropdowns());
 </script>
