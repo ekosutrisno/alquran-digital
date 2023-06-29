@@ -59,18 +59,19 @@
                 <Loader />
             </div>
 
-            <div class="mt-8 mx-auto select-none">
-                <div class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{surah?.surat_golongan}})</span> | {{surah?.surat_text_full}} </div>
-                <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-                <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
+            <div v-if="ayahs.length">
+                <div class="mt-8 mx-auto select-none">
+                    <div class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{surah?.surat_golongan}})</span> | {{surah?.surat_text_full}} </div>
+                    <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+                    <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
+                </div>
+                <div class="w-full grid pt-6 pb-2">
+                    <CardAyahMetadata v-for="ayah in ayahs" :key="ayah.aya_id" :ayat="ayah" />
+                </div>
             </div>
 
-            <div v-if="ayahs.length" class="w-full grid pt-6 pb-2">
-                <CardAyahMetadata v-for="ayah in ayahs" :key="ayah.aya_id" :ayat="ayah" />
-            </div>
-
-            <div v-else class="w-full py-5 h-auto flex flex-col justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
-                <img src="/empty-box.png" class="mx-auto" width="150" alt="empty-result" />
+            <div v-else class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
+                <NoNotificationIcon />
                 <p class="mx-auto text-sm py-5">No Result data found!</p>
             </div>
 
@@ -86,6 +87,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
+import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 
 const surahService = useSurah();
 const { ayahs, surah, isLoading } = storeToRefs(surahService);
@@ -97,9 +99,9 @@ function onSearch() {
         .then(() => surahService.setAyahDetailGeneral({ surat: search.surah, ayat: search.ayah }, { next_bacaan: false, max_limit: 1 }));
 }
 
-const pageUp = ref<any>(null)
+const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
-    if(pageUp != null)
-        pageUp.value.scrollIntoView({behavior: 'smooth'});
+    if (pageUp)
+        pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-<router-link v-motion-slide-bottom v-motion-slide-visible-once-bottom class="cursor-default sm:cursor-pointer" :to="{path: '/app/dashboard/alquran', query:{ sn: juz.surah, an: juz.ayah}}">
+<router-link :id="`juz_${juz.number}`" v-motion-slide-bottom v-motion-slide-visible-once-bottom class="cursor-default sm:cursor-pointer" :to="{name: 'AlquranPageDetail', query:{ sn: juz.surah, an: juz.ayah}}">
 
    <div class="antialiased hover:ring-sky-400 group transition dark:hover:ring-sky-400 bg-white dark:bg-dark-blue  ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md relative overflow-hidden font-quran group sm:cursor-pointer flex flex-col select-none w-full h-full mx-auto mb-2 rounded-md p-5">
     <div class="w-full flex items-start py-2 justify-between">

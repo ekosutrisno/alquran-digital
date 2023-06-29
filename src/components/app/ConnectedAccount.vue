@@ -14,7 +14,7 @@
     <div class="flex items-center space-x-4 text-sm dark:text-white">
         <div v-for="prov in currentUserSession?.providedId" :key="prov" class="border border-slate-700/20 dark:border-slate-700/50 rounded-lg py-1 px-2 flex items-center">
             <div v-if="prov == 'password'" class="inline-flex items-center space-x-2">
-                <img alt="firebase" src="/firebase.png" width="28" height="28" />
+                <FirebaseIcon class="h-7 w-7"/>
                 <p class="text-color-dark-gray-darker dark:text-color-gray-light uppercase font-semibold"> {{ 'Firebase' }} </p>
             </div>
 
@@ -32,6 +32,7 @@
 import { useAuth } from '@/services';
 import { storeToRefs } from 'pinia';
 import GoogleIcon from '../svg/GoogleIcon.vue';
+import FirebaseIcon from '../svg/FirebaseIcon.vue';
 
 const { currentUserSession } = storeToRefs(useAuth());
 

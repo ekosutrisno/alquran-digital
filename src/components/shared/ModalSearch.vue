@@ -60,7 +60,7 @@ import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue'
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { doSearch, SearchOption } from '@/utils/searchFunction';
-import { menuSearchList } from '@/assets/data/menu-search';
+import { menuSearchList } from '@/assets/data/search-menu';
 
 const router = useRouter();
 const query = ref('')
@@ -84,4 +84,4 @@ const options: SearchOption = {
 };
 
 const filteredData = computed(() => doSearch(menuSearchList, query.value, options));
-</script>
+</script>@/assets/data/search-menu

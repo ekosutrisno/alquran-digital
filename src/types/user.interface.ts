@@ -37,7 +37,7 @@ export interface Role {
     description: string;
 }
 
-export interface UserNotification{
+export interface UserNotification {
     id: string;
     user_id: User['user_id'];
     title: string;
@@ -49,21 +49,21 @@ export interface UserNotification{
     read: boolean;
 }
 
-export interface NotificationMapper{
+export interface NotificationMapper {
     actualDate: string | Date;
     key: string;
     data: Array<UserNotification>
 }
 
-export interface SearchItem{
+export interface SearchItem {
     id: number;
     info: string;
     text: string;
     desc: string;
     to: string;
-  }
+}
 
-export enum UserNotificationType{
+export enum UserNotificationType {
     ACCOUNT = 'A',
     NEWS = 'N',
     CHAT = 'C',
@@ -76,3 +76,20 @@ export enum FlagUseOn {
 }
 
 export type LocalesSupport = "en" | "id";
+
+export interface MainMenuType {
+    id: string;
+    total: number;
+    description: string;
+    title: string;
+    to: string;
+}
+
+
+export interface QuickMenuType {
+    id?: string;
+    title?: string;
+    description?: string;
+    to: string;
+    icon: string;
+}

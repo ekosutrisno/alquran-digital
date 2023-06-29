@@ -3,18 +3,10 @@
         <div class="p-4 z-20 space-y-2">
             <p class="font-semibold flex flex-col sm:flex-row items-start sm:items-center">
                 <span class="bg-white dark:bg-slate-800 rounded-full p-2 ring-1 dark:ring-slate-700/50 ring-slate-700/10 mr-2 group-hover:ring-sky-500 dark:group-hover:ring-sky-500 delay-75 transition">
-                    <svg v-if="menu.id == '1'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                    </svg>
-                    <svg v-else-if="menu.id == '2'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    <svg v-else-if="menu.id == '3'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                    </svg>
-                    <svg v-else xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                    </svg>
+                   <BookmarkIcon v-if="menu.icon == 'bookmark'"/>
+                   <HeartIcon v-if="menu.icon == 'heart'"/>
+                   <BooksIcon v-if="menu.icon == 'books'"/>
+                   <ClassRoomIcon v-if="menu.icon == 'classroom'"/>
                 </span> 
                 <span class="text-slate-800 block font-semibold dark:text-white">{{ menu.title }}</span>
             </p>
@@ -27,13 +19,11 @@
 
 <script setup lang="ts">
 import Svg2 from '../svg/Svg2.vue';
+import BookmarkIcon from '../svg/BookmarkIcon.vue';
+import HeartIcon from '../svg/HeartIcon.vue';
+import BooksIcon from '../svg/BooksIcon.vue';
+import ClassRoomIcon from '../svg/ClassRoomIcon.vue';
+import type { QuickMenuType } from "@/types/user.interface";
 
-export interface QuickMenuType{
-    id?: string;
-    title?: string;
-    description?: string;
-    to: string
-}
-
-defineProps<{menu: QuickMenuType}>()
+defineProps<{ menu: QuickMenuType }>();
 </script>

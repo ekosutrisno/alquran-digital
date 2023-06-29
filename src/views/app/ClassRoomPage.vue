@@ -49,7 +49,7 @@
             <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                 <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
                 <router-link to="/app/dashboard/class-room/create?a=create">
-                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-2 border-dashed border-slate-700/10 card-shadow-sm min-h-[10rem] rounded dark:border-slate-700/50">
+                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-2 border-dashed border-slate-700/10 card-shadow-sm min-h-[13rem] rounded dark:border-slate-700/50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-300 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                         </svg>
@@ -102,10 +102,10 @@ onMounted(()=>{
         roomService.getRooms( state.rooms as string[])
 })
 
-const pageUp = ref<any>(null)
+const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
-    if(pageUp != null)
-        pageUp.value.scrollIntoView({behavior: 'smooth'});
+    if (pageUp)
+        pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
 
 const target = ref(null)
