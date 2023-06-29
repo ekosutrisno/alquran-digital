@@ -38,37 +38,37 @@
                     </p>
                 </div>
 
-                <div v-if="state.isLogedIn">
-                    <div v-if="state.bacaanku" class="grid grid-cols-2 relative w-auto">
+                <div v-if="isLogedIn">
+                    <div v-if="currentUser?.bacaanku" class="grid grid-cols-2 relative w-auto">
                         <div class="p-2">
                             <div>
                                 <span class="text-sm text-slate-700 dark:text-slate-100">Juz</span>
-                                <h1 class="text-6xl font-semibold text-gradien"> {{state.bacaanku?.juz_id}}</h1>
+                                <h1 class="text-6xl font-semibold text-gradien"> {{currentUser?.bacaanku?.juz_id}}</h1>
                             </div>
                             <div>
                                 <span class="text-sm text-slate-700 dark:text-slate-100">Surah</span>
-                                <h1 class="md:text-lg font-semibold dark:text-white">{{state.surahName}}</h1>
+                                <h1 class="md:text-lg font-semibold dark:text-white">{{getSurahNameBacaan}}</h1>
                             </div>
                         </div>
                         <div>
                             <div class="grid grid-cols-2">
                                 <div>
                                     <span class="text-sm text-slate-700 dark:text-slate-100">Manzil</span>
-                                    <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.manzil}}</h1>
+                                    <h1 class="text-2xl font-semibold dark:text-white">{{currentUser?.bacaanku?.manzil}}</h1>
                                 </div>
                                 <div>
                                     <span class="text-sm text-slate-700 dark:text-slate-100">Ayat</span>
-                                    <h1 class="text-2xl font-semibold dark:text-white">{{state.bacaanku?.aya_number}}</h1>
+                                    <h1 class="text-2xl font-semibold dark:text-white">{{currentUser?.bacaanku?.aya_number}}</h1>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2">
                                 <div>
                                     <span class="text-sm text-slate-700 dark:text-slate-100">Halaman</span>
-                                    <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.page_number}}</h1>
+                                    <h1 class="text-xl font-semibold dark:text-white">{{currentUser?.bacaanku?.page_number}}</h1>
                                 </div>
                                 <div>
                                     <span class="text-sm text-slate-700 dark:text-slate-100">Rukuk</span>
-                                    <h1 class="text-xl font-semibold dark:text-white">{{state.bacaanku?.rukuk}}</h1>
+                                    <h1 class="text-xl font-semibold dark:text-white">{{currentUser?.bacaanku?.rukuk}}</h1>
                                 </div>
                             </div>
 
@@ -135,127 +135,44 @@
                 />
             </div>
         </section>
-        <ModalSearch :open="state.isSearch" @close-modal="onSearch"/>
+        <ModalSearch :open="isSearch" @close-modal="onSearch"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import QuickMenu,{ QuickMenuType } from '@/components/app/QuickMenu.vue';
-import Svg3 from '@/components/svg/Svg3.vue';
-import MainMenu, { MainMenuType } from '@/components/app/MainMenu.vue';
-import { useUser } from '@/services';
-import { computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import ModalSearch from '@/components/shared/ModalSearch.vue';
+import { ref } from 'vue';
 import { dayGreeting } from '@/utils/helperFunction';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
+import { useUser } from '@/services';
+import ModalSearch from '@/components/shared/ModalSearch.vue';
+import QuickMenu from '@/components/app/QuickMenu.vue';
+import Svg3 from '@/components/svg/Svg3.vue';
+import MainMenu from '@/components/app/MainMenu.vue';
+import { mainMenu, quickMenu } from '@/assets/data/data-menu';
 
 const userService = useUser();
 const router = useRouter();
 
 const { currentUser, getSurahNameBacaan, getLoginAsInfo }  = storeToRefs(userService);
-
-const state = reactive({
-    bacaanku: computed(()=> currentUser.value?.bacaanku),
-    surahName: computed(()=> getSurahNameBacaan.value),
-    isLogedIn: computed(()=> localStorage.getItem('_uid')),
-    isSearch: false
-})
-
-const mainMenu: MainMenuType[] = [
-    {
-        id: '0',
-        title: 'Search',
-        description: 'Mencari secara spesifik berdasarkan nomor Surah dan nomor Ayah',
-        to: '/app/dashboard/search',
-        total: 6236
-    },
-    {
-        id: '1',
-        title: 'Surah',
-        description: 'Mencari berdasarkan Surat yang disajikan secara terurut.',
-        to: '/app/dashboard/surah',
-        total: 114
-    },
-    {
-        id: '2',
-        title: 'Page',
-        description: 'Mencari berdasarkan Page yang disajikan secara terurut.',
-        to: '/app/dashboard/pages',
-        total: 604
-    },
-    {
-        id: '3',
-        title: 'Manzil',
-        description: 'Mencari berdasarkan Manzil yang disajikan secara terurut.',
-        to: '/app/dashboard/manzil',
-        total: 7
-    },
-    {
-        id: '4',
-        title: 'Rukuk',
-        description: 'Mencari berdasarkan Rukuk yang disajikan secara terurut.',
-        to: '/app/dashboard/rukuk',
-        total: 556
-    },
-    {
-        id: '5',
-        title: 'Sajda',
-        description: 'Mencari berdasarkan Sajda yang disajikan secara terurut.',
-        to: '/app/dashboard/sajda',
-        total: 15
-    },
-    {
-        id: '6',
-        title: 'Juz',
-        description: 'Mencari berdasarkan Juz yang disajikan secara terurut.',
-        to: '/app/dashboard/juz',
-        total: 30
-    },
-]
-const quickMenu: QuickMenuType[] = [
-    {
-        id: '1',
-        title: 'Bacaanku',
-        description: 'Menandai bacaan terakhir.',
-        to: '/app/dashboard/bacaanku'
-    },
-    {
-        id: '2',
-        title: 'Favorit',
-        description: 'Koleksi ayat-ayat favorit.',
-        to: '/app/dashboard/favorite'
-    },
-    {
-        id: '3',
-        title: 'Surah Pilihan',
-        description: 'Bacaan surah-surah pilihan.',
-        to: '/app/dashboard/surah-pilihan'
-    },
-    {
-        id: '4',
-        title: 'Class Room',
-        description: 'Ruang kelas hafalan.',
-        to: '/app/dashboard/class-room'
-    }
-]
+const isSearch = ref(false);
+const isLogedIn = ref(localStorage.getItem('_uid'));
 
 const onLanjutBacaan = ()=>{
     router.push({
         path: '/app/dashboard/alquran', 
         query:{ 
-            sn: state.bacaanku?.sura_id, 
-            an: state.bacaanku?.aya_number, 
+            sn: currentUser.value?.bacaanku?.sura_id, 
+            an: currentUser.value?.bacaanku?.aya_number, 
             next_bacaan: 'true'}
         })
 }
 
 const onSearch = (flag: boolean)=>{
-    state.isSearch = flag;
+    isSearch.value = flag;
 }
 
 const getFirstName = (fullName: string) =>{
-    return fullName ?  fullName.split(" ")[0] : '';
+    return fullName ?  fullName.split(" ")[0] : 'Santri';
 }
-
 </script>

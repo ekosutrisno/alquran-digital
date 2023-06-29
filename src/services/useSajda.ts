@@ -1,7 +1,7 @@
 import { SajdaMetadata } from "@/types/alquran.interface";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { getDocs, orderBy, query } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
+import { sajdaCollectionRefConfig } from "@/config/dbRef.config";
 
 interface UseSajdaState {
     isLoading: boolean;
@@ -17,10 +17,7 @@ export const useSajda = defineStore('sajdaService', {
     actions: {
         async getSajdaMetadata() {
             this.isLoading = true;
-
-            const sajdaMetadataRef = collection(db, 'sajda_collections');
-            const q = query(sajdaMetadataRef, orderBy('number', 'asc'));
-
+            const q = query(sajdaCollectionRefConfig(), orderBy('number', 'asc'));
 
             getDocs(q).then((snapshot) => {
                 const sajdaMetadata: SajdaMetadata[] = [];

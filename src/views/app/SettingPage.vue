@@ -338,7 +338,7 @@ const onUpdateAvatar = (event: any) =>{
             alert("Max photo size is 2Mb!")
         }else{
             // Realtime updated
-          userService.updateFotoProfile(newPhotoObject as File, currentUser?.value?.user_id as string);
+          userService.updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
         }
       }
 }
@@ -348,6 +348,4 @@ async function updateData() {
     if(result)
         userService.updateCurrentUserData(currentUser.value as User, {isSilent: false});
 }
-
-
 </script>

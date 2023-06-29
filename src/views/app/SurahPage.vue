@@ -55,8 +55,8 @@
                         <Loader />
                     </div>
 
-                    <div v-if="!filteredSurah(searchQuery).length" class="w-full py-5 h-auto flex flex-col justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
-                        <img src="/empty-box.png" class="mx-auto" width="150" alt="empty-result" />
+                    <div v-if="!filteredSurah(searchQuery).length" class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
+                        <NoNotificationIcon />
                         <p class="mx-auto text-sm py-5">No Result data found!</p>
                     </div>
                 </div>
@@ -83,6 +83,7 @@ import CardSurahMetadata from '@/components/app/card/CardSurahMetadata.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
+import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 
 const surahService = useSurah();
 const { surahs, isLoading, filteredSurah} = storeToRefs(surahService);
@@ -95,9 +96,9 @@ onMounted(()=> {
 
 const searchQuery = ref('');
 
-const pageUp = ref<any>(null)
+const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
-    if(pageUp != null)
-        pageUp.value.scrollIntoView({behavior: 'smooth'});
+    if (pageUp)
+        pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
 </script>

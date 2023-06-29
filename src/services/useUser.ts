@@ -5,8 +5,9 @@ import { doc, DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "f
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { db, storage } from "./useFirebase";
+import { db, storage } from "../config/firebase.config";
 import randomColorCode from '@/utils/randomColors';
+import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 
 const toast = useToast();
 interface UserState {
@@ -34,7 +35,7 @@ export const useUser = defineStore('userService', {
                 email: newData.email,
                 user_id: newData.userId,
                 is_mentor: false,
-                main_role: doc(db, 'role_collections', '1'),
+                main_role: roleDataRefConfig('1'),
                 join_at: Date.now(),
                 telephone: "",
                 username: `@${newData.email?.split('@')[0].replace('.', '_')}`,
@@ -58,19 +59,20 @@ export const useUser = defineStore('userService', {
                 is_active: googleNewData?.oauth ? googleNewData.user.emailVerified : false,
             }
 
+            const userRef = userDataRefConfig(newData.userId);
 
-            // Check if user login with Google
+            // 01. Check if user login with Google
             if (googleNewData?.oauth) {
-                const user = await getDoc(doc(db, 'user_collections', newData.userId));
+                const user = await getDoc(userRef);
                 if (user.exists())
                     return;
                 else {
-                    await setDoc(doc(db, 'user_collections', newData.userId), newUserData);
+                    await setDoc(userRef, newUserData);
                 }
+            } else {
+                // 02. Default Action save user
+                await setDoc(userRef, newUserData);
             }
-
-            // Default Action save user
-            await setDoc(doc(db, 'user_collections', newData.userId), newUserData);
         },
 
         /**
@@ -78,9 +80,7 @@ export const useUser = defineStore('userService', {
          * @description Get Current User By userID Key
          */
         async fetchCurrentUser(userId: User['user_id']) {
-            const docRef = doc(db, "user_collections", userId);
-
-            onSnapshot(docRef, (docSnap) => {
+            onSnapshot(userDataRefConfig(userId), (docSnap) => {
                 if (docSnap.exists()) {
                     const data: User = docSnap.data() as User;
 
@@ -121,11 +121,9 @@ export const useUser = defineStore('userService', {
          * @description Update All Detail User Data Property
          */
         async updateCurrentUserData(user: User, options: { isSilent: boolean }) {
-            const docRef = doc(db, "user_collections", user.user_id);
-
             user.lastModifiedDate = Date.now();
 
-            setDoc(docRef, user, { merge: true })
+            setDoc(userDataRefConfig(user.user_id), user, { merge: true })
                 .then(() => {
                     if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`)
@@ -162,10 +160,9 @@ export const useUser = defineStore('userService', {
                     () => {
                         // Upload completed successfully, now we can get the download URL
                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            const docRef = doc(db, "user_collections", userId);
-                            updateDoc(docRef, {
-                                "photo_url": downloadURL,
-                                "lastModifiedDate": Date.now()
+                            updateDoc(userDataRefConfig(userId), {
+                                photo_url: downloadURL,
+                                lastModifiedDate: Date.now()
                             }).then(() => {
                                 toast.info(`Your profile photo has been updated.`)
                             });
@@ -201,15 +198,11 @@ export const useUser = defineStore('userService', {
          * Get Surah Name of Bacaan User
          */
         async setSurahBacaan(surah_number: SurahData['id']) {
-
-            if (surah_number != undefined) {
-                const surahRef = doc(db, 'surah_collections', `${surah_number}`);
-
-                getDoc(surahRef)
+            if (surah_number) {
+                getDoc(surahDataRefConfig(String(surah_number)))
                     .then((doc) => {
                         if (doc.exists())
                             this.surahBacaanUser = doc.data() as SurahData;
-
                     });
             }
         },
@@ -219,11 +212,9 @@ export const useUser = defineStore('userService', {
          * @description Update All Detail User Data Property
          */
         async updateUserClassRoom(userId: User['user_id'], roomId: Room['id'], options: { isSilent: boolean }) {
-            const docRef = doc(db, "user_collections", userId);
-
             this.currentUser?.rooms?.push(roomId);
 
-            setDoc(docRef, this.currentUser, { merge: true })
+            setDoc(userDataRefConfig(userId), this.currentUser, { merge: true })
                 .then(() => {
                     if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`)

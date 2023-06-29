@@ -97,7 +97,7 @@
                     <div class="flex items-center space-x-4 text-sm dark:text-white">
                         <div class="border border-slate-700/20 dark:border-slate-700/50 rounded-lg py-1 px-2 flex items-center">
                             <div  class="inline-flex items-center space-x-2">
-                                <img alt="firebase" src="/firebase.png" width="28" height="28" />
+                                <FirebaseIcon class="h-7 w-7"/>
                                 <p class="text-color-dark-gray-darker dark:text-color-gray-light uppercase font-semibold"> {{ 'Firebase' }} </p>
                             </div>
                         </div>
@@ -105,11 +105,9 @@
                     
                 </div>
             </div>
-
         </section>
 
         <ScrollToTop @on-back="scrollToPageUp" />
-
     </div>
 </template>
 
@@ -122,6 +120,7 @@ import { storeToRefs } from 'pinia';
 import { Room } from '@/types/room.interface';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { validateEmail } from '@/utils/helperFunction';
+import FirebaseIcon from '@/components/svg/FirebaseIcon.vue';
 
 const route = useRoute();
 const roomService = useClassRoom();
@@ -146,10 +145,10 @@ const addMember = () => {
 
 const isValidEmail = computed(()=>validateEmail(state.emailInvitations.trim()))
 
-const pageUp = ref<any>(null)
+const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
-    if (pageUp != null)
-        pageUp.value.scrollIntoView({ behavior: 'smooth' });
+    if (pageUp)
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
 </script>

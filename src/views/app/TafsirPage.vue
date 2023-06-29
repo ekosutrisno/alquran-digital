@@ -186,10 +186,10 @@ const state = reactive({
     ]
 });
 
-const pageUp = ref<any>(null)
+const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
-    if(pageUp != null)
-        pageUp.value.scrollIntoView({behavior: 'smooth'});
+    if (pageUp)
+        pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
 
 

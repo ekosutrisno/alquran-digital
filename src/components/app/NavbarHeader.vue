@@ -68,8 +68,8 @@
                   </router-link>
                 </MenuItem>
 
-                <div v-if="!state.notifications.length" class="py-4">
-                  <img src="/empty-box.png" alt="empty-notification-state">
+                <div v-if="!state.notifications.length" class="py-4 flex flex-col items-center space-y-2">
+                  <NoNotificationIcon />
                   <p class="text-xs text-center">Saat ini belum ada notifikasi yang masuk. </p>
                 </div>
                 <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-100 dark:hover:bg-slate-700">
@@ -178,6 +178,7 @@ import { useDark, useMagicKeys, useToggle, useOnline } from '@vueuse/core';
 import { formatDateFromNow } from '@/utils/helperFunction';
 import { UserNotification } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
+import NoNotificationIcon from '../svg/NoNotificationIcon.vue';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }

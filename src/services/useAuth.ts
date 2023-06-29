@@ -1,10 +1,11 @@
 import { User } from '@/types/user.interface';
 import { confirmPasswordReset, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signOut, updateEmail, updatePassword } from 'firebase/auth';
-import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { getDocs, updateDoc } from 'firebase/firestore';
 import { defineStore, storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
-import { auth, db } from './useFirebase';
+import { auth } from '../config/firebase.config';
 import { useUser } from './useUser';
+import { queryByPropertyRefConfig, userCollectionRefConfig, userDataRefConfig } from '@/config/dbRef.config';
 
 const toast = useToast();
 
@@ -110,8 +111,8 @@ export const useAuth = defineStore('authService', {
             if (currentUser.email.toLowerCase() == newEmail.toLowerCase())
                 toast.success("Your email is the same as the current one.")
 
-            const user_collections = collection(db, 'user_collections');
-            const q = query(user_collections, where('email', '==', newEmail));
+            const userRef = userCollectionRefConfig();
+            const q = queryByPropertyRefConfig(userRef, 'email', newEmail);
 
             getDocs(q)
                 .then((snapshot) => {
@@ -125,7 +126,7 @@ export const useAuth = defineStore('authService', {
                         reauthenticateWithCredential(currentUser, credential).then(() => {
                             updateEmail(currentUser, newEmail)
                                 .then(async () => {
-                                    const userRef = doc(db, 'user_collections', currentUser.uid);
+                                    const userRef = userDataRefConfig(currentUser.uid);
                                     await updateDoc(userRef, {
                                         lastModifiedDate: Date.now(),
                                         email: newEmail
@@ -180,8 +181,8 @@ export const useAuth = defineStore('authService', {
           * @param  {IUser['email']} email
           */
         async sendPasswordResetEmail(email: string): Promise<void> {
-            const userRef = collection(db, 'user_collections');
-            const q = query(userRef, where('email', '==', email));
+            const userRef = userCollectionRefConfig();
+            const q = queryByPropertyRefConfig(userRef, 'email', email);
             getDocs(q)
                 .then(async (snapshot) => {
                     if (snapshot.size === 1) {
@@ -247,9 +248,9 @@ export const useAuth = defineStore('authService', {
             const user = currentUser.value as User;
             user.is_active = false
 
-            await updateDoc(doc(db, 'user_collections', `${me.uid}`), user as any);
+            await updateDoc(userDataRefConfig(me.uid), user as any);
         },
-        
+
         /**
         * Activated The Account
         */
@@ -261,7 +262,7 @@ export const useAuth = defineStore('authService', {
             const user = currentUser.value as User;
             user.is_active = true
 
-            await updateDoc(doc(db, 'user_collections', `${me.uid}`), user as any);
+            await updateDoc(userDataRefConfig(me.uid), user as any);
         },
 
         setErrorData(error: any) {

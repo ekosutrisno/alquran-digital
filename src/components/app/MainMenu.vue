@@ -21,14 +21,7 @@
 <script setup lang="ts">
 import { convertToArab } from '@/utils/helperFunction';
 import Svg1 from '../svg/Svg1.vue';
-
-export interface MainMenuType {
-    id: string;
-    total: number;
-    description: string;
-    title: string;
-    to: string;
-}
+import type { MainMenuType } from "@/types/user.interface";
 
 defineProps<{menu: MainMenuType}>()
 </script>

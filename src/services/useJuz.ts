@@ -1,7 +1,7 @@
 import { Metadata } from "@/types/alquran.interface";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { getDocs, orderBy, query } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
+import { juzCollectionRefConfig } from "@/config/dbRef.config";
 
 interface UseJuzState {
     isLoading: boolean;
@@ -17,9 +17,7 @@ export const useJuz = defineStore('juzService', {
     actions: {
         async getJuzMetadata() {
             this.isLoading = true;
-
-            const jusMetadataRef = collection(db, 'juz_collections');
-            const q = query(jusMetadataRef, orderBy('number', 'asc'));
+            const q = query(juzCollectionRefConfig(), orderBy('number', 'asc'));
 
             getDocs(q).then((snapshot) => {
                 const juzMetadata: Metadata[] = [];

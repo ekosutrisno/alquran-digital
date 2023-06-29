@@ -1,8 +1,9 @@
 import { AyahData, SurahData } from "@/types/alquran.interface";
-import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { deleteDoc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { auth, db } from "./useFirebase";
+import { auth } from "../config/firebase.config";
+import { surahDataRefConfig, userAyatFavoriteCollectionRefConfig, userAyatFavoriteDataRefConfig, userDataRefConfig, userSurahPilihanCollectionRefConfig, userSurahPilihanDataRefConfig } from "@/config/dbRef.config";
 
 const toast = useToast();
 
@@ -33,11 +34,11 @@ export const useAyah = defineStore('ayatService', {
         async onMarkBacaanku(nextBacaan: AyahData) {
             const user_id = auth.currentUser ? auth.currentUser.uid : null;
             if (user_id) {
-                const userRef = doc(db, 'user_collections', `${user_id}`);
+                const userRef = userDataRefConfig(String(user_id));
 
                 getDoc(userRef)
                     .then((user) => {
-                        if (user.exists() && user.data().bacaanku?.aya_id !== nextBacaan.aya_id) {
+                        if (user.exists() && (user.data().bacaanku?.aya_id !== nextBacaan.aya_id)) {
                             setDoc(userRef, { bacaanku: nextBacaan }, { merge: true })
                                 .then(async () => {
                                     toast.info(`Ditandai sebagai Bacaanku.`);
@@ -53,9 +54,7 @@ export const useAyah = defineStore('ayatService', {
             const user_id = auth.currentUser ? auth.currentUser.uid : null;
 
             if (user_id) {
-
-                const userRef = doc(db, 'user_collections', `${user_id}`);
-                const favoriteAyahRef = doc(userRef, 'favorits', `${payload.aya_id}`);
+                const favoriteAyahRef = userAyatFavoriteDataRefConfig(String(user_id), String(payload.aya_id));
 
                 getDoc(favoriteAyahRef)
                     .then(async (doc) => {
@@ -73,9 +72,7 @@ export const useAyah = defineStore('ayatService', {
 
         onGetFavorit() {
             const user_id = localStorage.getItem('_uid');
-
-            const userRef = doc(db, 'user_collections', `${user_id}`);
-            const ayahFavoriteRef = collection(userRef, 'favorits');
+            const ayahFavoriteRef = userAyatFavoriteCollectionRefConfig(String(user_id));
 
             onSnapshot(ayahFavoriteRef, (snapshot) => {
                 const ayahFavorite: AyahData[] = [];
@@ -89,8 +86,7 @@ export const useAyah = defineStore('ayatService', {
 
         async onRemoveFavorit(ayahId: AyahData['aya_id']) {
             const user_id = localStorage.getItem('_uid');
-            const userRef = doc(db, 'user_collections', `${user_id}`);
-            const favoriteAyahRef = doc(userRef, 'favorits', `${ayahId}`);
+            const favoriteAyahRef = userAyatFavoriteDataRefConfig(String(user_id), String(ayahId));
 
             deleteDoc(favoriteAyahRef)
                 .then(() => {
@@ -102,8 +98,7 @@ export const useAyah = defineStore('ayatService', {
             const user_id = auth.currentUser ? auth.currentUser.uid : null;
 
             if (user_id) {
-                const userRef = doc(db, 'user_collections', `${user_id}`);
-                const surahPilihanRef = doc(userRef, 'surah_pilihan', `${payload.id}`);
+                const surahPilihanRef = userSurahPilihanDataRefConfig(String(user_id), String(payload.id));
 
                 getDoc(surahPilihanRef)
                     .then(async (doc) => {
@@ -121,13 +116,11 @@ export const useAyah = defineStore('ayatService', {
 
         onGetSurahPilihan() {
             const user_id = localStorage.getItem('_uid');
-
-            const userRef = doc(db, 'user_collections', `${user_id}`);
-            const surahPilihanRef = collection(userRef, 'surah_pilihan');
+            const surahPilihanRef = userSurahPilihanCollectionRefConfig(String(user_id));
 
             onSnapshot(surahPilihanRef, (snapshot) => {
                 const surahPilihanTemp: SurahData[] = [];
-                
+
                 snapshot.docs.forEach((ayat) => {
                     surahPilihanTemp.push(ayat.data() as SurahData);
                 });
@@ -138,8 +131,7 @@ export const useAyah = defineStore('ayatService', {
 
         async onRemoveSurahPilihan(surahId: SurahData['id']) {
             const user_id = localStorage.getItem('_uid');
-            const userRef = doc(db, 'user_collections', `${user_id}`);
-            const surahPilihanRef = doc(userRef, 'surah_pilihan', `${surahId}`);
+            const surahPilihanRef = userSurahPilihanDataRefConfig(String(user_id), String(surahId));
 
             deleteDoc(surahPilihanRef)
                 .then(() => {
@@ -148,22 +140,22 @@ export const useAyah = defineStore('ayatService', {
         },
 
         async onCheckTafsir(payload: AyahData) {
-            const surahRef = doc(db, 'surah_collections', `${payload.sura_id}`)
-                getDoc(surahRef)
-                    .then(snapshot=>{
-                        if(snapshot.exists()){
-                            this.surahTafsirSelected = snapshot.data() as SurahData
-                            this.ayahTafsirSelected = payload;
-                        }
-                    })
+            const surahRef = surahDataRefConfig(String(payload.sura_id));
+            getDoc(surahRef)
+                .then(snapshot => {
+                    if (snapshot.exists()) {
+                        this.surahTafsirSelected = snapshot.data() as SurahData
+                        this.ayahTafsirSelected = payload;
+                    }
+                })
         },
 
-        setCurrentPlay(ayah: AyahData){
-            this.currentPlay =  ayah;
+        setCurrentPlay(ayah: AyahData) {
+            this.currentPlay = ayah;
             this.isPlayingAyah = !this.isPlayingAyah;
         }
     },
-    getters:{
+    getters: {
         myFavorite: (state: UseAyahState) => state.ayahFavorite
     }
 })

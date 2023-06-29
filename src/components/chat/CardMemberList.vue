@@ -23,7 +23,7 @@ import { useChats } from '@/services';
 import { ref, onMounted } from 'vue';
 import { Chat } from '@/types/chat.interface';
 import { get, limitToLast, onValue, orderByKey, query, ref as reference } from 'firebase/database';
-import { database } from '@/services/useFirebase';
+import { database } from '@/config/firebase.config';
 import { formatChatTime } from '@/utils/helperFunction';
 
 const props = defineProps<{member: {name: string,id: string,color: string,avatar: string}}>()
