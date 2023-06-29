@@ -1,7 +1,7 @@
 import { Metadata } from "@/types/alquran.interface";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { getDocs, orderBy, query } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
+import { manzilCollectionRefConfig } from "@/config/dbRef.config";
 
 interface UseManzilState {
     isLoading: boolean
@@ -17,9 +17,7 @@ export const useManzil = defineStore('manzilService', {
     actions: {
         async getManzilMetadata() {
             this.isLoading = true;
-
-            const manzilMetadataRef = collection(db, 'manzil_collections');
-            const q = query(manzilMetadataRef, orderBy('number', 'asc'));
+            const q = query(manzilCollectionRefConfig(), orderBy('number', 'asc'));
 
             getDocs(q)
                 .then((snapshot) => {

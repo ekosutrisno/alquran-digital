@@ -1,11 +1,12 @@
 import { Chat, ChatGroup, UserOnlineStatus } from "@/types/chat.interface";
 import { User } from "@/types/user.interface";
 import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
-import { doc, getDoc } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { database, db } from "./useFirebase";
+import { database } from "../config/firebase.config";
 import { formatToStringWithDash } from '@/utils/helperFunction';
-
+import { userDataRefConfig } from "@/config/dbRef.config";
+import { REALTIME_DB } from "@/config/db.config";
 
 interface ChatState {
     chat: Chat | null;
@@ -51,7 +52,7 @@ export const useChats = defineStore('chatService', {
             const currentDay = formatToStringWithDash()
 
             // Send and Push Chat in to the Realtime Database
-            await push(ref(database, `personal_chats/${this.currentChatBucket}/${currentDay}`), chat)
+            await push(ref(database, `${REALTIME_DB.personal_chats}/${this.currentChatBucket}/${currentDay}`), chat)
         },
 
         /**
@@ -59,7 +60,7 @@ export const useChats = defineStore('chatService', {
          * Get Detail of Peer User
          */
         async fetchCurrentPeerUser(peerId: string) {
-            await getDoc(doc(db, 'user_collections', peerId))
+            await getDoc(userDataRefConfig(peerId))
                 .then((snapshot) => {
                     this.peerUser = snapshot.data() as User;
                 })
@@ -70,7 +71,7 @@ export const useChats = defineStore('chatService', {
          * Handling User is Online or not, set last seen timestamp
          */
         chatInfo(userId: User['user_id']) {
-            const connectedRef = ref(database, `/users_connection/${userId}`);
+            const connectedRef = ref(database, `/${REALTIME_DB.users_connection}/${userId}`);
 
             var isOfflineForFirestore: UserOnlineStatus = {
                 state: 'offline',
@@ -82,7 +83,7 @@ export const useChats = defineStore('chatService', {
                 last_changed: serverTimestamp(),
             };
 
-            onValue(ref(database, '.info/connected'), (snap) => {
+            onValue(ref(database, REALTIME_DB.info), (snap) => {
                 if (snap.val() == false) return;
 
                 onDisconnect(connectedRef).set(isOfflineForFirestore)
@@ -110,12 +111,12 @@ export const useChats = defineStore('chatService', {
             const fromMe = `${meId}@${peerId}`; // ID: me:peer
 
             // By Default Check from Peer as Base, if not exist will create new bucket address
-            const dbRef = ref(database, `personal_chats/${toMe}`);
+            const dbRef = ref(database, `${REALTIME_DB.personal_chats}/${toMe}`);
             const reference = await get(dbRef);
 
             this.currentChatBucket = reference.exists() ? toMe : fromMe;
 
-            const q = query(ref(database, `personal_chats/${this.currentChatBucket}`), limitToLast(10));
+            const q = query(ref(database, `${REALTIME_DB.personal_chats}/${this.currentChatBucket}`), limitToLast(10));
             onValue(q, (snapshot) => {
                 const messages: ChatGroup[] = [];
                 snapshot.forEach((childSnapshot) => {
@@ -135,7 +136,7 @@ export const useChats = defineStore('chatService', {
          * This will watching for User Online Status
          */
         getPeerOnlineStatus(peerId: User['user_id']) {
-            const connectedRef = ref(database, `/users_connection/${peerId}`);
+            const connectedRef = ref(database, `/${REALTIME_DB.users_connection}/${peerId}`);
             onValue(connectedRef, snap => {
                 if (snap.exists())
                     this.peerUserStatus = snap.val() as UserOnlineStatus;

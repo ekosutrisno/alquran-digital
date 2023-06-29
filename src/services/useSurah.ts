@@ -1,8 +1,7 @@
 import { AyahData, SurahData } from "@/types/alquran.interface";
-import { collection, doc, DocumentData, getDoc, getDocs, limit, orderBy, query, startAfter, startAt, where } from "firebase/firestore";
+import { DocumentData, getDoc, getDocs, limit, orderBy, query, startAfter, startAt, where } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
-
+import { ayahCollectionRefConfig, queryOrderByRefConfig, surahAyahCollectionRefConfig, surahCollectionRefConfig, surahDataRefConfig } from "@/config/dbRef.config";
 
 interface UseSurahState {
     isLoading: boolean;
@@ -27,8 +26,8 @@ export const useSurah = defineStore('surahService', {
         async getSurahMetada() {
             this.isLoading = true;
 
-            const surahMetdataRef = collection(db, 'surah_collections');
-            const q = query(surahMetdataRef, orderBy("id", "asc"));
+            const surahMetdataRef = surahCollectionRefConfig();
+            const q = queryOrderByRefConfig(surahMetdataRef, 'id', 'asc');
 
             getDocs(q)
                 .then(snapshot => {
@@ -46,11 +45,11 @@ export const useSurah = defineStore('surahService', {
         async getSurah(surahId: SurahData['id'], isSilent?: boolean) {
             isSilent ? this.isLoading = false : this.isLoading = true;
 
-            const surahMetdataRef = doc(db, 'surah_collections',`${surahId}`);
+            const surahMetdataRef = surahDataRefConfig(String(surahId));
 
             getDoc(surahMetdataRef)
                 .then(snapshot => {
-                    if(snapshot.exists()){
+                    if (snapshot.exists()) {
                         this.surah = snapshot.data() as SurahData;
                         this.isLoading = false;
                     }
@@ -72,7 +71,7 @@ export const useSurah = defineStore('surahService', {
             this.isLoading = true;
 
             const surah_no = surah_number ? surah_number : parseInt(options.meta.sn);
-            const surahRef = doc(db, 'surah_collections', `${surah_no}`);
+            const surahRef = surahDataRefConfig(String(surah_no));
 
             getDoc(surahRef)
                 .then((doc) => {
@@ -94,10 +93,8 @@ export const useSurah = defineStore('surahService', {
 
         async setAyahOfSurah(surah_id: SurahData['id']) {
             this.isLoading = true;
-
-            const surahMetdataRef = doc(db, 'surah_collections', `${surah_id}`);
-            const ayahOfSurahRef = collection(surahMetdataRef, 'ayahs');
-            const q = query(ayahOfSurahRef, orderBy("aya_number", "asc"), limit(20));
+            const ayahOfSurahRef = surahAyahCollectionRefConfig(String(surah_id));
+            const q = queryOrderByRefConfig(ayahOfSurahRef, 'aya_number', 'asc', 20)
 
             getDocs(q)
                 .then((ayah) => {
@@ -117,7 +114,7 @@ export const useSurah = defineStore('surahService', {
         },
 
         async setAyahDetailGeneral(payload: { surat: number, ayat: number }, flagInfo?: { next_bacaan?: boolean, max_limit?: number }) {
-            const ayahRefs = collection(db, 'ayah_collections');
+            const ayahRefs = ayahCollectionRefConfig();
             const q0 = query(ayahRefs, where("sura_id", "==", payload.surat), where("aya_number", "==", payload.ayat));
 
             const limitData = flagInfo?.max_limit ? flagInfo.max_limit : 20;
@@ -149,8 +146,7 @@ export const useSurah = defineStore('surahService', {
         async nextAyahSurahOfSurah(surah_id: SurahData['id']) {
             this.isPush = true;
 
-            const surahRef = doc(db, 'surah_collections', `${surah_id}`);
-            const ayahOfSurah = collection(surahRef, 'ayahs');
+            const ayahOfSurah = surahAyahCollectionRefConfig(String(surah_id));
             const q = query(ayahOfSurah, orderBy("aya_number", "asc"), limit(20), startAfter(this.lastAyahVisible));
 
             getDocs(q).then((doc) => {
@@ -173,7 +169,7 @@ export const useSurah = defineStore('surahService', {
         async nextAyahSurahOfSurahDetail() {
             this.isPush = true;
 
-            const ayahColRefs = collection(db, 'ayah_collections');
+            const ayahColRefs = ayahCollectionRefConfig();
             const q = query(ayahColRefs, orderBy("aya_id", "asc"), startAfter(this.lastAyahVisible), limit(20));
 
             getDocs(q)

@@ -51,7 +51,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useToast } from "vue-toastification";
 import { useAuth  } from '@/services/useAuth';
 import { isMatchPassword } from '@/utils/helperFunction';
-import { auth } from "@/services/useFirebase";
+import { auth } from "@/config/firebase.config";
 import ButtonBack from "@/components/shared/ButtonBack.vue";
 import Loader from "@/components/Loader.vue";
 

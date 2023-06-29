@@ -82,7 +82,7 @@ import { LockClosedIcon } from '@heroicons/vue/solid';
 import { useRouter } from 'vue-router';
 import { useAuth, useUser } from '@/services';
 import { createUserWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
-import { auth, gProvider } from '@/services/useFirebase';
+import { auth, gProvider } from '@/config/firebase.config';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';

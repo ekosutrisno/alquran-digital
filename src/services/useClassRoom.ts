@@ -1,12 +1,12 @@
 import { MemberList } from "@/types/chat.interface";
 import { Room } from "@/types/room.interface";
 import { User } from "@/types/user.interface";
-import { collection, doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
+import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { auth, db } from "./useFirebase";
+import { db } from "../config/firebase.config";
 import { useUser } from "./useUser";
-
+import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 
 const toast = useToast();
 
@@ -45,40 +45,36 @@ export const useClassRoom = defineStore('classRoomService', {
             const roomId = Date.now();
             const user_id = localStorage.getItem('_uid') as string;
 
-            const roomUserRef = doc(db, 'room_collections', `${roomId}`);
             const room: Room = {
                 id: `${roomId}`,
                 scheduleDay: roomData.scheduleDay,
                 scheduleTime: roomData.scheduleTime,
                 organization: roomData.organization,
-                createdDate: Date.now(),
+                createdDate: roomId,
                 description: roomData.description,
                 name: roomData.name,
-                mentor: doc(db, 'user_collections', user_id),
+                mentor: userDataRefConfig(user_id),
                 heroImage: '',
                 ratings: 0,
                 isActive: true,
                 members: new Array<string>(user_id)
             }
 
-            setDoc(roomUserRef, room)
+            setDoc(roomDataRefConfig(String(roomId)), room)
                 .then(() =>
-                    userService.updateUserClassRoom(user_id, `${roomId}`, { isSilent: true })
+                    userService.updateUserClassRoom(user_id, String(roomId), { isSilent: true })
                         .then(() => toast.info('Room succesfully created.'))
                 );
         },
 
         async editRoom(roomData: Room) {
-            const roomUserRef = doc(db, 'room_collections', `${roomData.id}`);
-            setDoc(roomUserRef, roomData, { merge: true })
+            setDoc(roomDataRefConfig(roomData.id), roomData, { merge: true })
                 .then(() => toast.info('Room succesfully updated.'))
         },
 
         async getRooms(roomId: Room['id'][]) {
             this.isLoading = true;
-
-            const rommColl = collection(db, 'room_collections');
-            const q = query(rommColl, where('id', 'in', roomId), limit(10));
+            const q = query(roomCollectionRefConfig(), where('id', 'in', roomId), limit(10));
 
             onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
                 if (snapshot.empty)
@@ -102,10 +98,8 @@ export const useClassRoom = defineStore('classRoomService', {
         async getRoom(roomId: Room['id']) {
             this.isLoading = true;
 
-            const roomRef = doc(db, 'room_collections', `${roomId}`);
-
             // Snapshot Event Listening
-            onSnapshot(roomRef, async (snapshot) => {
+            onSnapshot(roomDataRefConfig(roomId), async (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.data() as Room;
                     this.memberRef = data.members;
@@ -131,9 +125,7 @@ export const useClassRoom = defineStore('classRoomService', {
         },
 
         async loadMember(listMemberRef: string[]) {
-
-            const userRef = collection(db, 'user_collections');
-            const q = query(userRef, where('user_id', 'in', listMemberRef))
+            const q = query(userCollectionRefConfig(), where('user_id', 'in', listMemberRef))
 
             onSnapshot(q, (snapshot) => {
                 const membersTemp: User[] = [];
@@ -147,9 +139,7 @@ export const useClassRoom = defineStore('classRoomService', {
         },
 
         async addRoomMember(roomId: string, userEmail: string) {
-
-            const userRef = collection(db, 'user_collections');
-            const q = query(userRef, where('email', '==', userEmail));
+            const q = query(roomCollectionRefConfig(), where('email', '==', userEmail));
 
             getDocs(q)
                 .then(snapshot => {
@@ -182,9 +172,7 @@ export const useClassRoom = defineStore('classRoomService', {
 
         haveClassRoom() {
             const me = localStorage.getItem('_uid') as string;
-
-            const rommColl = collection(db, 'room_collections');
-            const q = query(rommColl, where('mentor', '==', doc(db, 'user_collections', `${me}`)));
+            const q = query(roomCollectionRefConfig(), where('mentor', '==', doc(db, 'user_collections', `${me}`)));
 
             getDocs(q)
                 .then((snapshot) => {

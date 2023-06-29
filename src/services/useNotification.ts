@@ -1,10 +1,10 @@
 import { User, UserNotification, UserNotificationType } from "@/types/user.interface";
-import { addDoc, collection, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
+import { addDoc, getDoc, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { messaging, onMessage, db } from '@/services/useFirebase';
+import { messaging, onMessage } from '@/config/firebase.config';
 import { useUser } from '@/services';
-
+import { notificationCollectionRefConfig, notificationDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 
 const toast = useToast();
 
@@ -26,22 +26,20 @@ export const useNotification = defineStore('notificationService', {
          * Load All Notification which bellong to the current user
          */
         async loadNotifications() {
-            const docRef = collection(db, "notification_collections");
-            const q = query(docRef, where('user_id', '==', this.userId), orderBy('timestamp', 'desc'), limit(25));
+            const q = query(notificationCollectionRefConfig(), where('user_id', '==', this.userId), orderBy('timestamp', 'desc'), limit(25));
 
             onSnapshot(q, (snapshot) => {
                 this.notifications = snapshot.docs.map((notif) => notif.data() as UserNotification);
             });
-            
+
         },
+        
         /**
          * @param  {string} notifId
          * Get single detail notification
          */
         async loadSingleNotification(notifId: string) {
-            const docRef = doc(db, "notification_collections", notifId);
-
-            getDoc(docRef)
+            getDoc(notificationDataRefConfig(notifId))
                 .then(snapshot => {
                     this.notification = snapshot.data() as UserNotification;
                 })
@@ -52,8 +50,7 @@ export const useNotification = defineStore('notificationService', {
          * Save the notification into Database
          */
         async saveNotification(notif: UserNotification) {
-            const docRef = collection(db, "notification_collections");
-            await addDoc(docRef, notif);
+            await addDoc(notificationCollectionRefConfig(), notif);
         },
 
         /**
@@ -61,18 +58,8 @@ export const useNotification = defineStore('notificationService', {
          * Save the notification into Database
          */
         async readNotification(notif: UserNotification) {
-            const docRef = collection(db, "notification_collections");
-            const q = query(docRef, where('id', '==', notif.id));
-
-            getDocs(q)
-                .then((snapshot) => {
-                    if (!snapshot.empty) {
-                        notif.read = true;
-
-                        const currentDocRef = doc(db, 'notification_collections', String(snapshot.docs.at(0)?.id))
-                        setDoc(currentDocRef, notif, { merge: true });
-                    }
-                })
+            notif.read = true;
+            setDoc(notificationDataRefConfig(notif.id), notif, { merge: true });
         },
 
         /**
@@ -116,7 +103,7 @@ export const useNotification = defineStore('notificationService', {
         * @description Added FCMS Token into the User Data (For Campaign and Newsletter)
         */
         async addFcmsToken(payload: { userId: User['user_id'], token: string }, options: { isSilent: boolean }) {
-            const docRef = doc(db, "user_collections", payload.userId);
+            const docRef = userDataRefConfig(payload.userId);
             getDoc(docRef)
                 .then((snapshot) => {
                     const user = snapshot.data() as User;

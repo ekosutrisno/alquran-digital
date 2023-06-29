@@ -1,7 +1,7 @@
 import { Metadata } from "@/types/alquran.interface";
-import { collection, DocumentData, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
+import { DocumentData, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
+import { rukukCollectionRefConfig } from "@/config/dbRef.config";
 
 interface UseRukukState {
     isLoading: boolean;
@@ -23,9 +23,7 @@ export const useRukuk = defineStore('rukukService', {
     actions: {
         async getRukukMetadata() {
             this.isLoading = true;
-
-            const rukukMetadataRef = collection(db, 'rukuk_collections');
-            const q = query(rukukMetadataRef, orderBy('number', 'asc'), limit(100));
+            const q = query(rukukCollectionRefConfig(), orderBy('number', 'asc'), limit(100));
 
             getDocs(q)
                 .then((snapshot: QuerySnapshot<DocumentData>) => {
@@ -45,9 +43,7 @@ export const useRukuk = defineStore('rukukService', {
 
         nextPage(data: { lastVisible: DocumentData }) {
             this.isPush = true;
-
-            const rukukMetadataRef = collection(db, 'rukuk_collections');
-            const q = query(rukukMetadataRef, orderBy('number', 'asc'), limit(100), startAfter(data.lastVisible));
+            const q = query(rukukCollectionRefConfig(), orderBy('number', 'asc'), limit(100), startAfter(data.lastVisible));
 
             getDocs(q)
                 .then((snapshot: QuerySnapshot<DocumentData>) => {

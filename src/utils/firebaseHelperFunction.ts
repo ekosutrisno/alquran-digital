@@ -1,5 +1,5 @@
 
-import { database } from '@/services/useFirebase';
+import { database } from '@/config/firebase.config';
 import { UserOnlineStatus } from '@/types/chat.interface';
 import { onValue, ref as reference, serverTimestamp } from 'firebase/database';
 import { ref } from 'vue';

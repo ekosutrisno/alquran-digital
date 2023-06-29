@@ -1,7 +1,7 @@
 import { PageMetadata } from "@/types/alquran.interface";
-import { collection, DocumentData, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
+import { DocumentData, getDocs, limit, orderBy, query, QuerySnapshot, startAfter } from "firebase/firestore";
 import { defineStore } from "pinia";
-import { db } from "./useFirebase";
+import { pageCollectionRefConfig } from "@/config/dbRef.config";
 interface UsePageState {
     isLoading: boolean,
     isPush: boolean,
@@ -22,9 +22,7 @@ export const usePage = defineStore('pageService', {
     actions: {
         async getPageMetadata() {
             this.isLoading = true;
-
-            const pageMetadataRef = collection(db, 'page_collections');
-            const q = query(pageMetadataRef, orderBy("page", "asc"), limit(100));
+            const q = query(pageCollectionRefConfig(), orderBy("page", "asc"), limit(100));
 
             getDocs(q)
                 .then((snapshot: QuerySnapshot<DocumentData>) => {
@@ -45,9 +43,7 @@ export const usePage = defineStore('pageService', {
 
         nextPage(data: { lastVisible: DocumentData }) {
             this.isPush = true;
-
-            const pageMetadataRef = collection(db, 'page_collections');
-            const q = query(pageMetadataRef, orderBy("page", "asc"), limit(100), startAfter(data.lastVisible));
+            const q = query(pageCollectionRefConfig(), orderBy("page", "asc"), limit(100), startAfter(data.lastVisible));
 
             getDocs(q).then((doc: QuerySnapshot<DocumentData>) => {
                 const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;

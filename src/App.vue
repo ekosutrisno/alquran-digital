@@ -8,7 +8,7 @@
 import { useAuth, useChats, useNotification } from '@/services';
 import { useDark } from '@vueuse/core'
 import { onBeforeMount, onMounted, ref } from 'vue';
-import { getTokenFcm, requestPermission } from '@/services/useFirebase';
+import { getTokenFcm, requestPermission } from '@/config/firebase.config';
 import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
 import OfflineBanner from './components/shared/OfflineBanner.vue';
 

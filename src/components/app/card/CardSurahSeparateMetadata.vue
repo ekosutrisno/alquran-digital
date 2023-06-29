@@ -6,7 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { db } from '@/services/useFirebase';
+import { surahDataRefConfig } from '@/config/dbRef.config';
+import { db } from '@/config/firebase.config';
 import { SurahData } from '@/types/alquran.interface';
 import { doc, getDoc } from 'firebase/firestore';
 import { onMounted, reactive} from 'vue'
@@ -27,9 +28,8 @@ const state = reactive({
 
 onMounted(()=> getSuratDetail());
 
-const getSuratDetail =() => {
-        const surahMetdataRef = doc(db, 'surah_collections', `${state.surat_id}`)  
-         getDoc(surahMetdataRef)
+const getSuratDetail =() => { 
+         getDoc(surahDataRefConfig(String(state.surat_id)))
             .then(doc =>{
                 if (doc.exists()) {
                     state.surat = doc.data() as SurahData;
