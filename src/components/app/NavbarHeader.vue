@@ -55,17 +55,19 @@
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
               <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 lg:min-w-[20rem] lg:w-auto lg:max-w-md rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
                 <MenuItem v-for="notif in state.notifications" :key="notif.id" v-slot="{ active }">
-                  <router-link @click="readNotif(notif)" to="/app/dashboard/notification" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
+                  <div @click="readNotification(notif)" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'md:cursor-pointer inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
                     <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                     <div class="flex flex-col">
-                      <div class="text-sm w-auto font-semibold flex items-center justify-between">
+                      <div class="text-sm w-auto font-semibold flex items-center space-x-2">
                           <div>{{ notif.title }}</div>
-                          <div> <div v-if="!notif.read" class="w-1 h-1 rounded-full bg-red-600"></div> </div>
+                          <div>                    
+                             <NotifUnreadIcon v-if="!notif.read" class="w-4 h-4 text-sky-500 animate-bounce" aria-hidden="true"/>
+                           </div>
                       </div>  
                       <span class="text-sm dark:text-slate-100 truncate max-w-[190px] lg:max-w-sm">{{ notif.body }}</span>
                       <span class="mt-1.5 text-xs">{{ formatDateFromNow(notif.timestamp) }}</span>
                     </div>
-                  </router-link>
+                  </div>
                 </MenuItem>
 
                 <div v-if="!state.notifications.length" class="py-4 flex flex-col items-center space-y-2">
@@ -179,6 +181,7 @@ import { formatDateFromNow } from '@/utils/helperFunction';
 import { UserNotification } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
 import NoNotificationIcon from '../svg/NoNotificationIcon.vue';
+import NotifUnreadIcon from '../svg/NotifUnreadIcon.vue';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }
@@ -189,6 +192,8 @@ const { getPhotoUrl, getLoginAsInfo } = storeToRefs(useUser());
 const router = useRouter();
 const { wideMenu, getAppVersion } = storeToRefs(useUtil());
 const notificationService = useNotification();
+const { readNotification } = notificationService;
+const { notifications } = storeToRefs(notificationService);
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 
@@ -198,14 +203,10 @@ const state = reactive({
   theme: 'dark',
   userRole: computed(() => localStorage.getItem('_role')),
   isLogin: computed(() => localStorage.getItem('_uid')),
-  notifications: computed(()=> notificationService.notifications.filter(notif=> !notif.read)
+  notifications: computed(()=> notifications.value.filter(notif=> !notif.read)
         .sort((a: UserNotification, b: UserNotification) => (new Date(b.timestamp).valueOf()) - (new Date(a.timestamp).valueOf()))
   )
 })
-
-const readNotif = async (notif: UserNotification) =>{
-  await notificationService.readNotification(notif);
-}
 
 const isDark = useDark();
 const togleDarkLightMode = useToggle(isDark);
