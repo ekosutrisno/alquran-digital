@@ -33,7 +33,7 @@ export const useNotification = defineStore('notificationService', {
             });
 
         },
-        
+
         /**
          * @param  {string} notifId
          * Get single detail notification
@@ -50,7 +50,7 @@ export const useNotification = defineStore('notificationService', {
          * Save the notification into Database
          */
         async saveNotification(notif: UserNotification) {
-            await addDoc(notificationCollectionRefConfig(), notif);
+            await setDoc(notificationDataRefConfig(notif.id), notif);
         },
 
         /**
