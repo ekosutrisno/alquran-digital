@@ -17,9 +17,9 @@
                 <div v-if="filteredData.length" class="overflow-auto w-full flex-1 flex flex-col light-scroll">
                   <button 
                     type="button"
-                    @click="goToPage(search.item.to)" 
+                    @click="goToPage(search.item)" 
                     v-for="(search, idx) in filteredData"
-                    :key="search.item.id"
+                    :key="idx"
                     class="w-full flex items-center justify-between transition-colors py-3 px-5 border-b border-slate-700/10 dark:border-slate-700/50 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700"
                    >
                       <div class="flex flex-col items-start space-y-2">
@@ -61,16 +61,17 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { doSearch, SearchOption } from '@/utils/searchFunction';
 import { menuSearchList } from '@/assets/data/search-menu';
+import { SearchItem } from '@/types/user.interface';
 
 const router = useRouter();
 const query = ref('')
 
-const emit  = defineEmits<{(e: 'close-modal', open:boolean): void}>();
+const emit  = defineEmits<{(e: 'close-modal', open: boolean): void}>();
 defineProps<{open: boolean}>();
 
-const goToPage = (path: string) => {
+const goToPage = (item: SearchItem) => {
   onCloseModal();
-  router.push(path);
+  router.push({ name: item.to, query: item.query, params: item.params });
 }
 
 const onCloseModal = ()=> {
@@ -84,4 +85,4 @@ const options: SearchOption = {
 };
 
 const filteredData = computed(() => doSearch(menuSearchList, query.value, options));
-</script>@/assets/data/search-menu
+</script>

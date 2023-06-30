@@ -1,6 +1,6 @@
 import { DocumentReference } from "firebase/firestore";
 import { AyahData } from "./alquran.interface";
-
+import { LocationQueryRaw } from "vue-router";
 export interface InfoMetadata {
     createdDate?: Date | any
     lastModifiedDate?: Date | any
@@ -61,6 +61,10 @@ export interface SearchItem {
     text: string;
     desc: string;
     to: string;
+    params?: {
+        [key: string]: string
+    },
+    query?: LocationQueryRaw
 }
 
 export enum UserNotificationType {
@@ -71,8 +75,17 @@ export enum UserNotificationType {
     INFO = 'I'
 }
 
+export type NotificationFilter = "All" | "Read" | "Unread";
+
+export interface NotifFilterOption {
+    id: number;
+    filter: NotificationFilter
+}
+
 export enum FlagUseOn {
-    REGISTRATION = 'REGISTRATION'
+    REGISTRATION = 'REGISTRATION',
+    LOGIN = 'LOGIN',
+    VERIFY = 'VERIFY'
 }
 
 export type LocalesSupport = "en" | "id";
