@@ -77,6 +77,9 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <CardVideo />
+            </div>
         </section>
 
         <!-- Section 2 -->
@@ -97,14 +100,14 @@
 
             <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
                 <CardClassRoomMember
-                    v-for="member in state.dataMemebers"
+                    v-for="member in members"
                     :key="member.user_id"
                     :member="member"
                     :roomId="($route.params.room_id as string)"
                 />
-                <div v-if="isLoading" class="flex items-center justify-center">
-                    <Loader />
-                </div>
+            </div>
+            <div v-if="isLoading" class="flex w-full items-center justify-center">
+                <Loader />
             </div>
 
            <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
@@ -150,6 +153,7 @@ import Loader from '@/components/Loader.vue';
 import { Room } from '@/types/room.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
 import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
+import CardVideo from '@/components/app/card/CardVideo.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -161,7 +165,6 @@ const { isLoading, room, members, mentor} = storeToRefs(roomService);
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
-    dataMemebers:computed(()=> members.value),
     option: false
 });
 
@@ -169,27 +172,16 @@ onMounted(async () => {
     roomService.getRoom(route.params.room_id as Room['id']);
 })
 
-
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
         pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
 
-
 const target = ref(null)
 onClickOutside(target, (event) => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
-}
-
-const onLanjutBacaan = ()=>{
-    router.push({
-        path: '/app/dashboard/class-room/',
-        params:{
-            act: 'next'
-        } 
-})
 }
 </script>

@@ -1,5 +1,5 @@
 import { User, UserNotification, UserNotificationType } from "@/types/user.interface";
-import { addDoc, getDoc, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
+import { getDoc, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { messaging, onMessage } from '@/config/firebase.config';
@@ -121,5 +121,13 @@ export const useNotification = defineStore('notificationService', {
                     }
                 })
         },
+    },
+    
+    getters: {
+        unReadNotification(state: UseNotficationState): UserNotification[] {
+            return state.notifications.filter(notif => !notif.read)
+                .sort((a: UserNotification, b: UserNotification) => String(b.timestamp).localeCompare(String(a.timestamp)))
+                .slice(0, 3);
+        }
     }
 })

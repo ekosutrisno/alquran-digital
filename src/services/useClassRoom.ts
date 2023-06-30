@@ -95,7 +95,7 @@ export const useClassRoom = defineStore('classRoomService', {
             })
         },
 
-        async getRoom(roomId: Room['id']) {
+        async getRoom(roomId: string) {
             this.isLoading = true;
 
             // Snapshot Event Listening
@@ -139,8 +139,7 @@ export const useClassRoom = defineStore('classRoomService', {
         },
 
         async addRoomMember(roomId: string, userEmail: string) {
-            const q = query(roomCollectionRefConfig(), where('email', '==', userEmail));
-
+            const q = query(userCollectionRefConfig(), where('email', '==', userEmail.toLowerCase()));
             getDocs(q)
                 .then(snapshot => {
                     if (!snapshot.empty) {
@@ -162,7 +161,6 @@ export const useClassRoom = defineStore('classRoomService', {
                                 } else {
                                     toast.info("The User already member!")
                                 }
-
                             });
                     } else {
                         toast.info("The Email Member not registered!")

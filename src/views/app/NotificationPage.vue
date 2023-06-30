@@ -38,7 +38,7 @@
                     </span>
                     <p>Notifications 
                         <span class="text-xs ml-5">Filter by 
-                            <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ state.filter }} {{ state.notificationsList.length ?? 0 }} </span>
+                            <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ state.filter }} {{ filterAndReduced.length ?? 0 }} </span>
                         </span>
                     </p> 
                 </p>
@@ -48,8 +48,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
                         <div v-if="state.option" ref="target" class="absolute z-10 overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50">
-                            <button type="button" @click="selectFilter(size.size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
-                                <div class="col-span-1">{{ size.size }}</div>
+                            <button type="button" @click="selectFilter(size.filter)" v-for="size in state.filters" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
+                                <div class="col-span-1">{{ size.filter }}</div>
                             </button>
                         </div>
                     </button>
@@ -59,9 +59,13 @@
 
             <div class="grid h-full">
                 <div class="w-full mx-auto px-4 grid pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
-                    <div v-for="(item, idx) in state.notificationsList" :key="item.key">
+                    <div v-for="(item, idx) in notificationsList" :key="item.key">
                         <CardTimeline :item="item" :idx="idx"/>
                     </div>
+                </div>
+                <div v-if="!filterAndReduced.length" class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
+                    <NoNotificationIcon />
+                    <p class="mx-auto text-sm py-5">No Result data found!</p>
                 </div>
             </div>
 
@@ -98,64 +102,37 @@
 </template>
 
 <script setup lang="ts">
-import {  useNotification, useUtil } from '@/services';
-import { computed, onBeforeUpdate, onMounted, reactive, ref } from 'vue';
-import { convertToArab, formatToString, yesterday} from '@/utils/helperFunction';
+import {  useNotification } from '@/services';
+import { computed, reactive, ref } from 'vue';
+import { convertToArab } from '@/utils/helperFunction';
+import { notificationMapper, filterNotification } from '@/utils/notificationFunction';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import { UserNotification, NotificationMapper } from '@/types/user.interface';
+import { UserNotification, NotificationFilter, NotifFilterOption } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
 import CardTimeline from '@/components/app/card/CardTimeline.vue';
+import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 
 const notificationService = useNotification();
+const { notifications } = storeToRefs(notificationService);
 
-const { notifications } =  storeToRefs(notificationService);
+const filterAndReduced = computed<UserNotification[]>(() => filterNotification(notifications.value, state.filter));
+const notificationsList = computed(() => notificationMapper(filterAndReduced.value));
 
 const state = reactive({
     isLogin: computed(()=>localStorage.getItem('_uid')),
+    filter: 'All' as NotificationFilter,
     option: false,
-    sizes: [
-        {
-            id: 1,
-            size: 'All'
-        },
-        {
-            id: 2,
-            size: 'Unread'
-        },
-        {
-            id: 3,
-            size: 'Read'
-        }
-    ],
-    notif: {} as UserNotification,
-    filteredNotif: computed(()=> notificationService.notifications || []),
-    notificationsList: [] as NotificationMapper[],
-    filter: 'All',
-    today: computed(()=> formatToString(new Date())),
-    yesterday: computed(()=> yesterday())
+    filters: [
+        { id: 1, filter: 'All'},
+        { id: 2, filter: 'Unread'},
+        { id: 3, filter: 'Read'}
+    ] as NotifFilterOption[],
 });
 
-onBeforeUpdate(()=>{
-  notificationMapper()
-});
-
-onMounted(()=>{
-  notificationMapper()
-});
-
-const pageUp = ref<HTMLDivElement | undefined>();
-const scrollToPageUp = () => {
-    if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
-}
-
-
-const selectFilter = (opt: string) =>{
+const selectFilter = (opt: NotificationFilter) =>{
     state.filter = opt;
-    notificationMapper();
 }
-
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
@@ -164,41 +141,9 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-
-
-const filterAndReduced = computed(()=>{
-    if(state.filter == 'Read')
-        return state.filteredNotif.filter(notif => notif.read);
-    else if( state.filter == 'Unread')
-        return state.filteredNotif.filter(notif => !notif.read);
-    else
-        return state.filteredNotif;
-})
-
-const notificationMapper = ()=>{
-    const dataReduced =  filterAndReduced.value.reduce((group: any, notifs) => {
-        const { timestamp } = notifs;
-        const d = formatToString(timestamp);
-        group[d] = group[d] ?? [];
-        group[d].push(notifs);
-        group[d].sort((a: UserNotification, b: UserNotification) => (new Date(b.timestamp).valueOf()) - (new Date(a.timestamp).valueOf()));
-        return group;
-    }, {});
-
-    const tempData:NotificationMapper[] = [];
-    Object.keys(dataReduced).forEach((d)=> {
-        const indexedData:UserNotification[] = dataReduced[d];
-        const dataMapper:NotificationMapper = {
-            key: d,
-            data: indexedData,
-            actualDate: new Date(indexedData[0].timestamp) 
-        }
-        tempData.push(dataMapper)
-    })
-
-    state.notificationsList = tempData.sort((a: NotificationMapper, b: NotificationMapper)=> (new Date(b.actualDate).valueOf()) - (new Date(a.actualDate).valueOf()));;
-
+const pageUp = ref<HTMLDivElement | undefined>();
+const scrollToPageUp = () => {
+    if (pageUp)
+        pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
-
-
 </script>

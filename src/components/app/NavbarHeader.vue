@@ -42,19 +42,28 @@
           <!-- Notification dropdown -->
           <Menu as="div" class="ml-3 relative">
             <div>
-              <MenuButton class=" p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
+              <MenuButton class="p-1 hidden md:block relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
                 <div 
-                  v-if="state.notifications.length" 
+                  v-if="notifications.length" 
                   class="bg-sky-500 text-white absolute -top-0.5 -right-1 rounded-full h-4 w-4 p-1 flex items-center justify-center text-[11px]">
-                    {{state.notifications.length <= 3 ? state.notifications.length : `3+`}}
+                    {{notifications.length <= 3 ? notifications.length : `3+`}}
                 </div>
               </MenuButton>
+              <button type="button" @click="$router.push({name: 'NotificationPage'})" class="md:hidden p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
+                <span class="sr-only">View notifications</span>
+                <BellIcon class="h-6 w-6" aria-hidden="true" />
+                <div 
+                  v-if="notifications.length" 
+                  class="bg-sky-500 text-white absolute -top-0.5 -right-1 rounded-full h-4 w-4 p-1 flex items-center justify-center text-[11px]">
+                    {{notifications.length <= 3 ? notifications.length : `3+`}}
+                </div>
+              </button>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
               <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 lg:min-w-[20rem] lg:w-auto lg:max-w-md rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
-                <MenuItem v-for="notif in state.notifications" :key="notif.id" v-slot="{ active }">
+                <MenuItem v-for="notif in unReadNotification" :key="notif.id" v-slot="{ active }">
                   <div @click="readNotification(notif)" :class="[active ? 'bg-slate-50 dark:bg-slate-700' : '', 'md:cursor-pointer inline-flex items-start space-x-3 w-full px-4 py-3 text-slate-900 dark:text-white dark:bg-slate-800 with-transition']">
                     <NotificationType :type="notif.type" class="h-6 w-6" aria-hidden="true" />
                     <div class="flex flex-col">
@@ -70,12 +79,12 @@
                   </div>
                 </MenuItem>
 
-                <div v-if="!state.notifications.length" class="py-4 flex flex-col items-center space-y-2">
+                <div v-if="!notifications.length" class="py-4 flex flex-col items-center space-y-2">
                   <NoNotificationIcon />
                   <p class="text-xs text-center">Saat ini belum ada notifikasi yang masuk. </p>
                 </div>
                 <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-100 dark:hover:bg-slate-700">
-                  <router-link to="/app/dashboard/notification" class="inline-flex items-center justify-end space-x-3 text-sm">
+                  <router-link :to="{name: 'NotificationPage'}" class="inline-flex items-center justify-end space-x-3 text-sm">
                     <span>See all notifications </span>
                     <span>
                       <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -132,7 +141,7 @@
                 </MenuItem>
 
                 <MenuItem v-slot="{ active }">
-                  <router-link to="/app/dashboard/settings" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
+                  <router-link :to="{name: 'SettingPage', query: {tab: 'profile'}}" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="text-slate-400 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -140,12 +149,12 @@
                     <span>Account settings</span>
                   </router-link>
                 </MenuItem>
-                <MenuItem v-slot="{ active }">
-                  <router-link to="/privacy-policy" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
+                <MenuItem v-slot="{ active }" class="hidden">
+                  <router-link :to="{name: 'PrivacyPolicyPage'}" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="text-gray-400 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>Privacy policy</span>
+                    <span>Help</span>
                   </router-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
@@ -178,7 +187,6 @@ import Svg2 from '../svg/Svg2.vue'
 import NotificationType from '../shared/NotificationType.vue';
 import { useDark, useMagicKeys, useToggle, useOnline } from '@vueuse/core';
 import { formatDateFromNow } from '@/utils/helperFunction';
-import { UserNotification } from '@/types/user.interface';
 import { storeToRefs } from 'pinia';
 import NoNotificationIcon from '../svg/NoNotificationIcon.vue';
 import NotifUnreadIcon from '../svg/NotifUnreadIcon.vue';
@@ -193,7 +201,7 @@ const router = useRouter();
 const { wideMenu, getAppVersion } = storeToRefs(useUtil());
 const notificationService = useNotification();
 const { readNotification } = notificationService;
-const { notifications } = storeToRefs(notificationService);
+const { notifications, unReadNotification } = storeToRefs(notificationService);
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 
@@ -202,10 +210,7 @@ const state = reactive({
   navigation: navigation,
   theme: 'dark',
   userRole: computed(() => localStorage.getItem('_role')),
-  isLogin: computed(() => localStorage.getItem('_uid')),
-  notifications: computed(()=> notifications.value.filter(notif=> !notif.read)
-        .sort((a: UserNotification, b: UserNotification) => (new Date(b.timestamp).valueOf()) - (new Date(a.timestamp).valueOf()))
-  )
+  isLogin: computed(() => localStorage.getItem('_uid'))
 })
 
 const isDark = useDark();
@@ -219,8 +224,8 @@ const onLogoutAction = () => {
     router.replace('/auth/login');
 }
 
-const keys = useMagicKeys()
-const shiftCtrlA = keys['ctrl + /']
+const keys = useMagicKeys();
+const shiftCtrlA = keys['ctrl + /'];
 
 watch(shiftCtrlA, (v) => {
   if (v)

@@ -26,7 +26,7 @@
             </div>
             <div class="pl-20 md:pl-0">
                 <button  type="button" @click="$router.back()" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span>Cancel</span>
+                    <span>Back</span>
                 </button>
             </div>
         </section>
@@ -117,13 +117,12 @@ import { useRoute } from 'vue-router';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { useClassRoom, useUser } from '@/services';
 import { storeToRefs } from 'pinia';
-import { Room } from '@/types/room.interface';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { validateEmail } from '@/utils/helperFunction';
 import FirebaseIcon from '@/components/svg/FirebaseIcon.vue';
 
 const route = useRoute();
-const roomService = useClassRoom();
+const { getRoom, addRoomMember } = useClassRoom();
 const userService = useUser();
 
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
@@ -134,13 +133,12 @@ const state = reactive({
 });
 
 onMounted(async () => {
-    roomService.getRoom(route.query.id as Room['id']);
+    await getRoom(String(route.params.room_id));
 })
 
-const addMember = () => {
-    if(isValidEmail.value)
-        roomService
-            .addRoomMember(route.params.room_id as string, state.emailInvitations);
+const addMember = async () => {
+    isValidEmail.value && addRoomMember(String(route.params.room_id), state.emailInvitations)
+        .then(() => state.emailInvitations = '');
 }
 
 const isValidEmail = computed(()=>validateEmail(state.emailInvitations.trim()))
@@ -150,5 +148,4 @@ const scrollToPageUp = () => {
     if (pageUp)
         pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
-
 </script>

@@ -26,29 +26,29 @@
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
              <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
-                <button type="button" @click="setCurrentActive(1)" :class="[state.active == 1 ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <div :class="[state.active == 1 ? 'bg-sky-500': '']" class="absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
+                <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" fill="currentColor" data-view-component="true" class="text-slate-600 w-4 h-4 mr-2">
                         <path fill-rule="evenodd" d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"></path>
                     </svg>
                     <span class="">Public profile</span>
                 </button>
-                <button type="button" @click="setCurrentActive(2)" :class="[state.active == 2 ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <div :class="[state.active == 2 ? 'bg-sky-500': '']" class="absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
+                <button type="button" @click="setCurrentActive(2)" :class="[isTab().ACCOUNT ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <div :class="[isTab().ACCOUNT ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" fill="currentColor" data-view-component="true" class="text-slate-600 w-4 h-4 mr-2">
                         <path fill-rule="evenodd" d="M7.429 1.525a6.593 6.593 0 011.142 0c.036.003.108.036.137.146l.289 1.105c.147.56.55.967.997 1.189.174.086.341.183.501.29.417.278.97.423 1.53.27l1.102-.303c.11-.03.175.016.195.046.219.31.41.641.573.989.014.031.022.11-.059.19l-.815.806c-.411.406-.562.957-.53 1.456a4.588 4.588 0 010 .582c-.032.499.119 1.05.53 1.456l.815.806c.08.08.073.159.059.19a6.494 6.494 0 01-.573.99c-.02.029-.086.074-.195.045l-1.103-.303c-.559-.153-1.112-.008-1.529.27-.16.107-.327.204-.5.29-.449.222-.851.628-.998 1.189l-.289 1.105c-.029.11-.101.143-.137.146a6.613 6.613 0 01-1.142 0c-.036-.003-.108-.037-.137-.146l-.289-1.105c-.147-.56-.55-.967-.997-1.189a4.502 4.502 0 01-.501-.29c-.417-.278-.97-.423-1.53-.27l-1.102.303c-.11.03-.175-.016-.195-.046a6.492 6.492 0 01-.573-.989c-.014-.031-.022-.11.059-.19l.815-.806c.411-.406.562-.957.53-1.456a4.587 4.587 0 010-.582c.032-.499-.119-1.05-.53-1.456l-.815-.806c-.08-.08-.073-.159-.059-.19a6.44 6.44 0 01.573-.99c.02-.029.086-.075.195-.045l1.103.303c.559.153 1.112.008 1.529-.27.16-.107.327-.204.5-.29.449-.222.851-.628.998-1.189l.289-1.105c.029-.11.101-.143.137-.146zM8 0c-.236 0-.47.01-.701.03-.743.065-1.29.615-1.458 1.261l-.29 1.106c-.017.066-.078.158-.211.224a5.994 5.994 0 00-.668.386c-.123.082-.233.09-.3.071L3.27 2.776c-.644-.177-1.392.02-1.82.63a7.977 7.977 0 00-.704 1.217c-.315.675-.111 1.422.363 1.891l.815.806c.05.048.098.147.088.294a6.084 6.084 0 000 .772c.01.147-.038.246-.088.294l-.815.806c-.474.469-.678 1.216-.363 1.891.2.428.436.835.704 1.218.428.609 1.176.806 1.82.63l1.103-.303c.066-.019.176-.011.299.071.213.143.436.272.668.386.133.066.194.158.212.224l.289 1.106c.169.646.715 1.196 1.458 1.26a8.094 8.094 0 001.402 0c.743-.064 1.29-.614 1.458-1.26l.29-1.106c.017-.066.078-.158.211-.224a5.98 5.98 0 00.668-.386c.123-.082.233-.09.3-.071l1.102.302c.644.177 1.392-.02 1.82-.63.268-.382.505-.789.704-1.217.315-.675.111-1.422-.364-1.891l-.814-.806c-.05-.048-.098-.147-.088-.294a6.1 6.1 0 000-.772c-.01-.147.039-.246.088-.294l.814-.806c.475-.469.679-1.216.364-1.891a7.992 7.992 0 00-.704-1.218c-.428-.609-1.176-.806-1.82-.63l-1.103.303c-.066.019-.176.011-.299-.071a5.991 5.991 0 00-.668-.386c-.133-.066-.194-.158-.212-.224L10.16 1.29C9.99.645 9.444.095 8.701.031A8.094 8.094 0 008 0zm1.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM11 8a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span class="">Account</span>
                 </button>
-                <button type="button" @click="setCurrentActive(3)" :class="[state.active == 3 ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <div :class="[state.active == 3 ? 'bg-sky-500': '']" class="absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
+                <button type="button" @click="setCurrentActive(3)" :class="[isTab().APPEARANCE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <div :class="[isTab().APPEARANCE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" fill="currentColor" data-view-component="true" class="text-slate-600 w-4 h-4 mr-2">
                         <path fill-rule="evenodd" d="M11.134 1.535C9.722 2.562 8.16 4.057 6.889 5.312 5.8 6.387 5.041 7.401 4.575 8.294a3.745 3.745 0 00-3.227 1.054c-.43.431-.69 1.066-.86 1.657a11.982 11.982 0 00-.358 1.914A21.263 21.263 0 000 15.203v.054l.75-.007-.007.75h.054a14.404 14.404 0 00.654-.012 21.243 21.243 0 001.63-.118c.62-.07 1.3-.18 1.914-.357.592-.17 1.226-.43 1.657-.861a3.745 3.745 0 001.055-3.217c.908-.461 1.942-1.216 3.04-2.3 1.279-1.262 2.764-2.825 3.775-4.249.501-.706.923-1.428 1.125-2.096.2-.659.235-1.469-.368-2.07-.606-.607-1.42-.55-2.069-.34-.66.213-1.376.646-2.076 1.155zm-3.95 8.48a3.76 3.76 0 00-1.19-1.192 9.758 9.758 0 011.161-1.607l1.658 1.658a9.853 9.853 0 01-1.63 1.142zM.742 16l.007-.75-.75.008A.75.75 0 00.743 16zM12.016 2.749c-1.224.89-2.605 2.189-3.822 3.384l1.718 1.718c1.21-1.205 2.51-2.597 3.387-3.833.47-.662.78-1.227.912-1.662.134-.444.032-.551.009-.575h-.001V1.78c-.014-.014-.112-.113-.548.027-.432.14-.995.462-1.655.942zM1.62 13.089a19.56 19.56 0 00-.104 1.395 19.55 19.55 0 001.396-.104 10.528 10.528 0 001.668-.309c.526-.151.856-.325 1.011-.48a2.25 2.25 0 00-3.182-3.182c-.155.155-.329.485-.48 1.01a10.515 10.515 0 00-.309 1.67z"></path>
                     </svg>
                     <span class="">Appearance</span>
                 </button>
-                <button type="button" @click="setCurrentActive(4)" :class="[state.active == 4 ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <div :class="[state.active == 4 ? 'bg-sky-500': '']" class="absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
+                <button type="button" @click="setCurrentActive(4)" :class="[isTab().DANGER_ZONE? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <div :class="[isTab().DANGER_ZONE? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-600 w-4 h-4 mr-2" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
@@ -73,15 +73,15 @@
                 </div>
 
                 <!-- Content of tabs 1 -->
-                <div v-show="state.active == 1" class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 py-6 px-2">                   
+                <div v-show="isTab().PROFILE" class="with-transition w-full grid grid-cols-1 md:grid-cols-6 md:gap-4 py-6 px-2">                   
                     <!-- Public profile details -->
-                    <div v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-5">
+                    <form @submit.prevent="updateData()" v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-5">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Full name</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.full_name" type="text" name="name" id="name" 
-                                        :class="[v$.full_name.$error ? 'border-red-500' : '']"
+                                        required
                                         class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
                                     />
                                 </div>
@@ -176,18 +176,11 @@
                                     />
                                 </div>
                             </div>
-                            
-                            <div v-if="v$.$errors.length" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
-                                <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
-                                <span class="block text-red-400" v-for="item in v$.$errors" :key="item.$uid">
-                                    {{ item.$property }}: {{item.$message}}
-                                </span>
-                            </div>
 
-                            <button type="button" @click="updateData" class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            <button type="submit" class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                                 <span>Simpan</span>
                             </button>
-                    </div>
+                    </form>
 
                     <!-- Profile Picture -->
                     <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
@@ -241,7 +234,7 @@
                 </div>
                 
                 <!-- Content of tabs 2 -->
-                <div v-show="state.active == 2" class="with-transition w-full grid py-6 px-2 space-y-8">                   
+                <div v-show="isTab().ACCOUNT" class="with-transition w-full grid py-6 px-2 space-y-8">                   
                     <!-- Connected Account -->
                     <ConnectedAccount/>
 
@@ -253,14 +246,12 @@
                 </div>
 
                 <!-- Content of tabs 3 -->
-                <div v-show="state.active == 3" class="with-transition w-full grid py-6 px-2 space-y-8">                   
-                    <!-- Appearance -->
+                <div v-show="isTab().APPEARANCE" class="with-transition w-full grid py-6 px-2 space-y-8">   
                     <Appearance />
                 </div>
 
                 <!-- Content of tabs 4 -->
-                <div v-show="state.active == 4" class="with-transition w-full grid py-6 px-2 space-y-8">                   
-                    <!-- Danger Zone -->
+                <div v-show="isTab().DANGER_ZONE" class="with-transition w-full grid py-6 px-2 space-y-8">    
                     <DangerZone />
                 </div>
             </div>
@@ -276,56 +267,51 @@ import { computed, reactive } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { storeToRefs } from 'pinia';
 import { User } from '@/types/user.interface';
-import { required, email} from '@vuelidate/validators';
-import useVuelidate from '@vuelidate/core';
 import UpdatePassword from '@/components/app/UpdatePassword.vue';
 import UpdateEmail from '@/components/app/UpdateEmail.vue';
 import ConnectedAccount from '@/components/app/ConnectedAccount.vue';
 import DangerZone from '@/components/app/DangerZone.vue';
 import Appearance from '@/components/app/Appearance.vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
 
 const userService = useUser();
+const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
-
-const rules = computed(()=> {
-    return {
-        full_name: { required },
-        email: {required, email}
-    }
-})
-
-const v$ = useVuelidate(rules.value, currentUser.value as any);
 
 const state = reactive({
     isLogedIn: computed(()=> localStorage.getItem('_uid')),
-    active: 1,
     titile: 'Public profile'
 });
 
-
 const setCurrentActive = (currentActive: number) => {
-    state.active = currentActive;
     switch (currentActive) {
         case 1:
             state.titile = 'Public profile';
+            updateParams('tab', 'profile');
             break;
         case 2:
             state.titile = 'Account';
+            updateParams('tab', 'account');
             break;
         case 3:
             state.titile = 'Appearance';
+            updateParams('tab', 'appearance');
             break;
         case 4:
             state.titile = 'Danger zone';
+            updateParams('tab', 'danger_zone');
             break;
-    
         default:
             state.titile = 'Public profile';
+            updateParams('tab', 'profile');
             break;
     }
 }
 
-const onUpdateAvatar = (event: any) =>{
+async function onUpdateAvatar(event: any){
     if (event.target.files && event.target.files[0]) {
         const fileType = event.target.files[0].type.toString();
         
@@ -338,14 +324,27 @@ const onUpdateAvatar = (event: any) =>{
             alert("Max photo size is 2Mb!")
         }else{
             // Realtime updated
-          userService.updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
+         await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
         }
       }
 }
 
 async function updateData() {
-    const result = await v$.value.$validate();
-    if(result)
-        userService.updateCurrentUserData(currentUser.value as User, {isSilent: false});
+  await updateCurrentUserData(currentUser.value as User, {isSilent: false});
+}
+
+function updateParams(paramName: string, paramValue: string) {
+  const query = { ...route.query };
+  query[paramName] = paramValue;
+  router.push({ query });
+};
+
+function isTab() {
+    return {
+        PROFILE: route.query.tab == 'profile',
+        ACCOUNT: route.query.tab == 'account',
+        APPEARANCE: route.query.tab == 'appearance',
+        DANGER_ZONE: route.query.tab == 'danger_zone'
+    }
 }
 </script>
