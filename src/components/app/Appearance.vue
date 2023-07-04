@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="text-sm dark:text-white max-w-md">
-            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-100/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
+            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-50/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
                 <div class="inline-flex justify-between">
                     <div class="inline-flex dark:hidden items-center space-x-1.5 text-sky-500">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

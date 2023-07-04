@@ -45,20 +45,12 @@
               <MenuButton class="p-1 hidden md:block relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
-                <div 
-                  v-if="notifications.length" 
-                  class="bg-sky-500 text-white absolute -top-0.5 -right-1 rounded-full h-4 w-4 p-1 flex items-center justify-center text-[11px]">
-                    {{notifications.length <= 3 ? notifications.length : `3+`}}
-                </div>
+                <div v-if="notifications.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
               </MenuButton>
               <button type="button" @click="$router.push({name: 'NotificationPage'})" class="md:hidden p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
-                <div 
-                  v-if="notifications.length" 
-                  class="bg-sky-500 text-white absolute -top-0.5 -right-1 rounded-full h-4 w-4 p-1 flex items-center justify-center text-[11px]">
-                    {{notifications.length <= 3 ? notifications.length : `3+`}}
-                </div>
+                <div v-if="notifications.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
               </button>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
@@ -79,11 +71,11 @@
                   </div>
                 </MenuItem>
 
-                <div v-if="!notifications.length" class="py-4 flex flex-col items-center space-y-2">
+                <div v-if="!unReadNotification.length" class="py-4 flex flex-col items-center space-y-2">
                   <NoNotificationIcon />
-                  <p class="text-xs text-center">Saat ini belum ada notifikasi yang masuk. </p>
+                  <p class="text-sm text-center">Saat ini belum ada notifikasi yang masuk. </p>
                 </div>
-                <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-100 dark:hover:bg-slate-700">
+                <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-50 dark:hover:bg-slate-700">
                   <router-link :to="{name: 'NotificationPage'}" class="inline-flex items-center justify-end space-x-3 text-sm">
                     <span>See all notifications </span>
                     <span>
