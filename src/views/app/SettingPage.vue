@@ -195,7 +195,7 @@
                             </label>
                         </div>
                         <div class="mt-4">
-                            <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}} &bull; {{calculateAge(currentUser?.dob)}} years old</p>
+                            <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}} &bull; {{calculateAge(currentUser?.dob ?? 0)}} years old</p>
                             <p class="font-semibold mt-2">Joined on</p>
                             <p class="text-xs">{{formatDateWithMonth(currentUser?.join_at)}} ({{formatDateFromNow(currentUser?.join_at)}})</p>
                             <p class="text-white rounded bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>

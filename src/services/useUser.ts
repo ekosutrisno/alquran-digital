@@ -1,13 +1,16 @@
 import { SurahData } from "@/types/alquran.interface";
 import { Room } from "@/types/room.interface";
 import { Role, User } from "@/types/user.interface";
-import { doc, DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { db, storage } from "../config/firebase.config";
+import { auth, storage } from "../config/firebase.config";
 import randomColorCode from '@/utils/randomColors';
 import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
+import { checkUserExist } from "@/utils/firebaseHelperFunction";
+import { email } from "@vuelidate/validators";
+import { updateProfile } from "firebase/auth";
 
 const toast = useToast();
 interface UserState {
@@ -31,6 +34,14 @@ export const useUser = defineStore('userService', {
         * @description register user to Database Collection
         */
         async onRegisterUser(newData: { userId: User['user_id'], email: User['email'] }, googleNewData?: { user?: any, oauth?: boolean }) {
+            // Check if email is Exist or not
+            if (!googleNewData?.oauth) {
+                if (!checkUserExist(newData.email)) {
+                    toast.warning(`Email ${newData.email} telah digunakan!`)
+                    return;
+                }
+            }
+
             const newUserData: User = {
                 email: newData.email,
                 user_id: newData.userId,
@@ -124,9 +135,14 @@ export const useUser = defineStore('userService', {
             user.lastModifiedDate = Date.now();
 
             setDoc(userDataRefConfig(user.user_id), user, { merge: true })
-                .then(() => {
+                .then(async () => {
                     if (!options.isSilent)
-                        toast.info(`Public Profile has been updated.`)
+                        toast.info(`Public Profile has been updated.`);
+                    
+                    await updateProfile(auth.currentUser!, {
+                        displayName: user.full_name,
+                        photoURL: user.photo_url
+                    });
                 });
         },
 
