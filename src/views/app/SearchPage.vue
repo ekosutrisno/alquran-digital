@@ -2,7 +2,7 @@
     <div ref="pageUp" class="absolute -top-20"></div>
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1 -->
-        <section class="grid">
+        <section class="grid max-w-screen-md mx-auto">
             <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
@@ -90,13 +90,15 @@ import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 
 const surahService = useSurah();
+const { getSurah, setAyahDetailGeneral } = surahService;
 const { ayahs, surah, isLoading } = storeToRefs(surahService);
 
 const search = reactive({ surah: 1, ayah: 1 })
 
-function onSearch() {
-    surahService.getSurah(search.surah)
-        .then(() => surahService.setAyahDetailGeneral({ surat: search.surah, ayat: search.ayah }, { next_bacaan: false, max_limit: 1 }));
+async function onSearch() {
+    getSurah(search.surah).then(() => {
+        setAyahDetailGeneral({ surat: search.surah, ayat: search.ayah }, { next_bacaan: false, max_limit: 1 })
+    });
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();
