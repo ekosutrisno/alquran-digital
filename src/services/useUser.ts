@@ -9,7 +9,6 @@ import { auth, storage } from "../config/firebase.config";
 import randomColorCode from '@/utils/randomColors';
 import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { checkUserExist } from "@/utils/firebaseHelperFunction";
-import { email } from "@vuelidate/validators";
 import { updateProfile } from "firebase/auth";
 
 const toast = useToast();

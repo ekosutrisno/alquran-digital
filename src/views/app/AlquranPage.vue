@@ -7,11 +7,7 @@
             <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-                            </svg>
-                        </span>
+                        <WidgetPlusIcon/>
                         <span> {{surah?.surat_name}} ({{surah?.surat_english_name}})</span> 
                     </p>
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{surah?.count_ayat}} / {{convertToArab(`${surah?.count_ayat}`)}} </span> Ayah</p>
@@ -25,11 +21,11 @@
                         <span class="text-lg md:text-3xl font-light"> ({{surah?.surat_text_full}})</span> {{surah?.surat_text}}
                     </p>
                     <div class="mt-8 flex justify-between">
-                        <button type="button" @click="$router.back()" class="inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                        <button type="button" @click="$router.push({name: 'AppDashboard'})" class="inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                             </svg>
-                            <span class="ml-2">Back</span>
+                            <span class="ml-2">Kembali</span>
                         </button>
                         <button type="button" @click="addToSurahPilihan" class="font-semibold">
                             <svg :class="[isIncludeMyPilihan ? 'text-sky-600' : 'text-slate-400 hover:text-sky-600']" class="w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,11 +41,7 @@
         <section>
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
                 <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                    </span>
+                    <WidgetIcon/>
                     <span>Ayahs</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
@@ -115,6 +107,8 @@ import { onClickOutside, useTitle } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
 import Player from '@/components/app/Player.vue';
+import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 
 const surahService = useSurah();
 const ayahService = useAyah();

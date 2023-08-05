@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { computed, reactive} from 'vue'
 import { Dialog, DialogPanel, TransitionRoot, DialogTitle } from '@headlessui/vue'
-import { ExclamationIcon } from '@heroicons/vue/outline'
+import ExclamationIcon from '../../svg/ExclamationIcon.vue'
 
 defineProps<{ open: boolean }>()
 const emit = defineEmits<{(e: 'close-modal', open: boolean): void, (e: 'action', passwordConfirm: string): void}>();

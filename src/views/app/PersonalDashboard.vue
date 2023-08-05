@@ -6,11 +6,7 @@
                 <div class="flex items-center justify-between">
                     <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                         <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 lg:text-xl">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-                                </svg>
-                            </span>
+                            <WidgetPlusIcon />
                             <span>Hi <span class="text-gradien">{{ getFirstName(getLoginAsInfo.fullName as string) }}</span>, {{ dayGreeting() }}</span>
                         </p>
                         <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Menu yang sering digunakan</p>
@@ -31,10 +27,8 @@
             <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1 h-min">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                        <span>
-                            <svg class="h-6 w-6 text-sky-500" viewBox="0 0 512 512"><path fill="currentColor" d="M463 20.3L315.6 75.65L368.5 109C274 228 137.3 301.3 21.8 329.2l32.72 59.6C184.3 346.5 321.7 270.2 410.2 135.4l40.3 25.4L463 20.3zm7.7 116.7l-4.8 54.8l-51.3-32.4c-1.8 2.7-3.7 5.3-5.6 8V487h78V137h-16.3zM320.1 265c-12.7 11-25.8 21.4-39.1 31.2V487h78V265h-38.9zm-123.7 84c-14.4 7.6-28.8 14.6-43.4 21.2V487h78V349h-34.6zM25 393v94h78v-94h-5.68c-14.82 5.5-29.63 10.6-44.35 15.3l-7.06 2.2l-9.6-17.5H25z"/></svg>
-                        </span>
-                        <span>My Progress</span> 
+                        <ChartIcon />
+                        <span>Statistik</span> 
                     </p>
                 </div>
 
@@ -117,14 +111,10 @@
         <section>
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
                 <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                    </span>
-                    <span>All Menu</span> 
+                    <WidgetIcon />
+                    <span>Semua Menu</span> 
                 </p>
-                <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua feature dan menu yang tersedia</p>
+                <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua fitur metadata</p>
             </div>
 
             <div class="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 pt-6 pb-2">
@@ -150,6 +140,9 @@ import QuickMenu from '@/components/app/QuickMenu.vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import MainMenu from '@/components/app/MainMenu.vue';
 import { mainMenu, quickMenu } from '@/assets/data/data-menu';
+import ChartIcon from '@/components/svg/ChartIcon.vue';
+import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 
 const userService = useUser();
 const router = useRouter();

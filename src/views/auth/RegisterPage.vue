@@ -46,7 +46,7 @@
                     <div>
                         <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                            <LockClosedIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
+                                <LockIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
                             </span>
                             Sign up
                         </button>
@@ -71,12 +71,12 @@
 </template>
 
 <script setup lang="ts">
-import { LockClosedIcon } from '@heroicons/vue/solid';
 import { useAuth } from '@/services';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';
 import { storeToRefs } from 'pinia';
+import LockIcon from '@/components/svg/LockIcon.vue';
 
 const authService = useAuth()
 const { error, authRequest, isRegisterProcess } = storeToRefs(authService)
