@@ -1,23 +1,32 @@
 import { User } from '@/types/user.interface';
-import { confirmPasswordReset, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { confirmPasswordReset, createUserWithEmailAndPassword, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import { getDocs, updateDoc } from 'firebase/firestore';
 import { defineStore, storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
-import { auth } from '../config/firebase.config';
+import { auth, gProvider } from '../config/firebase.config';
 import { useUser } from './useUser';
 import { queryByPropertyRefConfig, userCollectionRefConfig, userDataRefConfig } from '@/config/dbRef.config';
+import { mapFirebaseAuthError } from '@/utils/firebaseHelperFunction';
+import router from '@/router';
 
 const toast = useToast();
 
 export interface AuthState {
-    isLoggedIn: boolean
-    isRegisterProcess: boolean
-    currentUserSession: CurrentUserSession | null
+    isLoggedIn: boolean;
+    isRegisterProcess: boolean;
+    currentUserSession: CurrentUserSession | null;
+    authRequest: {
+        email: string;
+        password: string;
+        confirmPassword?: string;
+    };
     error: {
-        errorCode: string | null
-        errorMessage: string | null
-    }
-    emailNotRegiter: boolean
+        errorCode: string | null;
+        errorMessage: string | null;
+        userMessage: string | null;
+    };
+    emailNotRegiter: boolean;
+    isLoginProcess: boolean;
 }
 
 type CurrentUserSession = {
@@ -33,11 +42,18 @@ export const useAuth = defineStore('authService', {
     state: (): AuthState => ({
         currentUserSession: null,
         emailNotRegiter: false,
+        authRequest: {
+            email: '',
+            password: '',
+            confirmPassword: ''
+        },
         error: {
             errorCode: '',
-            errorMessage: ''
+            errorMessage: '',
+            userMessage: ''
         },
         isRegisterProcess: false,
+        isLoginProcess: false,
         isLoggedIn: false
     }),
 
@@ -58,6 +74,7 @@ export const useAuth = defineStore('authService', {
             } as CurrentUserSession
 
             this.currentUserSession = currentUser;
+            this.authRequest = { email: '', password: '', confirmPassword: '' };
         },
 
         /**
@@ -96,6 +113,74 @@ export const useAuth = defineStore('authService', {
                     this.isLoggedIn = false;
                 }
             });
+        },
+
+        loginEmailPassword() {
+            signInWithEmailAndPassword(auth, this.authRequest.email.toLowerCase(), this.authRequest.password)
+                .then((userCredential) => {
+                    /** Get User Cred. */
+                    const user = userCredential.user;
+
+                    /** Set User Detail to Context. */
+                    this.onLoginAction(user);
+
+                    /** Stop Loading and Redirect in to Dashboard. */
+                    this.isLoginProcess = false;
+                    router.replace({ name: 'AppDashboard' });
+                })
+                .catch((error) => {
+                    this.setErrorData(error)
+                    this.isLoginProcess = false;
+                });
+        },
+
+        registerWithEmailPassword() {
+            const { onRegisterUser } = useUser();
+
+            if (this.authRequest.password === this.authRequest.confirmPassword) {
+                createUserWithEmailAndPassword(auth, this.authRequest.email, this.authRequest.password)
+                    .then(async (userCredential: { user: any; }) => {
+                        const user = userCredential.user;
+                        /** Set User Details Data. */
+                        this.onLoginAction(user);
+    
+                        /** Save User Details To tbl_users. */
+                        onRegisterUser({ userId: user.uid, email: user.email as string });
+    
+                        /** Set isRegister to false and Redirect to Dashboard page. */
+                        this.isRegisterProcess = false;
+
+                        await sendEmailVerification(user);
+                        toast.info("Email verifikasi telah dikirim.")
+    
+                        router.replace({ name: 'AppDashboard' });
+                    })
+                    .catch((error) => {
+                        this.setErrorData(error)
+                        this.isRegisterProcess = false;
+                    });
+            } else {
+                toast.warning("Password dan Konfirmasi Password")
+            }
+
+        },
+
+        loginGoogle() {
+            const { onRegisterUser } = useUser();
+            signInWithPopup(auth, gProvider)
+                .then((result) => {
+                    const user = result.user;
+
+                    onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
+                        .then(() => {
+                            this.onLoginAction(user);
+                            router.replace({ name: 'AppDashboard' })
+                        });
+
+                }).catch((error) => {
+                    this.setErrorData(error);
+                    this.isLoginProcess = false;
+                });
         },
 
         /**
@@ -212,9 +297,9 @@ export const useAuth = defineStore('authService', {
          * This method and handle send email verification after user register
          * @returns Promise
          */
-        async sendVerificationEmail(): Promise<void> {
+        async sendVerificationEmail(authUser: any): Promise<void> {
 
-            await sendEmailVerification(auth.currentUser as any)
+            await sendEmailVerification(authUser)
                 .then(() => {
                     // TODO
                 });
@@ -271,7 +356,8 @@ export const useAuth = defineStore('authService', {
 
             this.$patch(state => state.error = {
                 errorCode: errorCode,
-                errorMessage: errorMessage
+                errorMessage: errorMessage,
+                userMessage: mapFirebaseAuthError(error)
             });
 
             if (errorCode === 'auth/wrong-password')

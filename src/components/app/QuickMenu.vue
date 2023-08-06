@@ -3,10 +3,7 @@
         <div class="p-4 z-20 space-y-2">
             <p class="font-semibold flex flex-col sm:flex-row items-start sm:items-center">
                 <span class="bg-white dark:bg-slate-800 rounded-full p-2 ring-1 dark:ring-slate-700/50 ring-slate-700/10 mr-2 group-hover:ring-sky-500 dark:group-hover:ring-sky-500 delay-75 transition">
-                   <BookmarkIcon v-if="menu.icon == 'bookmark'"/>
-                   <HeartIcon v-if="menu.icon == 'heart'"/>
-                   <BooksIcon v-if="menu.icon == 'books'"/>
-                   <ClassRoomIcon v-if="menu.icon == 'classroom'"/>
+                   <component :is="icons[menu.icon]"/>
                 </span> 
                 <span class="text-slate-800 block font-semibold dark:text-white">{{ menu.title }}</span>
             </p>
@@ -24,6 +21,15 @@ import HeartIcon from '../svg/HeartIcon.vue';
 import BooksIcon from '../svg/BooksIcon.vue';
 import ClassRoomIcon from '../svg/ClassRoomIcon.vue';
 import type { QuickMenuType } from "@/types/user.interface";
+import type { Component } from 'vue';
 
 defineProps<{ menu: QuickMenuType }>();
+
+const icons: Record<string, Component> = {
+    'bookmark': BookmarkIcon,
+    'heart': HeartIcon,
+    'books': BooksIcon,
+    'classroom': ClassRoomIcon,
+}
+
 </script>

@@ -7,6 +7,9 @@ import { database } from "../config/firebase.config";
 import { formatToStringWithDash } from '@/utils/helperFunction';
 import { userDataRefConfig } from "@/config/dbRef.config";
 import { REALTIME_DB } from "@/config/db.config";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 interface ChatState {
     chat: Chat | null;
@@ -144,6 +147,15 @@ export const useChats = defineStore('chatService', {
                     this.peerUserStatus = { state: 'offline', last_changed: serverTimestamp() }
 
             })
+        },
+
+        async onNewMesage(chat: Chat) {
+            const me = localStorage.getItem('_uid') as string;
+            if (!me.match(chat.from)) {
+                var n = new Notification(chat.content);
+                toast.info(chat.content);
+                n.onshow;
+            }
         }
     }
 

@@ -2,10 +2,8 @@
 <div>
     <div class="pb-2">
         <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-             <span>Change email</span>
+            <MailIcon class="text-slate-500"/>
+             <span>Update email</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">
             <p class="text-sm text-slate-600 dark:text-slate-300">Changing your email will update your email for login and any action which requires the email. The new email should be an active email because it need to verify.</p>
@@ -13,7 +11,7 @@
     </div>
     <div v-if="!state.onChange">
         <button type="button" @click="toggleEdit" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-md text-sm">
-            Change email
+            Update email
         </button>
     </div>
     <div v-else class="with-transition mt-4 md:mt-0 w-full max-w-lg space-y-4">
@@ -49,6 +47,7 @@ import { computed, reactive } from 'vue';
 import { useAuth } from '@/services';
 import PromptCredentialConfirm from './modal/PromptCredentialConfirm.vue';
 import { validateEmail } from '@/utils/helperFunction';
+import MailIcon from '../svg/MailIcon.vue';
 
 const authService = useAuth()
 

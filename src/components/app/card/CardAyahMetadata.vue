@@ -79,17 +79,17 @@
                   leave-to-class="opacity-0 scale-95"
                >
                
-                  <div ref="target" v-if="state.option" class="w-40 font-normal absolute z-50 shadow-2xl h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
-                        <button type="button" @click="checkTafsir(ayat)" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                  <div ref="target" v-if="state.option" class="p-2 w-40 font-normal absolute z-50 shadow-2xl shadow-sky-900/25 h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+                        <button type="button" @click="checkTafsir(ayat)" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                            <span>Buka tafsir ayah</span>
                         </button>
-                        <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <button @click="ayahService.onMarkBacaanku(ayat)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                            <span>Tandai bacaan</span>
                         </button>
-                        <button v-if="isFavorite" @click="ayahService.onRemoveFavorit(ayat.aya_id)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <button v-if="isFavorite" @click="ayahService.onRemoveFavorit(ayat.aya_id)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                            <span>Hapus favorit</span>
                         </button>
-                        <button v-else @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none py-2 px-3 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
+                        <button v-else @click="ayahService.onMarkFavorit(ayat)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                            <span>Tandai favorit</span>
                         </button>
                   </div>

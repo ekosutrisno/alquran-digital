@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col justify-between with-transition">
     <div class="relative flex flex-col justify-center items-center pt-20 px-6 mx-auto">
-      <p class="text-slate-900 dark:text-slate-100 font-extrabold text-xl md:text-4xl text-center">{{ t('home.s1') }} &#38; {{ t('home.s2') }} <span class="text-gradien">{{ t('home.quran') }}</span></p>
-      <p class="text-slate-900 dark:text-slate-100 font-extrabold text-xl md:text-4xl text-center md:mt-2">{{ t('home.s3') }}</p>
-      <p class="text-center text-sm md:text-lg text-slate-700 dark:text-slate-300 max-w-2xl mt-4 md:mt-8 leading-6">{{ t('home.s4') }} <span class="text-gradien font-semibold">{{ t('home.quran') }}</span> {{ t('home.s5') }}</p>
+      <p class="text-slate-900 dark:text-slate-100 font-extrabold tracking-wide text-xl md:text-4xl text-center">{{ t('home.s1') }} &#38; {{ t('home.s2') }} <span class="text-gradien">{{ t('home.quran') }}</span></p>
+      <p class="text-slate-900 dark:text-slate-100 font-extrabold tracking-wide text-xl md:text-4xl text-center md:mt-2">{{ t('home.s3') }}</p>
+      <p class="text-center tracking-wide text-sm md:text-lg text-slate-700 dark:text-slate-300 max-w-2xl mt-4 md:mt-8 leading-6">{{ t('home.s4') }} <span class="text-gradien font-semibold">{{ t('home.quran') }}</span> {{ t('home.s5') }}</p>
 
       <div class="mt-10 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
         <button v-if="shown" @click="installPWA()" type="button" class="bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:ring-offset-gray-50 text-slate-800 dark:text-gray-100 font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400 dark:ring-0 dark:focus:ring-offset-0">

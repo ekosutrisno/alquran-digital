@@ -20,17 +20,16 @@
 
 <script setup lang="ts">
 import { useChats } from '@/services';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Chat } from '@/types/chat.interface';
 import { get, limitToLast, onValue, orderByKey, query, ref as reference } from 'firebase/database';
 import { database } from '@/config/firebase.config';
 import { formatChatTime } from '@/utils/helperFunction';
-
 const props = defineProps<{member: {name: string,id: string,color: string,avatar: string}}>()
 
 const me = ref<string>(localStorage.getItem("_uid") as string);
 const lastChat = ref<Chat>({} as Chat);
-const { getChats } = useChats();
+const { getChats, onNewMesage } = useChats();
 
 onMounted(async () => await getLastChat(me.value, props.member.id));
 
@@ -47,13 +46,14 @@ async function getLastChat(meId: string, peerId: string) {
   chatKey.value  = checkIfExist.exists() ? toMe : fromMe;
 
   const chatQuery = query(reference(database, `personal_chats/${chatKey.value}`), orderByKey(), limitToLast(1));
-  onValue(chatQuery, (resultQuery) => {
+  onValue(chatQuery, async (resultQuery) => {
     resultQuery.forEach(snap => {
       if (snap.exists()) {
         snap.forEach(data => { temporary.value.push(data.val() as Chat) })
       }
     })
     lastChat.value = temporary.value[temporary.value.length - 1] || { content: "Let's start chatting." } as Chat;
+    await onNewMesage(lastChat.value);
   })
 }
 </script>

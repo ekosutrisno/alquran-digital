@@ -218,12 +218,12 @@ export const dayGreeting = (): string => {
     var hr = new Date().getHours();
     
     if (hr >= 0 && hr < 12) {
-        return "Good Morning!";
+        return "Selamat Pagi!";
     } else if (hr == 12) {
-        return "Good Noon!";
+        return "Selamat Siang!";
     } else if (hr >= 12 && hr <= 17) {
-        return "Good Afternoon!";
+        return "Selamat Sore!";
     } else {
-        return "Good Evening!";
+        return "Selamat Malam!";
     }
 }

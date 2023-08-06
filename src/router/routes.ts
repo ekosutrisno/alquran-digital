@@ -1,54 +1,15 @@
 import { RouteRecordRaw } from "vue-router";
 
-// Layout Section Import
-import WebLayout from '@/layouts/WebLayout.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
-
-// View Web Section Import
-import HomePage from '@/views/web/HomePage.vue';
-import PrivacyPolicyPage from '@/views/web/PrivacyPolicyPage.vue';
-import DocumentationPage from '@/views/web/DocumentationPage.vue';
-
-// View App Section Import
-import PersonalDashboard from '@/views/app/PersonalDashboard.vue';
-import ClassRoomPage from '@/views/app/ClassRoomPage.vue';
-import ClassRoomDetailPage from '@/views/app/ClassRoomDetailPage.vue';
-import ClassRoomCreatePage from '@/views/app/ClassRoomCreatePage.vue';
-import ClassRoomAdvancedPage from '@/views/app/ClassRoomAdvancedPage.vue';
-import BacaankuPage from '@/views/app/BacaankuPage.vue';
-import FavoritePage from '@/views/app/FavoritePage.vue';
-import SurahPilihan from '@/views/app/SurahPilihan.vue';
-import SurahPage from '@/views/app/SurahPage.vue';
-import PagesPage from '@/views/app/PagesPage.vue';
-import ManzilPage from '@/views/app/ManzilPage.vue';
-import RukukPage from '@/views/app/RukukPage.vue';
-import SajdaPage from '@/views/app/SajdaPage.vue';
-import JuzPage from '@/views/app/JuzPage.vue';
-import AlquranPage from '@/views/app/AlquranPage.vue';
-import TafsirPage from '@/views/app/TafsirPage.vue';
-import SettingPage from '@/views/app/SettingPage.vue';
-import NotificationPage from '@/views/app/NotificationPage.vue';
-import SearchPage from '@/views/app/SearchPage.vue';
-
-// // View Chat Section Import
-import ChatPage from '@/views/chat/ChatPage.vue';
-
-// View Auth Section Import
-import LoginPage from '@/views/auth/LoginPage.vue';
-import RegisterPage from '@/views/auth/RegisterPage.vue';
-import ResetPasswordPage from '@/views/auth/ResetPasswordPage.vue';
-
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
         name: 'WebLayout',
-        component: WebLayout,
+        component: () => import("@/layouts/WebLayout.vue"),
         children: [
             {
                 path: "/:pathMatch(.*)*",
                 name: "NotFound",
-                component: () => import("../views/web/404.vue"),
+                component: () => import("@/views/web/404.vue"),
                 meta: {
                     title: 'Not Found Page',
                     description: 'The page you are looking for is not available or not found.'
@@ -57,7 +18,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: '/',
                 name: 'HomePage',
-                component: HomePage,
+                component: () => import("@/views/web/HomePage.vue"),
                 meta: {
                     title: 'Home Page',
                     description: 'Welcome to the Al-Quran Digital app.'
@@ -66,7 +27,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'privacy-policy',
                 name: 'PrivacyPolicyPage',
-                component: PrivacyPolicyPage,
+                component: () => import("@/views/web/PrivacyPolicyPage.vue"),
                 meta: {
                     title: 'About',
                     description: 'About Page'
@@ -75,7 +36,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'doc',
                 name: 'DocumentationPage',
-                component: DocumentationPage,
+                component: () => import("@/views/web/DocumentationPage.vue"),
                 meta: {
                     title: 'DocumentationPage',
                     description: 'DocumentationPage Page'
@@ -86,12 +47,12 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/auth',
         name: 'AuthLayout',
-        component: AuthLayout,
+        component: () => import("@/layouts/AuthLayout.vue"),
         children: [
             {
                 path: 'unauthorized',
                 name: 'UnAuthorize',
-                component: () => import("../views/web/401.vue"),
+                component: () => import("@/views/web/401.vue"),
                 meta: {
                     title: 'UnAuthorize Page',
                     description: `Oops, sorry it looks like you are not authorized to access this page.`,
@@ -101,7 +62,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: '__/auth/action',
                 name: 'ResetPasswordActionPage',
-                component: () => import("../views/auth/ResetPasswordActionPage.vue"),
+                component: () => import("@/views/auth/ResetPasswordActionPage.vue"),
                 meta: {
                     title: 'Reset Password Action Page',
                     description: "If you've forgotten your password, this is the place to fix it.",
@@ -111,7 +72,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'login',
                 name: 'LoginPage',
-                component: LoginPage,
+                component: () => import("@/views/auth/LoginPage.vue"),
                 meta: {
                     title: 'Login Page',
                     description: 'Login Page',
@@ -121,7 +82,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'register',
                 name: 'RegisterPage',
-                component: RegisterPage,
+                component: () => import("@/views/auth/RegisterPage.vue"),
                 meta: {
                     title: 'Register Page',
                     description: 'Register Page',
@@ -131,7 +92,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'reset-password',
                 name: 'ResetPasswordPage',
-                component: ResetPasswordPage,
+                component: () => import("@/views/auth/ResetPasswordPage.vue"),
                 meta: {
                     title: 'Reset Password Page',
                     description: 'Reset Password Page',
@@ -143,12 +104,12 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/app/dashboard',
         name: 'AppLayout',
-        component: AppLayout,
+        component: () => import("@/layouts/AppLayout.vue"),
         children: [
             {
                 path: '',
                 name: 'AppDashboard',
-                component: PersonalDashboard,
+                component: () => import("@/views/app/PersonalDashboard.vue"),
                 meta: {
                     title: 'App Dashboard Page',
                     description: 'App Dashboard Page',
@@ -158,7 +119,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'settings',
                 name: 'SettingPage',
-                component: SettingPage,
+                component: () => import("@/views/app/SettingPage.vue"),
                 meta: {
                     title: 'Setting Page Page',
                     description: 'SettingPage',
@@ -168,7 +129,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'alquran',
                 name: 'AlquranPageDetail',
-                component: AlquranPage,
+                component: () => import("@/views/app/AlquranPage.vue"),
                 meta: {
                     title: 'Alquran Page Detail',
                     description: 'Alquran Page Detail Page',
@@ -178,7 +139,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'tafsir',
                 name: 'TafsirPageDetail',
-                component: TafsirPage,
+                component: () => import("@/views/app/TafsirPage.vue"),
                 meta: {
                     title: 'Tafsir Page Detail',
                     description: 'Tafsir Page Detail Page',
@@ -188,7 +149,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'class-room',
                 name: 'ClassRoomPage',
-                component: ClassRoomPage,
+                component: () => import("@/views/app/ClassRoomPage.vue"),
                 meta: {
                     title: 'Class Room Dashboard',
                     description: 'Class Room Dashboard Page',
@@ -199,7 +160,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'class-room/detail/:room_id',
                 name: 'ClassRoomDetailPage',
-                component: ClassRoomDetailPage,
+                component: () => import("@/views/app/ClassRoomDetailPage.vue"),
                 meta: {
                     title: 'Class Room Detail Dashboard',
                     description: 'Class Room Detail Dashboard Page',
@@ -210,7 +171,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'class-room/advanced/:room_id',
                 name: 'ClassRoomAdvancedPage',
-                component: ClassRoomAdvancedPage,
+                component: () => import("@/views/app/ClassRoomAdvancedPage.vue"),
                 meta: {
                     title: 'Class Room Advanced',
                     description: 'Class Room Advanced Page',
@@ -221,7 +182,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'class-room/create',
                 name: 'ClassRoomCreatePage',
-                component: ClassRoomCreatePage,
+                component: () => import("@/views/app/ClassRoomCreatePage.vue"),
                 meta: {
                     title: 'Class Room Create Dashboard',
                     description: 'Class Room Create Dashboard Page',
@@ -232,7 +193,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'class-room/chat/:roomId',
                 name: 'ClassRoomChatPage',
-                component: ChatPage,
+                component: () => import("@/views/chat/ChatPage.vue"),
                 meta: {
                     title: 'Class Room Chat Dashboard',
                     description: 'Class Room Chat Dashboard Page',
@@ -243,7 +204,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'bacaanku',
                 name: 'BacaankuPage',
-                component: BacaankuPage,
+                component: () => import("@/views/app/BacaankuPage.vue"),
                 meta: {
                     title: 'Bacaanku',
                     description: 'Bacaanku Page',
@@ -254,7 +215,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'favorite',
                 name: 'FavoritePage',
-                component: FavoritePage,
+                component: () => import("@/views/app/FavoritePage.vue"),
                 meta: {
                     title: 'Favorite',
                     description: 'Favorite Page',
@@ -265,7 +226,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'surah-pilihan',
                 name: 'SurahPilihan',
-                component: SurahPilihan,
+                component: () => import("@/views/app/SurahPilihan.vue"),
                 meta: {
                     title: 'Surah Pilihan',
                     description: 'Surah Pilihan Page',
@@ -276,7 +237,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'surah',
                 name: 'SurahPage',
-                component: SurahPage,
+                component: () => import("@/views/app/SurahPage.vue"),
                 meta: {
                     title: 'Surah',
                     description: 'Surah Page',
@@ -287,7 +248,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'manzil',
                 name: 'ManzilPage',
-                component: ManzilPage,
+                component: () => import("@/views/app/ManzilPage.vue"),
                 meta: {
                     title: 'Manzil',
                     description: 'Manzil Page',
@@ -298,7 +259,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'search',
                 name: 'SearchPage',
-                component: SearchPage,
+                component: () => import("@/views/app/SearchPage.vue"),
                 meta: {
                     title: 'Search',
                     description: 'Search Page',
@@ -309,7 +270,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'pages',
                 name: 'PagesPage',
-                component: PagesPage,
+                component: () => import("@/views/app/PagesPage.vue"),
                 meta: {
                     title: 'Pages',
                     description: 'Pages Page',
@@ -320,7 +281,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'rukuk',
                 name: 'RukukPage',
-                component: RukukPage,
+                component: () => import("@/views/app/RukukPage.vue"),
                 meta: {
                     title: 'Rukuk',
                     description: 'Rukuk Page',
@@ -331,7 +292,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'sajda',
                 name: 'SajdaPage',
-                component: SajdaPage,
+                component: () => import("@/views/app/SajdaPage.vue"),
                 meta: {
                     title: 'Sajda',
                     description: 'Sajda Page',
@@ -342,7 +303,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'juz',
                 name: 'JuzPage',
-                component: JuzPage,
+                component: () => import("@/views/app/JuzPage.vue"),
                 meta: {
                     title: 'Juz',
                     description: 'Juz Page',
@@ -353,7 +314,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'notification',
                 name: 'NotificationPage',
-                component: NotificationPage,
+                component: () => import("@/views/app/NotificationPage.vue"),
                 meta: {
                     title: 'NotificationPage',
                     description: 'Notification Page',

@@ -4,17 +4,15 @@
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                </svg>
-                <span>Theme preferences</span>
+                <AppearanceIcon class="text-slate-500"/>
+                <span>Tema Aplikasi</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">
                 <p class="text-sm text-slate-700 dark:text-slate-300">Choose how Al-Quran Digital looks to you. Select a single theme, or sync with your system and automatically switch between day and night themes.</p>
             </div>
         </div>
         <div class="text-sm dark:text-white max-w-md">
-            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-100/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
+            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-50/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
                 <div class="inline-flex justify-between">
                     <div class="inline-flex dark:hidden items-center space-x-1.5 text-sky-500">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -40,10 +38,8 @@
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
-                 <span>Card ayah width</span>
+                <SizeIcon class="text-slate-500"/>
+                <span>Lebar Tampilan Ayat</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">
                 <p class="text-sm text-slate-700 dark:text-slate-300">This is the provider that is used for you to log in to the application and also what accounts are connected.</p>
@@ -66,6 +62,8 @@
 import { useUtil } from '@/services';
 import { useDark, useToggle } from '@vueuse/core';
 import { reactive } from 'vue';
+import AppearanceIcon from '../svg/AppearanceIcon.vue';
+import SizeIcon from '../svg/SizeIcon.vue';
 
 const isDark = useDark();
 const toggle = useToggle(isDark);
