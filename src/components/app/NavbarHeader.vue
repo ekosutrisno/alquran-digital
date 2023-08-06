@@ -6,17 +6,17 @@
           <router-link to="/" class="flex-shrink-0 flex items-center text-2xl">
               <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span><span class="align-super ml-1.5 text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
           </router-link>
-          <div class="hidden sm:block sm:ml-6 with-transition">
+          <div class="hidden sm:block with-transition">
             <div class="flex space-x-4">
               <router-link 
                   v-for="item in navigation" 
                   :key="item.name" 
                   :to="item.href"
                   exact-active-class="hidden transition"
-                  :class="[ $route.name == item.name ? '' : 'text-white bg-sky-500 hover:bg-sky-400 dark:text-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 dark:hover:text-white', 'px-3 py-2 with-transition rounded-md text-sm font-medium']" 
+                  :class="[ $route.name == item.name ? '' : 'text-sky-500', 'px-3 py-2 with-transition rounded-md text-sm font-medium']" 
               >
                 <span class="sr-only">{{ item.name }}</span>
-                <WidgetIcon class="text-white"/>
+                <WidgetIcon/>
               </router-link>
             </div>
           </div>

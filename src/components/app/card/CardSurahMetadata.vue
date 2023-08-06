@@ -18,11 +18,9 @@
     </div>
     <h1 class="text-right text-3xl font-semibold text-slate-800 dark:text-white group-hover:text-sky-500 transition"> <span class="text-sm">( {{ surah.surat_text_full}})</span> {{surah.surat_text}} </h1>
     <div class="inline-flex space-x-2 text-xs mt-2">
-      <div :class="[ surah.revelation_type == 'Meccan' ? 'text-sky-500 dark:text-sky-400' : 'text-slate-700 dark:text-slate-300' ]" class="inline-flex items-center space-x-1 font-semibold uppercase">
-        <svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-        </svg>
-        <div>
+      <div :class="[ surah.revelation_type == 'Meccan' ? 'text-sky-600 dark:text-sky-400' : 'text-slate-700 dark:text-slate-300' ]" class="inline-flex items-end space-x-1 font-semibold uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M12.5 7.041A3 3 0 1 0 14.959 9.5"/><path d="M5 15.216c-.647-1.654-1-3.415-1-5.073C4 5.646 7.582 2 12 2s8 3.646 8 8.143c0 4.462-2.553 9.67-6.537 11.531a3.45 3.45 0 0 1-2.926 0C9.265 21.08 8.138 20.144 7.194 19"/></g></svg>
+       <div>
           {{surah.surat_golongan}} &bull; <span class="font-quran">{{surah.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span>
         </div> 
     </div>

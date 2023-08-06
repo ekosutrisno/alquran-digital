@@ -63,7 +63,7 @@
             <div v-if="isPush" class="max-w-7xl text-center mx-auto">
                 <Loader />
             </div>
-             <div v-if="!isLast && !isLoading && !isPush" class="flex items-center my-4 justify-center">
+             <div v-if="!isLast && !isLoading && !isPush && filteredPage(searchQuery).length" class="flex items-center my-4 justify-center">
                 <button @click="nextPage" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg></span> 

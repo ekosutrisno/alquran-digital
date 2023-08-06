@@ -15,12 +15,10 @@
     <h1 class="text-right group-hover:text-sky-500 transition text-4xl font-semibold text-slate-800 dark:text-slate-100"><span class="text-xs text-slate-500 dark:text-slate-300 align-super font-light">Surah ke</span> {{rukuk.surah}} <span class="text-xs text-slate-500 dark:text-slate-300 font-light">Ayah</span>  <span class="text-sm">({{rukuk.ayah}})</span></h1>
     
     <div class="inline-flex space-x-1 text-xs mt-2">
-      <div class="inline-flex text-sky-500 items-center space-x-1 font-semibold uppercase">
-        <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-        </svg>
+      <div class="inline-flex text-sky-500">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-6 h-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="m7.351 15l-.637 2.323c-.628 2.292-.942 3.438-.523 4.065c.147.22.344.396.573.513c.652.332 1.66-.193 3.675-1.243c.67-.35 1.006-.524 1.362-.562a1.87 1.87 0 0 1 .398 0c.356.038.691.213 1.362.562c2.015 1.05 3.023 1.575 3.675 1.243c.229-.117.426-.293.573-.513c.42-.627.105-1.773-.523-4.065L16.649 15"/><path d="M5.5 6.397A7 7 0 1 0 9.397 2.5"/></g></svg>
       </div>
-      <span class="font-mono font-semibold text-xl text-sky-500">({{convertToArab(`${rukuk.number}`)}})</span>
+      <span class="font-mono text-xl text-sky-500">({{convertToArab(`${rukuk.number}`)}})</span>
 
     </div>
   </div>
