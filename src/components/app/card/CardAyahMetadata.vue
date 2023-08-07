@@ -79,7 +79,7 @@
                   leave-to-class="opacity-0 scale-95"
                >
                
-                  <div ref="target" v-if="state.option" class="p-2 w-40 font-normal absolute z-50 shadow-2xl shadow-sky-900/25 h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
+                  <div ref="target" v-if="state.option" class="p-2 w-40 font-normal absolute z-50 shadow-2xl shadow-sky-900/25 h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded-md flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700/50">
                         <button type="button" @click="checkTafsir(ayat)" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex space-x-2">
                            <span>Buka tafsir ayah</span>
                         </button>

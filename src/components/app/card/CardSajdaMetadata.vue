@@ -1,6 +1,6 @@
 <template>
 <router-link :id="`sajda_${sajda.number}`" v-motion-slide-bottom v-motion-slide-visible-once-bottom class="cursor-default sm:cursor-pointer" :to="{name: 'AlquranPageDetail', query:{ sn: sajda.surah, an: sajda.ayah, sajda: 'true'}}">
-    <div :class="[sajda.recommended ? 'hover:ring-sky-400 dark:hover:ring-sky-400' : 'hover:ring-green-400 dark:hover:ring-green-400']" class="antialiased group transition  bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-md p-5 overflow-hidden relative">
+    <div :class="[sajda.recommended ? 'hover:ring-sky-400 dark:hover:ring-sky-400' : 'hover:ring-green-400 dark:hover:ring-green-400']" class="antialiased group transition  bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-lg p-5 overflow-hidden relative">
         <div :class="[sajda.recommended ? 'bg-sky-200/20 dark:bg-sky-500/5': 'bg-green-200/20 dark:bg-green-500/5']" class="absolute -left-10 -top-5 w-64 h-64 rounded-r-full bg-opacity-25">
         </div>
     <div class="w-full flex items-start py-2 justify-between">

@@ -1,5 +1,5 @@
 <template>
-    <div :id="`room_member_${member.user_id}`" class="with-transition w-full h-full flex flex-col group items-start justify-start p-4 space-y-4 transition bg-white dark:bg-dark-blue border border-slate-700/10 card-shadow-sm rounded dark:border-slate-700/50">
+    <div :id="`room_member_${member.user_id}`" class="with-transition w-full h-full flex flex-col group items-start justify-start p-4 space-y-4 transition bg-white dark:bg-dark-blue border border-slate-700/10 card-shadow-sm rounded-lg dark:border-slate-700/50">
       <!-- Header -->
         <div class="inline-flex space-x-3 items-start w-full">
             <div class="flex cursor-default text-sm rounded-full">

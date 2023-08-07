@@ -1,7 +1,7 @@
 <template>
     <div class="mx-auto w-full max-w-xs">
         <router-link to="/auth/login">
-            <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
+            <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-lg hover:card-shadow-md">
                 <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
                 <div class="h-16 absolute z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                     <span class="font-semibold text-white">Fitur Non Aktif</span> 
