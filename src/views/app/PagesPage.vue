@@ -3,7 +3,7 @@
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2">
-            <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 flex flex-col">
+            <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded-lg p-4 flex flex-col">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <WidgetPlusIcon />
