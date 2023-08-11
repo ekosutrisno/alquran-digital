@@ -158,7 +158,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/detail/:room_id',
+                path: 'class-room/:room_id/detail',
                 name: 'ClassRoomDetailPage',
                 component: () => import("@/views/app/ClassRoomDetailPage.vue"),
                 meta: {
@@ -169,7 +169,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/advanced/:room_id',
+                path: 'class-room/:room_id/advanced',
                 name: 'ClassRoomAdvancedPage',
                 component: () => import("@/views/app/ClassRoomAdvancedPage.vue"),
                 meta: {
@@ -180,7 +180,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/create',
+                path: 'class-room/new',
                 name: 'ClassRoomCreatePage',
                 component: () => import("@/views/app/ClassRoomCreatePage.vue"),
                 meta: {
@@ -191,7 +191,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/chat/:roomId',
+                path: 'class-room/:roomId/chat',
                 name: 'ClassRoomChatPage',
                 component: () => import("@/views/chat/ChatPage.vue"),
                 meta: {

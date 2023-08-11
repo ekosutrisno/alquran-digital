@@ -5,6 +5,7 @@ import { useToast } from "vue-toastification";
 import { messaging, onMessage } from '@/config/firebase.config';
 import { useUser } from '@/services';
 import { notificationCollectionRefConfig, notificationDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
+import { generateFriendlyId } from "@/utils/friendlyId";
 
 const toast = useToast();
 
@@ -77,7 +78,7 @@ export const useNotification = defineStore('notificationService', {
                     icon: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1662786263/briix/n_pyzbuz.png',
                 };
                 const notify: UserNotification = {
-                    id: Date.now().toString(),
+                    id: generateFriendlyId(),
                     timestamp: Date.now(),
                     user_id: String(userService.currentUser?.user_id),
                     title: options.title,

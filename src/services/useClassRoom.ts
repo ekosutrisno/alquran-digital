@@ -7,6 +7,7 @@ import { useToast } from "vue-toastification";
 import { db } from "../config/firebase.config";
 import { useUser } from "./useUser";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
+import { generateFriendlyId } from "@/utils/friendlyId";
 
 const toast = useToast();
 
@@ -14,9 +15,9 @@ interface ClassRoomState {
     isLoading: boolean;
     isPush: boolean;
     isLast: boolean;
-    lastVisible: DocumentData | null;
-    room: Room | null;
-    mentor: User | null;
+    lastVisible: DocumentData;
+    room: Room;
+    mentor: User;
     members: User[];
     memberRef: string[];
     rooms: Array<Room>;
@@ -28,7 +29,7 @@ export const useClassRoom = defineStore('classRoomService', {
         isLoading: false,
         isLast: false,
         isPush: false,
-        lastVisible: null,
+        lastVisible: {} as DocumentData,
         room: {} as Room,
         mentor: {} as User,
         members: new Array<User>(),
@@ -42,7 +43,7 @@ export const useClassRoom = defineStore('classRoomService', {
 
             const userService = useUser();
 
-            const roomId = Date.now();
+            const roomId = generateFriendlyId();
             const user_id = localStorage.getItem('_uid') as string;
 
             const room: Room = {
