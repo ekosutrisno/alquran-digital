@@ -25,7 +25,7 @@
           <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
             <button type="button" @click="emit('search')" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-700 dark:text-slate-200 rounded-md ring-1 ring-slate-700/10 dark:ring-slate-700/75 py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
               <SearchIcon class="mr-3 flex-none h-4"/>
-              Menu search...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Press "ctrl + /"</span>
+              Pencarian menu...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Tekan "ctrl + /"</span>
             </button>
           </div>
 
@@ -66,16 +66,16 @@
                   <NoNotificationIcon />
                   <p class="text-sm text-center">Saat ini belum ada pesan yang masuk. </p>
                 </div>
-                <div class="flex flex-col border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-50 dark:hover:bg-slate-700">
-                  <router-link :to="{name: 'NotificationPage'}" class="inline-flex items-center justify-end space-x-3 text-sm">
+                <MenuItem class="flex w-full border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-50 dark:hover:bg-slate-700">
+                  <button @click="$router.push({name: 'NotificationPage'})" class="inline-flex items-center justify-end space-x-3 text-sm">
                     <span>Lihat semua pesan </span>
                     <span>
                       <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                         <path fill-rule="evenodd" d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z" clip-rule="evenodd" />
                       </svg>
                     </span>
-                  </router-link>
-                </div>
+                  </button>
+                </MenuItem>
               </MenuItems>
             </transition>
           </Menu>
@@ -122,16 +122,16 @@
                 </MenuItem>
 
                 <MenuItem v-slot="{ active }">
-                  <router-link :to="{name: 'SettingPage', query: {tab: 'profile'}}" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
+                  <button @click="$router.push({name: 'SettingPage', query: {tab: 'profile'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
                     <ProfileIcon class="text-slate-400"/>
                     <span>Profile</span>
-                  </router-link>
+                  </button>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <router-link :to="{name: 'SettingPage', query: {tab: 'profile'}}" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
+                  <button @click="$router.push({name: 'SettingPage', query: {tab: 'account'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
                     <GearIcon class="text-slate-400"/>
                     <span>Pengaturan</span>
-                  </router-link>
+                  </button>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                   <button @click="onLogoutAction" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
@@ -169,7 +169,6 @@ import GearIcon from '../svg/GearIcon.vue';
 import LogoutIcon from '../svg/LogoutIcon.vue';
 import ProfileIcon from '../svg/ProfileIcon.vue';
 import LoginIcon from '../svg/LoginIcon.vue';
-import HomeIcon from '../svg/HomeIcon.vue';
 import WidgetIcon from '../svg/WidgetIcon.vue';
 
 const navigation = [
