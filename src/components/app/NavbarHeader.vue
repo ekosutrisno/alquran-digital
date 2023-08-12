@@ -92,7 +92,7 @@
               </MenuButton>
             </div>
             <div v-else>
-              <router-link to="/auth/login" class="dark:bg-gray-800 p-1.5 dark:ring-slate-700/50 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
+              <router-link to="/auth/login" class="dark:bg-gray-800 p-1.5 dark:ring-slate-700 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
                 <LoginIcon />
               </router-link>

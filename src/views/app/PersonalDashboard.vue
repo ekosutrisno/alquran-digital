@@ -2,7 +2,7 @@
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1-->
         <section class="grid gap-y-4 xl:gap-4 grid-cols-1 xl:grid-cols-4">
-            <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded-lg p-4 col-span-3 flex flex-col">
+            <div class="bg-white row-start-2 xl:row-start-1 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 col-span-3 flex flex-col">
                 <div class="flex items-center justify-between">
                     <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                         <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 lg:text-xl">
@@ -24,7 +24,7 @@
                     />
                 </div>
             </div>
-            <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded-lg p-4 col-span-1 h-min">
+            <div class="bg-white sm:max-w-md dark:bg-dark-blue overflow-hidden shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 col-span-1 h-min">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <ChartIcon />

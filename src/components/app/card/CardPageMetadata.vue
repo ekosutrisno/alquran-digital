@@ -1,6 +1,6 @@
 <template>
 <router-link :id="`page_${page.page}`" v-motion-slide-bottom v-motion-slide-visible-once-bottom class="cursor-default sm:cursor-pointer" :to="{name: 'AlquranPageDetail', query:{ sn: page.surat, an: page.ayat}}">
-   <div class="hover:ring-sky-400 antialiased group transition dark:hover:ring-sky-400 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700/50 card-shadow-md select-none font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-lg p-5 overflow-hidden relative">
+   <div class="hover:ring-sky-400 antialiased group transition dark:hover:ring-sky-400 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700 card-shadow-md select-none font-quran group sm:cursor-pointer flex flex-col w-full h-full mx-auto mb-2 rounded-lg p-5 overflow-hidden relative">
     <div class="w-full flex items-start py-2 justify-between">
       <div class="text-gray-800  text-xl absolute right-0 -top-3 w-auto px-4 h-16 rounded-l-2xl bg-gradient-to-bl from-sky-300/20 to-sky-200/5 dark:from-sky-800/10 dark:to-sky-700/10 flex items-center justify-center font-semibold">
         <span class="font-semibold text-sky-600">

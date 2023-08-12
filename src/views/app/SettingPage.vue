@@ -25,30 +25,30 @@
 
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
-             <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
-                <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+             <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
+                <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Profile</span>
                 </button>
-                <button type="button" @click="setCurrentActive(2)" :class="[isTab().ACCOUNT ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <button type="button" @click="setCurrentActive(2)" :class="[isTab().ACCOUNT ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().ACCOUNT ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <GearIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Pengaturan Akun</span>
                 </button>
-                <button type="button" @click="setCurrentActive(3)" :class="[isTab().APPEARANCE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <button type="button" @click="setCurrentActive(3)" :class="[isTab().APPEARANCE ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().APPEARANCE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <AppearanceIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Tampilan</span>
                 </button>
-                <button type="button" @click="setCurrentActive(4)" :class="[isTab().DANGER_ZONE? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <button type="button" @click="setCurrentActive(4)" :class="[isTab().DANGER_ZONE? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().DANGER_ZONE? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <ExclamationIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Zona Bahaya</span>
                 </button>
             </div>
 
-            <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
+            <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90"/>
                 
                 <!-- Header of Details tab -->
@@ -70,7 +70,7 @@
                                     <input
                                         v-model="currentUser.full_name" type="text" name="name" id="name" 
                                         required
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Your name may appear around Al-Quran Digital where you contribute or are mentioned. You can remove it at any time.</p>
@@ -81,7 +81,7 @@
                                     <input
                                         disabled
                                         v-model="currentUser.email" type="email" name="email" id="email" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Email" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">You can manage verified email addresses in your email settings.</p>
@@ -91,7 +91,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.pob" type="text" name="pob" id="pob" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Place of your birth date.</p>
@@ -101,7 +101,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.dob" type="date" name="dob" id="dob" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Your date of birth.</p>
@@ -111,7 +111,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.telephone" type="tel" name="telephone" id="telephone" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Your phone should an active number.</p>
@@ -121,7 +121,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.religion" type="text" name="religion" id="religion" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
                                     />
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Recognized religions, Islam, Protestant Christianity, Catholic Christianity, Buddhism, Hinduism, and Confucianism.</p>
@@ -131,7 +131,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.gender" type="text" name="gender" id="gender" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input
                                         v-model="currentUser.nationality" type="text" name="nationality" id="nationality" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                     <textarea
                                         rows="3"
                                         v-model="currentUser.hobby" type="text" name="hobby" id="hobby" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                     <textarea
                                         rows="3"
                                         v-model="currentUser.about" type="text" name="about" id="about" 
-                                        class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
+                                        class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
                                     />
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                     <!-- Profile Picture -->
                     <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
                         <p>Profile picture</p>
-                        <div class="rounded-full overflow-auto relative mt-2 ring-2 w-56 h-56 ring-slate-700/20 dark:ring-slate-700/50">
+                        <div class="rounded-full overflow-auto relative mt-2 ring-2 w-56 h-56 ring-slate-700/20 dark:ring-slate-700">
                             <img class="object-cover object-top w-full h-full rounded-full" :src="getPhotoUrl" alt="profile-picture"/>
                             <input id="file-upload" name="file-upload" type="file" class="sr-only" @change="onUpdateAvatar">
                             <label for="file-upload" @click="onUpdateAvatar" class="absolute inset-0 rounded-full flex items-center justify-center bg-transparent group hover:bg-slate-800/20">
@@ -190,7 +190,7 @@
                         </div>
                         <div class="inline-flex items-center space-x-2 mt-4">
                             <div class="group inline-flex cursor-pointer font-sans focus:outline-none"  aria-expanded="false">
-                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-red-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-red-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 23a7.5 7.5 0 0 1-5.138-12.963C8.204 8.774 11.5 6.5 11 1.5c6 4 9 8 3 14c1 0 2.5 0 5-2.47c.27.773.5 1.604.5 2.47A7.5 7.5 0 0 1 12 23Z"></path>
@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
-                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-green-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-green-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 7a8 8 0 1 1 0 16a8 8 0 0 1 0-16Zm0 3.5l-1.322 2.68l-2.958.43l2.14 2.085l-.505 2.946L12 17.25l2.645 1.39l-.505-2.945l2.14-2.086l-2.958-.43L12 10.5Zm1-8.501L18 2v3l-1.363 1.138A9.935 9.935 0 0 0 13 5.05V1.999Zm-2 0v3.05a9.935 9.935 0 0 0-3.636 1.088L6 5V2l5-.001Z"></path>
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                            <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
-                                <div class="dark:bg-slate-800 shadow-slate-300/40 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
+                                <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400/25">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon h-5 w-5 text-orange-500" width="1em" height="1em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M13.005 16.941v2.062h5v2h-12v-2h5V16.94a8.001 8.001 0 0 1-7-7.938v-6h16v6a8.001 8.001 0 0 1-7 7.938Zm-12-11.938h2v4h-2v-4Zm20 0h2v4h-2v-4Z"></path>

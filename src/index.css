@@ -47,15 +47,16 @@
   }
 
   .card-shadow-sm {
-    @apply shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50;
+    @apply shadow-lg shadow-slate-200/50 dark:shadow-slate-900/40;
   }
 
   .card-shadow-md {
-    @apply shadow-lg shadow-sky-600/10 dark:shadow-slate-900;
+    @apply shadow-lg shadow-sky-600/10 dark:shadow-slate-900/40;
   }
+  
   .toast-style {
     @apply dark:bg-dark-blue/50 backdrop-blur-sm bg-white/50 !important;
-    @apply border-b sm:border border-slate-700/20 dark:border-slate-700/50 shadow-lg shadow-slate-200 dark:shadow-slate-900 !important;
+    @apply border-b sm:border border-slate-700/20 dark:border-slate-700/50 shadow-lg shadow-slate-200 dark:shadow-slate-900/40 !important;
     @apply text-slate-800 dark:text-slate-100 !important;
   }
 
