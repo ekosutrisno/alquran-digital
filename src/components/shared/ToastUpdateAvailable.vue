@@ -1,6 +1,6 @@
 <template>
 <div v-if="newAppAvailable" class="fixed top-5 w-full">
-  <div class="w-full mx-auto max-w-sm p-4 text-gray-500 bg-white rounded-lg shadow-xl shadow-sky-800/10 dark:shadow-slate-900/50 dark:bg-gray-800 dark:text-gray-400" role="alert">
+  <div class="w-full mx-auto max-w-sm p-4 text-gray-500 bg-white rounded-lg shadow-xl shadow-sky-800/10 dark:shadow-slate-900/40/50 dark:bg-gray-800 dark:text-gray-400" role="alert">
       <div class="flex">
           <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-sky-500 bg-sky-100 rounded-lg dark:text-sky-300 dark:bg-sky-900">
               <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path></svg>

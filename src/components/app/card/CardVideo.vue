@@ -5,7 +5,7 @@
             <div class="absolute inset-x-0 bottom-0 z-10 h-3/5 w-full bg-gradient-to-t from-black transition-all duration-500 ease-in-out group-hover:h-full"></div>
             <div class="absolute inset-0 z-20 flex h-full w-full flex-col justify-between">
                 <div class="p-4">
-                    <a aria-current="page" href="#" class="router-link-active router-link-exact-active group-hover:border-sky-500 text-slate-300 group-hover:text-sky-500 shadow-slate-300/30 dark:shadow-slate-900/20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-transparent bg-white shadow-2xl transition-colors duration-300">
+                    <a aria-current="page" href="#" class="router-link-active router-link-exact-active group-hover:border-sky-500 text-slate-300 group-hover:text-sky-500 shadow-slate-300/30 dark:shadow-slate-900/40/20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-transparent bg-white shadow-2xl transition-colors duration-300">
                         <svg data-v-cd102a71="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 0 0 0-1.69L9.54 5.98A.998.998 0 0 0 8 6.82z"></path>
                         </svg>

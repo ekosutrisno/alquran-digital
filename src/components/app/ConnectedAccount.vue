@@ -2,7 +2,7 @@
     <div>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <ProfileIcon class="text-slate-500"/>
+                <ProfileIcon class="text-slate-500 w-6 h-6"/>
                 <span>Akun terhubung</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">

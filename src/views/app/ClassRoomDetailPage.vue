@@ -4,21 +4,13 @@
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
-            <div class="inline-flex space-x-3 items-center">
-                <div class="flex cursor-default text-sm rounded-full p-1 bg-slate-100 ring-1 ring-slate-700/20 dark:bg-slate-700/50">
-                    <span class="sr-only">General user info</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-800 dark:text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                    </svg>
-                </div>
+            <div class="inline-flex space-x-3 items-start">
+                <ClassRoomIcon class="w-10 h-10" />
                 <div class="flex flex-col">
                     <h1 class="text-slate-800 inline-flex items-center dark:text-white text-xl font-semibold"> 
-                        <span>Hallo, {{ currentUser?.full_name }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" v-if="currentUser?.is_active" aria-hidden="true" class="h-5 w-5 text-sky-400"  viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M9.592 3.2a5.574 5.574 0 0 1-.495.399c-.298.2-.633.338-.985.408c-.153.03-.313.043-.632.068c-.801.064-1.202.096-1.536.214a2.713 2.713 0 0 0-1.655 1.655c-.118.334-.15.735-.214 1.536a5.707 5.707 0 0 1-.068.632c-.07.352-.208.687-.408.985c-.087.13-.191.252-.399.495c-.521.612-.782.918-.935 1.238c-.353.74-.353 1.6 0 2.34c.153.32.414.626.935 1.238c.208.243.312.365.399.495c.2.298.338.633.408.985c.03.153.043.313.068.632c.064.801.096 1.202.214 1.536a2.713 2.713 0 0 0 1.655 1.655c.334.118.735.15 1.536.214c.319.025.479.038.632.068c.352.07.687.209.985.408c.13.087.252.191.495.399c.612.521.918.782 1.238.935c.74.353 1.6.353 2.34 0c.32-.153.626-.414 1.238-.935c.243-.208.365-.312.495-.399c.298-.2.633-.338.985-.408c.153-.03.313-.043.632-.068c.801-.064 1.202-.096 1.536-.214a2.713 2.713 0 0 0 1.655-1.655c.118-.334.15-.735.214-1.536c.025-.319.038-.479.068-.632c.07-.352.209-.687.408-.985c.087-.13.191-.252.399-.495c.521-.612.782-.918.935-1.238c.353-.74.353-1.6 0-2.34c-.153-.32-.414-.626-.935-1.238a5.574 5.574 0 0 1-.399-.495a2.713 2.713 0 0 1-.408-.985a5.72 5.72 0 0 1-.068-.632c-.064-.801-.096-1.202-.214-1.536a2.713 2.713 0 0 0-1.655-1.655c-.334-.118-.735-.15-1.536-.214a5.707 5.707 0 0 1-.632-.068a2.713 2.713 0 0 1-.985-.408a5.73 5.73 0 0 1-.495-.399c-.612-.521-.918-.782-1.238-.935a2.713 2.713 0 0 0-2.34 0c-.32.153-.626.414-1.238.935Zm6.781 6.663a.814.814 0 0 0-1.15-1.15l-4.85 4.85l-1.596-1.595a.814.814 0 0 0-1.15 1.15l2.17 2.17a.814.814 0 0 0 1.15 0l5.427-5.425Z" clip-rule="evenodd"/></svg>
+                        <span>Ruanganmu</span>
                     </h1>
-                    <p class="text-slate-700 dark:text-slate-400 text-sm">Your personal class</p>
+                    <p class="text-slate-700 dark:text-slate-400 text-sm">Detail ruang kelas</p>
                 </div>
             </div>
             <div class="pl-16 md:pl-0 space-x-2">
@@ -26,10 +18,11 @@
                     <span class="lg:hidden">Class Room</span>
                     <span class="hidden lg:inline">Go to class room dashboard</span>
                 </router-link>
-                <router-link :to="`/app/dashboard/class-room/create?id=${room?.id}&a=edit`" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <!-- /app/dashboard/class-room/create?id=${room?.id}&a=edit` -->
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="inline">Edit</span>
                 </router-link>
-                <router-link :to="`/app/dashboard/class-room/advanced/${room?.id}`" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <router-link :to="{name: 'ClassRoomAdvancedPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span>Advanced</span>
                 </router-link>
             </div>
@@ -38,7 +31,7 @@
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2 gap-4">
             <!-- Left -->
-            <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700/50 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
+            <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
                 <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://i.pinimg.com/564x/68/be/3b/68be3b967fa1ac30f7da5633fff3e9f0.jpg'" :alt="room?.name">
                 <div class="absolute flex flex-col inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/10">
                     <div class="w-full p-4 space-y-4 text-white transition flex flex-col justify-between min-h-[150px] rounded">
@@ -77,9 +70,6 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <CardVideo />
-            </div>
         </section>
 
         <!-- Section 2 -->
@@ -98,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-slate-900/50 bg-white/30">
+            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassRoomMember
                     v-for="member in members"
                     :key="member.user_id"
@@ -126,7 +116,7 @@
                 </router-link>
             </div>
 
-            <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700/50 h-full p-2">
+            <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700 h-full p-2">
                 <p class="flex items-center flex-wrap space-x-2">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -154,6 +144,7 @@ import { Room } from '@/types/room.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
 import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
 import CardVideo from '@/components/app/card/CardVideo.vue';
+import ClassRoomIcon from '@/components/svg/ClassRoomIcon.vue';
 
 const router = useRouter();
 const route = useRoute();

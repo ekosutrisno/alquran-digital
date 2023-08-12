@@ -12,7 +12,8 @@ module.exports = {
         quran: ["lpmq", "Arial", "sans-serif"]
       },
       colors: {
-        'dark-blue': '#151e32'
+        'dark-blue': '#1E293B',
+        'dark-blue-bc': '#151e32'
       }
     },
   },

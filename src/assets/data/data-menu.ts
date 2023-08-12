@@ -3,7 +3,7 @@ import type { MainMenuType, QuickMenuType } from "@/types/user.interface"
 export const mainMenu: MainMenuType[] = [
     {
         id: '0',
-        title: 'Search',
+        title: 'Pencarian',
         description: 'Mencari secara spesifik berdasarkan nomor Surah dan nomor Ayah',
         to: '/app/dashboard/search',
         total: 6236
@@ -11,42 +11,42 @@ export const mainMenu: MainMenuType[] = [
     {
         id: '1',
         title: 'Surah',
-        description: 'Mencari berdasarkan Surat yang disajikan secara terurut.',
+        description: 'Bagian dari Al-Quran, merupakan divisi terbesar yang terdiri dari ayat-ayat dengan tema dan pesan tertentu.',
         to: '/app/dashboard/surah',
         total: 114
     },
     {
         id: '2',
-        title: 'Page',
-        description: 'Mencari berdasarkan Page yang disajikan secara terurut.',
+        title: 'Halaman',
+        description: 'Satuan fisik dalam Al-Quran yang memuat beberapa ayat, membantu pembacaan dan referensi.',
         to: '/app/dashboard/pages',
         total: 604
     },
     {
         id: '3',
         title: 'Manzil',
-        description: 'Mencari berdasarkan Manzil yang disajikan secara terurut.',
+        description: 'Pembagian Al-Quran menjadi tujuh bagian, membantu pembacaan dalam tujuh hari atau seminggu.',
         to: '/app/dashboard/manzil',
         total: 7
     },
     {
         id: '4',
         title: 'Rukuk',
-        description: 'Mencari berdasarkan Rukuk yang disajikan secara terurut.',
+        description: 'Tanda berupa garis horizontal yang menandai akhir ayat, membantu pelafaz menghentikan bacaan.',
         to: '/app/dashboard/rukuk',
         total: 556
     },
     {
         id: '5',
         title: 'Sajda',
-        description: 'Mencari berdasarkan Sajda yang disajikan secara terurut.',
+        description: 'Ayat-ayat yang memerintahkan muslim untuk melakukan sujud sebagai tanda pengakuan terhadap kebesaran Allah.',
         to: '/app/dashboard/sajda',
         total: 15
     },
     {
         id: '6',
         title: 'Juz',
-        description: 'Mencari berdasarkan Juz yang disajikan secara terurut.',
+        description: 'Pembagian Al-Quran menjadi 30 bagian, memudahkan pembacaan dan penyelesaian dalam sebulan.',
         to: '/app/dashboard/juz',
         total: 30
     },

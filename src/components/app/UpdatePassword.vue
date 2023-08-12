@@ -20,7 +20,7 @@
             <div class="mt-1 relative rounded-md shadow-sm">
                 <input
                     v-model="state.auth.password" type="password" name="new-password" id="new-password"
-                    class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="New password"
+                    class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="New password"
                 />
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="mt-1 relative rounded-md shadow-sm">
                 <input
                     v-model="state.auth.confirmPassword" type="password" name="confirm-password" id="confirm-password"
-                    class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Confirm new password"
+                    class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Confirm new password"
                 />
             </div>
         </div>

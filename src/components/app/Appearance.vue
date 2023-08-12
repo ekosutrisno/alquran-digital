@@ -4,7 +4,7 @@
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <AppearanceIcon class="text-slate-500"/>
+                <AppearanceIcon class="text-slate-500 w-6 h-6"/>
                 <span>Tema Aplikasi</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">
@@ -48,7 +48,7 @@
 
          <div class="grid sm:grid-cols-3 gap-2">
             <ul v-for="size in state.sizes" :key="size.id">
-                <button type="button" @click="selectSize(size)" :class="[size.id == state.sizeSelected.id ? 'bg-sky-500 ring-0 text-white' : '']" class="py-2 rounded-lg ring-1 ring-slate-700/20 dark:ring-slate-700/50 dark:hover:ring-sky-500 hover:ring-sky-500 px-3 inline-flex items-center justify-center space-x-1 w-full relative dark:text-white transition">
+                <button type="button" @click="selectSize(size)" :class="[size.id == state.sizeSelected.id ? 'bg-sky-500 ring-0 text-white' : '']" class="py-2 rounded-lg ring-1 ring-slate-700/20 dark:ring-slate-700 dark:hover:ring-sky-500 hover:ring-sky-500 px-3 inline-flex items-center justify-center space-x-1 w-full relative dark:text-white transition">
                     <div class="col-span-1 hidden md:inline">{{ size.size }}</div> <div class="text-sm col-span-3 text-left"> &bull; {{ size.text}}</div>
                 </button>
             </ul>

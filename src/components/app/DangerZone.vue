@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="pb-2">
-        <p class="text-xl inline-flex items-center space-x-2">
+        <p class="text-xl inline-flex dark:text-white items-center space-x-2">
             <KeyIcon class="text-slate-500"/>
             <span>Privat Akun</span>
         </p>
@@ -18,13 +18,13 @@
 <div>
     <div class="pb-2">
         <p class="text-xl text-red-500 inline-flex items-center space-x-2">
-            <ExclamationIcon class="text-red-600"/>
+            <ExclamationIcon class="text-red-600 w-6 h-6"/>
             <span>Danger zone</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">
             <p class="text-sm text-slate-700 dark:text-slate-300">This action cannot be undone, please think again before clicking the button below.</p>
         </div>
-        <div v-if="asMentorInRoom.length" class="text-sm mt-3">
+        <div v-if="asMentorInRoom.length" class="text-sm mt-3 dark:text-[#F1F5F9]">
             <p>You are still registered as an admin in the following Class Room:</p>
             <ul class="list-disc pl-4">
                 <li v-for="room in asMentorInRoom" :key="room.id">{{room.name}}</li>
