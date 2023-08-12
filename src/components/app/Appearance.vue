@@ -4,7 +4,7 @@
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <AppearanceIcon class="text-slate-500"/>
+                <AppearanceIcon class="text-slate-500 w-6 h-6"/>
                 <span>Tema Aplikasi</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">

@@ -28,22 +28,22 @@
              <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900 ring-1 dark:ring-slate-700/50 ring-slate-700/10 rounded p-4 col-span-1">
                 <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
-                    <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2"/>
+                    <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Profile</span>
                 </button>
                 <button type="button" @click="setCurrentActive(2)" :class="[isTab().ACCOUNT ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <div :class="[isTab().ACCOUNT ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
-                    <GearIcon class="text-slate-600 dark:text-slate-500 mr-2"/>
+                    <GearIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Pengaturan Akun</span>
                 </button>
                 <button type="button" @click="setCurrentActive(3)" :class="[isTab().APPEARANCE ? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <div :class="[isTab().APPEARANCE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
-                    <AppearanceIcon class="text-slate-600 dark:text-slate-500 mr-2"/>
+                    <AppearanceIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Tampilan</span>
                 </button>
                 <button type="button" @click="setCurrentActive(4)" :class="[isTab().DANGER_ZONE? 'dark:bg-slate-900/50 bg-slate-200/50': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <div :class="[isTab().DANGER_ZONE? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
-                    <ExclamationIcon class="text-slate-600 dark:text-slate-500 mr-2"/>
+                    <ExclamationIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
                     <span class="">Zona Bahaya</span>
                 </button>
             </div>

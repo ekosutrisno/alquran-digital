@@ -18,7 +18,7 @@
 <div>
     <div class="pb-2">
         <p class="text-xl text-red-500 inline-flex items-center space-x-2">
-            <ExclamationIcon class="text-red-600"/>
+            <ExclamationIcon class="text-red-600 w-6 h-6"/>
             <span>Danger zone</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">

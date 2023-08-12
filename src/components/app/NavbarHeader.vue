@@ -121,23 +121,29 @@
                   </div>
                 </MenuItem>
 
-                <MenuItem v-slot="{ active }">
-                  <button @click="$router.push({name: 'SettingPage', query: {tab: 'profile'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
-                    <ProfileIcon class="text-slate-400"/>
-                    <span>Profile</span>
-                  </button>
+                <MenuItem v-slot="{ active }" class="pt-2">
+                  <div class="px-3 py-px">
+                    <button @click="$router.push({name: 'SettingPage', query: {tab: 'profile'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
+                      <ProfileIcon class="text-slate-400 group-hover:text-sky-500 transition-colors w-5 h-5"/>
+                      <span>Profile</span>
+                    </button>
+                  </div>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <button @click="$router.push({name: 'SettingPage', query: {tab: 'account'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
-                    <GearIcon class="text-slate-400"/>
-                    <span>Pengaturan</span>
-                  </button>
+                  <div class="px-3 py-px">
+                    <button @click="$router.push({name: 'SettingPage', query: {tab: 'account'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
+                      <GearIcon class="text-slate-400 group-hover:text-sky-500 transition-colors w-5 h-5"/>
+                      <span>Pengaturan</span>
+                    </button>
+                  </div>
                 </MenuItem>
-                <MenuItem v-slot="{ active }">
-                  <button @click="onLogoutAction" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'inline-flex items-center space-x-2 w-full px-4 py-3 text-slate-600 font-medium dark:text-white']">
-                    <LogoutIcon class="text-slate-400"/>
-                    <span>Keluar</span>
-                  </button>
+                <MenuItem v-slot="{ active }" class="pb-2">
+                  <div class="px-3 py-px">
+                    <button @click="onLogoutAction" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
+                      <LogoutIcon class="text-slate-400 group-hover:text-sky-500 transition-colors w-5 h-5"/>
+                      <span>Keluar</span>
+                    </button>
+                  </div>
                 </MenuItem>
                 <div class="p-4 text-xs text-right border-t border-slate-700/10 dark:border-slate-700/50">
                   Versi {{ getAppVersion}}
