@@ -64,21 +64,21 @@ export const quickMenu: QuickMenuType[] = [
         id: '2',
         icon: 'heart',
         title: 'Favorit',
-        description: 'Koleksi ayat-ayat favorit.',
+        description: 'Menyimpan ayat-ayat favorit.',
         to: '/app/dashboard/favorite'
     },
     {
         id: '3',
         icon: 'books',
         title: 'Surah Pilihan',
-        description: 'Baca surah-surah pilihan.',
+        description: 'Koleksi dan baca surah-surah pilihan.',
         to: '/app/dashboard/surah-pilihan'
     },
     {
         id: '4',
         icon: 'classroom',
-        title: 'Ruang Kelas',
-        description: 'Ruang kelas hafalan.',
+        title: 'E-Madrasah',
+        description: 'Membuat madrasah dan ruang kelas.',
         to: '/app/dashboard/class-room'
     }
 ]
