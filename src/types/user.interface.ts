@@ -96,6 +96,7 @@ export interface MainMenuType {
     description: string;
     title: string;
     to: string;
+    tag?: TagType;
 }
 
 
@@ -105,4 +106,7 @@ export interface QuickMenuType {
     description?: string;
     to: string;
     icon: string;
+    tag?: TagType;
 }
+
+export type TagType = 'dev' | 'alpha' | 'beta' | 'new' | 'stable';

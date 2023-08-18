@@ -90,8 +90,8 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4">
-            <button type="button" class="py-2 px-3 rounded-lg bg-purple-500 dark:bg-purple-500 hover:enabled:bg-primary-400 dark:hover:enabled:bg-primary-400 text-white hover:enabled:shadow-lg hover:enabled:shadow-primary-500/50 dark:hover:enabled:shadow-primary-800/20 focus-visible:outline-primary-400/70 focus-within:outline-primary-400/70 focus-visible:bg-purple-500 active:enabled:bg-purple-500 dark:focus-visible:outline-primary-400 dark:focus-within:outline-primary-400 dark:focus-visible:bg-purple-500 dark:active:enabled:bg-purple-500 w-full">
+        <div class="mt-4 flex items-center justify-end">
+            <button type="button" class="py-2 px-3 w-max rounded-lg bg-purple-500 dark:bg-purple-500 hover:enabled:bg-primary-400 dark:hover:enabled:bg-primary-400 text-white hover:enabled:shadow-lg hover:enabled:shadow-primary-500/50 dark:hover:enabled:shadow-primary-800/20 focus-visible:outline-primary-400/70 focus-within:outline-primary-400/70 focus-visible:bg-purple-500 active:enabled:bg-purple-500 dark:focus-visible:outline-primary-400 dark:focus-within:outline-primary-400 dark:focus-visible:bg-purple-500 dark:active:enabled:bg-purple-500">
                 <span>Detail Pelajaran</span>
             </button>
         </div>

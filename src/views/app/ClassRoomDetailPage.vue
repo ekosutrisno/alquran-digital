@@ -13,17 +13,16 @@
                     <p class="text-slate-700 dark:text-slate-400 text-sm">Detail ruang kelas</p>
                 </div>
             </div>
-            <div class="pl-16 md:pl-0 space-x-2">
+            <div class="pl-10 md:pl-0 space-x-2">
                 <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="lg:hidden">Class Room</span>
-                    <span class="hidden lg:inline">Go to class room dashboard</span>
-                </router-link>
-                <!-- /app/dashboard/class-room/create?id=${room?.id}&a=edit` -->
-                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="inline">Edit</span>
+                    <span class="hidden lg:inline">E-Madrasah Dashboard</span>
                 </router-link>
                 <router-link :to="{name: 'ClassRoomAdvancedPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span>Advanced</span>
+                    <span>Undang Teman</span>
+                </router-link>
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="inline">Edit</span>
                 </router-link>
             </div>
         </section>
@@ -75,20 +74,44 @@
         <!-- Section 2 -->
         <section>
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
-                <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                    </span>
-                    <span>Members</span> 
-                </p>
+                <div class="flex items-center space-x-4">
+                    <button @click="updateParams('tab', 'subject')" aria-label="Name" :class="[$route.query.tab == 'subject' ? 'bg-sky-500 py-2 px-4 rounded-lg text-white' : '']" class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </span>
+                        <p>
+                            <span class="hidden md:inline">Mata Pelajaran</span>
+                            <span class="inline md:hidden">Mapel</span>
+                        </p>
+                    </button>
+                    <button @click="updateParams('tab', 'member')" aria-label="Name" :class="[$route.query.tab == 'member' ? 'bg-sky-500 py-2 px-4 rounded-lg text-white' : '']" class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </span>
+                        <span>Members</span>
+                    </button>
+                </div>
                 <div class="md:inline-flex hidden items-center space-x-2">
                     <p class="text-sm text-slate-700 dark:text-slate-50">List semua anggota kelas.</p>
                 </div>
             </div>
 
-            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+                <CardClassCourse v-for="subject in subjects" :key="subject.code" :subject="subject"/>
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {a: 'create'}}">
+                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-[1.5px] border-dashed border-slate-700/10 card-shadow-sm min-h-[13rem] rounded-lg dark:border-slate-700/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-10 w-10 text-slate-300 group-hover:text-sky-500 transition-colors" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.25" d="M15 12h-3m0 0H9m3 0V9m0 3v3m10-3c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464c.974.974 1.3 2.343 1.41 4.536"/></svg>
+                    </div>
+                </router-link>
+                <div v-if="isLoading" class="flex items-center justify-center">
+                    <Loader />
+                </div>
+            </div>
+            <div v-if="$route.query.tab === 'member'" class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassRoomMember
                     v-for="member in members"
                     :key="member.user_id"
@@ -127,7 +150,7 @@
                 </p>
             </div>
         </section>
-        <ScrollToTop @on-back="scrollToPageUp"/>
+        <ScrollToTop @on-back="scrollToPageUp" />
 
     </div>
 </template>
@@ -137,22 +160,24 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import { useClassRoom, useUser } from '@/services';
+import { useClassRoom, useClassSubject } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import { Room } from '@/types/room.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
 import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
-import CardVideo from '@/components/app/card/CardVideo.vue';
 import ClassRoomIcon from '@/components/svg/ClassRoomIcon.vue';
+import CardClassCourse from '@/components/app/card/CardClassCourse.vue';
+
+type TabParam = 'subject' | 'member';
 
 const router = useRouter();
 const route = useRoute();
 const roomService = useClassRoom();
-const userService = useUser();
 
-const { currentUser } = storeToRefs(userService);
-const { isLoading, room, members, mentor} = storeToRefs(roomService);
+const { isLoading, room, members, mentor } = storeToRefs(roomService);
+
+const { subjects } = useClassSubject();
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
@@ -160,6 +185,7 @@ const state = reactive({
 });
 
 onMounted(async () => { 
+    updateParams('tab', String(route.query.tab) as TabParam);
     roomService.getRoom(route.params.room_id as Room['id']);
 })
 
@@ -170,9 +196,15 @@ const scrollToPageUp = () => {
 }
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, (__event) => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
 }
+
+function updateParams(paramName: string, paramValue: TabParam) {
+  const query = { ...route.query };
+  query[paramName] = paramValue;
+  router.push({ query });
+};
 </script>

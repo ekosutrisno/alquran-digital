@@ -20,7 +20,7 @@
             </div>
             <div class="pl-20 md:pl-0">
                 <button  type="button" @click="$router.back()" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span>Back</span>
+                    <span>Kembali</span>
                 </button>
             </div>
         </section>

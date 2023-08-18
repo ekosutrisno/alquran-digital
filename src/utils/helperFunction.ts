@@ -1,3 +1,4 @@
+import { TagType } from "@/types/user.interface";
 import dayjs from "dayjs"
 
 /**
@@ -216,7 +217,7 @@ export const convertToArab = (str: string) => {
  */
 export const dayGreeting = (): string => {
     var hr = new Date().getHours();
-    
+
     if (hr >= 0 && hr < 12) {
         return "Selamat Pagi!";
     } else if (hr == 12) {
@@ -225,5 +226,23 @@ export const dayGreeting = (): string => {
         return "Selamat Sore!";
     } else {
         return "Selamat Malam!";
+    }
+}
+
+export function featureTagVariant(variant: TagType): {
+    class: string;
+    textLabel: string;
+} {
+    switch (variant) {
+        case 'new':
+            return { class: "bg-green-50 text-green-500 border-green-500", textLabel: variant };
+        case 'alpha':
+            return { class: "bg-orange-50 text-orange-500 border-orange-500", textLabel: variant };
+        case 'beta':
+            return { class: "bg-purple-50 text-purple-500 border-purple-500", textLabel: variant };
+        case 'stable':
+            return { class: "bg-pink-50 text-pink-500 border-pink-500", textLabel: variant };
+        default:
+            return { class: "bg-blue-50 text-blue-500 border-blue-500", textLabel: variant };
     }
 }

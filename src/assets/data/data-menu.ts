@@ -6,7 +6,8 @@ export const mainMenu: MainMenuType[] = [
         title: 'Pencarian',
         description: 'Mencari secara spesifik berdasarkan nomor Surah dan nomor Ayah',
         to: '/app/dashboard/search',
-        total: 6236
+        total: 6236,
+        tag: 'beta'
     },
     {
         id: '1',
@@ -79,6 +80,7 @@ export const quickMenu: QuickMenuType[] = [
         icon: 'classroom',
         title: 'E-Madrasah',
         description: 'Membuat madrasah dan ruang kelas.',
-        to: '/app/dashboard/class-room'
+        to: '/app/dashboard/class-room',
+        tag: 'dev'
     }
 ]
