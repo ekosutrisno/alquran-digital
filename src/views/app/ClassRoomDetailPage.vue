@@ -13,13 +13,16 @@
                     <p class="text-slate-700 dark:text-slate-400 text-sm">Detail ruang kelas</p>
                 </div>
             </div>
-            <div class="pl-10 md:pl-0 space-x-2">
-                <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="lg:hidden">Class Room</span>
-                    <span class="hidden lg:inline">E-Madrasah Dashboard</span>
+            <div class="pl-10 md:pl-0 space-x-2 hidden lg:flex lg:flex-none flex-wrap">
+                <router-link :to="{name: 'ClassRoomPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="lg:hidden">Kelas Dashboard</span>
+                    <span class="hidden lg:inline">Kelas Dashboard</span>
                 </router-link>
                 <router-link :to="{name: 'ClassRoomAdvancedPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span>Undang Teman</span>
+                </router-link>
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="inline">Buat Mata Pelajaran</span>
                 </router-link>
                 <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span class="inline">Edit</span>
@@ -100,13 +103,8 @@
                 </div>
             </div>
 
-            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid md:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassCourse v-for="subject in subjects" :key="subject.code" :subject="subject"/>
-                <router-link :to="{name: 'ClassRoomCreatePage', query: {a: 'create'}}">
-                    <div class="w-full h-full flex flex-col group items-center justify-center p-4 space-y-4 hover:border-sky-500 dark:hover:border-sky-500 transition bg-white dark:bg-dark-blue border-[1.5px] border-dashed border-slate-700/10 card-shadow-sm min-h-[13rem] rounded-lg dark:border-slate-700/50">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-10 w-10 text-slate-300 group-hover:text-sky-500 transition-colors" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.25" d="M15 12h-3m0 0H9m3 0V9m0 3v3m10-3c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464c.974.974 1.3 2.343 1.41 4.536"/></svg>
-                    </div>
-                </router-link>
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />
                 </div>
@@ -151,7 +149,7 @@
             </div>
         </section>
         <ScrollToTop @on-back="scrollToPageUp" />
-
+        <DialClass />
     </div>
 </template>
 
@@ -168,6 +166,7 @@ import { formatDateWithMonth } from '@/utils/helperFunction';
 import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
 import ClassRoomIcon from '@/components/svg/ClassRoomIcon.vue';
 import CardClassCourse from '@/components/app/card/CardClassCourse.vue';
+import DialClass from '@/components/app/DialClass.vue';
 
 type TabParam = 'subject' | 'member';
 

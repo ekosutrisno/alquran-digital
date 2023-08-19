@@ -1,4 +1,68 @@
+// Anggap Anda sudah mengimpor yang diperlukan untuk DocumentReference dan InfoMetadata
+
+import { Madrasah } from "@/types/madrasah.interface";
 import { ClassSubject } from "@/types/subject.interface";
+
+export const daftarMadrasah: Madrasah[] = [
+    {
+        code: "MAD001",
+        name: "Madrasah Al-Falah",
+        govermentCode: "12345",
+        description: "Sebuah lembaga pendidikan Islam ternama.",
+        postalCode: "12345",
+        email: "info@alfalah.com",
+        phoneNumber: "+123456789",
+        address: "Jalan Utama 123",
+        province: "Jawa Barat",
+        district: "Bandung",
+        subDistrict: "Cimahi",
+        ward: "Cibabat",
+        headMaster: null,
+        createdDate: 1656478778758,
+        lastModifiedDate: 1656478778758,
+        logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
+        public: true
+    },
+    {
+        code: "MAD002",
+        name: "Madrasah Baitul Ilmi",
+        govermentCode: "54321",
+        description: "Lembaga pendidikan dengan fokus pada studi Al-Quran.",
+        postalCode: "54321",
+        email: "kontak@baitulilmi.com",
+        phoneNumber: "+987654321",
+        address: "Jalan Elm 456",
+        province: "Jawa Tengah",
+        district: "Semarang",
+        subDistrict: "Banyumanik",
+        ward: "Banyumanik Timur",
+        headMaster: null,
+        createdDate: new Date("2023-08-17"),
+        lastModifiedDate: new Date("2023-08-17"),
+        logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
+        public: false
+    },
+    {
+        code: "MAD003",
+        name: "Madrasah Hidayah",
+        govermentCode: "78901",
+        description: "Menyediakan pendidikan Islam komprehensif untuk masyarakat.",
+        postalCode: "78901",
+        email: "info@hidayah.com",
+        phoneNumber: "+987612345",
+        address: "Jalan Oak 789",
+        province: "Jawa Timur",
+        district: "Surabaya",
+        subDistrict: "Gubeng",
+        ward: "Gubeng Kertajaya",
+        headMaster: null,
+        createdDate: new Date("2023-08-17"),
+        lastModifiedDate: new Date("2023-08-17"),
+        logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
+        public: true
+    }
+];
+
 
 export const classSubjects: ClassSubject[] = [
     {

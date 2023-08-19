@@ -3,11 +3,11 @@
         <!-- Header -->
         <div class="flex items-start justify-between">
             <div class="flex flex-col items-start justify-between">
-                <p class="font-semibold">Room &bull; <span class="text-xs font-normal">Since {{ formatDateWithMonth(room.createdDate) }}</span></p>
+                <p class="font-semibold">Kelas &bull; <span class="text-xs font-normal">Sejak {{ formatDateWithMonth(room.createdDate) }}</span></p>
                 <p class="text-sm">{{ room.scheduleDay }} {{ room.scheduleTime }}</p>
             </div>
-            <div>
-                {{ room.members.length }} members
+            <div class="text-sm">
+                {{ room.members.length }} Anggota
             </div>
         </div>
         <div>

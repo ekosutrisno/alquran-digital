@@ -8,15 +8,15 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                        <WidgetPlusIcon/>
-                       <span>Ruang Kelas</span> 
+                       <span>E-Madrasah</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua kelasmu ada di sini</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Semua madrasah ada di sini</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi semua kelas yang kamu buat atau pun ikuti, kamu dapat menambahkan anggota baru yang sudah terdaftar sebagai User di Al-quran Digital</p>
 
-                    <button type="button" @click="$router.push({name: 'MadrasahPage'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -26,8 +26,8 @@
             </div>
             <div class="flex items-start justify-end">
                 <router-link :to="{name: 'ClassRoomCreatePage', query: {a: 'create'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="lg:hidden">Buat Ruang Kelas</span>
-                    <span class="hidden lg:inline">Buat Ruang Kelas</span>
+                    <span class="lg:hidden">Buat Madrasah</span>
+                    <span class="hidden lg:inline">Buat Madrasah</span>
                 </router-link>
             </div>
         </section>
@@ -37,15 +37,15 @@
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
                 <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                     <WidgetIcon />
-                    <span>Semua Kelas</span> 
+                    <span>Semua Madrasah</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <p class="text-sm text-slate-700 dark:text-slate-50">List semua kelasmu ada disini.</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">List semua madrasahmu ada disini.</p>
                 </div>
             </div>
 
             <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
-                <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
+                <CardMadrasah v-for="madrasah in madrasahList" :key="madrasah.code" :madrasah="madrasah"/>
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />
                 </div>
@@ -73,26 +73,25 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
-import { useClassRoom } from '@/services';
+import { useMadrasah } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import CardMadrasah from '@/components/app/card/CardMadrasah.vue';
 
-const roomService = useClassRoom();
-const { isLoading, rooms } = storeToRefs(roomService);
+const madrasahService = useMadrasah();
+const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
 const state = reactive({
     isLogin: computed(()=> localStorage.getItem('_uid')),
-    rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') != 'undefined' ?   localStorage.getItem('_rooms') as string : '[]')),
     option: false,
 });
 
 onMounted(()=>{ 
-    if(state.rooms.length > 0)
-        roomService.getRooms( state.rooms as string[])
+    // if(state.rooms.length > 0)
+        // roomService.getRooms( state.rooms as string[])
 })
 
 const pageUp = ref<HTMLDivElement | undefined>();

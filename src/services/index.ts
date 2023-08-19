@@ -12,6 +12,7 @@ import { useClassRoom } from './useClassRoom';
 import { useNotification } from './useNotification';
 import { useChats } from './useChats';
 import { useClassSubject } from './useClassSubject';
+import { useMadrasah } from './useMadrasah';
 
 export {
     useAuth,
@@ -27,5 +28,6 @@ export {
     useClassRoom,
     useNotification,
     useChats,
-    useClassSubject
+    useClassSubject,
+    useMadrasah
 }

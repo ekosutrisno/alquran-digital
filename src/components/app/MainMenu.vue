@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="menu.to" class="relative overflow-hidden h-auto p-4 cursor-pointer hover:ring-sky-400 dark:hover:ring-sky-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition card-shadow-md bg-white dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg">
+    <router-link :to="{name: menu.to}" class="relative overflow-hidden h-auto p-4 cursor-pointer hover:ring-sky-400 dark:hover:ring-sky-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition card-shadow-md bg-white dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg">
         <div class="p-2 flex">
             <div class="flex-1">
                 <span class="text-sm text-slate-700 dark:text-slate-300">Total <StatusFlag v-if="menu.tag" :flag="menu.tag"/></span>
