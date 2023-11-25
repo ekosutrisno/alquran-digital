@@ -80,7 +80,7 @@ const { surahPilihan, isLoading} = storeToRefs(ayahService);
 const isLogin = ref<string>(decrypt(String(localStorage.getItem("_uid"))));
 
 onMounted(()=> {
-    if(!surahPilihan.value.length)
+    if(!surahPilihan.value.length && isLogin.value.length)
         ayahService.onGetSurahPilihan();
     }
 );

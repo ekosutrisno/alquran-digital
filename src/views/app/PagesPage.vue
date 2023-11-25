@@ -39,7 +39,7 @@
                     <input
                         type="text"
                         v-model="searchQuery"
-                        placeholder="Type the page number"
+                        placeholder="Ketikkan Nomor Halaman"
                         class="bg-white dark:bg-slate-800 dark:text-white card-shadow-sm rounded-md w-full max-w-lg mx-auto appearance-none focus:ring-sky-500 border-slate-700/20 dark:border-slate-700/50"
                     >
 

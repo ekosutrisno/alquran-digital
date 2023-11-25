@@ -22,7 +22,7 @@ onBeforeMount(() => authState());
 
 onMounted(() => {
   useDark();
-  if (isLogin.value != null) {
+  if (isLogin.value?.length) {
     // Check Utility Info
     chatInfo(isLogin.value);
 

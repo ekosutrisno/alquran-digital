@@ -139,14 +139,16 @@ const state = reactive({
     ]
 });
 
-onMounted(()=>{ayahService.onGetFavorit()});
+onMounted(() => {
+    if(state.isLogin.length)
+        ayahService.onGetFavorit()
+});
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
         pageUp.value?.scrollIntoView({behavior: 'smooth'});
 }
-
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())

@@ -36,13 +36,8 @@
               <MenuButton class="p-1 hidden md:block relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BelIcon />
-                <div v-if="notifications.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
+                <div v-if="unReadNotification.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
               </MenuButton>
-              <button type="button" @click="$router.push({name: 'NotificationPage'})" class="md:hidden p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
-                <span class="sr-only">View notifications</span>
-                <BelIcon />
-                <div v-if="notifications.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
-              </button>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
               <MenuItems class="origin-top-right card-shadow-md absolute z-10 right-0 mt-2 w-64 lg:min-w-[20rem] lg:w-auto lg:max-w-md rounded-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
@@ -188,7 +183,7 @@ const router = useRouter();
 const { wideMenu, getAppVersion } = storeToRefs(useUtil());
 const notificationService = useNotification();
 const { readNotification } = notificationService;
-const { notifications, unReadNotification } = storeToRefs(notificationService);
+const { unReadNotification } = storeToRefs(notificationService);
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 

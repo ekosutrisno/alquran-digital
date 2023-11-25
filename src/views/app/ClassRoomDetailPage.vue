@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid md:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassCourse v-for="subject in subjects" :key="subject.code" :subject="subject"/>
                 <div v-if="isLoading" class="flex items-center justify-center">
                     <Loader />
