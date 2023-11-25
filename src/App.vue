@@ -11,11 +11,12 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import { getTokenFcm, requestPermission } from '@/config/firebase.config';
 import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
 import OfflineBanner from './components/shared/OfflineBanner.vue';
+import { decrypt } from './utils/cryp';
 
 const { loadNotifications, onMessageForeground } = useNotification();
 const { chatInfo } = useChats();
 const { authState } = useAuth()
-const isLogin = ref<string | null>(localStorage.getItem('_uid'))
+const isLogin = ref<string | null>(decrypt(String(localStorage.getItem("_uid"))))
 
 onBeforeMount(() => authState());
 

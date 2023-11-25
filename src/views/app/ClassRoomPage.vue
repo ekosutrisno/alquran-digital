@@ -80,12 +80,13 @@ import Loader from '@/components/Loader.vue';
 import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const roomService = useClassRoom();
 const { isLoading, rooms } = storeToRefs(roomService);
 
 const state = reactive({
-    isLogin: computed(()=> localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') != 'undefined' ?   localStorage.getItem('_rooms') as string : '[]')),
     option: false,
 });

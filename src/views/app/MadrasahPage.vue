@@ -80,12 +80,13 @@ import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import CardMadrasah from '@/components/app/card/CardMadrasah.vue';
+import { decrypt } from '@/utils/cryp';
 
 const madrasahService = useMadrasah();
 const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
 const state = reactive({
-    isLogin: computed(()=> localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     option: false,
 });
 

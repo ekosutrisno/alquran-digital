@@ -106,6 +106,7 @@ import CardTimeline from '@/components/app/card/CardTimeline.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const notificationService = useNotification();
 const { notifications } = storeToRefs(notificationService);
@@ -114,7 +115,7 @@ const filterAndReduced = computed<UserNotification[]>(() => filterNotification(n
 const notificationsList = computed(() => notificationMapper(filterAndReduced.value));
 
 const state = reactive({
-    isLogin: computed(()=>localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     filter: 'All' as NotificationFilter,
     option: false,
     filters: [

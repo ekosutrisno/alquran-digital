@@ -8,6 +8,7 @@ import { formatToStringWithDash } from '@/utils/helperFunction';
 import { userDataRefConfig } from "@/config/dbRef.config";
 import { REALTIME_DB } from "@/config/db.config";
 import { useToast } from "vue-toastification";
+import { decrypt } from "@/utils/cryp";
 
 const toast = useToast();
 
@@ -101,7 +102,7 @@ export const useChats = defineStore('chatService', {
          */
         async getChats(peerId: string) {
             // Get Me ID
-            const meId = localStorage.getItem("_uid") as string;
+            const meId = decrypt(String(localStorage.getItem("_uid")));
             this.onLoadChats = true;
 
             // This Will get latest status online/offline from peer user
@@ -150,7 +151,7 @@ export const useChats = defineStore('chatService', {
         },
 
         async onNewMesage(chat: Chat) {
-            const me = localStorage.getItem('_uid') as string;
+            const me = decrypt(String(localStorage.getItem("_uid")));
             if (!me.match(chat.from)) {
                 var n = new Notification(chat.content);
                 toast.info(chat.content);

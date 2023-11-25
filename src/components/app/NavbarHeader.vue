@@ -176,6 +176,7 @@ import LogoutIcon from '../svg/LogoutIcon.vue';
 import ProfileIcon from '../svg/ProfileIcon.vue';
 import LoginIcon from '../svg/LoginIcon.vue';
 import WidgetIcon from '../svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }
@@ -196,7 +197,7 @@ const state = reactive({
   navigation: navigation,
   theme: 'dark',
   userRole: computed(() => localStorage.getItem('_role')),
-  isLogin: computed(() => localStorage.getItem('_uid'))
+  isLogin: computed(() => decrypt(String(localStorage.getItem("_uid"))))
 })
 
 const isDark = useDark();

@@ -83,6 +83,7 @@ import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';
 import { storeToRefs } from 'pinia';
 import LockIcon from '@/components/svg/LockIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const router = useRouter();
 const authService = useAuth();
@@ -91,7 +92,7 @@ const { loginEmailPassword, loginGoogle } = authService;
 const { error, isLoginProcess, authRequest } = storeToRefs(authService)
 
 onMounted(()=>{
-    if (localStorage.getItem('_uid')) 
+    if (decrypt(String(localStorage.getItem("_uid")))) 
         router.replace({name: 'AppDashboard'});
 })
 </script>

@@ -149,12 +149,13 @@ import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import { decrypt } from '@/utils/cryp';
 
 const utilService = useUtil();
 const { ayahTafsirSelected, surahTafsirSelected } = storeToRefs(useAyah());
 
 const state = reactive({
-    isLogin: computed(()=>localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)

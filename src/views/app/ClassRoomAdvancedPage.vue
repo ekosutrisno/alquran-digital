@@ -114,6 +114,7 @@ import { storeToRefs } from 'pinia';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { validateEmail } from '@/utils/helperFunction';
 import FirebaseIcon from '@/components/svg/FirebaseIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const route = useRoute();
 const { getRoom, addRoomMember } = useClassRoom();
@@ -122,7 +123,7 @@ const userService = useUser();
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const state = reactive({
-    isLogin: computed(() => localStorage.getItem('_uid')),
+    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid")))),
     emailInvitations: ''
 });
 

@@ -95,6 +95,7 @@ import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import Loader from '@/components/Loader.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const surahService = useSurah();
 const userService = useUser();
@@ -104,7 +105,7 @@ const utilService = useUtil();
 const state = reactive({
     currentSurah: computed(() => userService.surahBacaanUser),
     isLoading: computed(() => surahService.isLoading),
-    isLogin: computed(()=>localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     ayah: computed(() => userService.currentUser?.bacaanku),
     favorites: computed(() => ayahService.ayahFavorite),
     option: false,

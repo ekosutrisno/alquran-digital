@@ -266,6 +266,7 @@ import GearIcon from '@/components/svg/GearIcon.vue';
 import AppearanceIcon from '@/components/svg/AppearanceIcon.vue';
 import ExclamationIcon from '@/components/svg/ExclamationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const route = useRoute();
 const router = useRouter();
@@ -275,7 +276,7 @@ const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const state = reactive({
-    isLogedIn: computed(()=> localStorage.getItem('_uid')),
+    isLogedIn: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     titile: 'Profile'
 });
 

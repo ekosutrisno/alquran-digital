@@ -8,6 +8,7 @@ import { useUser } from './useUser';
 import { queryByPropertyRefConfig, userCollectionRefConfig, userDataRefConfig } from '@/config/dbRef.config';
 import { mapFirebaseAuthError } from '@/utils/firebaseHelperFunction';
 import router from '@/router';
+import { encrypt } from '@/utils/cryp';
 
 const toast = useToast();
 
@@ -102,7 +103,7 @@ export const useAuth = defineStore('authService', {
                     const uid = user.uid;
 
                     this.isLoggedIn = true;
-                    localStorage.setItem('_uid', uid);
+                    localStorage.setItem('_uid', encrypt(uid));
 
                     // Set Detail Information such as profiderId
                     this.onLoginAction(user);
@@ -143,16 +144,16 @@ export const useAuth = defineStore('authService', {
                         const user = userCredential.user;
                         /** Set User Details Data. */
                         this.onLoginAction(user);
-    
+
                         /** Save User Details To tbl_users. */
                         onRegisterUser({ userId: user.uid, email: user.email as string });
-    
+
                         /** Set isRegister to false and Redirect to Dashboard page. */
                         this.isRegisterProcess = false;
 
                         await sendEmailVerification(user);
                         toast.info("Email verifikasi telah dikirim.")
-    
+
                         router.replace({ name: 'AppDashboard' });
                     })
                     .catch((error) => {

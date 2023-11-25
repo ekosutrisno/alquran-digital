@@ -165,6 +165,7 @@ import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
 import ClassRoomIcon from '@/components/svg/ClassRoomIcon.vue';
 import CardClassCourse from '@/components/app/card/CardClassCourse.vue';
 import DialClass from '@/components/app/DialClass.vue';
+import { decrypt } from '@/utils/cryp';
 
 type TabParam = 'subject' | 'member';
 
@@ -177,7 +178,7 @@ const { isLoading, room, members, mentor } = storeToRefs(roomService);
 const { subjects } = useClassSubject();
 
 const state = reactive({
-    isLogin: computed(()=> localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     option: false
 });
 

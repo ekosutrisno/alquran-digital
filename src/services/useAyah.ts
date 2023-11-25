@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { auth } from "../config/firebase.config";
 import { surahDataRefConfig, userAyatFavoriteCollectionRefConfig, userAyatFavoriteDataRefConfig, userDataRefConfig, userSurahPilihanCollectionRefConfig, userSurahPilihanDataRefConfig } from "@/config/dbRef.config";
+import { decrypt } from "@/utils/cryp";
 
 const toast = useToast();
 
@@ -71,7 +72,7 @@ export const useAyah = defineStore('ayatService', {
         },
 
         onGetFavorit() {
-            const user_id = localStorage.getItem('_uid');
+            const user_id = decrypt(String(localStorage.getItem("_uid")));
             const ayahFavoriteRef = userAyatFavoriteCollectionRefConfig(String(user_id));
 
             onSnapshot(ayahFavoriteRef, (snapshot) => {
@@ -85,7 +86,7 @@ export const useAyah = defineStore('ayatService', {
         },
 
         async onRemoveFavorit(ayahId: AyahData['aya_id']) {
-            const user_id = localStorage.getItem('_uid');
+            const user_id = decrypt(String(localStorage.getItem("_uid")));
             const favoriteAyahRef = userAyatFavoriteDataRefConfig(String(user_id), String(ayahId));
 
             deleteDoc(favoriteAyahRef)
@@ -115,7 +116,7 @@ export const useAyah = defineStore('ayatService', {
         },
 
         onGetSurahPilihan() {
-            const user_id = localStorage.getItem('_uid');
+            const user_id = decrypt(String(localStorage.getItem("_uid")));
             const surahPilihanRef = userSurahPilihanCollectionRefConfig(String(user_id));
 
             onSnapshot(surahPilihanRef, (snapshot) => {
@@ -130,7 +131,7 @@ export const useAyah = defineStore('ayatService', {
         },
 
         async onRemoveSurahPilihan(surahId: SurahData['id']) {
-            const user_id = localStorage.getItem('_uid');
+            const user_id = decrypt(String(localStorage.getItem("_uid")));
             const surahPilihanRef = userSurahPilihanDataRefConfig(String(user_id), String(surahId));
 
             deleteDoc(surahPilihanRef)

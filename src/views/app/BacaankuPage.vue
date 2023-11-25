@@ -154,6 +154,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue';
 import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const surahService = useSurah();
 const userService = useUser();
@@ -163,7 +164,7 @@ const router = useRouter();
 const state = reactive({
     currentSurah: computed(() => userService.surahBacaanUser),
     isLoading: computed(() => surahService.isLoading),
-    isLogin: computed(() => localStorage.getItem('_uid')),
+    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid")))),
     ayah: computed(() => userService.currentUser?.bacaanku),
     option: false,
     sizeSelected: localStorage.getItem('_a_size') != null

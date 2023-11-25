@@ -79,6 +79,7 @@ import { storeToRefs } from 'pinia';
 import { Room } from '@/types/room.interface';
 import FormClassRoom from '@/components/app/FormClassRoom.vue';
 import Svg3 from '@/components/svg/Svg3.vue';
+import { decrypt } from '@/utils/cryp';
 
 const route = useRoute();
 const router = useRouter();
@@ -90,7 +91,7 @@ const { room } = storeToRefs(roomService);
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const state = reactive({
-    isLogin: computed(() => localStorage.getItem('_uid'))
+    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid"))))
 });
 
 onMounted(async () => {
