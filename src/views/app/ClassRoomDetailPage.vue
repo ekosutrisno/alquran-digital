@@ -13,17 +13,19 @@
                     <p class="text-slate-700 dark:text-slate-400 text-sm">Detail ruang kelas</p>
                 </div>
             </div>
-            <div class="pl-16 md:pl-0 space-x-2">
-                <router-link to="/app/dashboard/class-room" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="lg:hidden">Class Room</span>
-                    <span class="hidden lg:inline">Go to class room dashboard</span>
-                </router-link>
-                <!-- /app/dashboard/class-room/create?id=${room?.id}&a=edit` -->
-                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="inline">Edit</span>
+            <div class="pl-10 md:pl-0 space-x-2 hidden lg:flex lg:flex-none flex-wrap">
+                <router-link :to="{name: 'ClassRoomPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="lg:hidden">Kelas Dashboard</span>
+                    <span class="hidden lg:inline">Kelas Dashboard</span>
                 </router-link>
                 <router-link :to="{name: 'ClassRoomAdvancedPage'}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span>Advanced</span>
+                    <span>Undang Teman</span>
+                </router-link>
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="inline">Buat Mata Pelajaran</span>
+                </router-link>
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {id: room?.id, a: 'edit'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <span class="inline">Edit</span>
                 </router-link>
             </div>
         </section>
@@ -75,20 +77,37 @@
         <!-- Section 2 -->
         <section>
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
-                <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                    </span>
-                    <span>Members</span> 
-                </p>
+                <div class="flex items-center space-x-4">
+                    <button @click="updateParams('tab', 'subject')" aria-label="Name" :class="[$route.query.tab == 'subject' ? 'bg-sky-500 py-2 px-4 rounded-lg text-white' : '']" class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </span>
+                        <p>
+                            <span class="hidden md:inline">Mata Pelajaran</span>
+                            <span class="inline md:hidden">Mapel</span>
+                        </p>
+                    </button>
+                    <button @click="updateParams('tab', 'member')" aria-label="Name" :class="[$route.query.tab == 'member' ? 'bg-sky-500 py-2 px-4 rounded-lg text-white' : '']" class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="6" r="4"/><path stroke-linecap="round" d="M15 9a3 3 0 1 0 0-6M5.89 20.584C6.825 20.85 7.882 21 9 21c3.866 0 7-1.79 7-4s-3.134-4-7-4s-7 1.79-7 4c0 .345.077.68.22 1M18 14c1.754.385 3 1.359 3 2.5c0 1.03-1.014 1.923-2.5 2.37"/></g></svg>
+                        </span>
+                        <span>Members</span>
+                    </button>
+                </div>
                 <div class="md:inline-flex hidden items-center space-x-2">
                     <p class="text-sm text-slate-700 dark:text-slate-50">List semua anggota kelas.</p>
                 </div>
             </div>
 
-            <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+            <div v-if="$route.query.tab === 'subject'" class="with-transition w-full mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
+                <CardClassCourse v-for="subject in subjects" :key="subject.code" :subject="subject"/>
+                <div v-if="isLoading" class="flex items-center justify-center">
+                    <Loader />
+                </div>
+            </div>
+            <div v-if="$route.query.tab === 'member'" class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassRoomMember
                     v-for="member in members"
                     :key="member.user_id"
@@ -127,8 +146,8 @@
                 </p>
             </div>
         </section>
-        <ScrollToTop @on-back="scrollToPageUp"/>
-
+        <ScrollToTop @on-back="scrollToPageUp" />
+        <DialClass />
     </div>
 </template>
 
@@ -137,29 +156,34 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import { useClassRoom, useUser } from '@/services';
+import { useClassRoom, useClassSubject } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
 import { Room } from '@/types/room.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
 import CardClassRoomMember from '@/components/app/card/CardClassRoomMember.vue';
-import CardVideo from '@/components/app/card/CardVideo.vue';
 import ClassRoomIcon from '@/components/svg/ClassRoomIcon.vue';
+import CardClassCourse from '@/components/app/card/CardClassCourse.vue';
+import DialClass from '@/components/app/DialClass.vue';
+import { decrypt } from '@/utils/cryp';
+
+type TabParam = 'subject' | 'member';
 
 const router = useRouter();
 const route = useRoute();
 const roomService = useClassRoom();
-const userService = useUser();
 
-const { currentUser } = storeToRefs(userService);
-const { isLoading, room, members, mentor} = storeToRefs(roomService);
+const { isLoading, room, members, mentor } = storeToRefs(roomService);
+
+const { subjects } = useClassSubject();
 
 const state = reactive({
-    isLogin: computed(()=> localStorage.getItem('_uid')),
+    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     option: false
 });
 
 onMounted(async () => { 
+    updateParams('tab', String(route.query.tab) as TabParam);
     roomService.getRoom(route.params.room_id as Room['id']);
 })
 
@@ -170,9 +194,15 @@ const scrollToPageUp = () => {
 }
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, (__event) => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
 }
+
+function updateParams(paramName: string, paramValue: TabParam) {
+  const query = { ...route.query };
+  query[paramName] = paramValue;
+  router.push({ query });
+};
 </script>

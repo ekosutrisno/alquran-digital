@@ -32,7 +32,7 @@
                             <p class="font-alt text-xs font-normal leading-normal"><span class="text-slate-400">6 hours ago</span></p>
                         </div>
                         <div class="ms-auto">
-                            <span class="inline-block px-3 font-sans transition-shadow duration-300 py-1 text-[0.65rem] rounded-full bg-sky-500 dark:bg-sky-500 text-white"><span>UI/UX</span></span>
+                            <span class="inline-block px-3 transition-shadow duration-300 py-1 text-[0.65rem] rounded-full bg-sky-500 dark:bg-sky-500 text-white"><span>UI/UX</span></span>
                         </div>
                     </div>
                 </div>

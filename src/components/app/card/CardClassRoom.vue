@@ -1,13 +1,13 @@
 <template>
-    <router-link :id="`room_${room.id}`" :to="{ name: `ClassRoomDetailPage`, params: {room_id: room.id} }" class="w-auto max-w-full p-4 space-y-4 text-slate-800 dark:text-slate-50 hover:ring-sky-500 dark:hover:ring-sky-500 transition flex flex-col justify-between bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 card-shadow-sm min-h-[150px] rounded-lg dark:ring-slate-700">
+    <router-link :id="`room_${room.id}`" :to="{ name: `ClassRoomDetailPage`, params: {room_id: room.id}, query: {tab: 'subject'} }" class="w-auto max-w-full p-4 space-y-4 text-slate-800 dark:text-slate-50 hover:ring-sky-500 dark:hover:ring-sky-500 transition flex flex-col justify-between bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 card-shadow-sm min-h-[150px] rounded-lg dark:ring-slate-700">
         <!-- Header -->
         <div class="flex items-start justify-between">
             <div class="flex flex-col items-start justify-between">
-                <p class="font-semibold">Room &bull; <span class="text-xs font-normal">Since {{ formatDateWithMonth(room.createdDate) }}</span></p>
+                <p class="font-semibold">Kelas &bull; <span class="text-xs font-normal">Sejak {{ formatDateWithMonth(room.createdDate) }}</span></p>
                 <p class="text-sm">{{ room.scheduleDay }} {{ room.scheduleTime }}</p>
             </div>
-            <div>
-                {{ room.members.length }} members
+            <div class="text-sm">
+                {{ room.members.length }} Anggota
             </div>
         </div>
         <div>

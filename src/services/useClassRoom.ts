@@ -8,6 +8,7 @@ import { db } from "../config/firebase.config";
 import { useUser } from "./useUser";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
+import { decrypt } from "@/utils/cryp";
 
 const toast = useToast();
 
@@ -44,7 +45,7 @@ export const useClassRoom = defineStore('classRoomService', {
             const userService = useUser();
 
             const roomId = generateFriendlyId();
-            const user_id = localStorage.getItem('_uid') as string;
+            const user_id = decrypt(String(localStorage.getItem("_uid")));
 
             const room: Room = {
                 id: `${roomId}`,
@@ -170,7 +171,7 @@ export const useClassRoom = defineStore('classRoomService', {
         },
 
         haveClassRoom() {
-            const me = localStorage.getItem('_uid') as string;
+            const me = decrypt(String(localStorage.getItem("_uid")));
             const q = query(roomCollectionRefConfig(), where('mentor', '==', doc(db, 'user_collections', `${me}`)));
 
             getDocs(q)

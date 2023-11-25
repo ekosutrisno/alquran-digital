@@ -6,6 +6,7 @@ import { messaging, onMessage } from '@/config/firebase.config';
 import { useUser } from '@/services';
 import { notificationCollectionRefConfig, notificationDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
+import { decrypt } from "@/utils/cryp";
 
 const toast = useToast();
 
@@ -19,7 +20,7 @@ export const useNotification = defineStore('notificationService', {
     state: (): UseNotficationState => ({
         notification: null,
         notifications: new Array<UserNotification>(),
-        userId: String(localStorage.getItem('_uid'))
+        userId: decrypt(String(localStorage.getItem("_uid")))
     }),
 
     actions: {

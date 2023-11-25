@@ -147,7 +147,18 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room',
+                path: 'madrasah',
+                name: 'MadrasahPage',
+                component: () => import("@/views/app/MadrasahPage.vue"),
+                meta: {
+                    title: 'Madrasah Dashboard',
+                    description: 'Madrasah Dashboard Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
+                path: 'madrasah/:room_id/class-room/',
                 name: 'ClassRoomPage',
                 component: () => import("@/views/app/ClassRoomPage.vue"),
                 meta: {
@@ -158,7 +169,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/:room_id/detail',
+                path: 'madrasah/class-room/:room_id/detail',
                 name: 'ClassRoomDetailPage',
                 component: () => import("@/views/app/ClassRoomDetailPage.vue"),
                 meta: {
@@ -169,7 +180,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/:room_id/advanced',
+                path: 'madrasah/class-room/:room_id/advanced',
                 name: 'ClassRoomAdvancedPage',
                 component: () => import("@/views/app/ClassRoomAdvancedPage.vue"),
                 meta: {
@@ -180,7 +191,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/new',
+                path: 'madrasah/class-room/new',
                 name: 'ClassRoomCreatePage',
                 component: () => import("@/views/app/ClassRoomCreatePage.vue"),
                 meta: {
@@ -191,7 +202,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'class-room/:roomId/chat',
+                path: 'madrasah/class-room/:roomId/chat',
                 name: 'ClassRoomChatPage',
                 component: () => import("@/views/chat/ChatPage.vue"),
                 meta: {

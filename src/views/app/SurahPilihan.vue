@@ -73,13 +73,14 @@ import CardNotLogin from '../../components/app/card/CardNotLogin.vue';
 import Loader from '@/components/Loader.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const ayahService = useAyah();
 const { surahPilihan, isLoading} = storeToRefs(ayahService);
-const isLogin = ref(localStorage.getItem("_uid") as string);
+const isLogin = ref<string>(decrypt(String(localStorage.getItem("_uid"))));
 
 onMounted(()=> {
-    if(!surahPilihan.value.length)
+    if(!surahPilihan.value.length && isLogin.value.length)
         ayahService.onGetSurahPilihan();
     }
 );

@@ -37,11 +37,11 @@ import { getPresence } from '@/utils/firebaseHelperFunction';
 import { onMounted, ref } from 'vue';
 import ProfilePopover from '../modal/ProfilePopover.vue';
 import { initTooltips } from 'flowbite';
-
+import { decrypt } from '@/utils/cryp';
 
 defineProps<{ member: User, roomId: string }>();
 
-const me = ref<string | null>(localStorage.getItem('_uid'));
+const me = ref<string | null>(decrypt(String(localStorage.getItem("_uid"))));
 const open = ref(false);
 
 onMounted(() => initTooltips());

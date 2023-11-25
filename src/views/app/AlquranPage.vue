@@ -107,6 +107,7 @@ import { storeToRefs } from 'pinia';
 import Player from '@/components/app/Player.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const surahService = useSurah();
 const ayahService = useAyah();
@@ -188,7 +189,10 @@ const loadData = ()=>{
                     an: routeQuery.an
                 }
             })
-            .then(()=>ayahService.onGetSurahPilihan());
+        .then(() => {
+            if(decrypt(String(localStorage.getItem("_uid"))))
+                ayahService.onGetSurahPilihan()
+        });
 }
 
 const loadNextAyah  = () => {

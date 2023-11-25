@@ -27,6 +27,7 @@ import { computed, onMounted, onUpdated, reactive, ref } from 'vue';
 import ChatHeder from './ChatHeder.vue';
 import Chat from './Chat.vue';
 import ChatInput from './ChatInput.vue';
+import { decrypt } from '@/utils/cryp';
 const messages = ref<HTMLElement| undefined>(undefined);
 
 const chatService = useChats();
@@ -35,7 +36,7 @@ const { chats, peerUser, onLoadChats } = storeToRefs(chatService);
 const state = reactive({
    today: computed(()=> formatToString(new Date())),
    yesterday: computed(()=> yesterday()),
-   me: computed(()=> localStorage.getItem("_uid") as string),
+   me: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
    chatMessage: ''
 })
 

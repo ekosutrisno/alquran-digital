@@ -25,9 +25,10 @@ import { Chat } from '@/types/chat.interface';
 import { get, limitToLast, onValue, orderByKey, query, ref as reference } from 'firebase/database';
 import { database } from '@/config/firebase.config';
 import { formatChatTime } from '@/utils/helperFunction';
+import { decrypt } from '@/utils/cryp';
 const props = defineProps<{member: {name: string,id: string,color: string,avatar: string}}>()
 
-const me = ref<string>(localStorage.getItem("_uid") as string);
+const me = ref<string>(decrypt(String(localStorage.getItem("_uid"))));
 const lastChat = ref<Chat>({} as Chat);
 const { getChats, onNewMesage } = useChats();
 

@@ -5,49 +5,50 @@ export const mainMenu: MainMenuType[] = [
         id: '0',
         title: 'Pencarian',
         description: 'Mencari secara spesifik berdasarkan nomor Surah dan nomor Ayah',
-        to: '/app/dashboard/search',
-        total: 6236
+        to: 'SearchPage',
+        total: 6236,
+        tag: 'beta'
     },
     {
         id: '1',
         title: 'Surah',
         description: 'Bagian dari Al-Quran, merupakan divisi terbesar yang terdiri dari ayat-ayat dengan tema dan pesan tertentu.',
-        to: '/app/dashboard/surah',
+        to: 'SurahPage',
         total: 114
     },
     {
         id: '2',
         title: 'Halaman',
         description: 'Satuan fisik dalam Al-Quran yang memuat beberapa ayat, membantu pembacaan dan referensi.',
-        to: '/app/dashboard/pages',
+        to: 'PagesPage',
         total: 604
     },
     {
         id: '3',
         title: 'Manzil',
         description: 'Pembagian Al-Quran menjadi tujuh bagian, membantu pembacaan dalam tujuh hari atau seminggu.',
-        to: '/app/dashboard/manzil',
+        to: 'ManzilPage',
         total: 7
     },
     {
         id: '4',
         title: 'Rukuk',
         description: 'Tanda berupa garis horizontal yang menandai akhir ayat, membantu pelafaz menghentikan bacaan.',
-        to: '/app/dashboard/rukuk',
+        to: 'RukukPage',
         total: 556
     },
     {
         id: '5',
         title: 'Sajda',
         description: 'Ayat-ayat yang memerintahkan muslim untuk melakukan sujud sebagai tanda pengakuan terhadap kebesaran Allah.',
-        to: '/app/dashboard/sajda',
+        to: 'SajdaPage',
         total: 15
     },
     {
         id: '6',
         title: 'Juz',
         description: 'Pembagian Al-Quran menjadi 30 bagian, memudahkan pembacaan dan penyelesaian dalam sebulan.',
-        to: '/app/dashboard/juz',
+        to: 'JuzPage',
         total: 30
     },
 ]
@@ -58,27 +59,28 @@ export const quickMenu: QuickMenuType[] = [
         icon: 'bookmark',
         title: 'Bacaanku',
         description: 'Menandai bacaan terakhir.',
-        to: '/app/dashboard/bacaanku'
+        to: 'BacaankuPage'
     },
     {
         id: '2',
         icon: 'heart',
         title: 'Favorit',
-        description: 'Koleksi ayat-ayat favorit.',
-        to: '/app/dashboard/favorite'
+        description: 'Menyimpan ayat-ayat favorit.',
+        to: 'FavoritePage'
     },
     {
         id: '3',
         icon: 'books',
         title: 'Surah Pilihan',
-        description: 'Baca surah-surah pilihan.',
-        to: '/app/dashboard/surah-pilihan'
+        description: 'Koleksi dan baca surah-surah pilihan.',
+        to: 'SurahPilihan'
     },
     {
         id: '4',
         icon: 'classroom',
-        title: 'Ruang Kelas',
-        description: 'Ruang kelas hafalan.',
-        to: '/app/dashboard/class-room'
+        title: 'E-Madrasah',
+        description: 'Membuat madrasah dan ruang kelas.',
+        to: 'MadrasahPage',
+        tag: 'dev'
     }
 ]

@@ -189,7 +189,7 @@
                             <p class="text-white rounded bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>
                         </div>
                         <div class="inline-flex items-center space-x-2 mt-4">
-                            <div class="group inline-flex cursor-pointer font-sans focus:outline-none"  aria-expanded="false">
+                            <div class="group inline-flex cursor-pointer focus:outline-none"  aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-red-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-red-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
+                            <div class="group inline-flex cursor-pointer focus:outline-none" aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-green-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-green-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
@@ -207,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                           <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer font-sans focus:outline-none" aria-expanded="false">
+                           <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer focus:outline-none" aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400/25">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon h-5 w-5 text-orange-500" width="1em" height="1em" viewBox="0 0 24 24">
@@ -266,6 +266,7 @@ import GearIcon from '@/components/svg/GearIcon.vue';
 import AppearanceIcon from '@/components/svg/AppearanceIcon.vue';
 import ExclamationIcon from '@/components/svg/ExclamationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { decrypt } from '@/utils/cryp';
 
 const route = useRoute();
 const router = useRouter();
@@ -275,7 +276,7 @@ const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const state = reactive({
-    isLogedIn: computed(()=> localStorage.getItem('_uid')),
+    isLogedIn: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
     titile: 'Profile'
 });
 

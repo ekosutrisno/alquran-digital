@@ -39,7 +39,7 @@
                     <input
                         type="text"
                         v-model="searchQuery"
-                        placeholder="Type the page number"
+                        placeholder="Ketikkan Nomor Halaman"
                         class="bg-white dark:bg-slate-800 dark:text-white card-shadow-sm rounded-md w-full max-w-lg mx-auto appearance-none focus:ring-sky-500 border-slate-700/20 dark:border-slate-700/50"
                     >
 
@@ -49,7 +49,7 @@
                                 
                     <div v-if="!filteredPage(searchQuery).length" class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
                         <NoNotificationIcon />
-                        <p class="mx-auto text-sm py-5">No Result data found!</p>
+                        <p class="mx-auto text-sm py-5">Hasil Tidak Ditemukan!</p>
                     </div>
                 </div>
             </div>
