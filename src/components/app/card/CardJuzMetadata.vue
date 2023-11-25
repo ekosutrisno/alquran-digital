@@ -19,7 +19,7 @@
       </div>
       <span class="font-mono text-xl text-sky-500">({{ juz.number }})</span>
     </div>
-    <div class="w-36 h-36 bg-blue-50/50 absolute rounded-full -top-20 -right-20"></div>
+    <div class="w-36 h-36 bg-blue-50/50 dark:bg-sky-100/5 absolute rounded-full -top-20 -right-20"></div>
   </div>
 </router-link>  
 </template>

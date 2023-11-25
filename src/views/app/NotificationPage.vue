@@ -57,7 +57,7 @@
                 </div>
                 <div v-if="!filterAndReduced.length" class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
                     <NoNotificationIcon />
-                    <p class="mx-auto text-sm py-5">No Result data found!</p>
+                    <p class="mx-auto text-sm py-5">Hasil Tidak Ditemukan!</p>
                 </div>
             </div>
 

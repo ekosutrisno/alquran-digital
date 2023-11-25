@@ -13,8 +13,6 @@ declare module 'virtual:pwa-register';
 declare module 'amplitudejs';
 
 interface ImportMetaEnv {
-  readonly VITE_BASE_URL: string;
-  readonly VITE_BASE_MEDIA_SERVER: string;
   readonly VITE_BASE_FIREBASE_APIKEY: string;
   readonly VITE_BASE_FIREBASE_AUTHDOMAIN: string;
   readonly VITE_BASE_FIREBASE_PROJECTID: string;
@@ -23,6 +21,7 @@ interface ImportMetaEnv {
   readonly VITE_BASE_FIREBASE_APPID: string;
   readonly VITE_BASE_FIREBASE_MEASUREMENTID: string;
   readonly VITE_BASE_FIREBASE_VAPID: string;
+  readonly VITE_BASE_FIREBASE_DATABASE_URL: string;
   readonly VITE_BASE_APP_VERSION: string;
   readonly VITE_DEFAULT_LOCALE: string;
   readonly VITE_FALLBACK_LOCALE: string;
