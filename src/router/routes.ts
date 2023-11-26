@@ -158,6 +158,17 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
+                path: 'madrasah/action',
+                name: 'MadrasahCreatePage',
+                component: () => import("@/views/app/MadrasahCreatePage.vue"),
+                meta: {
+                    title: 'Madrasah Create',
+                    description: 'Madrasah Create Page',
+                    requiresAuth: true,
+                    requiresAdmin: false
+                }
+            },
+            {
                 path: 'madrasah/:room_id/class-room/',
                 name: 'ClassRoomPage',
                 component: () => import("@/views/app/ClassRoomPage.vue"),

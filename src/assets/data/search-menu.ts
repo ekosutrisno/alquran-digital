@@ -32,7 +32,7 @@ export const menuSearchList: Array<SearchItem> = [
         }
     },
     {
-        to: 'ClassRoomPage',
+        to: 'MadrasahPage',
         id: 6,
         info: 'Class Room Page',
         text: 'Class Room',

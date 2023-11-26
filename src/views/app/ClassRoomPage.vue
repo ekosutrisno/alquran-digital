@@ -24,10 +24,10 @@
                     </button>
                 </div>
             </div>
-            <div class="flex items-start justify-end">
-                <router-link :to="{name: 'ClassRoomCreatePage', query: {a: 'create'}}" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
-                    <span class="lg:hidden">Buat Ruang Kelas</span>
-                    <span class="hidden lg:inline">Buat Ruang Kelas</span>
+            <div class="flex items-start justify-end mt-8 lg:mt-0">
+                <router-link :to="{name: 'ClassRoomCreatePage', query: {a: 'create'}}" class="text-slate-800 inline-flex items-center space-x-2 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                    <AddAndEditIcon class="h-5 w-5"/>
+                    <span>Buat Ruang Kelas</span>
                 </router-link>
             </div>
         </section>
@@ -81,6 +81,7 @@ import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import { decrypt } from '@/utils/cryp';
+import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
 
 const roomService = useClassRoom();
 const { isLoading, rooms } = storeToRefs(roomService);
