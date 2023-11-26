@@ -9,23 +9,23 @@
                         <WidgetPlusIcon/>
                         <span>Search</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">6236</span> Data Result</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">6236</span> Data Ayat</p>
                 </div>
                 <form id="form-search" @submit.prevent="onSearch">
                     <div class="pt-4 grid lg:grid-cols-2 gap-5 lg:gap-10">
                             <div>
-                                <label for="surah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Surah Number</label>
+                                <label for="surah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nomor Surah</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input type="number" min="1" max="114" required autocomplete="off" id="surah-number" v-model="search.surah" class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Ayah Number" />
+                                    <input type="number" id="number-input-surah" autocomplete="off" v-model="search.surah" min="1" max="114" aria-describedby="Surah Number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="1-114" required>
                                 </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">It will be the parameter of the surah number you are looking for. Minimal 1 maximum 114.</p>
+                                <p class="text-xs mt-2 dark:text-slate-400">Ini akan menjadi parameter nomor surah yang Anda cari. Minimal 1 maksimal 114.</p>
                             </div>
                             <div>
-                                <label for="ayah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Ayah Number</label>
+                                <label for="ayah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nomor Ayat</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <input type="number" required autocomplete="off" id="ayah-number" v-model="search.ayah" class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Surah Number" />
+                                    <input type="number" id="number-input-ayah" autocomplete="off" v-model="search.ayah" min="1" :disabled="(search.surah < 1 || search.surah > 114)" aria-describedby="Surah Number" class="bg-gray-50 border disabled:bg-slate-100 dark:disabled:bg-slate-600 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="Min 1" required>
                                 </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">It will be the parameter of the ayah number you are looking for.</p>
+                                <p class="text-xs mt-2 dark:text-slate-400">Ini akan menjadi parameter nomor ayat yang Anda cari.</p>
                             </div>
                     </div>
                 </form>
