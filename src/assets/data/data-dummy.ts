@@ -1,6 +1,6 @@
 // Anggap Anda sudah mengimpor yang diperlukan untuk DocumentReference dan InfoMetadata
 
-import { Madrasah } from "@/types/madrasah.interface";
+import { Madrasah, MadrasahType } from "@/types/madrasah.interface";
 import { ClassSubject } from "@/types/subject.interface";
 
 export const daftarMadrasah: Madrasah[] = [
@@ -134,3 +134,24 @@ export const classSubjects: ClassSubject[] = [
         colorAccent: ""
     }
 ];
+
+export const madrasahType: MadrasahType[] = [
+    {
+        img: 'https://tairo.cssninja.io/img/illustrations/wizard/design.svg',
+        type: 'SM',
+        title: 'Sekolah Madrasah',
+        description: 'Sekolah yang dikelola dan dibawah naungan Kementrian Agama.'
+    },
+    {
+        img: 'https://tairo.cssninja.io/img/illustrations/wizard/development.svg',
+        type: 'SU',
+        title: 'Sekolah Umum',
+        description: 'Sekolah yang dikelola dan dibawah naungan Kemendikbud.'
+    },
+    {
+        img: 'https://tairo.cssninja.io/img/illustrations/wizard/marketing.svg',
+        type: 'SP',
+        title: 'Sekolah Swasta',
+        description: 'Sekolah yang dikelola oleh badan swasta atau yayasan.'
+    },
+]

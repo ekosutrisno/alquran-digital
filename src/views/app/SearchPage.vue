@@ -7,7 +7,7 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <WidgetPlusIcon/>
-                        <span>Search</span> 
+                        <span>Pencarian</span> 
                     </p>
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">6236</span> Data Ayat</p>
                 </div>

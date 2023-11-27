@@ -18,3 +18,12 @@ export interface Madrasah extends InfoMetadata {
     logo?: string;
     public: boolean;
 }
+
+export type MadrasahTypeOption = 'SM' | 'SU' | 'SP';
+
+export interface MadrasahType {
+    img: string,
+    type: MadrasahTypeOption,
+    title: string;
+    description: string
+}
