@@ -1,11 +1,23 @@
 <template>
-    <ButtonBack/>
+    <ButtonBack :to="{name: 'LoginPage'}"/>
 
     <div v-if="state.isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
         <Loader/>
     </div>
 
-    <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+    <div v-if="mode == 'verifyEmail'" class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+        <div class="max-w-md text-center px-6 pb-8 transition sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
+            <img src="https://tairo.cssninja.io/img/illustrations/dashboards/travel-cases.svg" alt="Confirm Account Success Images">
+            <p class="font-medium text-2xl mt-5 dark:text-gray-200">Verifikasi Akun</p>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">Klik tombol verifikasi dibawah ini untuk melanjutkan menggunakan aplikasi.</p>
+            <form @submit.prevent="doVerifyAcount(String(oobCode))">
+                <button type="submit" class="mt-4 inline-flex items-center space-x-2 text-white font-medium bg-green-400 hover:bg-green-400/90 py-2 px-3 rounded-lg">
+                    <span>Verifikasi Sekarang</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div v-if="mode == 'resetPassword'" class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
         <div class="md:bg-white md:card-shadow-md md:dark:bg-slate-800 max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700/75 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
             <div class="max-w-md z-30 with-transition w-full space-y-8">
@@ -55,12 +67,12 @@ import { auth } from "@/config/firebase.config";
 import ButtonBack from "@/components/shared/ButtonBack.vue";
 import Loader from "@/components/Loader.vue";
 
-const authService = useAuth();
+const { resetPasswordConfirm, doVerifyAcount } = useAuth();
 const route = useRoute();
 const router = useRouter();
 const toast = useToast();
 
-const { oobCode } = route.query;
+const { oobCode, mode } = route.query;
 
 const state = reactive({
     auth: {
@@ -75,15 +87,14 @@ const isValidPassword = computed(()=>
     isMatchPassword(state.auth.newPassword, state.auth.newConfirmPassword)
 );
 
-const confirmPasswordResetAction = (): void =>{
-    if(isValidPassword.value)
+const confirmPasswordResetAction = (): void => {
+    if (isValidPassword.value)
         verifyPasswordResetCode(auth, `${oobCode}`)
-            .then((email) =>{
-                if(email){
-                    authService
-                        .resetPasswordConfirm(oobCode as string, state.auth.newPassword)
-                        .then(()=>{
-                            router.replace({name: 'LoginPage'});
+            .then((email) => {
+                if (email) {
+                    resetPasswordConfirm(oobCode as string, state.auth.newPassword)
+                        .then(() => {
+                            router.replace({ name: 'LoginPage' });
                             toast.success('Your password has been updated.');
                         });
                 }

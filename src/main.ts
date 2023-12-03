@@ -1,10 +1,11 @@
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import { MotionPlugin } from '@vueuse/motion'
 import i18n from "./i18n"
 import { updateSW } from './utils/serviceWorker'
 
 import App from './App.vue'
+import { useRoute } from 'vue-router'
 import router from './router';
 import './index.css'
 
@@ -28,6 +29,7 @@ import calendar from 'dayjs/plugin/calendar';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import updateLocale from 'dayjs/plugin/updateLocale';
+
 dayjs.extend(localizedFormat);
 dayjs.extend(localeData);
 dayjs.extend(relativeTime);
@@ -54,7 +56,10 @@ updateSW();
 
 const app = createApp(App);
 
-app.use(createPinia());
+app.use(createPinia()
+    .use(({ store }) => { store.router = markRaw(router) })
+    .use(({ store }) => { store.route = markRaw(useRoute()) })
+);
 app.use(router);
 app.use(Toast, options);
 app.use(MotionPlugin);

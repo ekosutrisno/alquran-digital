@@ -1,5 +1,5 @@
 import { User } from '@/types/user.interface';
-import { confirmPasswordReset, createUserWithEmailAndPassword, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { applyActionCode, confirmPasswordReset, createUserWithEmailAndPassword, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import { getDocs, updateDoc } from 'firebase/firestore';
 import { defineStore, storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
@@ -7,7 +7,6 @@ import { auth, gProvider } from '../config/firebase.config';
 import { useUser } from './useUser';
 import { queryByPropertyRefConfig, userCollectionRefConfig, userDataRefConfig } from '@/config/dbRef.config';
 import { mapFirebaseAuthError } from '@/utils/firebaseHelperFunction';
-import router from '@/router';
 import { encrypt } from '@/utils/cryp';
 
 const toast = useToast();
@@ -127,7 +126,7 @@ export const useAuth = defineStore('authService', {
 
                     /** Stop Loading and Redirect in to Dashboard. */
                     this.isLoginProcess = false;
-                    router.replace({ name: 'AppDashboard' });
+                    this.router.replace({ name: 'AppDashboard' });
                 })
                 .catch((error) => {
                     this.setErrorData(error)
@@ -146,22 +145,24 @@ export const useAuth = defineStore('authService', {
                         this.onLoginAction(user);
 
                         /** Save User Details To tbl_users. */
-                        onRegisterUser({ userId: user.uid, email: user.email as string });
+                        await onRegisterUser({ userId: user.uid, email: user.email as string });
 
                         /** Set isRegister to false and Redirect to Dashboard page. */
                         this.isRegisterProcess = false;
 
-                        await sendEmailVerification(user);
-                        toast.info("Email verifikasi telah dikirim.")
-
-                        router.replace({ name: 'AppDashboard' });
+                        sendEmailVerification(user)
+                            .then(() => {
+                                this.onLogoutAction();
+                                this.router.push({ query: { cta: 'create-confirmed' } });
+                                toast.info("Email verifikasi telah dikirim.");
+                            });
                     })
                     .catch((error) => {
                         this.setErrorData(error)
                         this.isRegisterProcess = false;
                     });
             } else {
-                toast.warning("Password dan Konfirmasi Password")
+                toast.warning("Password dan Konfirm Password tidak sama")
             }
 
         },
@@ -175,7 +176,7 @@ export const useAuth = defineStore('authService', {
                     onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
                         .then(() => {
                             this.onLoginAction(user);
-                            router.replace({ name: 'AppDashboard' })
+                            this.router.replace({ name: 'AppDashboard' })
                         });
 
                 }).catch((error) => {
@@ -195,7 +196,7 @@ export const useAuth = defineStore('authService', {
             const currentUser = auth.currentUser as any
 
             if (currentUser.email.toLowerCase() == newEmail.toLowerCase())
-                toast.success("Your email is the same as the current one.")
+                toast.success("Email sama dengan email saat ini.")
 
             const userRef = userCollectionRefConfig();
             const q = queryByPropertyRefConfig(userRef, 'email', newEmail);
@@ -218,7 +219,7 @@ export const useAuth = defineStore('authService', {
                                         email: newEmail
                                     });
 
-                                    toast.success("Your Email has been update succesfully.")
+                                    toast.success("Email berhasil diupdate.")
                                 }).catch((error) => {
                                     this.setErrorData(error);
                                 });
@@ -226,7 +227,7 @@ export const useAuth = defineStore('authService', {
                             this.setErrorData(error)
                         });
                     } else {
-                        toast.success("The Email has been taken.")
+                        toast.success("Email telah digunakan.")
                     }
                 })
 
@@ -252,7 +253,7 @@ export const useAuth = defineStore('authService', {
                 updatePassword(currentUser, newPassword)
                     .then(() => {
                         userService.updateCurrentUserData(user, { isSilent: true })
-                            .then(() => toast.success("Password has been updated."))
+                            .then(() => toast.success("Password berhasil diubah."))
                     }).catch((error) => {
                         this.setErrorData(error);
                     });
@@ -274,14 +275,15 @@ export const useAuth = defineStore('authService', {
                     if (snapshot.size === 1) {
                         await sendPasswordResetEmail(auth, email)
                             .then(() => {
-                                toast.info('Reset password link has been sent, please check your email.');
+                                this.router.push({ query: { cta: 'reset-confirmed' } });
+                                toast.info('Reset password link telah dikirim, silahkan cek email.');
                             })
                             .catch((error) => {
                                 this.setErrorData(error);
                             });
                     } else {
                         this.emailNotRegiter = true;
-                        toast.warning(`${email} not registered email.`);
+                        toast.warning(`${email} tidak terdaftar.`);
                     }
                 })
 
@@ -292,6 +294,16 @@ export const useAuth = defineStore('authService', {
 
         async resetPasswordConfirm(oobCode: string, newPassword: string) {
             await confirmPasswordReset(auth, `${oobCode}`, newPassword);
+        },
+
+        doVerifyAcount(oobCode: string): void {
+            applyActionCode(auth, oobCode)
+                .then(() => {
+                    this.router.replace({ name: 'LoginPage' });
+                    toast.info(`Akun telah diaktifkan, silahkan Login Aplikasi.`);
+                }).catch((err) => {
+
+                });
         },
 
         /**

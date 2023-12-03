@@ -61,8 +61,8 @@ const routes: RouteRecordRaw[] = [
             },
             {
                 path: '__/auth/action',
-                name: 'ResetPasswordActionPage',
-                component: () => import("@/views/auth/ResetPasswordActionPage.vue"),
+                name: 'AuthActionPage',
+                component: () => import("@/views/auth/AuthActionPage.vue"),
                 meta: {
                     title: 'Reset Password Action Page',
                     description: "If you've forgotten your password, this is the place to fix it.",

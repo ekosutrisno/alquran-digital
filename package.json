@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
+    "@types/crypto-js": "^4.2.1",
     "@types/node": "^18.16.17",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitest/coverage-v8": "^0.32.2",

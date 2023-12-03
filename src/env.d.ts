@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import { RouteLocationNormalizedLoaded, Router } from 'vue-router';
+
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
@@ -12,6 +14,7 @@ declare module '@heroicons/vue/outline';
 declare module 'virtual:pwa-register';
 declare module 'amplitudejs';
 declare module 'crypto-js';
+declare module 'pinia' { export interface PiniaCustomProperties { router: Router, route: RouteLocationNormalizedLoaded } };
 
 interface ImportMetaEnv {
   readonly VITE_BASE_FIREBASE_APIKEY: string;
