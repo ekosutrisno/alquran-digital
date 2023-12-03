@@ -1,11 +1,22 @@
 <template>
-    <ButtonBack/>
+    <ButtonBack :to="{name: 'LoginPage'}"/>
 
     <div v-if="isRegisterProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
         <Loader/>
     </div>
 
-    <div class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+    <div v-if="$route.query.cta == 'create-confirmed'" class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
+        <div class="max-w-md text-center with-transition px-6 pb-8 transition sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
+            <img src="https://tairo.cssninja.io/img/illustrations/placeholders/flat/placeholder-launch.svg" alt="Create Account Success Images">
+            <p class="font-medium text-2xl dark:text-gray-300">Konfirmasi akun Anda</p>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">Hai Santri, selamat bergabung! Cuzzzz cek email buat konfirmasi akunmu ya.</p>
+            <router-link :to="{name: 'LoginPage'}" class="mt-4 inline-flex items-center space-x-2 text-white font-medium bg-purple-500 hover:bg-purple-400 py-2 px-3 rounded-lg">
+                <span>Kembali Ke Halaman Masuk</span>
+            </router-link>
+        </div>
+    </div>
+
+    <div v-else class="relative flex flex-col w-full flex-1 my-auto mx-auto items-center justify-center">
         <div class="md:bg-white md:card-shadow-md md:dark:bg-dark-blue max-w-md px-6 pt-10 pb-8 transition md:ring-1 ring-gray-900/5 md:dark:ring-slate-700 sm:mx-auto w-full h-full md:rounded-lg sm:px-10">
             <!-- main Form -->
             <div class="max-w-md with-transition w-full space-y-8">

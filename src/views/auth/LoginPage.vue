@@ -1,5 +1,5 @@
 <template>
-    <ButtonBack/>
+    <ButtonBack :to="{name: 'HomePage'}"/>
     <div v-if="isLoginProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
         <Loader/>
     </div>

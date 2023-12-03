@@ -9,7 +9,7 @@ const Trans = {
   },
 
   get supportedLocales() {
-    return import.meta.env.VITE_SUPPORTED_LOCALES.split(",").map(s => s as LocalesSupport);
+    return import.meta.env.VITE_SUPPORTED_LOCALES.split(",").map((s: string) => s as LocalesSupport);
   },
 
   get currentLocale() {

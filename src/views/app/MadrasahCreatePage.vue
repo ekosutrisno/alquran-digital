@@ -2,8 +2,17 @@
     <div ref="pageUp" class="absolute -top-20"></div>
 
     <div class="wrapper md:p-2 space-y-6 max-w-screen-xl mx-auto">
+        <div class="flex flex-col items-center justify-center mb-10">
+            <h1 class="text-2xl font-semibold">Pilih Jenis Sekolah</h1>
+            <p class="text-sm text-center">Silahkan Pilih jenis sekolah yang ingin kamu buat</p>
+        </div>
+        <div v-if="$route.query.step == '1'" class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+            <CardMadrasahType v-for="type in madrasahType" :key="type.type" :type="type"/>
+        </div>
+
+
         <!-- Section 0 -->
-        <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
+        <section class="hidden flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
                 <div class="flex cursor-default text-sm rounded-full">
                     <span class="sr-only">General user info</span>
@@ -27,12 +36,7 @@
 
 
         <!-- Section 1-->
-        <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
-            <div
-                class="hidden xl:block bg-white h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded overflow-hidden col-span-1">
-                <img src="https://i.pinimg.com/564x/fd/14/90/fd1490eb21c52945cdce747251d3700c.jpg" alt="left-image">
-            </div>
-
+        <section v-if="$route.query.step == '2'" class="gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
             <div
                 class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
@@ -80,6 +84,8 @@ import { Room } from '@/types/room.interface';
 import FormClassRoom from '@/components/app/FormClassRoom.vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { decrypt } from '@/utils/cryp';
+import CardMadrasahType from '@/components/app/card/CardMadrasahType.vue';
+import { madrasahType } from '@/assets/data/data-dummy';
 
 const route = useRoute();
 const router = useRouter();

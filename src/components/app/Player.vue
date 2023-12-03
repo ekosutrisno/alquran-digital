@@ -111,7 +111,6 @@ import { useAyah, useSurah } from '@/services';
 import { SurahData } from '@/types/alquran.interface';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
-import Amplitude from 'amplitudejs';
 
 const { currentPlay } =  storeToRefs(useAyah());
 const surahService  = useSurah();
@@ -134,20 +133,7 @@ onMounted(()=>{
     initAmplitudo();
 })
 
-function initAmplitudo() {
-    Amplitude.init({
-        songs: [
-            {
-                name: currentPlay.value?.transliteration,
-                artist: "Al-Quran Digital",
-                album: currentSurah.value.surat_name,
-                url: currentPlay.value?.audio,
-                cover_art_url: ""
-            }
-        ],
-        playback_speed: playbackSpeed.value
-    })
-}
+function initAmplitudo() {}
 
 function playbackSpeedUpdate() {
     if(playbackSpeed.value == 2)
@@ -162,9 +148,5 @@ function playbackDisplay(playback: string) {
     return playback.length == 1 ? `${playback.charAt(0)}x` : playback
 }
 
-function fastForward(second: number) {
-    let currentSongSecond = Amplitude.getSongPlayedSeconds();
-    let currentSongIndex = Amplitude.getActiveIndex();
-    Amplitude.skipTo(currentSongSecond + second, currentSongIndex, null);
-}
+function fastForward(second: number) {}
 </script>
