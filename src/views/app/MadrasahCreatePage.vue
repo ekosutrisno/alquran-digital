@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { useClassRoom, useUser } from '@/services';
@@ -83,7 +83,6 @@ import { storeToRefs } from 'pinia';
 import { Room } from '@/types/room.interface';
 import FormClassRoom from '@/components/app/FormClassRoom.vue';
 import Svg3 from '@/components/svg/Svg3.vue';
-import { decrypt } from '@/utils/cryp';
 import CardMadrasahType from '@/components/app/card/CardMadrasahType.vue';
 import { madrasahType } from '@/assets/data/data-dummy';
 
@@ -95,10 +94,6 @@ const userService = useUser();
 const { room } = storeToRefs(roomService);
 
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
-
-const state = reactive({
-    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid"))))
-});
 
 onMounted(async () => {
     if (route.query.a === 'edit')

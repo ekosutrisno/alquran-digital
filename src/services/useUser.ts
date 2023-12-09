@@ -156,8 +156,8 @@ export const useUser = defineStore('userService', {
                 const uploadTask = uploadBytesResumable(storageRef, photo);
 
                 uploadTask.on('state_changed',
-                    (snapshot) => {
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    (_snapshot) => {
+                        // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     },
                     (error) => {
                         switch (error.code) {

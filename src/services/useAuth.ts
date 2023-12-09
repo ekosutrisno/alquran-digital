@@ -301,7 +301,7 @@ export const useAuth = defineStore('authService', {
                 .then(() => {
                     this.router.replace({ name: 'LoginPage' });
                     toast.info(`Akun telah diaktifkan, silahkan Login Aplikasi.`);
-                }).catch((err) => {
+                }).catch((_err) => {
 
                 });
         },
@@ -322,8 +322,6 @@ export const useAuth = defineStore('authService', {
          * This will permanently delete the user data
          */
         async deleteAccount() {
-            const me = auth.currentUser as any;
-
             /** TODO Several things need to be done before the user decides to delete the account permanently.
              * 1. Delete From Class Room members room_collections.
              * 2. Delete all User Notifications in notification_collections.

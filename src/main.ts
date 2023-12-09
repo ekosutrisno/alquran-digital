@@ -21,7 +21,7 @@ const options: PluginOptions = {
 };
 
 // DayJs Config And Extends
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
