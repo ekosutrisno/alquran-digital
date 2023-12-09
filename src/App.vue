@@ -1,4 +1,5 @@
 <template>
+  <SpeedInsights />
   <RouterView />
   <ToastUpdateAvailabelVue />
   <OfflineBanner />
@@ -12,6 +13,7 @@ import { getTokenFcm, requestPermission } from '@/config/firebase.config';
 import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
 import OfflineBanner from './components/shared/OfflineBanner.vue';
 import { decrypt } from './utils/cryp';
+import { SpeedInsights } from "@vercel/speed-insights/vue"
 
 const { loadNotifications, onMessageForeground } = useNotification();
 const { chatInfo } = useChats();
