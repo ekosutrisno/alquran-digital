@@ -148,5 +148,5 @@ function playbackDisplay(playback: string) {
     return playback.length == 1 ? `${playback.charAt(0)}x` : playback
 }
 
-function fastForward(second: number) {}
+function fastForward(_second: number) {}
 </script>

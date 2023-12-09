@@ -42,8 +42,6 @@ import { decrypt } from '@/utils/cryp';
 defineProps<{ member: User, roomId: string }>();
 
 const me = ref<string | null>(decrypt(String(localStorage.getItem("_uid"))));
-const open = ref(false);
 
 onMounted(() => initTooltips());
-
 </script>

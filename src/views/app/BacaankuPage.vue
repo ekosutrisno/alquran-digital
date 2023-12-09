@@ -207,7 +207,7 @@ const scrollToPageUp = () => {
 
 
 const target = ref(null)
-onClickOutside(target, (event) => hideMenuOption())
+onClickOutside(target, (_event) => hideMenuOption())
 
 const hideMenuOption = () => {
     state.option = !state.option
