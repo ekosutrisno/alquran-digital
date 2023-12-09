@@ -20,10 +20,10 @@
          </p> 
 
          <p class="text-base font-normal text-left dark:text-slate-100"> 
-            <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
+            <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 dark:text-sky-300 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
          </p>
          <p class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
-            <span class="font-medium leading-relaxed">Artinya: </span> {{ayat.translation_aya_text}}
+            {{ayat.translation_aya_text}}
          </p>
          
          <div class="hidden group-hover:inline with-transition-fast">
@@ -54,7 +54,7 @@
                   <path d="M2 12l5 5m5 -5l5 -5"></path>
                </svg>
             </span>
-            <span class="font-medium">Meta: (Page: {{ayat.page_number}}) (Manzil: {{ayat.manzil}}) (Rukuk: {{ayat.rukuk}}) </span>
+            <span class="font-semibold">Meta: <span class="text-green-500 dark:text-green-300">(Page: {{ayat.page_number}})</span> <span class="text-red-500 dark:text-red-300">(Manzil: {{ayat.manzil}})</span> <span class="text-indigo-500 dark:text-indigo-300">(Rukuk: {{ayat.rukuk}})</span> </span>
             <span v-if="ayat.sajda" class="font-semibold text-yellow-500">
             - Sajda 
                <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
