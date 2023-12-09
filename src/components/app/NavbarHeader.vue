@@ -28,11 +28,10 @@
               Pencarian menu...<span class="ml-auto pl-3 flex-none text-xs font-semibold">Tekan "ctrl + /"</span>
             </button>
           </div>
-
           
           <!-- Notification dropdown -->
           <Menu as="div" class="ml-3 relative">
-            <div>
+            <div v-if="isLogin">
               <MenuButton class="p-1 hidden md:block relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BelIcon />
@@ -77,7 +76,7 @@
 
           <!-- Profile dropdown -->
           <Menu as="div" class="ml-3">
-            <div v-if="state.isLogin">
+            <div v-if="isLogin">
               <MenuButton class="dark:bg-gray-800 bg-slate-100 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none">
                 <span class="sr-only">Open user menu</span>
                 <div class="relative">
@@ -153,7 +152,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { useRouter } from 'vue-router'
 import { useAuth, useNotification, useUser, useUtil } from '@/services';
@@ -187,13 +186,7 @@ const { unReadNotification } = storeToRefs(notificationService);
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 
-const state = reactive({
-  open: false,
-  navigation: navigation,
-  theme: 'dark',
-  userRole: computed(() => localStorage.getItem('_role')),
-  isLogin: computed(() => decrypt(String(localStorage.getItem("_uid"))))
-})
+const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))))
 
 const isDark = useDark();
 const togleDarkLightMode = useToggle(isDark);
@@ -201,9 +194,11 @@ const togleDarkLightMode = useToggle(isDark);
 const online = useOnline();
 
 const onLogoutAction = () => {
-    localStorage.removeItem('_uid');
-    authService.onLogoutAction();
-    router.replace('/auth/login');
+  authService.onLogoutAction()
+    .then(() => {
+      localStorage.removeItem('_uid');
+      router.replace('/auth/login');
+    });
 }
 
 const keys = useMagicKeys();

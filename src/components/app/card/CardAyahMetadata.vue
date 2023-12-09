@@ -139,11 +139,13 @@ const hideMenuOption = () => {
 const isIncludeMyFavorite = computed(()=> myFavorite.value.some(ayat => ayat.aya_id === props.ayat.aya_id))
 
 
-const checkTafsir = (ayah: AyahData) =>{
-   onCheckTafsir(ayah);
-   router.push({
-         path: '/app/dashboard/tafsir',
-         query:{an: ayah.aya_id, sn: ayah.sura_id}
-        })
+const checkTafsir = (ayah: AyahData) => {
+   onCheckTafsir(ayah)
+      .then(() => {
+         router.push({
+            path: '/app/dashboard/tafsir',
+            query: { an: ayah.aya_id, sn: ayah.sura_id }
+         })
+      })
 }
 </script>

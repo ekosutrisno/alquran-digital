@@ -25,7 +25,7 @@
 
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
-             <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
+             <div class="hidden lg:block pl-6 md:pl-8 h-max sm:max-w-md space-y-2 bg-white dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
                 <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
@@ -245,6 +245,9 @@
             </div>
            
         </section>
+
+        <!-- Bottom Navigation On Mobile Only -->
+        <SettingBottomNav class="lg:hidden with-transition" @on-change="setCurrentActive"/>
     </div>
 </template>
 
@@ -267,6 +270,7 @@ import AppearanceIcon from '@/components/svg/AppearanceIcon.vue';
 import ExclamationIcon from '@/components/svg/ExclamationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import { decrypt } from '@/utils/cryp';
+import SettingBottomNav from '@/components/app/SettingBottomNav.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -296,7 +300,7 @@ const setCurrentActive = (currentActive: number) => {
             break;
         case 4:
             state.titile = 'Zona Bahaya';
-            updateParams('tab', 'danger_zone');
+            updateParams('tab', 'privacy');
             break;
         default:
             state.titile = 'Profile';
@@ -317,7 +321,6 @@ async function onUpdateAvatar(event: any){
         if(newPhotoObject.size > 2097152){
             alert("Max photo size is 2Mb!")
         }else{
-            // Realtime updated
          await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
         }
       }
@@ -338,7 +341,7 @@ function isTab() {
         PROFILE: route.query.tab == 'profile',
         ACCOUNT: route.query.tab == 'account',
         APPEARANCE: route.query.tab == 'appearance',
-        DANGER_ZONE: route.query.tab == 'danger_zone'
+        DANGER_ZONE: route.query.tab == 'privacy'
     }
 }
 </script>

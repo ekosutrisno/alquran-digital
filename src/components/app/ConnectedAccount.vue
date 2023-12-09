@@ -6,7 +6,7 @@
                 <span>Akun terhubung</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">
-                <p class="text-sm text-slate-700 dark:text-slate-300">This is the provider that is used for you to log in to the application and also what accounts are connected.</p>
+                <p class="text-sm text-slate-700 dark:text-slate-300">Ini adalah provider yang digunakan bagi Anda untuk masuk ke aplikasi dan juga akun apa yang terhubung.</p>
             </div>
         </div>
         <div class="flex items-center space-x-4 text-sm dark:text-white">

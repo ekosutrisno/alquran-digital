@@ -64,6 +64,7 @@ import { useDark, useToggle } from '@vueuse/core';
 import { reactive } from 'vue';
 import AppearanceIcon from '../svg/AppearanceIcon.vue';
 import SizeIcon from '../svg/SizeIcon.vue';
+import { QuranLayoutSize } from '@/types/user.interface';
 
 const isDark = useDark();
 const toggle = useToggle(isDark);
@@ -103,7 +104,7 @@ const state = reactive({
 })
 
 
-const selectSize = (size: any)=> {
+const selectSize = (size: QuranLayoutSize)=> {
     utilService.setAlquranSize(size); 
     state.sizeSelected  = size;
 }

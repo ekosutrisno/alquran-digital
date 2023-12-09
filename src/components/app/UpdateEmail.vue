@@ -6,7 +6,7 @@
              <span>Update email</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">
-            <p class="text-sm text-slate-600 dark:text-slate-300">Changing your email will update your email for login and any action which requires the email. The new email should be an active email because it need to verify.</p>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Mengubah email Anda akan memperbarui email Anda untuk login dan tindakan apa pun yang memerlukan email. Email baru harus berupa email aktif karena perlu diverifikasi.</p>
         </div>
     </div>
     <div v-if="!state.onChange">

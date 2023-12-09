@@ -6,7 +6,7 @@
              <span>Update password</span>
         </p>
         <div class="border-t dark:border-slate-700/50 mt-2 py-2">
-            <p class="text-sm text-slate-600 dark:text-slate-300">Changing your password will update your password for login and any action which requires the password.</p>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Mengubah kata sandi Anda akan memperbarui kata sandi Anda untuk login dan tindakan apa pun yang memerlukan kata sandi.</p>
         </div>
     </div>
     <div v-if="!state.onChange">
