@@ -11,7 +11,7 @@
           "headers": [
             {
               "key": "Content-Security-Policy",
-              "value": "default-src 'self' googleapis.com; script-src 'self' googletagmanager.com googleapis.com; style-src 'self' googleapis.com; font-src 'self' gstatic.com; img-src 'self' cloudinary.com; frame-src 'self'"
+              "value": "default-src 'self'; script-src 'self' 'nonce-{script value}' 'strict-dynamic' https: 'unsafe-eval' blob: https://www.googletagmanager.com; connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:; style-src 'self' 'nonce-{style value}' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com https://res.cloudinary.com data:; frame-src 'self' *.google.com; worker-src blob:;"
             }
           ]
         }
