@@ -11,7 +11,7 @@
           "headers": [
             {
               "key": "Content-Security-Policy",
-              "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'strict-dynamic' https: blob: https://www.googletagmanager.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com *.google.com data: blob:; style-src 'self' 'unsafe-inline' 'sha256-skqujXORqzxt1aE0NNXxujEanPTX6raoqSscTV/Ww/Y=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.googleapis.com *.google.com https://res.cloudinary.com data:; frame-src 'self' *.google.com; worker-src blob:;"
+              "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'strict-dynamic' https: blob: https://www.googletagmanager.com; connect-src 'self' https://securetoken.googleapis.com https://firebase.googleapis.com https://*.firebaseio.com *.google.com data: blob:; style-src 'self' 'unsafe-inline' 'sha256-skqujXORqzxt1aE0NNXxujEanPTX6raoqSscTV/Ww/Y=' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleapis.com *.google.com https://res.cloudinary.com; frame-src 'self' *.google.com; worker-src blob:;"
             }
           ]
         }
