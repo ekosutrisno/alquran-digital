@@ -11,7 +11,7 @@
           "headers": [
             {
               "key": "Content-Security-Policy",
-              "value": "script-src 'self';"
+              "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://firebase.googleapis.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src https://firebase.googleapis.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://res.cloudinary.com; frame-src 'self' *.google.com"
             }
           ]
         }
