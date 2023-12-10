@@ -53,3 +53,23 @@ npm run serve
   - Enable Firestore.
   - Enable Storage.
   - Enable Realtime Database.
+
+### CSP
+
+```json
+
+// This Currently Disabled
+{
+  "headers": [
+        {
+          "source": "/(.*)",
+          "headers": [
+            {
+              "key": "Content-Security-Policy-Report-Only",
+              "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://firebase.googleapis.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src https://firebase.googleapis.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://res.cloudinary.com; frame-src 'self' *.google.com; report-uri /csp_report_parser;"
+            }
+          ]
+        }
+      ]
+}
+```
