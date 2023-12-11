@@ -64,14 +64,14 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 const juzService = useJuz();
 const { juz, isLoading } = storeToRefs(juzService);
 
-onMounted(()=> {
-    if(!juz.value.length)
+onMounted(() => {
+    if (!juz.value.length)
         juzService.getJuzMetadata();
 });
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>

@@ -76,18 +76,18 @@ import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import { decrypt } from '@/utils/cryp';
 
 const ayahService = useAyah();
-const { surahPilihan, isLoading} = storeToRefs(ayahService);
+const { surahPilihan, isLoading } = storeToRefs(ayahService);
 const isLogin = ref<string>(decrypt(String(localStorage.getItem("_uid"))));
 
-onMounted(()=> {
-    if(!surahPilihan.value.length && isLogin.value.length)
+onMounted(() => {
+    if (!surahPilihan.value.length && isLogin.value.length)
         ayahService.onGetSurahPilihan();
-    }
+}
 );
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>

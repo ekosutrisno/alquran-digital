@@ -61,16 +61,16 @@ import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 
 const manzilService = useManzil();
-const { manzil, isLoading}  = storeToRefs(manzilService);
+const { manzil, isLoading } = storeToRefs(manzilService);
 
-onMounted(()=> {
-    if(!manzil.value.length)
+onMounted(() => {
+    if (!manzil.value.length)
         manzilService.getManzilMetadata();
 });
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>

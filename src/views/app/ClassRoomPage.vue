@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <CardNotLogin v-if="!state.isLogin"/>
+            <CardNotLogin v-if="!isLogin"/>
 
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700 h-full p-2">
                 <p class="flex items-center flex-wrap space-x-2">
@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import CardClassRoom from '@/components/app/card/CardClassRoom.vue';
@@ -86,28 +86,26 @@ import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
 const roomService = useClassRoom();
 const { isLoading, rooms } = storeToRefs(roomService);
 
-const state = reactive({
-    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    rooms: computed(()=> JSON.parse(localStorage.getItem('_rooms') != 'undefined' ?   localStorage.getItem('_rooms') as string : '[]')),
-    option: false,
-});
+const option = ref(false);
 
-onMounted(()=>{ 
-    if(state.rooms.length > 0)
-        roomService.getRooms( state.rooms as string[])
+const roomIds = computed(() => JSON.parse(localStorage.getItem('_rooms') != 'undefined' ? localStorage.getItem('_rooms') as string : '[]'));
+const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))));
+
+onMounted(() => {
+    if (roomIds.value.length > 0)
+        roomService.getRooms(roomIds.value as string[])
 })
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value;
 }
-
 </script>

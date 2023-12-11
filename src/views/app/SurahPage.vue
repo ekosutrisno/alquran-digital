@@ -80,19 +80,18 @@ import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 
 const surahService = useSurah();
-const { surahs, isLoading, filteredSurah} = storeToRefs(surahService);
-
-onMounted(()=> {
-    if(!surahs.value.length)
-        surahService.getSurahMetada();
-    }
-);
-
+const { surahs, isLoading, filteredSurah } = storeToRefs(surahService);
 const searchQuery = ref('');
+
+onMounted(() => {
+    if (!surahs.value.length)
+        surahService.getSurahMetada();
+}
+);
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>

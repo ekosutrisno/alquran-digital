@@ -1,7 +1,7 @@
 <template>
     <ButtonBack :to="{name: 'LoginPage'}"/>
 
-    <div v-if="state.isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
+    <div v-if="isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
         <Loader/>
     </div>
 
@@ -36,13 +36,13 @@
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div>
                             <label for="new-password" class="sr-only">New Password</label>
-                            <input id="new-password" v-model="state.auth.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="New Password" />
-                            <p v-if="state.isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
+                            <input id="new-password" v-model="authRequest.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="New Password" />
+                            <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                         <div>
                             <label for="new-confirm-password" class="sr-only">Confirm New Password</label>
-                            <input id="new-confirm-password" v-model="state.auth.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Confirm New Password" />
-                            <p v-if="state.isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
+                            <input id="new-confirm-password" v-model="authRequest.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Confirm New Password" />
+                            <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                     </div>
                     <div>
@@ -58,10 +58,10 @@
 
 <script setup lang="ts">
 import { verifyPasswordResetCode } from "@firebase/auth";
-import { computed, reactive } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from "vue-toastification";
-import { useAuth  } from '@/services/useAuth';
+import { useAuth } from '@/services/useAuth';
 import { isMatchPassword } from '@/utils/helperFunction';
 import { auth } from "@/config/firebase.config";
 import ButtonBack from "@/components/shared/ButtonBack.vue";
@@ -74,17 +74,12 @@ const toast = useToast();
 
 const { oobCode, mode } = route.query;
 
-const state = reactive({
-    auth: {
-        newPassword: '',
-        newConfirmPassword: ''
-    },
-    isEmailNotRegisterd: false,
-    isSendProcess: false
-})
+const authRequest = ref({ newPassword: '', newConfirmPassword: '' });
+const isEmailNotRegisterd = ref(false);
+const isSendProcess = ref(false);
 
-const isValidPassword = computed(()=> 
-    isMatchPassword(state.auth.newPassword, state.auth.newConfirmPassword)
+const isValidPassword = computed(() =>
+    isMatchPassword(authRequest.value.newPassword, authRequest.value.newConfirmPassword)
 );
 
 const confirmPasswordResetAction = (): void => {
@@ -92,10 +87,10 @@ const confirmPasswordResetAction = (): void => {
         verifyPasswordResetCode(auth, `${oobCode}`)
             .then((email) => {
                 if (email) {
-                    resetPasswordConfirm(oobCode as string, state.auth.newPassword)
+                    resetPasswordConfirm(oobCode as string, authRequest.value.newPassword)
                         .then(() => {
                             router.replace({ name: 'LoginPage' });
-                            toast.success('Your password has been updated.');
+                            toast.success('Password berhasil diupdate.');
                         });
                 }
             })

@@ -178,11 +178,11 @@ const { isLoading, room, members, mentor } = storeToRefs(roomService);
 const { subjects } = useClassSubject();
 
 const state = reactive({
-    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
+    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid")))),
     option: false
 });
 
-onMounted(async () => { 
+onMounted(async () => {
     updateParams('tab', String(route.query.tab) as TabParam);
     roomService.getRoom(route.params.room_id as Room['id']);
 })
@@ -190,7 +190,7 @@ onMounted(async () => {
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
 const target = ref(null)
@@ -201,8 +201,8 @@ const hideMenuOption = () => {
 }
 
 function updateParams(paramName: string, paramValue: TabParam) {
-  const query = { ...route.query };
-  query[paramName] = paramValue;
-  router.push({ query });
+    const query = { ...route.query };
+    query[paramName] = paramValue;
+    router.push({ query });
 };
 </script>

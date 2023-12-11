@@ -14,6 +14,7 @@
    <ModalSearch :open="state.onSearch" @close-modal="closeModal"/>
  </Teleport>
 </template>
+
 <script setup lang="ts">
 import NavbarHeader from '@/components/app/NavbarHeader.vue';
 import { useUtil } from '@/services';
@@ -26,16 +27,16 @@ import { initFlowbite } from 'flowbite';
 onMounted(() => initFlowbite());
 
 const utilService = useUtil();
-const {wideMenu} = storeToRefs(utilService);
+const { wideMenu } = storeToRefs(utilService);
 const state = reactive({
    onSearch: false
 })
 
-const openModal = ()=>{
+const openModal = () => {
    state.onSearch = !state.onSearch;
 }
 
-const closeModal = (open: boolean)=>{
+const closeModal = (open: boolean) => {
    state.onSearch = open;
 }
 </script>

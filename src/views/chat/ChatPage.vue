@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { useChats, useClassRoom } from '@/services';
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import CardRoomList from '@/components/chat/CardRoomList.vue';
 import CardMemberList from '@/components/chat/CardMemberList.vue';
@@ -36,16 +36,13 @@ const chatService = useChats();
 
 const { getMembers, rooms } = storeToRefs(roomService);
 const { peerUser } = storeToRefs(chatService);
-
-const state = reactive({
-    roomsIds: computed(() =>localStorage.getItem('_rooms') as string)
-})
+const roomsIds = computed(() => String(localStorage.getItem('_rooms')))
 
 onMounted(() => {
-    if (state.roomsIds) {
-        roomService.getRooms(JSON.parse(state.roomsIds))
-            .then( async () => {
-                await roomService.getRoom(route.params.roomId as string);
+    if (roomsIds.value) {
+        roomService.getRooms(JSON.parse(roomsIds.value))
+            .then(async () => {
+                await roomService.getRoom(String(route.params.roomId));
             });
     }
 })

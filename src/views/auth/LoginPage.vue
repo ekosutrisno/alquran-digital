@@ -91,8 +91,8 @@ const authService = useAuth();
 const { loginEmailPassword, loginGoogle } = authService;
 const { error, isLoginProcess, authRequest } = storeToRefs(authService)
 
-onMounted(()=>{
-    if (decrypt(String(localStorage.getItem("_uid")))) 
-        router.replace({name: 'AppDashboard'});
+onMounted(() => {
+    if (decrypt(String(localStorage.getItem("_uid"))))
+        router.replace({ name: 'AppDashboard' });
 })
 </script>

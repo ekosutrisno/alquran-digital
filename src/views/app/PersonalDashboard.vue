@@ -145,25 +145,26 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 const userService = useUser();
 const router = useRouter();
 
-const { currentUser, getSurahNameBacaan, getLoginAsInfo }  = storeToRefs(userService);
+const { currentUser, getSurahNameBacaan, getLoginAsInfo } = storeToRefs(userService);
 const isSearch = ref(false);
 const isLogedIn = ref(localStorage.getItem('_uid'));
 
-const onLanjutBacaan = ()=>{
+const onLanjutBacaan = () => {
     router.push({
-        path: '/app/dashboard/alquran', 
-        query:{ 
-            sn: currentUser.value?.bacaanku?.sura_id, 
-            an: currentUser.value?.bacaanku?.aya_number, 
-            next_bacaan: 'true'}
-        })
+        name: 'AlquranPageDetail',
+        query: {
+            sn: currentUser.value?.bacaanku?.sura_id,
+            an: currentUser.value?.bacaanku?.aya_number,
+            next_bacaan: 'true'
+        }
+    })
 }
 
-const onSearch = (flag: boolean)=>{
+const onSearch = (flag: boolean) => {
     isSearch.value = flag;
 }
 
-const getFirstName = (fullName: string) =>{
-    return fullName ?  fullName.split(" ")[0] : 'Santri';
+const getFirstName = (fullName: string) => {
+    return fullName ? fullName.split(" ")[0] : 'Santri';
 }
 </script>

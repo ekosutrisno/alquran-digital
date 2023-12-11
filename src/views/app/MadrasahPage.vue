@@ -51,8 +51,6 @@
                 </div>
             </div>
 
-            <CardNotLogin v-if="!state.isLogin"/>
-
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700 h-full p-2">
                 <p class="flex items-center flex-wrap space-x-2">
                     <span>
@@ -70,26 +68,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { useMadrasah } from '@/services';
 import { storeToRefs } from 'pinia';
 import Loader from '@/components/Loader.vue';
-import CardNotLogin from '@/components/app/card/CardNotLogin.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import CardMadrasah from '@/components/app/card/CardMadrasah.vue';
-import { decrypt } from '@/utils/cryp';
 import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
 
 const madrasahService = useMadrasah();
 const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
-const state = reactive({
-    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    option: false,
-});
+const option = ref(false);
 
 onMounted(()=>{ 
     // if(state.rooms.length > 0)
@@ -106,7 +99,6 @@ const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value
 }
-
 </script>

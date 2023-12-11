@@ -55,7 +55,7 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <WidgetIcon />
-                        <span> {{ state.titile }} </span> 
+                        <span> {{ titile }} </span> 
                     </p>
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Detail Pengaturan</p>
                 </div>
@@ -254,7 +254,7 @@
 <script setup lang="ts">
 import { useUser } from '@/services';
 import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/helperFunction';
-import { computed, reactive } from 'vue';
+import { ref } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { storeToRefs } from 'pinia';
 import { User } from '@/types/user.interface';
@@ -269,7 +269,6 @@ import GearIcon from '@/components/svg/GearIcon.vue';
 import AppearanceIcon from '@/components/svg/AppearanceIcon.vue';
 import ExclamationIcon from '@/components/svg/ExclamationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
-import { decrypt } from '@/utils/cryp';
 import SettingBottomNav from '@/components/app/SettingBottomNav.vue';
 
 const route = useRoute();
@@ -279,61 +278,58 @@ const userService = useUser();
 const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
-const state = reactive({
-    isLogedIn: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    titile: 'Profile'
-});
+const titile = ref('Profile');
 
 const setCurrentActive = (currentActive: number) => {
     switch (currentActive) {
         case 1:
-            state.titile = 'Profile';
+            titile.value = 'Profile';
             updateParams('tab', 'profile');
             break;
         case 2:
-            state.titile = 'Pengaturan Akun';
+            titile.value = 'Pengaturan Akun';
             updateParams('tab', 'account');
             break;
         case 3:
-            state.titile = 'Tampilan';
+            titile.value = 'Tampilan';
             updateParams('tab', 'appearance');
             break;
         case 4:
-            state.titile = 'Zona Bahaya';
+            titile.value = 'Privacy';
             updateParams('tab', 'privacy');
             break;
         default:
-            state.titile = 'Profile';
+            titile.value = 'Profile';
             updateParams('tab', 'profile');
             break;
     }
 }
 
-async function onUpdateAvatar(event: any){
+async function onUpdateAvatar(event: any) {
     if (event.target.files && event.target.files[0]) {
         const fileType = event.target.files[0].type.toString();
-        
-        if(fileType.indexOf('image') != 0){
+
+        if (fileType.indexOf('image') != 0) {
             alert('Please Choose an Image'); return;
         }
         const newPhotoObject = event.target.files[0];
-        
-        if(newPhotoObject.size > 2097152){
+
+        if (newPhotoObject.size > 2097152) {
             alert("Max photo size is 2Mb!")
-        }else{
-         await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
+        } else {
+            await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
         }
-      }
+    }
 }
 
 async function updateData() {
-  await updateCurrentUserData(currentUser.value as User, {isSilent: false});
+    await updateCurrentUserData(currentUser.value as User, { isSilent: false });
 }
 
 function updateParams(paramName: string, paramValue: string) {
-  const query = { ...route.query };
-  query[paramName] = paramValue;
-  router.push({ query });
+    const query = { ...route.query };
+    query[paramName] = paramValue;
+    router.push({ query });
 };
 
 function isTab() {

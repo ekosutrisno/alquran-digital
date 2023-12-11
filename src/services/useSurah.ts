@@ -63,14 +63,14 @@ export const useSurah = defineStore('surahService', {
                 meta: {
                     next_bacaan?: boolean,
                     sajda?: boolean,
-                    sn: string,
-                    an: string
+                    sn: number,
+                    an: number
                 }
             }) {
 
             this.isLoading = true;
 
-            const surah_no = surah_number ? surah_number : parseInt(options.meta.sn);
+            const surah_no = surah_number ? surah_number : options.meta.sn;
             const surahRef = surahDataRefConfig(String(surah_no));
 
             getDoc(surahRef)
@@ -82,8 +82,8 @@ export const useSurah = defineStore('surahService', {
                             this.setAyahOfSurah(doc.data().id);
                         else
                             this.setAyahDetailGeneral({
-                                surat: parseInt(options.meta.sn),
-                                ayat: parseInt(options.meta.an)
+                                surat: options.meta.sn,
+                                ayat: options.meta.an
                             }, { next_bacaan: options.meta.next_bacaan });
 
                         this.isLoading = false;
@@ -176,9 +176,7 @@ export const useSurah = defineStore('surahService', {
                 .then((doc) => {
                     const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
                     this.lastAyahVisible = lastVisible;
-
-                    console.log(lastVisible.data());
-
+                    
                     const tempData: AyahData[] = [];
 
                     doc.forEach((ayat) => {

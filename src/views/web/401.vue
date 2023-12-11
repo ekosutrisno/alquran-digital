@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" class="text-sm md:text-xl relative mx-auto mt-[60px] md:mt-14 inline-flex items-center space-x-1.5">
+  <router-link :to="{name: 'HomePage'}" class="text-sm md:text-xl relative mx-auto mt-[60px] md:mt-14 inline-flex items-center space-x-1.5">
       <span>
           <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7 hidden sm:block">
       </span>
@@ -9,9 +9,9 @@
     <div class="flex flex-col z-30 with-transition items-start">
       <div class="text-sky-500 text-2xl md:text-4xl font-semibold">401</div>
       <div class="pt-4">
-        <h3 class="dark:text-slate-50 text-color-dark-gray-darker text-2xl md:text-4xl font-semibold">UnAuthorized</h3>
-        <p class="dark:text-slate-300">You do not get permission to access this page.</p>
-         <ButtonSky :text="`Back to the last page`"/>
+        <h3 class="dark:text-slate-50 text-color-dark-gray-darker text-2xl md:text-4xl font-semibold">Unauthorized</h3>
+        <p class="dark:text-slate-300">Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+         <ButtonSky text="Kembali Ke Halaman Terakhir"/>
       </div>
     </div>
   </div>

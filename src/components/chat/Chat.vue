@@ -23,9 +23,9 @@ import { decrypt } from '@/utils/cryp';
 import { formatChatTime } from '@/utils/helperFunction';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-const props = defineProps<{chat: Chat, peer: User}>();
+const props = defineProps<{ chat: Chat, peer: User }>();
 
 const { getPhotoUrl } = storeToRefs(useUser());
 
-const me = computed(()=> decrypt(String(localStorage.getItem("_uid"))) == props.chat.from)
+const me = computed(() => decrypt(String(localStorage.getItem("_uid"))) == props.chat.from)
 </script>
