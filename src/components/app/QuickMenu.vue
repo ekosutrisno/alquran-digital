@@ -32,5 +32,4 @@ const icons: Record<string, Component> = {
     'books': BooksIcon,
     'classroom': ClassRoomIcon,
 }
-
 </script>

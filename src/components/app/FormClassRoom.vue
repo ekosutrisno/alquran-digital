@@ -75,8 +75,7 @@ const props = defineProps<{ room: Room }>()
 const emit = defineEmits(['update:room', 'send'])
 const data = useVModel(props, 'room', emit)
 
-const send = ()=>{
+const send = () => {
     emit('send');
 }
-
 </script>

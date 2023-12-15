@@ -71,7 +71,6 @@ const toggle = useToggle(isDark);
 
 const utilService = useUtil();
 
-
 const state = reactive({
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)
@@ -103,9 +102,8 @@ const state = reactive({
     ]
 })
 
-
-const selectSize = (size: QuranLayoutSize)=> {
-    utilService.setAlquranSize(size); 
-    state.sizeSelected  = size;
+const selectSize = (size: QuranLayoutSize) => {
+    utilService.setAlquranSize(size);
+    state.sizeSelected = size;
 }
 </script>

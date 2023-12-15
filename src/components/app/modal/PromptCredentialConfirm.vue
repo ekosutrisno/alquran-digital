@@ -21,7 +21,7 @@
                           </p>
                         </div>
                         <form id="passwordConfirm" class="mt-4">
-                          <input v-model="state.passwordConfirm" type="password" placeholder="Type your password" class="py-2 px-4 rounded-md border-gray-300 dark:bg-slate-800 dark:border-slate-500/75 dark:text-white w-full focus:outline-none focus:ring-sky-500">
+                          <input v-model="passwordConfirm" type="password" placeholder="Type your password" class="py-2 px-4 rounded-md border-gray-300 dark:bg-slate-800 dark:border-slate-500/75 dark:text-white w-full focus:outline-none focus:ring-sky-500">
                         </form>
                       </div>
                     </div>
@@ -43,27 +43,23 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive} from 'vue'
+import { computed, ref } from 'vue'
 import { Dialog, DialogPanel, TransitionRoot, DialogTitle } from '@headlessui/vue'
 import ExclamationIcon from '../../svg/ExclamationIcon.vue'
 
-defineProps<{ open: boolean }>()
-const emit = defineEmits<{(e: 'close-modal', open: boolean): void, (e: 'action', passwordConfirm: string): void}>();
+defineProps<{ open: boolean }>();
+const emit = defineEmits<{ (e: 'close-modal', open: boolean): void, (e: 'action', passwordConfirm: string): void }>();
 
-const state = reactive({
-    passwordConfirm: ''
-});
+const passwordConfirm = ref('');
+const checkPassword = computed(() => passwordConfirm.value.trim().length >= 6)
 
-const closeModal = ()=> {
-    emit('close-modal', false);
-    state.passwordConfirm = '';
+const closeModal = () => {
+  emit('close-modal', false);
+  passwordConfirm.value = '';
 }
 
-const mainAction = ()=> {
-    emit('action', state.passwordConfirm);
-    state.passwordConfirm = '';
+const mainAction = () => {
+  emit('action', passwordConfirm.value);
+  passwordConfirm.value = '';
 }
-
-const checkPassword = computed(()=> state.passwordConfirm.trim().length >= 6)
-
 </script>

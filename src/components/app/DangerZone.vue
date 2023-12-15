@@ -54,6 +54,5 @@ const { asMentorInRoom } = storeToRefs(roomService)
 const userService = useUser();
 const { currentUser } = storeToRefs(userService);
 
-onMounted(()=> roomService.haveClassRoom());
-
+onMounted(() => roomService.haveClassRoom());
 </script>

@@ -33,5 +33,4 @@ import FirebaseIcon from '../svg/FirebaseIcon.vue';
 import ProfileIcon from '../svg/ProfileIcon.vue';
 
 const { currentUserSession } = storeToRefs(useAuth());
-
 </script>

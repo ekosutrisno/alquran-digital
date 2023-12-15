@@ -168,16 +168,18 @@ const state = reactive({
 });
 
 onMounted(() => {
-    setTitle();
     loadData();
 });
 
-const setTitle = () => {
+const isLast = computed(() => ayahs.value.length === surah.value?.count_ayat);
+const isIncludeMyPilihan = computed(() => surahPilihan.value.some(surat => surat.id === surah.value?.id));
+
+function setTitle() {
     const title = useTitle();
-    title.value = `${title.value}${surah ? ` | ${surah.value?.surat_text_full}` : ''}`
+    title.value = `${title.value}${surah ? ` | ${surah.value?.surat_name}` : ''}`
 }
 
-const loadData = () => {
+function loadData() {
     surahService
         .setSurah(routeQuery.surah_number as SurahData['id'],
             {
@@ -191,23 +193,23 @@ const loadData = () => {
             })
         .then(() => {
             if (decrypt(String(localStorage.getItem("_uid"))))
-                ayahService.onGetSurahPilihan()
+                ayahService.onGetSurahPilihan();
+
+            setTitle();
         });
 }
 
-const loadNextAyah = () => {
+function loadNextAyah() {
     routeQuery?.is_surah
         ? surahService.nextAyahSurahOfSurah(routeQuery.surah_number as SurahData['id'])
         : surahService.nextAyahSurahOfSurahDetail()
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();
-const scrollToPageUp = () => {
+function scrollToPageUp() {
     if (pageUp)
         pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
-
-const isLast = computed(() => ayahs.value.length === surah.value?.count_ayat);
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
@@ -221,9 +223,7 @@ const selectSize = (size: any) => {
     state.sizeSelected = size;
 }
 
-const isIncludeMyPilihan = computed(() => surahPilihan.value.some(surat => surat.id === surah.value?.id));
-
-const addToSurahPilihan = async () => {
+async function addToSurahPilihan() {
     if (isIncludeMyPilihan.value)
         ayahService.onRemoveSurahPilihan(Number(surah.value?.id));
     else

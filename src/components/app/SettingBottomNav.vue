@@ -30,5 +30,4 @@ const emits = defineEmits<{ (e: 'on-change', tab: number): void }>();
 function goTo(tab: number) {
     emits('on-change', tab);
 }
-  
 </script>
