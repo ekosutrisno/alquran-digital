@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-screen-lg mx-auto dark:text-white p-4 prose">
         <div>
-            <h1 class="font-semibold text-4xl mt-4 text-center">Privacy Policy</h1>
+            <h1 class="font-semibold text-4xl mt-4 text-center">Kebijakan Privasi</h1>
             <p class="text-center text-sm mt-2">Last updated on July 17, 2022</p>
             <p class="mb-2 mt-4">At <span class="text-sky-600 dark:text-sky-500 font-medium">Al-Quran Digital Bahasa Indonesia</span>, accessible from <a href="https://alquran-digital.vercel.app" class="text-sky-500 underline">https://alquran-digital.vercel.app</a> , one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by <span class="text-sky-600 dark:text-sky-500 font-medium">Al-Quran Digital Bahasa Indonesia</span> and how we use it.</p>
             <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>

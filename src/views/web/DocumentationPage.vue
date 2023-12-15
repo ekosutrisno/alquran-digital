@@ -1,14 +1,14 @@
 <template>
     <div class="max-w-screen-lg mx-auto p-4 prose dark:text-white">
         <h1 class="text-3xl font-semibold dark:text-white">Al-Quran Digital</h1>
-        <p class="mt-4">Al-Quran Digital merupakan Al-Quran Digital Terjemahan Bahasa Indonesia mempunyai fitur lengkap sperti mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
+        <p class="mt-4">Al-Quran Digital Terjemahan Bahasa Indonesia dengan fitur mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
         <section>
             <h2 class="text-2xl font-semibold dark:text-white"> &bull; Nama</h2>
             <ul class="mt-4 ml-8 space-y-4">
                 Official Name: <span class="font-bold">Al-Quran Digital Bahasa Indonesia</span>
             </ul>
             <ul class="ml-8 space-y-4">
-                Started development on May 19, 2022 at 21:20 WIB.
+                Mulai development 19 Mei 2022 jam 21:20 WIB.
             </ul>
         </section>
 
@@ -89,7 +89,7 @@
                 <li>
                     <h3 class="text-lg font-semibold dark:text-white">Backend</h3>
                     <ul class="list-disc ml-8">
-                        <li><span class="font-semibold">Firebase v9+</span> (Make your app the best it can be)</li>
+                        <li><span class="font-semibold">Firebase v10+</span> (Make your app the best it can be)</li>
                     </ul>
                 </li>
             </ul>

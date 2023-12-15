@@ -25,7 +25,7 @@
 
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
-             <div class="bg-white pl-6 md:pl-8 h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
+             <div class="hidden lg:block pl-6 md:pl-8 h-max sm:max-w-md space-y-2 bg-white dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
                 <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
@@ -55,7 +55,7 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <WidgetIcon />
-                        <span> {{ state.titile }} </span> 
+                        <span> {{ titile }} </span> 
                     </p>
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Detail Pengaturan</p>
                 </div>
@@ -245,13 +245,16 @@
             </div>
            
         </section>
+
+        <!-- Bottom Navigation On Mobile Only -->
+        <SettingBottomNav class="lg:hidden with-transition" @on-change="setCurrentActive"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useUser } from '@/services';
 import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/helperFunction';
-import { computed, reactive } from 'vue';
+import { ref } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { storeToRefs } from 'pinia';
 import { User } from '@/types/user.interface';
@@ -266,7 +269,7 @@ import GearIcon from '@/components/svg/GearIcon.vue';
 import AppearanceIcon from '@/components/svg/AppearanceIcon.vue';
 import ExclamationIcon from '@/components/svg/ExclamationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
-import { decrypt } from '@/utils/cryp';
+import SettingBottomNav from '@/components/app/SettingBottomNav.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -275,62 +278,58 @@ const userService = useUser();
 const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
-const state = reactive({
-    isLogedIn: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    titile: 'Profile'
-});
+const titile = ref('Profile');
 
 const setCurrentActive = (currentActive: number) => {
     switch (currentActive) {
         case 1:
-            state.titile = 'Profile';
+            titile.value = 'Profile';
             updateParams('tab', 'profile');
             break;
         case 2:
-            state.titile = 'Pengaturan Akun';
+            titile.value = 'Pengaturan Akun';
             updateParams('tab', 'account');
             break;
         case 3:
-            state.titile = 'Tampilan';
+            titile.value = 'Tampilan';
             updateParams('tab', 'appearance');
             break;
         case 4:
-            state.titile = 'Zona Bahaya';
-            updateParams('tab', 'danger_zone');
+            titile.value = 'Privacy';
+            updateParams('tab', 'privacy');
             break;
         default:
-            state.titile = 'Profile';
+            titile.value = 'Profile';
             updateParams('tab', 'profile');
             break;
     }
 }
 
-async function onUpdateAvatar(event: any){
+async function onUpdateAvatar(event: any) {
     if (event.target.files && event.target.files[0]) {
         const fileType = event.target.files[0].type.toString();
-        
-        if(fileType.indexOf('image') != 0){
+
+        if (fileType.indexOf('image') != 0) {
             alert('Please Choose an Image'); return;
         }
         const newPhotoObject = event.target.files[0];
-        
-        if(newPhotoObject.size > 2097152){
+
+        if (newPhotoObject.size > 2097152) {
             alert("Max photo size is 2Mb!")
-        }else{
-            // Realtime updated
-         await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
+        } else {
+            await updateFotoProfile(newPhotoObject as File, String(currentUser?.value?.user_id));
         }
-      }
+    }
 }
 
 async function updateData() {
-  await updateCurrentUserData(currentUser.value as User, {isSilent: false});
+    await updateCurrentUserData(currentUser.value as User, { isSilent: false });
 }
 
 function updateParams(paramName: string, paramValue: string) {
-  const query = { ...route.query };
-  query[paramName] = paramValue;
-  router.push({ query });
+    const query = { ...route.query };
+    query[paramName] = paramValue;
+    router.push({ query });
 };
 
 function isTab() {
@@ -338,7 +337,7 @@ function isTab() {
         PROFILE: route.query.tab == 'profile',
         ACCOUNT: route.query.tab == 'account',
         APPEARANCE: route.query.tab == 'appearance',
-        DANGER_ZONE: route.query.tab == 'danger_zone'
+        DANGER_ZONE: route.query.tab == 'privacy'
     }
 }
 </script>

@@ -115,21 +115,21 @@ const utilService = useUtil();
 const route = useRoute();
 
 interface RouteQuery {
-    surah_number: any;
+    surah_number: number;
     is_surah: boolean;
-    sn: any;
-    an: any;
+    sn: number;
+    an: number;
     next_bacaan: boolean;
     sajda: boolean;
 }
 
 const routeQuery: RouteQuery = {
-   surah_number: route.query.surah_number,
-   is_surah: route.query.is_surah === 'true' ? true : false,
-   sn: route.query.sn,
-   an: route.query.an,
-   next_bacaan: route.query.next_bacaan === 'true' ? true : false,
-   sajda: route.query.sajda === 'true' ? true : false
+    surah_number: Number(route.query.surah_number),
+    is_surah: route.query.is_surah === 'true' ? true : false,
+    sn: Number(route.query.sn),
+    an: Number(route.query.an),
+    next_bacaan: route.query.next_bacaan === 'true' ? true : false,
+    sajda: route.query.sajda === 'true' ? true : false
 };
 
 const { surah, isLoading, isPush, ayahs, } = storeToRefs(surahService)
@@ -167,21 +167,23 @@ const state = reactive({
     ]
 });
 
-onMounted(()=> {
-    setTitle();
+onMounted(() => {
     loadData();
 });
 
-const setTitle = ()=>{
+const isLast = computed(() => ayahs.value.length === surah.value?.count_ayat);
+const isIncludeMyPilihan = computed(() => surahPilihan.value.some(surat => surat.id === surah.value?.id));
+
+function setTitle() {
     const title = useTitle();
-    title.value = `${title.value}${surah ? ` | ${surah.value?.surat_text_full}` : ''}`
+    title.value = `${title.value}${surah ? ` | ${surah.value?.surat_name}` : ''}`
 }
 
-const loadData = ()=>{
+function loadData() {
     surahService
-        .setSurah(routeQuery.surah_number  as SurahData['id'],
-            { 
-                is_surah: routeQuery.is_surah, 
+        .setSurah(routeQuery.surah_number as SurahData['id'],
+            {
+                is_surah: routeQuery.is_surah,
                 meta: {
                     next_bacaan: routeQuery.next_bacaan,
                     sajda: routeQuery.sajda,
@@ -190,28 +192,24 @@ const loadData = ()=>{
                 }
             })
         .then(() => {
-            if(decrypt(String(localStorage.getItem("_uid"))))
-                ayahService.onGetSurahPilihan()
+            if (decrypt(String(localStorage.getItem("_uid"))))
+                ayahService.onGetSurahPilihan();
+
+            setTitle();
         });
 }
 
-const loadNextAyah  = () => {
-    routeQuery?.is_surah 
-        ? surahService.nextAyahSurahOfSurah(routeQuery.surah_number as SurahData['id'] ) 
+function loadNextAyah() {
+    routeQuery?.is_surah
+        ? surahService.nextAyahSurahOfSurah(routeQuery.surah_number as SurahData['id'])
         : surahService.nextAyahSurahOfSurahDetail()
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();
-const scrollToPageUp = () => {
+function scrollToPageUp() {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
-
-const isLast = computed(()=>{
-    const ayatsSize = computed(()=> ayahs.value.length);
-
-    return ayatsSize.value === surah.value?.count_ayat ? true : false;
-})
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
@@ -220,16 +218,14 @@ const hideMenuOption = () => {
     state.option = !state.option
 }
 
-const selectSize = (size: any)=> {
-    utilService.setAlquranSize(size); 
-    state.sizeSelected  = size;
+const selectSize = (size: any) => {
+    utilService.setAlquranSize(size);
+    state.sizeSelected = size;
 }
 
-const isIncludeMyPilihan = computed(()=>surahPilihan.value.some(surat => surat.id === surah.value?.id));
-
-const addToSurahPilihan = async ()=> {
-    if(isIncludeMyPilihan.value)
-        ayahService.onRemoveSurahPilihan(surah.value?.id as SurahData['id']);
+async function addToSurahPilihan() {
+    if (isIncludeMyPilihan.value)
+        ayahService.onRemoveSurahPilihan(Number(surah.value?.id));
     else
         ayahService.onMarkPilihan(surah.value as SurahData);
 }

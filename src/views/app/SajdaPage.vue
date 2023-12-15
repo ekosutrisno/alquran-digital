@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { useSajda } from '@/services';
-import { onMounted,  ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardSajdaMetadata from '@/components/app/card/CardSajdaMetadata.vue';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
@@ -63,14 +63,14 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 const sajdaService = useSajda();
 const { sajdas, isLoading } = storeToRefs(sajdaService);
 
-onMounted(()=> {
-    if(!sajdas.value.length)
+onMounted(() => {
+    if (!sajdas.value.length)
         sajdaService.getSajdaMetadata();
 });
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>

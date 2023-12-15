@@ -34,12 +34,11 @@ const supportedLocales = Tr.supportedLocales
 const router = useRouter()
 
 const switchLanguage = async (newLocale: LocalesSupport) => {
-    await Tr.switchLanguage(newLocale);
-    try {
-        await router.replace({ params: { locale: newLocale } })
-    } catch (e) {
-        console.log(e)
-        router.push("/")
-    }
+  await Tr.switchLanguage(newLocale);
+  try {
+    await router.replace({ params: { locale: newLocale } })
+  } catch {
+    router.push({ name: 'HomePage' })
+  }
 }
 </script>

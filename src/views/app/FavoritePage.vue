@@ -10,7 +10,7 @@
                        <WidgetPlusIcon/>
                         <span>Favorit</span> 
                     </p>
-                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{state.favorites.length}} / {{convertToArab(`${state.favorites.length}`)}} </span> Ayah</p>
+                    <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{favorites.length}} / {{convertToArab(`${favorites.length}`)}} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
@@ -37,7 +37,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
-                        <div v-if="state.option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
+                        <div v-if="option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
                             <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
                                 <div class="col-span-1">{{ size.size }}</div> <div class="text-sm col-span-3 text-left">({{ size.text}})</div>
                             </button>
@@ -49,24 +49,24 @@
             </div>
             
             <div class="mt-8 mx-auto select-none">
-                <div v-if="state.ayah" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{state.currentSurah?.surat_golongan}})</span> | {{state.currentSurah?.surat_text_full}} </div>
+                <div v-if="ayah" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{currentSurah?.surat_golongan}})</span> | {{currentSurah?.surat_text_full}} </div>
                 <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
             </div>
 
-            <div v-if="state.isLoading" class="flex items-center justify-center">
+            <div v-if="isLoading" class="flex items-center justify-center">
                 <Loader />
             </div>
 
             <div :class="[state.sizeSelected.class]" class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                <CardAyahMetadata
-                    v-for="ayah in state.favorites"
+                    v-for="ayah in favorites"
                     :ayat="ayah"
                     isFavorite
                />
             </div>
 
-            <CardNotLogin v-if="!state.isLogin"/>
+            <CardNotLogin v-if="!isLogin"/>
 
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700 max-h-16 h-full p-2">
                 <p class="inline-flex items-center space-x-2">
@@ -96,19 +96,22 @@ import Loader from '@/components/Loader.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import { decrypt } from '@/utils/cryp';
+import { QuranLayoutSize } from '@/types/user.interface';
 
 const surahService = useSurah();
 const userService = useUser();
 const ayahService = useAyah();
 const utilService = useUtil();
 
+const currentSurah = computed(() => userService.surahBacaanUser);
+const isLoading = computed(() => surahService.isLoading);
+const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))));
+const ayah = computed(() => userService.currentUser?.bacaanku);
+const favorites = computed(() => ayahService.ayahFavorite);
+
+const option = ref(false);
+
 const state = reactive({
-    currentSurah: computed(() => userService.surahBacaanUser),
-    isLoading: computed(() => surahService.isLoading),
-    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    ayah: computed(() => userService.currentUser?.bacaanku),
-    favorites: computed(() => ayahService.ayahFavorite),
-    option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)
         : {
@@ -140,25 +143,25 @@ const state = reactive({
 });
 
 onMounted(() => {
-    if(state.isLogin.length)
+    if (isLogin.value.length)
         ayahService.onGetFavorit()
 });
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value
 }
 
-const selectSize = (size: any)=> {
-    utilService.setAlquranSize(size); 
-    state.sizeSelected  = size;
+const selectSize = (size: QuranLayoutSize) => {
+    utilService.setAlquranSize(size);
+    state.sizeSelected = size;
 }
 </script>

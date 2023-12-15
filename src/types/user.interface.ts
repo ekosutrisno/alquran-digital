@@ -112,3 +112,5 @@ export interface QuickMenuType {
 }
 
 export type TagType = 'dev' | 'alpha' | 'beta' | 'new' | 'stable';
+
+export interface QuranLayoutSize { id: number, size: string, text: string, class: string };

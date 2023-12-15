@@ -2,7 +2,7 @@
 <div class="relative w-full border-b transition border-slate-700 border-opacity-[0.15] bg-white dark:border-slate-700 dark:bg-[#10172A]">
   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="mx-auto w-full flex items-center justify-between p-8 px-4 md:px-10 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
     <router-link to="/" class="text-2xl inline-flex items-center space-x-1.5">
-      <p class="text-gradien font-semibold lg:font-bold">Al-Quran<span class="hidden md:inline"> Digital</span> <span class="align-super text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
+      <p class="text-gradien font-semibold lg:font-bold">Al-Quran<span class="hidden md:inline"> Digital</span> <span class="align-super hidden text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
     </router-link>
     <div class="flex items-center">
       <div class="items-center flex">

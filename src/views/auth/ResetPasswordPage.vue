@@ -1,7 +1,7 @@
 <template>
     <ButtonBack :to="{name: 'LoginPage'}"/>
 
-    <div v-if="state.isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
+    <div v-if="isSendProcess" class="absolute inset-0 z-50 bg-gray-400/25 flex flex-col items-center justify-center">
         <Loader/>
     </div>
 
@@ -32,8 +32,8 @@
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div>
                             <label for="email-address" class="sr-only">Alamat email</label>
-                            <input id="email-address" v-model="state.auth.email" name="email" type="email" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
-                            <p v-if="state.isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email tidak terdaftar.</p>
+                            <input id="email-address" v-model="email" name="email" type="email" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                            <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email tidak terdaftar.</p>
                         </div>
                     </div>
                     <div>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuth } from '@/services';
 import { validateEmail } from '@/utils/helperFunction';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
@@ -56,28 +56,23 @@ import Loader from '@/components/Loader.vue';
 
 const authService = useAuth();
 
-const state = reactive({
-    auth:{
-        email: ''
-    },
-    isEmailNotRegisterd: false,
-    isSendProcess: false
-})
+const email = ref('');
+const isEmailNotRegisterd = ref(false);
+const isSendProcess = ref(false);
+
+const isValidEmail = computed(() => validateEmail(email.value));
 
 const onSendEmailVerification = () => {
 
-    state.isSendProcess = true;
+    isSendProcess.value = true;
 
-    if(validateEmail(state.auth.email)){
+    if (validateEmail(email.value)) {
         authService
-            .sendPasswordResetEmail(state.auth.email)
-                .then(()=> {
-                    state.auth.email = '';
-                    state.isSendProcess = false;
-                })
+            .sendPasswordResetEmail(email.value)
+            .then(() => {
+                email.value = '';
+                isSendProcess.value = false;
+            })
     }
 }
-
-const isValidEmail = computed(()=> validateEmail(state.auth.email));
-
 </script>

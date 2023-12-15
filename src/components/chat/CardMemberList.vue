@@ -26,7 +26,7 @@ import { get, limitToLast, onValue, orderByKey, query, ref as reference } from '
 import { database } from '@/config/firebase.config';
 import { formatChatTime } from '@/utils/helperFunction';
 import { decrypt } from '@/utils/cryp';
-const props = defineProps<{member: {name: string,id: string,color: string,avatar: string}}>()
+const props = defineProps<{ member: { name: string, id: string, color: string, avatar: string } }>()
 
 const me = ref<string>(decrypt(String(localStorage.getItem("_uid"))));
 const lastChat = ref<Chat>({} as Chat);
@@ -35,7 +35,7 @@ const { getChats, onNewMesage } = useChats();
 onMounted(async () => await getLastChat(me.value, props.member.id));
 
 async function getLastChat(meId: string, peerId: string) {
-  const temporary = ref<Chat[]>([] as Chat[]);
+  const temporary = ref<Chat[]>([]);
   const chatKey = ref<string>()
 
   const toMe = `${peerId}@${meId}`; // ID: peer:me
@@ -44,7 +44,7 @@ async function getLastChat(meId: string, peerId: string) {
   let checkingReference = reference(database, `personal_chats/${toMe}`);
   const checkIfExist = await get(checkingReference);
 
-  chatKey.value  = checkIfExist.exists() ? toMe : fromMe;
+  chatKey.value = checkIfExist.exists() ? toMe : fromMe;
 
   const chatQuery = query(reference(database, `personal_chats/${chatKey.value}`), orderByKey(), limitToLast(1));
   onValue(chatQuery, async (resultQuery) => {

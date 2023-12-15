@@ -1,3 +1,4 @@
+import { QuranLayoutSize } from '@/types/user.interface';
 import { defineStore } from "pinia";
 
 interface UtilState {
@@ -13,7 +14,7 @@ export const useUtil = defineStore('utilityService', {
     }),
 
     actions: {
-        setAlquranSize(size: { id: number, size: string, text: string, class: string }) {
+        setAlquranSize(size: QuranLayoutSize) {
             localStorage.setItem('_a_size', JSON.stringify(size));
         }
     },

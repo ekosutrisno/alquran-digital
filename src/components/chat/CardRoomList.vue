@@ -29,11 +29,11 @@
 import { useClassRoom } from '@/services';
 import { Room } from '@/types/room.interface';
 
-defineProps<{room: Room}>();
+defineProps<{ room: Room }>();
 
-const roomService =  useClassRoom();
+const roomService = useClassRoom();
 
 async function setMember(roomId: Room['id']) {
-     await roomService.getRoom(roomId);
+  await roomService.getRoom(roomId);
 }
 </script>

@@ -18,7 +18,7 @@ import { SpeedInsights } from "@vercel/speed-insights/vue"
 const { loadNotifications, onMessageForeground } = useNotification();
 const { chatInfo } = useChats();
 const { authState } = useAuth()
-const isLogin = ref<string | null>(decrypt(String(localStorage.getItem("_uid"))))
+const isLogin = ref(decrypt(String(localStorage.getItem("_uid"))));
 
 onBeforeMount(() => authState());
 
@@ -32,7 +32,7 @@ onMounted(() => {
     requestPermission();
     getTokenFcm(isLogin.value);
 
-    // Notifications handling
+    // Notifications handling (Need Improvement)
     loadNotifications();
     onMessageForeground();
   }

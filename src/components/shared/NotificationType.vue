@@ -26,5 +26,5 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{type: string}>()
+defineProps<{ type: string }>();
 </script>

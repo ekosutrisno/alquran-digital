@@ -84,25 +84,24 @@ import Loader from '@/components/Loader.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { DocumentData } from 'firebase/firestore';
 
 const pageService = usePage();
 const { pages, lastPageVisible, isLast, isLoading, isPush, filteredPage } = storeToRefs(pageService);
+const searchQuery = ref('');
 
-onMounted(()=> {
-    if(!pages.value.length)
+onMounted(() => {
+    if (!pages.value.length)
         pageService.getPageMetadata();
 });
-
-const searchQuery = ref('');
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
-const nextPage = ()=>{
-    pageService.nextPage({lastVisible: lastPageVisible.value as any});
+const nextPage = () => {
+    pageService.nextPage({ lastVisible: lastPageVisible.value as DocumentData });
 }
-
 </script>

@@ -66,17 +66,17 @@ import { SearchItem } from '@/types/user.interface';
 const router = useRouter();
 const query = ref('')
 
-const emit  = defineEmits<{(e: 'close-modal', open: boolean): void}>();
-defineProps<{open: boolean}>();
+const emit = defineEmits<{ (e: 'close-modal', open: boolean): void }>();
+defineProps<{ open: boolean }>();
 
 const goToPage = (item: SearchItem) => {
   onCloseModal();
   router.push({ name: item.to, query: item.query, params: item.params });
 }
 
-const onCloseModal = ()=> {
+const onCloseModal = () => {
   emit('close-modal', false);
-  query.value= '';
+  query.value = '';
 }
 
 const options: SearchOption = {

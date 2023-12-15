@@ -11,5 +11,5 @@
 import { TagType } from '@/types/user.interface';
 import { featureTagVariant } from '@/utils/helperFunction';
 
-defineProps<{flag: TagType}>()
+defineProps<{ flag: TagType }>();
 </script>

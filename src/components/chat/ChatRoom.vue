@@ -28,19 +28,19 @@ import ChatHeder from './ChatHeder.vue';
 import Chat from './Chat.vue';
 import ChatInput from './ChatInput.vue';
 import { decrypt } from '@/utils/cryp';
-const messages = ref<HTMLElement| undefined>(undefined);
+const messages = ref<HTMLElement | undefined>(undefined);
 
 const chatService = useChats();
 const { chats, peerUser, onLoadChats } = storeToRefs(chatService);
 
 const state = reactive({
-   today: computed(()=> formatToString(new Date())),
-   yesterday: computed(()=> yesterday()),
-   me: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
+   today: computed(() => formatToString(new Date())),
+   yesterday: computed(() => yesterday()),
+   me: computed(() => decrypt(String(localStorage.getItem("_uid")))),
    chatMessage: ''
 })
 
-const sendMessage = async ()=>{
+const sendMessage = async () => {
    const payload = {
       from: state.me,
       to: peerUser.value.user_id,
@@ -49,15 +49,15 @@ const sendMessage = async ()=>{
    await chatService.send(payload);
 }
 
-onMounted(()=>{
-    if(messages.value)
-	    messages.value.scrollTop = messages.value.scrollHeight
+onMounted(() => {
+   if (messages.value)
+      messages.value.scrollTop = messages.value.scrollHeight
 })
 
-onUpdated(()=>{
-    if(messages.value){
+onUpdated(() => {
+   if (messages.value) {
       messages.value.classList.add('scroll-smooth')
-	   messages.value.scrollTop = messages.value.scrollHeight;
+      messages.value.scrollTop = messages.value.scrollHeight;
    }
 })
 </script>

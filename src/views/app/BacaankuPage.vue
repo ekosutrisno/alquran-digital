@@ -9,32 +9,32 @@
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                         <WidgetPlusIcon/>
-                        <span v-if="state.ayah"> {{ state.currentSurah?.surat_name }}
-                            ({{ state.currentSurah?.surat_english_name }})</span>
+                        <span v-if="ayah"> {{ currentSurah?.surat_name }}
+                            ({{ currentSurah?.surat_english_name }})</span>
                         <span v-else>Bacaanku</span>
                     </p>
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span
-                            v-if="state.ayah" class="text-sky-500 font-semibold"> {{ state.currentSurah?.count_ayat }} /
-                            {{ convertToArab(`${state.currentSurah?.count_ayat}`) }} </span> <span v-else
+                            v-if="ayah" class="text-sky-500 font-semibold"> {{ currentSurah?.count_ayat }} /
+                            {{ convertToArab(`${currentSurah?.count_ayat}`) }} </span> <span v-else
                             class="text-sky-500 font-semibold"> 0 / {{ convertToArab(`${0}`) }} </span> Ayah</p>
                 </div>
                 <div class="pt-4">
-                    <div v-if="state.ayah">
+                    <div v-if="ayah">
                         <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{
-                                state.currentSurah?.surat_golongan
-                        }} ({{ state.currentSurah?.revelation_type }}) &bull;
-                            <span class="font-quran">{{ state.currentSurah?.revelation_type == 'Meccan' ?
+                                currentSurah?.surat_golongan
+                        }} ({{ currentSurah?.revelation_type }}) &bull;
+                            <span class="font-quran">{{ currentSurah?.revelation_type == 'Meccan' ?
                                     `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`
                             }}</span></p>
                         <p class="text-slate-600 font-quran text-2xl md:text-5xl text-right dark:text-slate-100">
                             <span class="text-base block md:inline md:text-xl font-quicksand">{{
-                                    state.currentSurah?.surat_terjemahan
+                                    currentSurah?.surat_terjemahan
                             }}
                                 <span
-                                    class="text-xs md:text-sm">({{ state.currentSurah?.surat_english_terjemahan }})</span>
+                                    class="text-xs md:text-sm">({{ currentSurah?.surat_english_terjemahan }})</span>
                             </span>
                             <span class="text-2xl md:text-3xl font-light">
-                                ({{ state.currentSurah?.surat_text_full }})</span> {{ state.currentSurah?.surat_text }}
+                                ({{ currentSurah?.surat_text_full }})</span> {{ currentSurah?.surat_text }}
                         </p>
                     </div>
                     <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
@@ -64,7 +64,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
-                        <div v-if="state.option" ref="target"
+                        <div v-if="option" ref="target"
                             class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
                             <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id"
                                 class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
@@ -80,25 +80,25 @@
             </div>
 
             <div class="mt-8 mx-auto select-none">
-                <div v-if="state.ayah" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400">
-                    <span class="text-sm font-normal">({{ state.currentSurah?.surat_golongan }})</span> |
-                    {{ state.currentSurah?.surat_text_full }} </div>
+                <div v-if="ayah" class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400">
+                    <span class="text-sm font-normal">({{ currentSurah?.surat_golongan }})</span> |
+                    {{ currentSurah?.surat_text_full }} </div>
                 <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ
                     ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih,
                     Maha Penyayang.</p>
             </div>
 
-            <div v-if="state.isLoading" class="flex items-center justify-center">
+            <div v-if="isLoading" class="flex items-center justify-center">
                 <Loader />
             </div>
 
             <div :class="[state.sizeSelected.class]"
                 class="w-full mx-auto grid gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
-                <CardAyahMetadata v-if="state.ayah" :ayat="state.ayah" />
+                <CardAyahMetadata v-if="ayah" :ayat="ayah" />
             </div>
 
-            <div v-if="$route.query.sajda != 'true' && !state.isLoading && state.isLogin && state.ayah"
+            <div v-if="$route.query.sajda != 'true' && !isLoading && isLogin && ayah"
                 class="flex items-center my-4 justify-center">
                 <button @click="onLanjutBacaan"
                     class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span>
@@ -110,8 +110,8 @@
                 </button>
             </div>
 
-            <CardNotLogin v-if="!state.isLogin" />
-            <router-link v-if="state.isLogin && !state.ayah" to="/app/dashboard/surah">
+            <CardNotLogin v-if="!isLogin" />
+            <router-link v-if="isLogin && !ayah" to="/app/dashboard/surah">
                 <div class="transition-shadow sm:max-w-lg mx-auto z-0 relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
                     <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-pink-300/90 via-purple-400 to-indigo-400/90"></div>
                     <div class="h-16 z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
@@ -144,7 +144,7 @@
 
 <script setup lang="ts">
 import { useSurah, useUser, useUtil } from '@/services';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import Loader from '@/components/Loader.vue';
 import { useRouter } from 'vue-router';
 import { convertToArab } from '@/utils/helperFunction';
@@ -162,11 +162,6 @@ const utilService = useUtil();
 const router = useRouter();
 
 const state = reactive({
-    currentSurah: computed(() => userService.surahBacaanUser),
-    isLoading: computed(() => surahService.isLoading),
-    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid")))),
-    ayah: computed(() => userService.currentUser?.bacaanku),
-    option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)
         : {
@@ -197,7 +192,11 @@ const state = reactive({
     ]
 });
 
-onMounted(() => { });
+const currentSurah = computed(() => userService.surahBacaanUser);
+const isLoading = computed(() => surahService.isLoading);
+const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))));
+const ayah = computed(() => userService.currentUser?.bacaanku);
+const option = ref(false);
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
@@ -205,12 +204,11 @@ const scrollToPageUp = () => {
         pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
-
 const target = ref(null)
 onClickOutside(target, (_event) => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value
 }
 
 const selectSize = (size: any) => {
@@ -220,13 +218,12 @@ const selectSize = (size: any) => {
 
 const onLanjutBacaan = () => {
     router.push({
-        path: '/app/dashboard/alquran',
+        name: 'AlquranPageDetail',
         query: {
-            sn: state.ayah?.sura_id,
-            an: state.ayah?.aya_number,
+            sn: Number(ayah.value?.sura_id),
+            an: Number(ayah.value?.aya_number),
             next_bacaan: 'true'
         }
     })
 }
-
 </script>

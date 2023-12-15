@@ -86,25 +86,24 @@ import Loader from '@/components/Loader.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { DocumentData } from 'firebase/firestore';
 
 const rukukService = useRukuk();
 const { rukuk, lastRukukVisible, isLast, isLoading, isPush, filteredRukuk } = storeToRefs(rukukService);
+const searchQuery = ref('')
 
-onMounted(()=> {
-    if(!rukuk.value.length)
+onMounted(() => {
+    if (!rukuk.value.length)
         rukukService.getRukukMetadata();
 });
-
-const searchQuery = ref('')
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
-const nextPage = ()=>{
-    rukukService.nextPage({lastVisible: lastRukukVisible.value as any});
+const nextPage = () => {
+    rukukService.nextPage({ lastVisible: lastRukukVisible.value as DocumentData });
 }
-
 </script>

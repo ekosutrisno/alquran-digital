@@ -59,7 +59,7 @@
                         <div>
                             <label for="email-invitation" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email Invitation</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input type="email" required autocomplete="off" id="email-invitation" v-model="state.emailInvitations"
+                                <input type="email" required autocomplete="off" id="email-invitation" v-model="emailInvitations"
                                     class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md"
                                     placeholder="Email" />
                             </div>
@@ -106,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { useClassRoom, useUser } from '@/services';
@@ -114,7 +114,6 @@ import { storeToRefs } from 'pinia';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { validateEmail } from '@/utils/helperFunction';
 import FirebaseIcon from '@/components/svg/FirebaseIcon.vue';
-import { decrypt } from '@/utils/cryp';
 
 const route = useRoute();
 const { getRoom, addRoomMember } = useClassRoom();
@@ -122,21 +121,17 @@ const userService = useUser();
 
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
-const state = reactive({
-    isLogin: computed(() => decrypt(String(localStorage.getItem("_uid")))),
-    emailInvitations: ''
-});
+const emailInvitations = ref('');
+const isValidEmail = computed(() => validateEmail(emailInvitations.value.trim()));
 
 onMounted(async () => {
     await getRoom(String(route.params.room_id));
 })
 
 const addMember = async () => {
-    isValidEmail.value && addRoomMember(String(route.params.room_id), state.emailInvitations)
-        .then(() => state.emailInvitations = '');
+    isValidEmail.value && addRoomMember(String(route.params.room_id), emailInvitations.value)
+        .then(() => emailInvitations.value = '');
 }
-
-const isValidEmail = computed(()=>validateEmail(state.emailInvitations.trim()))
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

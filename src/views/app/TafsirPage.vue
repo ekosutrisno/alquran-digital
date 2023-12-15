@@ -53,7 +53,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
-                        <div v-if="state.option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
+                        <div v-if="option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
                             <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
                                 <div class="col-span-1">{{ size.size }}</div> <div class="text-sm col-span-3 text-left">({{ size.text}})</div>
                             </button>
@@ -98,7 +98,7 @@
                     
                         <span class="mt-8 text-xs inline-flex items-center font-semibold text-right">
                             Tafsir Q.S {{ayahTafsirSelected?.sura_id}}:{{ayahTafsirSelected?.aya_number}} Sumber: QUR'AN KEMENAG 
-                            <a class="ml-2 hover:text-sky-500" target="_blank" :href="`https://quran.kemenag.go.id/surah/${surahTafsirSelected?.id}`">
+                            <a class="ml-2 hover:text-sky-500" target="_blank" :href="`https://quran.kemenag.go.id/quran/per-ayat/surah/${ayahTafsirSelected?.sura_id}?from=${ayahTafsirSelected?.aya_number}&to=${ayahTafsirSelected?.aya_number}`">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                                     <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
@@ -125,19 +125,20 @@
 </template>
 
 <script setup lang="ts">
-import {  useAyah, useUtil } from '@/services';
+import { useAyah, useUtil } from '@/services';
 import { reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import { onClickOutside } from '@vueuse/core';
 import ScrollToTop from '@/components/ScrollToTop.vue';
 import { storeToRefs } from 'pinia';
+import { QuranLayoutSize } from '@/types/user.interface';
 
 const utilService = useUtil();
 const { ayahTafsirSelected, surahTafsirSelected } = storeToRefs(useAyah());
 
+const option = ref(false);
 const state = reactive({
-    option: false,
     sizeSelected: localStorage.getItem('_a_size') != null
         ? JSON.parse(localStorage.getItem('_a_size') as string)
         : {
@@ -171,7 +172,7 @@ const state = reactive({
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 
 
@@ -179,13 +180,11 @@ const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value
 }
 
-const selectSize = (size: any)=> {
-    utilService.setAlquranSize(size); 
-    state.sizeSelected  = size;
+const selectSize = (size: QuranLayoutSize) => {
+    utilService.setAlquranSize(size);
+    state.sizeSelected = size;
 }
-
-
 </script>

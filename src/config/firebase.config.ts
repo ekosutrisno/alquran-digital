@@ -9,7 +9,6 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { User } from '@/types/user.interface';
 import { useNotification } from '@/services';
 
-
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
     authDomain: `${import.meta.env.VITE_BASE_FIREBASE_AUTHDOMAIN}`,
@@ -48,7 +47,7 @@ const gProvider = new GoogleAuthProvider();
 
 const requestPermission = () => {
     Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') { } else { console.log('Notification permission denied.') }
+        if (permission === 'granted') { console.log('Notification permission granted.') } else { console.log('Notification permission denied.') }
     })
 }
 

@@ -30,7 +30,7 @@
                     <WidgetIcon/>
                     <p>Notifications 
                         <span class="text-xs ml-5">Filter by 
-                            <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ state.filter }} {{ filterAndReduced.length ?? 0 }} </span>
+                            <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ filter }} {{ filterAndReduced.length ?? 0 }} </span>
                         </span>
                     </p> 
                 </p>
@@ -39,8 +39,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
-                        <div v-if="state.option" ref="target" class="absolute z-10 overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
-                            <button type="button" @click="selectFilter(size.filter)" v-for="size in state.filters" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
+                        <div v-if="option" ref="target" class="absolute z-10 overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
+                            <button type="button" @click="selectFilter(size.filter)" v-for="size in filters" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
                                 <div class="col-span-1">{{ size.filter }}</div>
                             </button>
                         </div>
@@ -61,22 +61,6 @@
                 </div>
             </div>
 
-           <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
-                <router-link to="/auth/login">
-                    <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                        <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
-                        <div class="h-16 absolute z-30 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
-                            <span class="font-semibold text-white">Fitur Non Aktif</span> 
-                            <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-8 w-8 text-sky-100 z-50 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                        </svg>
-                        <div class="bg-gray-900 absolute inset-0 z-20 bg-opacity-30"></div>
-                    </div>
-                </router-link>
-            </div>
-
             <div class="rounded-md border-r-4 px-4 border-sky-400 mx-auto max-w-md text-xs sm:text-sm text-center bg-white dark:bg-dark-blue dark:text-slate-100 mt-10 card-shadow-md ring-1 ring-slate-700/10 dark:ring-slate-700 h-full p-2">
                 <p class="flex items-center flex-wrap space-x-2">
                     <span>
@@ -94,8 +78,8 @@
 </template>
 
 <script setup lang="ts">
-import {  useNotification } from '@/services';
-import { computed, reactive, ref } from 'vue';
+import { useNotification } from '@/services';
+import { computed, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import { notificationMapper, filterNotification } from '@/utils/notificationFunction';
 import { onClickOutside } from '@vueuse/core';
@@ -106,39 +90,35 @@ import CardTimeline from '@/components/app/card/CardTimeline.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
-import { decrypt } from '@/utils/cryp';
 
 const notificationService = useNotification();
 const { notifications } = storeToRefs(notificationService);
 
-const filterAndReduced = computed<UserNotification[]>(() => filterNotification(notifications.value, state.filter));
+const filterAndReduced = computed<UserNotification[]>(() => filterNotification(notifications.value, filter.value));
 const notificationsList = computed(() => notificationMapper(filterAndReduced.value));
 
-const state = reactive({
-    isLogin: computed(()=> decrypt(String(localStorage.getItem("_uid")))),
-    filter: 'All' as NotificationFilter,
-    option: false,
-    filters: [
-        { id: 1, filter: 'All'},
-        { id: 2, filter: 'Unread'},
-        { id: 3, filter: 'Read'}
-    ] as NotifFilterOption[],
-});
+const filter = ref<NotificationFilter>('All');
+const filters = ref<NotifFilterOption[]>([
+    { id: 1, filter: 'All' },
+    { id: 2, filter: 'Unread' },
+    { id: 3, filter: 'Read' }
+]);
+const option = ref(false);
 
-const selectFilter = (opt: NotificationFilter) =>{
-    state.filter = opt;
+const selectFilter = (opt: NotificationFilter) => {
+    filter.value = opt;
 }
 
 const target = ref(null)
 onClickOutside(target, () => hideMenuOption())
 
 const hideMenuOption = () => {
-    state.option = !state.option
+    option.value = !option.value
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {
     if (pageUp)
-        pageUp.value?.scrollIntoView({behavior: 'smooth'});
+        pageUp.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>
