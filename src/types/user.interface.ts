@@ -113,4 +113,6 @@ export interface QuickMenuType {
 
 export type TagType = 'dev' | 'alpha' | 'beta' | 'new' | 'stable';
 
+export type SettingTab = 'profile' | 'account' | 'privacy' | 'appearance';
+
 export interface QuranLayoutSize { id: number, size: string, text: string, class: string };

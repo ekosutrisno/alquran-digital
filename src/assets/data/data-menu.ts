@@ -12,21 +12,21 @@ export const mainMenu: MainMenuType[] = [
     {
         id: '1',
         title: 'Surah',
-        description: 'Bagian dari Al-Quran, merupakan divisi terbesar yang terdiri dari ayat-ayat dengan tema dan pesan tertentu.',
+        description: "Bagian dari Al-Qur'an, merupakan divisi terbesar yang terdiri dari ayat-ayat dengan tema dan pesan tertentu.",
         to: 'SurahPage',
         total: 114
     },
     {
         id: '2',
         title: 'Halaman',
-        description: 'Satuan fisik dalam Al-Quran yang memuat beberapa ayat, membantu pembacaan dan referensi.',
+        description: "Satuan fisik dalam Al-Qur'an yang memuat beberapa ayat, membantu pembacaan dan referensi.",
         to: 'PagesPage',
         total: 604
     },
     {
         id: '3',
         title: 'Manzil',
-        description: 'Pembagian Al-Quran menjadi tujuh bagian, membantu pembacaan dalam tujuh hari atau seminggu.',
+        description: "Pembagian Al-Qur'an menjadi tujuh bagian, membantu pembacaan dalam tujuh hari atau seminggu.",
         to: 'ManzilPage',
         total: 7
     },
@@ -47,7 +47,7 @@ export const mainMenu: MainMenuType[] = [
     {
         id: '6',
         title: 'Juz',
-        description: 'Pembagian Al-Quran menjadi 30 bagian, memudahkan pembacaan dan penyelesaian dalam sebulan.',
+        description: "Pembagian Al-Qur'an menjadi 30 bagian, memudahkan pembacaan dan penyelesaian dalam sebulan.",
         to: 'JuzPage',
         total: 30
     },

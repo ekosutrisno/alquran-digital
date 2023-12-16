@@ -4,7 +4,7 @@
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
           <router-link to="/" class="flex-shrink-0 flex items-center text-2xl">
-              <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Quran<span class="hidden md:inline"> Digital</span><span class="align-super hidden ml-1.5 text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
+              <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Qur'an<span class="hidden md:inline"> Digital</span><span class="align-super hidden ml-1.5 text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
           </router-link>
           <div class="hidden sm:block with-transition">
             <div class="flex space-x-4">
@@ -32,7 +32,7 @@
           <!-- Notification dropdown -->
           <Menu as="div" class="ml-3 relative">
             <div v-if="isLogin">
-              <MenuButton class="p-1 hidden md:block relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
+              <MenuButton class="p-1 relative rounded-full cursor-default sm:cursor-pointer text-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-transparent focus:ring-sky-400">
                 <span class="sr-only">View notifications</span>
                 <BelIcon />
                 <div v-if="unReadNotification.length" class="bg-sky-500 absolute top-0.5 right-[3px] rounded-full h-2 w-2 p-1"></div>
@@ -58,7 +58,7 @@
 
                 <div v-if="!unReadNotification.length" class="py-4 flex flex-col items-center space-y-2">
                   <NoNotificationIcon />
-                  <p class="text-sm text-center">Saat ini belum ada pesan yang masuk. </p>
+                  <p class="text-sm text-center">Tidak ada notifikasi. </p>
                 </div>
                 <MenuItem class="flex w-full border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-50 dark:hover:bg-slate-700">
                   <button @click="$router.push({name: 'NotificationPage'})" class="inline-flex items-center justify-end space-x-3 text-sm">

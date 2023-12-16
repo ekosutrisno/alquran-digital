@@ -1,4 +1,4 @@
-## <img alt="vue" src="https://avatars.githubusercontent.com/u/51039205?s=460&u=cb1d242b6a9b13a3b6383e46b5410fafe471b63d&v=4" width="20" height="20" /> Al-Quran Digital (BETA)
+## <img alt="vue" src="https://avatars.githubusercontent.com/u/51039205?s=460&u=cb1d242b6a9b13a3b6383e46b5410fafe471b63d&v=4" width="20" height="20" /> Al-Qur'an Digital (BETA)
 
 [![ExoApps](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://exoappsv2.netlify.app/)
 
@@ -6,7 +6,7 @@
 
 - Introductions
   - It is a Web App portfolio.
-  - Al-Quran Digital From Scratch.
+  - Al-Qur'an Digital From Scratch.
 - Tech Stack
   - <img src="https://img.icons8.com/fluent/48/000000/visual-studio-code-2019.png" width="14" height="14"/> Vs Code
   - <img alt="vue" src="https://seeklogo.com/images/V/vuejs-logo-17D586B587-seeklogo.com.png" width="11" height="11" /> Vue and Vite
@@ -41,18 +41,6 @@ npm run build
 ```shell
 npm run serve
 ```
-
-### <img alt="firebase" src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png" width="18" height="18" /> Firebase Project Setup
-
-- Required
-  - Have a Google Account.
-  - Go to [firebase.com](firebase.com) to use firebase.
-  - Create Project.
-  - Enable auth with `Username Password` and `Google`.
-  - If you deploy in Netlify or Vercel make sure you add host in tab auth.
-  - Enable Firestore.
-  - Enable Storage.
-  - Enable Realtime Database.
 
 ### CSP
 

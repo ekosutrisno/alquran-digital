@@ -113,9 +113,9 @@ const surahService = useSurah();
 const ayahService = useAyah();
 const utilService = useUtil();
 const route = useRoute();
+const title = useTitle();
 
 interface RouteQuery {
-    surah_number: number;
     is_surah: boolean;
     sn: number;
     an: number;
@@ -124,7 +124,6 @@ interface RouteQuery {
 }
 
 const routeQuery: RouteQuery = {
-    surah_number: Number(route.query.surah_number),
     is_surah: route.query.is_surah === 'true' ? true : false,
     sn: Number(route.query.sn),
     an: Number(route.query.an),
@@ -167,41 +166,36 @@ const state = reactive({
     ]
 });
 
-onMounted(() => {
-    loadData();
-});
+onMounted(() => loadData());
 
 const isLast = computed(() => ayahs.value.length === surah.value?.count_ayat);
 const isIncludeMyPilihan = computed(() => surahPilihan.value.some(surat => surat.id === surah.value?.id));
 
 function setTitle() {
-    const title = useTitle();
-    title.value = `${title.value}${surah ? ` | ${surah.value?.surat_name}` : ''}`
+    title.value = `${title.value} (Surah Ke-${routeQuery.sn})`;
 }
 
 function loadData() {
     surahService
-        .setSurah(routeQuery.surah_number as SurahData['id'],
-            {
-                is_surah: routeQuery.is_surah,
-                meta: {
-                    next_bacaan: routeQuery.next_bacaan,
-                    sajda: routeQuery.sajda,
-                    sn: routeQuery.sn,
-                    an: routeQuery.an
-                }
-            })
+        .setSurah(routeQuery.sn, {
+            is_surah: routeQuery.is_surah,
+            meta: {
+                next_bacaan: routeQuery.next_bacaan,
+                sajda: routeQuery.sajda,
+                sn: routeQuery.sn,
+                an: routeQuery.an
+            }
+        })
         .then(() => {
             if (decrypt(String(localStorage.getItem("_uid"))))
                 ayahService.onGetSurahPilihan();
-
             setTitle();
         });
 }
 
 function loadNextAyah() {
     routeQuery?.is_surah
-        ? surahService.nextAyahSurahOfSurah(routeQuery.surah_number as SurahData['id'])
+        ? surahService.nextAyahSurahOfSurah(routeQuery.sn)
         : surahService.nextAyahSurahOfSurahDetail()
 }
 

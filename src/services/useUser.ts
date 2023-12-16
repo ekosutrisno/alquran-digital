@@ -61,7 +61,7 @@ export const useUser = defineStore('userService', {
                 fcms: [],
                 colorCode: randomColorCode(),
                 nationality: "Indonesia",
-                hobby: "Reading Al-Quran and Learn something new.",
+                hobby: "Reading Al-Qur'an and Learn something new.",
                 religion: "Islam",
                 about: `Hi, my name is ${newData.email}`,
                 createdDate: Date.now(),
