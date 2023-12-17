@@ -176,7 +176,6 @@ export const useSurah = defineStore('surahService', {
                 .then((doc) => {
                     const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
                     this.lastAyahVisible = lastVisible;
-
                     const tempData: AyahData[] = [];
 
                     doc.forEach((ayat) => {

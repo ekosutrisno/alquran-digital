@@ -45,8 +45,6 @@ npm run serve
 ### CSP
 
 ```json
-
-// This Currently Disabled
 {
   "headers": [
         {
