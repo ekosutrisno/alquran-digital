@@ -6,7 +6,7 @@
         <span class="ml-2">Back</span>
     </button>
     <router-link to="/" class="text-sm md:text-xl relative mx-auto mt-[60px] md:mt-14 inline-flex items-center space-x-1.5">
-        <span class="text-slate-800 dark:text-white font-semibold">Al-Quran Digital</span>
+        <span class="text-slate-800 dark:text-white font-semibold">Al-Qur'an Digital</span>
     </router-link>
 </template>
 

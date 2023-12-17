@@ -45,7 +45,7 @@
                   <p class="text-sm text-slate-400">Empty Result</p>
                 </div>
                 <div class="h-10 text-xs float-right py-3 pr-4 border-t border-slate-700/10 dark:border-slate-700/50">
-                    <div class="float-right text-slate-800 dark:text-white">Search by <span class="font-semibold text-sky-500">Al-Quran Digital 2.0</span></div>
+                    <div class="float-right text-slate-800 dark:text-white">Search by <span class="font-semibold text-sky-500">Al-Qur'an Digital</span></div>
                 </div>
               </div>
             </DialogPanel>

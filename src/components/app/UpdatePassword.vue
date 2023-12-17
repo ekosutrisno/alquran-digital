@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import { isMatchPassword } from '@/utils/helperFunction';
 import PromptCredentialConfirm from './modal/PromptCredentialConfirm.vue';
 import LockIcon from '../svg/LockIcon.vue';

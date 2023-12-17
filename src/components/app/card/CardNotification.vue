@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import NotificationType from '@/components/shared/NotificationType.vue';
 import NotifUnreadIcon from '@/components/svg/NotifUnreadIcon.vue';
-import { useNotification } from '@/services';
+import { useNotification } from '@/services/useNotification';
 import { UserNotification } from '@/types/user.interface';
 import { formatDateFromNow } from '@/utils/helperFunction';
 

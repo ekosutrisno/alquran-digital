@@ -28,5 +28,5 @@
 <script setup lang="ts">
 import { SajdaMetadata } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';
-defineProps<{sajda: SajdaMetadata}>()
+defineProps<{ sajda: SajdaMetadata }>()
 </script>

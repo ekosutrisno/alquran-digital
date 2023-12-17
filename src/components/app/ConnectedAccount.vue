@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import { storeToRefs } from 'pinia';
 import GoogleIcon from '../svg/GoogleIcon.vue';
 import FirebaseIcon from '../svg/FirebaseIcon.vue';

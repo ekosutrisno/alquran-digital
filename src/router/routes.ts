@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import("@/views/web/HomePage.vue"),
                 meta: {
                     title: 'Home Page',
-                    description: 'Welcome to the Al-Quran Digital app.'
+                    description: `Welcome to the Al-Qur'an Digital app.`
                 }
             },
             {
@@ -131,8 +131,8 @@ const routes: RouteRecordRaw[] = [
                 name: 'AlquranPageDetail',
                 component: () => import("@/views/app/AlquranPage.vue"),
                 meta: {
-                    title: 'Alquran Page Detail',
-                    description: 'Alquran Page Detail Page',
+                    title: 'Qur`an',
+                    description: 'Alquran Page Detail',
                     requiresAuth: false
                 }
             },

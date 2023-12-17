@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';

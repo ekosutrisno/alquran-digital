@@ -1,5 +1,5 @@
 import { Chat, ChatGroup, UserOnlineStatus } from "@/types/chat.interface";
-import { User } from "@/types/user.interface";
+import { AppUser } from "@/types/user.interface";
 import { get, limitToLast, onDisconnect, onValue, push, query, ref, serverTimestamp, set } from "firebase/database";
 import { getDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
@@ -14,8 +14,8 @@ const toast = useToast();
 
 interface ChatState {
     chat: Chat | null;
-    chats: Array<ChatGroup>;
-    peerUser: User;
+    chats: ChatGroup[];
+    peerUser: AppUser;
     peerUserStatus: UserOnlineStatus;
     currentChatBucket: string;
     onLoadChats: boolean;
@@ -30,8 +30,8 @@ type ChatPayload = {
 export const useChats = defineStore('chatService', {
     state: (): ChatState => ({
         chat: null,
-        chats: new Array<ChatGroup>(),
-        peerUser: {} as User,
+        chats: [],
+        peerUser: {} as AppUser,
         currentChatBucket: '',
         onLoadChats: false,
         peerUserStatus: {} as UserOnlineStatus
@@ -60,21 +60,21 @@ export const useChats = defineStore('chatService', {
         },
 
         /**
-         * @param  {string} peerPathCollection
-         * Get Detail of Peer User
+         * @param  {string} peerId
+         * Get Detail of Peer AppUser
          */
         async fetchCurrentPeerUser(peerId: string) {
             await getDoc(userDataRefConfig(peerId))
                 .then((snapshot) => {
-                    this.peerUser = snapshot.data() as User;
+                    this.peerUser = snapshot.data() as AppUser;
                 })
         },
 
         /**
-         * @param  {User['user_id']} userId
+         * @param  {string} userId
          * Handling User is Online or not, set last seen timestamp
          */
-        chatInfo(userId: User['user_id']) {
+        chatInfo(userId: string) {
             const connectedRef = ref(database, `/${REALTIME_DB.users_connection}/${userId}`);
 
             var isOfflineForFirestore: UserOnlineStatus = {
@@ -97,7 +97,7 @@ export const useChats = defineStore('chatService', {
         },
 
         /**
-         * @param  {string} chatGroupId
+         * @param  {string} peerId
          * Get Realtime Chats Messages
          */
         async getChats(peerId: string) {
@@ -122,7 +122,7 @@ export const useChats = defineStore('chatService', {
 
             const q = query(ref(database, `${REALTIME_DB.personal_chats}/${this.currentChatBucket}`), limitToLast(10));
             onValue(q, (snapshot) => {
-                const messages: ChatGroup[] = [];
+                const messages: ChatGroup[] = [];;
                 snapshot.forEach((childSnapshot) => {
                     messages.push({
                         key: childSnapshot.key as string,
@@ -136,10 +136,10 @@ export const useChats = defineStore('chatService', {
         },
 
         /**
-         * @param  {User['user_id']} peerId
+         * @param  {string} peerId
          * This will watching for User Online Status
          */
-        getPeerOnlineStatus(peerId: User['user_id']) {
+        getPeerOnlineStatus(peerId: string) {
             const connectedRef = ref(database, `/${REALTIME_DB.users_connection}/${peerId}`);
             onValue(connectedRef, snap => {
                 if (snap.exists())
@@ -159,5 +159,4 @@ export const useChats = defineStore('chatService', {
             }
         }
     }
-
 })

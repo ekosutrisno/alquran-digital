@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotification } from '@/services';
+import { useNotification } from '@/services/useNotification';
 import { computed, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
 import { notificationMapper, filterNotification } from '@/utils/notificationFunction';

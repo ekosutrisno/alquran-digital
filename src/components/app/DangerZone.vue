@@ -40,7 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth, useUser, useClassRoom } from '@/services';
+import { useUser, useClassRoom } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import KeyIcon from '../svg/KeyIcon.vue';

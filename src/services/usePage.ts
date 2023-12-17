@@ -15,7 +15,7 @@ export const usePage = defineStore('pageService', {
         isLast: false,
         isLoading: false,
         isPush: false,
-        pages: new Array<PageMetadata>(),
+        pages: [],
         lastPageVisible: null
     }),
 

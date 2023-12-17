@@ -11,7 +11,7 @@ interface UseSajdaState {
 export const useSajda = defineStore('sajdaService', {
     state: (): UseSajdaState => ({
         isLoading: false,
-        sajdas: new Array<SajdaMetadata>()
+        sajdas: []
     }),
 
     actions: {

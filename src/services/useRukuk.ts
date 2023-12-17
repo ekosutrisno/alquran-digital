@@ -17,7 +17,7 @@ export const useRukuk = defineStore('rukukService', {
         isLoading: false,
         isPush: false,
         lastRukukVisible: null,
-        rukuk: new Array<Metadata>()
+        rukuk: []
     }),
 
     actions: {

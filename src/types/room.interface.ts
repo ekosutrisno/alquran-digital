@@ -1,5 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
-import { InfoMetadata, User } from "./user.interface";
+import { InfoMetadata, AppUser } from "./user.interface";
 
 export interface Room extends InfoMetadata {
     id: string;
@@ -24,11 +24,11 @@ export interface RoomData extends InfoMetadata {
     organization: string;
     scheduleDay: string;
     scheduleTime: string;
-    mentor: User;
+    mentor: AppUser;
     ratings: number;
     heroImage: string;
     isActive: boolean;
-    members: Array<User>;
+    members: AppUser[];
     about?: string;
 }
 

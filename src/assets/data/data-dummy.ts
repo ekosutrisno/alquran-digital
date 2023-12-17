@@ -27,7 +27,7 @@ export const daftarMadrasah: Madrasah[] = [
         code: "MAD002",
         name: "Madrasah Baitul Ilmi",
         govermentCode: "54321",
-        description: "Lembaga pendidikan dengan fokus pada studi Al-Quran.",
+        description: "Lembaga pendidikan dengan fokus pada studi Al-Qur'an.",
         postalCode: "54321",
         email: "kontak@baitulilmi.com",
         phoneNumber: "+987654321",

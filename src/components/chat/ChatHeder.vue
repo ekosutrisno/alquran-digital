@@ -33,11 +33,11 @@
 
 <script setup lang="ts">
 import { useChats } from '@/services';
-import { User } from '@/types/user.interface';
+import { AppUser } from '@/types/user.interface';
 import { formatAtTime} from '@/utils/helperFunction';
 import { storeToRefs } from 'pinia';
 
-defineProps<{peer: User}>();
+defineProps<{peer: AppUser}>();
 
 const chatService = useChats();
 const { peerUserStatus } = storeToRefs(chatService);

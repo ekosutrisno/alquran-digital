@@ -1,5 +1,5 @@
-import { User } from '@/types/user.interface';
-import { applyActionCode, confirmPasswordReset, createUserWithEmailAndPassword, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { AppUser } from '@/types/user.interface';
+import { applyActionCode, confirmPasswordReset, createUserWithEmailAndPassword, EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updatePassword, User } from 'firebase/auth';
 import { getDocs, updateDoc } from 'firebase/firestore';
 import { defineStore, storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
@@ -117,10 +117,7 @@ export const useAuth = defineStore('authService', {
 
         loginEmailPassword() {
             signInWithEmailAndPassword(auth, this.authRequest.email.toLowerCase(), this.authRequest.password)
-                .then((userCredential) => {
-                    /** Get User Cred. */
-                    const user = userCredential.user;
-
+                .then(({ user }) => {
                     /** Set User Detail to Context. */
                     this.onLoginAction(user);
 
@@ -139,8 +136,7 @@ export const useAuth = defineStore('authService', {
 
             if (this.authRequest.password === this.authRequest.confirmPassword) {
                 createUserWithEmailAndPassword(auth, this.authRequest.email, this.authRequest.password)
-                    .then(async (userCredential: { user: any; }) => {
-                        const user = userCredential.user;
+                    .then(async ({ user }) => {
                         /** Set User Details Data. */
                         this.onLoginAction(user);
 
@@ -170,9 +166,7 @@ export const useAuth = defineStore('authService', {
         loginGoogle() {
             const { onRegisterUser } = useUser();
             signInWithPopup(auth, gProvider)
-                .then((result) => {
-                    const user = result.user;
-
+                .then(({ user }) => {
                     onRegisterUser({ userId: user.uid, email: user.email as string }, { user: user, oauth: true })
                         .then(() => {
                             this.onLoginAction(user);
@@ -187,15 +181,15 @@ export const useAuth = defineStore('authService', {
 
         /**
        * Update email with prom credential before confirm action
-       * @param  {IUser['email']} newEmail
+       * @param  {string} newEmail
        * @param  {string} currentUserPassword
        * @returns Promise
        */
         async updateCurrentUserEmail(newEmail: string, currentUserPassword: string): Promise<void> {
 
-            const currentUser = auth.currentUser as any
+            const currentUser = auth.currentUser as User;
 
-            if (currentUser.email.toLowerCase() == newEmail.toLowerCase())
+            if (currentUser.email?.toLowerCase() == newEmail.toLowerCase())
                 toast.success("Email sama dengan email saat ini.")
 
             const userRef = userCollectionRefConfig();
@@ -240,9 +234,9 @@ export const useAuth = defineStore('authService', {
           * @returns Promise
           */
         async updateCurrentUserPasswod(newPassword: string, currentUserPassword: string): Promise<void> {
-            const currentUser = auth.currentUser as any;
+            const currentUser = auth.currentUser as User;
             const userService = useUser();
-            const user = userService.currentUser as User;
+            const user = userService.currentUser as AppUser;
 
             const credential = EmailAuthProvider.credential(
                 currentUser.email as string,
@@ -310,11 +304,10 @@ export const useAuth = defineStore('authService', {
          * This method and handle send email verification after user register
          * @returns Promise
          */
-        async sendVerificationEmail(authUser: any): Promise<void> {
-
+        async sendVerificationEmail(authUser: User): Promise<void> {
             await sendEmailVerification(authUser)
                 .then(() => {
-                    // TODO
+                    // TODO: need to be implementing
                 });
         },
 
@@ -337,11 +330,11 @@ export const useAuth = defineStore('authService', {
          * This action will disable if the user not verify their email first.
          */
         async deactivatedAccount() {
-            const me = auth.currentUser as any;
+            const me = auth.currentUser as User;
             const { currentUser } = storeToRefs(useUser());
 
             // Set is_active to false
-            const user = currentUser.value as User;
+            const user = currentUser.value as AppUser;
             user.is_active = false
 
             await updateDoc(userDataRefConfig(me.uid), user as any);
@@ -351,11 +344,11 @@ export const useAuth = defineStore('authService', {
         * Activated The Account
         */
         async activatedAccount() {
-            const me = auth.currentUser as any;
+            const me = auth.currentUser as User;
             const { currentUser } = storeToRefs(useUser());
 
             // Set is_active to false
-            const user = currentUser.value as User;
+            const user = currentUser.value as AppUser;
             user.is_active = true
 
             await updateDoc(userDataRefConfig(me.uid), user as any);

@@ -63,7 +63,7 @@
                                     class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md"
                                     placeholder="Email" />
                             </div>
-                            <p class="text-xs mt-2 dark:text-slate-400">Invitation email is an active user email registered as a Digital Al-Quran user.</p>
+                            <p class="text-xs mt-2 dark:text-slate-400">Invitation email is an active user email registered as a Digital Al-Qur'an user.</p>
                         </div>
 
                         <button type="submit" :disabled="!isValidEmail" class="mt-6 disabled:bg-opacity-50 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
