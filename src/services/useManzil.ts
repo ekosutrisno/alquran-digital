@@ -2,7 +2,6 @@ import { Metadata } from "@/types/alquran.interface";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { manzilCollectionRefConfig } from "@/config/dbRef.config";
-
 interface UseManzilState {
     isLoading: boolean
     manzil: Metadata[];
@@ -11,7 +10,7 @@ interface UseManzilState {
 export const useManzil = defineStore('manzilService', {
     state: (): UseManzilState => ({
         isLoading: false,
-        manzil: new Array<Metadata>()
+        manzil: []
     }),
 
     actions: {

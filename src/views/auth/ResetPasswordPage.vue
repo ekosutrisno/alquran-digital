@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import { validateEmail } from '@/utils/helperFunction';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';

@@ -78,7 +78,7 @@
 import { onMounted } from 'vue';
 import GoogleIcon from '@/components/svg/GoogleIcon.vue';
 import { useRouter } from 'vue-router';
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import ButtonBack from '@/components/shared/ButtonBack.vue';
 import Loader from '@/components/Loader.vue';
 import { storeToRefs } from 'pinia';

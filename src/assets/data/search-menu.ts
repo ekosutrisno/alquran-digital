@@ -5,7 +5,7 @@ export const menuSearchList: Array<SearchItem> = [
         id: 1,
         info: 'Main Dashboard',
         text: 'Dashboard',
-        desc: 'Main Dasboard Al-Quran Digital.'
+        desc: "Main Dasboard Al-Qur'an Digital."
     },
     {
         to: 'BacaankuPage',
@@ -43,7 +43,7 @@ export const menuSearchList: Array<SearchItem> = [
         id: 8,
         info: 'List of Notifications Page',
         text: 'Notifications',
-        desc: 'Semua riwayat notifikasi akun Al-Quran Digital milikmu.'
+        desc: "Semua riwayat notifikasi akun Al-Qur'an Digital milikmu."
     },
     {
         to: 'SurahPilihan',
@@ -62,36 +62,36 @@ export const menuSearchList: Array<SearchItem> = [
     {
         to: 'PagesPage',
         id: 7,
-        info: 'Al-Quran Per Halaman',
-        text: 'Halaman Al-Quran',
-        desc: 'Mencari Al-Quran per halaman'
+        info: "Al-Qur'an Per Halaman",
+        text: "Halaman Al-Qur'an",
+        desc: "Mencari Al-Qur'an per halaman"
     },
     {
         to: 'ManzilPage',
         id: 7,
-        info: 'Al-Quran Per Manzil',
-        text: 'Manzil Al-Quran',
-        desc: 'Mencari Al-Quran per Manzil'
+        info: "Al-Qur'an Per Manzil",
+        text: "Manzil Al-Qur'an",
+        desc: "Mencari Al-Qur'an per Manzil"
     },
     {
         to: 'RukukPage',
         id: 7,
-        info: 'Al-Quran Per Rukuk',
-        text: 'Rukuk Al-Quran',
-        desc: 'Mencari Al-Quran per Rukuk'
+        info: "Al-Qur'an Per Rukuk",
+        text: "Rukuk Al-Qur'an",
+        desc: "Mencari Al-Qur'an per Rukuk"
     },
     {
         to: 'SajdaPage',
         id: 7,
-        info: 'Al-Quran Per Sajda',
-        text: 'Sajda Al-Quran',
+        info: "Al-Qur'an Per Sajda",
+        text: "Sajda Al-Qur'an",
         desc: 'List Semua Ayat Sajda'
     },
     {
         to: 'JuzPage',
         id: 7,
-        info: 'Al-Quran Per Juz',
-        text: 'Juz Al-Quran',
+        info: "Al-Qur'an Per Juz",
+        text: "Juz Al-Qur'an",
         desc: 'List Semua Juz 1-30'
     },
 ];

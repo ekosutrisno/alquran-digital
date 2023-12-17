@@ -29,14 +29,14 @@
 
 <script setup lang="ts">
 import { Room } from '@/types/room.interface';
-import { User } from '@/types/user.interface';
+import { AppUser } from '@/types/user.interface';
 import { formatDateWithMonth } from '@/utils/helperFunction';
 import { getDoc } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{ room: Room }>();
 
-const mentor = ref<User>({} as User);
+const mentor = ref<AppUser>({} as AppUser);
 
 onMounted(() => loadMentor())
 
@@ -44,7 +44,7 @@ function loadMentor() {
     getDoc(props.room.mentor)
         .then((snap) => {
             if (snap.exists())
-                mentor.value = snap.data() as User
+                mentor.value = snap.data() as AppUser
         }
         )
 }

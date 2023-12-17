@@ -3,7 +3,7 @@
       <span>
           <img src="@/assets/v4.svg" alt="logo" class="h-7 w-7 hidden sm:block">
       </span>
-      <span class="text-slate-800 dark:text-white">Al-Quran Digital</span>
+      <span class="text-slate-800 dark:text-white">Al-Qur'an Digital</span>
   </router-link>
   <div class="relative font-quicksand flex flex-1 px-4 flex-col justify-center items-center overflow-hidden">
     <div class="flex flex-col z-30 with-transition items-start">

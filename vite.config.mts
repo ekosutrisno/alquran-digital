@@ -17,12 +17,12 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       manifest: {
-        name: "Al-Quran Digital",
-        short_name: "Al-Quran Digital",
+        name: "Al-Qur'an",
+        short_name: "Al-Qur'an",
         start_url: '/',
         theme_color: "#0B1120",
         background_color: "#0B1120",
-        description: "Mengelola bacaan dan hafalan Al-Quran",
+        description: "Mengelola bacaan dan hafalan Al-Qur'an",
         icons: [
           {
             src: 'android-chrome-192x192.png',

@@ -8,7 +8,7 @@
                 <span>Tema Aplikasi</span>
             </p>
             <div class="border-t dark:border-slate-700/50 mt-2 py-2">
-                <p class="text-sm text-slate-700 dark:text-slate-300">Choose how Al-Quran Digital looks to you. Select a single theme, or sync with your system and automatically switch between day and night themes.</p>
+                <p class="text-sm text-slate-700 dark:text-slate-300">Choose how Al-Qur'an Digital looks to you. Select a single theme, or sync with your system and automatically switch between day and night themes.</p>
             </div>
         </div>
         <div class="text-sm dark:text-white max-w-md">

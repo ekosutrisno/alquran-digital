@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { User } from '@/types/user.interface';
+import type { AppUser } from '@/types/user.interface';
 import { formatDateFromNow } from '@/utils/helperFunction';
 import { getPresence } from '@/utils/firebaseHelperFunction';
 import { onMounted, ref } from 'vue';
@@ -39,7 +39,7 @@ import ProfilePopover from '../modal/ProfilePopover.vue';
 import { initTooltips } from 'flowbite';
 import { decrypt } from '@/utils/cryp';
 
-defineProps<{ member: User, roomId: string }>();
+defineProps<{ member: AppUser, roomId: string }>();
 
 const me = ref<string | null>(decrypt(String(localStorage.getItem("_uid"))));
 

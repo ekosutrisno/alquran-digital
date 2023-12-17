@@ -25,7 +25,7 @@
 
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
-             <div class="hidden lg:block pl-6 md:pl-8 h-max sm:max-w-md space-y-2 bg-white dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-1">
+             <div class="hidden lg:block pl-6 md:pl-8 h-max sm:max-w-md space-y-2 bg-white dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 col-span-1">
                 <button type="button" @click="setCurrentActive(1)" :class="[isTab().PROFILE ? 'dark:bg-slate-700/50 bg-slate-400/10': '']" class="inline-flex items-center text-slate-800 group text-left w-full relative dark:text-slate-200 bg-white hover:bg-slate-50 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 p-2.5 rounded-lg text-sm">
                     <div :class="[isTab().PROFILE ? 'bg-sky-500': '']" class="transition-colors absolute w-1 h-3/4 -left-3 top-1 rounded-full"></div>
                     <ProfileIcon class="text-slate-600 dark:text-slate-500 mr-2 w-5 h-5"/>
@@ -48,7 +48,7 @@
                 </button>
             </div>
 
-            <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
+            <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90"/>
                 
                 <!-- Header of Details tab -->
@@ -73,7 +73,7 @@
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Full Name" 
                                     />
                                 </div>
-                                <p class="text-xs mt-2 dark:text-slate-400">Your name may appear around Al-Quran Digital where you contribute or are mentioned. You can remove it at any time.</p>
+                                <p class="text-xs mt-2 dark:text-slate-400">Your name may appear around Al-Qur'an Digital where you contribute or are mentioned. You can remove it at any time.</p>
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
@@ -173,7 +173,7 @@
                     <!-- Profile Picture -->
                     <div class="col-span-2 w-full text-slate-800 row-start-1 md:row-span-2 dark:text-slate-100">
                         <p>Profile picture</p>
-                        <div class="rounded-full overflow-auto relative mt-2 ring-2 w-56 h-56 ring-slate-700/20 dark:ring-slate-700">
+                        <div class="rounded-full overflow-auto relative mt-2 ring-2 w-24 h-24 ring-slate-700/20 dark:ring-slate-700">
                             <img class="object-cover object-top w-full h-full rounded-full" :src="getPhotoUrl" alt="profile-picture"/>
                             <input id="file-upload" name="file-upload" type="file" class="sr-only" @change="onUpdateAvatar">
                             <label for="file-upload" @click="onUpdateAvatar" class="absolute inset-0 rounded-full flex items-center justify-center bg-transparent group hover:bg-slate-800/20">
@@ -254,10 +254,10 @@
 <script setup lang="ts">
 import { useUser } from '@/services';
 import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/helperFunction';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { storeToRefs } from 'pinia';
-import { User } from '@/types/user.interface';
+import { SettingTab } from '@/types/user.interface';
 import UpdatePassword from '@/components/app/UpdatePassword.vue';
 import UpdateEmail from '@/components/app/UpdateEmail.vue';
 import ConnectedAccount from '@/components/app/ConnectedAccount.vue';
@@ -279,6 +279,28 @@ const { updateCurrentUserData, updateFotoProfile } = userService;
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 const titile = ref('Profile');
+
+onMounted(() => setCurrentActiveTitle(route.query.tab as SettingTab));
+
+const setCurrentActiveTitle = (currentTab: SettingTab) => {
+    switch (currentTab) {
+        case 'profile':
+            titile.value = 'Profile';
+            break;
+        case 'account':
+            titile.value = 'Pengaturan Akun';
+            break;
+        case 'appearance':
+            titile.value = 'Tampilan';
+            break;
+        case 'privacy':
+            titile.value = 'Privacy';
+            break;
+        default:
+            titile.value = 'Profile';
+            break;
+    }
+}
 
 const setCurrentActive = (currentActive: number) => {
     switch (currentActive) {
@@ -323,10 +345,10 @@ async function onUpdateAvatar(event: any) {
 }
 
 async function updateData() {
-    await updateCurrentUserData(currentUser.value as User, { isSilent: false });
+    await updateCurrentUserData(currentUser.value, { isSilent: false });
 }
 
-function updateParams(paramName: string, paramValue: string) {
+function updateParams(paramName: string, paramValue: SettingTab) {
     const query = { ...route.query };
     query[paramName] = paramValue;
     router.push({ query });

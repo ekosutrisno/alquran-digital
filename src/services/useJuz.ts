@@ -11,7 +11,7 @@ interface UseJuzState {
 export const useJuz = defineStore('juzService', {
     state: (): UseJuzState => ({
         isLoading: false,
-        juz: new Array<Metadata>()
+        juz: []
     }),
 
     actions: {

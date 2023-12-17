@@ -10,7 +10,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to: RouteLocationNormalized) => {
-    document.title = `Al-Quran Digital - ${to.meta.title}`;
+    document.title = `Al-Qur'an Digital - ${to.meta.title}`;
 
     const isLogedInUserUID = decrypt(String(localStorage.getItem("_uid")));
 

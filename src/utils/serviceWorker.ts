@@ -17,7 +17,7 @@ export const updateSW = registerSW({
         }
     },
     onOfflineReady() {
-        console.log("Al-Quran Digital Ready for Ofline.");
+        console.log("Al-Qur'an Digital Ready for Ofline.");
     },
 })
 

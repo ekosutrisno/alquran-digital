@@ -1,11 +1,11 @@
 <template>
     <div class="max-w-screen-lg mx-auto p-4 prose dark:text-white">
-        <h1 class="text-3xl font-semibold dark:text-white">Al-Quran Digital</h1>
-        <p class="mt-4">Al-Quran Digital Terjemahan Bahasa Indonesia dengan fitur mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
+        <h1 class="text-3xl font-semibold dark:text-white">Al-Qur'an Digital</h1>
+        <p class="mt-4">Al-Qur'an Digital Terjemahan Bahasa Indonesia dengan fitur mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
         <section>
             <h2 class="text-2xl font-semibold dark:text-white"> &bull; Nama</h2>
             <ul class="mt-4 ml-8 space-y-4">
-                Official Name: <span class="font-bold">Al-Quran Digital Bahasa Indonesia</span>
+                Official Name: <span class="font-bold">Al-Qur'an Digital Bahasa Indonesia</span>
             </ul>
             <ul class="ml-8 space-y-4">
                 Mulai development 19 Mei 2022 jam 21:20 WIB.
