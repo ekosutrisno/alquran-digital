@@ -1,6 +1,6 @@
 import { SurahData } from "@/types/alquran.interface";
 import { Room } from "@/types/room.interface";
-import { Role, User } from "@/types/user.interface";
+import { Role, AppUser } from "@/types/user.interface";
 import { DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { defineStore } from "pinia";
@@ -13,26 +13,26 @@ import { updateProfile } from "firebase/auth";
 
 const toast = useToast();
 interface UserState {
-    currentUser: User | null;
-    currentMentor: User | null;
-    currentUserMainRole: Role | null;
-    surahBacaanUser: SurahData | null;
+    currentUser: AppUser;
+    currentMentor: AppUser;
+    currentUserMainRole: Role;
+    surahBacaanUser: SurahData;
 }
 
 export const useUser = defineStore('userService', {
     state: (): UserState => ({
-        currentUser: null,
-        currentMentor: null,
-        currentUserMainRole: null,
-        surahBacaanUser: null
+        currentUser: {} as AppUser,
+        currentMentor: {} as AppUser,
+        currentUserMainRole: {} as Role,
+        surahBacaanUser: {} as SurahData
     }),
 
     actions: {
         /**
-        * @param  {userId: User['userId'], email: User['email']} newData
+        * @param  {userId: string, email: string} newData
         * @description register user to Database Collection
         */
-        async onRegisterUser(newData: { userId: User['user_id'], email: User['email'] }, googleNewData?: { user?: any, oauth?: boolean }) {
+        async onRegisterUser(newData: { userId: string, email: string }, googleNewData?: { user?: any, oauth?: boolean }) {
             // Check if email is Exist or not
             if (!googleNewData?.oauth) {
                 if (!checkUserExist(newData.email)) {
@@ -41,7 +41,7 @@ export const useUser = defineStore('userService', {
                 }
             }
 
-            const newUserData: User = {
+            const newUserData: AppUser = {
                 email: newData.email,
                 user_id: newData.userId,
                 is_mentor: false,
@@ -86,13 +86,13 @@ export const useUser = defineStore('userService', {
         },
 
         /**
-         * @param  {User['user_id']} userId
+         * @param  {string} userId
          * @description Get Current User By userID Key
          */
-        async fetchCurrentUser(userId: User['user_id']) {
+        async fetchCurrentUser(userId: string) {
             onSnapshot(userDataRefConfig(userId), (docSnap) => {
                 if (docSnap.exists()) {
-                    const data: User = docSnap.data() as User;
+                    const data = docSnap.data() as AppUser;
 
                     // Get Surah name of bacaan User
                     this.setSurahBacaan(data.bacaanku?.sura_id as number);
@@ -109,35 +109,35 @@ export const useUser = defineStore('userService', {
                     if (data.mentor_id)
                         this.fetchCurrentMentor(data.mentor_id);
                     else
-                        this.currentMentor = null;
+                        this.currentMentor = {} as AppUser;
                 }
             })
         },
 
         /**
-         * @param  {User['userId']} mentorId
+         * @param  {string} mentorId
          * @description Get Current Ero by EroId Key and if isEro = false
          */
         async fetchCurrentMentor(mentorId: DocumentReference) {
             const docSnap = await getDoc(mentorId);
             if (docSnap.exists()) {
-                const data: User = docSnap.data() as User;
+                const data = docSnap.data() as AppUser;
                 this.currentMentor = data;
             }
         },
 
         /**
-         * @param  {User} user
+         * @param  {AppUser} user
          * @description Update All Detail User Data Property
          */
-        async updateCurrentUserData(user: User, options: { isSilent: boolean }) {
+        async updateCurrentUserData(user: AppUser, options: { isSilent: boolean }) {
             user.lastModifiedDate = Date.now();
 
             setDoc(userDataRefConfig(user.user_id), user, { merge: true })
                 .then(async () => {
                     if (!options.isSilent)
                         toast.info(`Public Profile has been updated.`);
-                    
+
                     await updateProfile(auth.currentUser!, {
                         displayName: user.full_name,
                         photoURL: user.photo_url
@@ -147,10 +147,10 @@ export const useUser = defineStore('userService', {
 
         /**
          * @param  {any} photo
-         * @param  {User['userId']} userId
+         * @param  {string} userId
          * @description Update user profile avatar image
          */
-        async updateFotoProfile(photo: File, userId: User['user_id']) {
+        async updateFotoProfile(photo: File, userId: string) {
             if (photo) {
                 const storageRef = ref(storage, `profiles/${userId}`);
                 const uploadTask = uploadBytesResumable(storageRef, photo);
@@ -188,10 +188,10 @@ export const useUser = defineStore('userService', {
         },
 
         /**
-         * @param  {User} ref
-         * This method will parse all data reference from User
+         * @param  {AppUser} ref
+         * This method will parse all data reference from AppUser
          */
-        parseFromReference(ref: User) {
+        parseFromReference(ref: AppUser) {
             getDoc(ref.main_role)
                 .then(mainRole => {
 
@@ -206,7 +206,7 @@ export const useUser = defineStore('userService', {
             // Get Mentor Data
             if (ref.mentor_id)
                 getDoc(ref.mentor_id)
-                    .then(mentor => this.currentMentor = mentor.data() as User);
+                    .then(mentor => this.currentMentor = mentor.data() as AppUser);
         },
         /**
          * @param  {SurahData['id']} surah_number
@@ -223,10 +223,9 @@ export const useUser = defineStore('userService', {
         },
 
         /**
-         * @param  {User} user
          * @description Update All Detail User Data Property
          */
-        async updateUserClassRoom(userId: User['user_id'], roomId: Room['id'], options: { isSilent: boolean }) {
+        async updateUserClassRoom(userId: string, roomId: Room['id'], options: { isSilent: boolean }) {
             this.currentUser?.rooms?.push(roomId);
 
             setDoc(userDataRefConfig(userId), this.currentUser, { merge: true })
@@ -241,7 +240,7 @@ export const useUser = defineStore('userService', {
          * @param  {} state
          * @returns User.photoUrl
          */
-        getPhotoUrl(state: UserState): User['photo_url'] {
+        getPhotoUrl(state: UserState): string {
             return state.currentUser
                 ? state.currentUser.photo_url
                     ? state.currentUser.photo_url
@@ -251,11 +250,9 @@ export const useUser = defineStore('userService', {
 
         /**
          * @param  {} state
-         * @param {User['username']} full_name
-         * @param  {User['email']} email
          * @returns User
          */
-        getLoginAsInfo(state: UserState): { fullName: User['full_name'], email: User['email'] } {
+        getLoginAsInfo(state: UserState): { fullName: string, email: string } {
             const loginAs = {
                 fullName: state.currentUser?.full_name as string,
                 email: state.currentUser?.email as string

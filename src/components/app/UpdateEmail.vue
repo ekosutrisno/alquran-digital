@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
-import { useAuth } from '@/services';
+import { useAuth } from '@/services/useAuth';
 import PromptCredentialConfirm from './modal/PromptCredentialConfirm.vue';
 import { validateEmail } from '@/utils/helperFunction';
 import MailIcon from '../svg/MailIcon.vue';

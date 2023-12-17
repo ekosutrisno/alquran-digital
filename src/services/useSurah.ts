@@ -14,12 +14,12 @@ interface UseSurahState {
 
 export const useSurah = defineStore('surahService', {
     state: (): UseSurahState => ({
-        ayahs: new Array<AyahData>(),
+        ayahs: [],
         isLoading: false,
         isPush: false,
         lastAyahVisible: null,
         surah: null,
-        surahs: new Array<SurahData>()
+        surahs: []
     }),
 
     actions: {
@@ -191,6 +191,5 @@ export const useSurah = defineStore('surahService', {
     getters: {
         filteredSurah: (state: UseSurahState) => (q: string) => state.surahs.filter(s => s.surat_name.toLowerCase().includes(q.trim().toLowerCase())),
         isLast: (state: UseSurahState) => state.ayahs.length == state.surah?.count_ayat
-
     }
 })

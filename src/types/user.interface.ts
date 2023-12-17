@@ -6,7 +6,7 @@ export interface InfoMetadata {
     lastModifiedDate?: Date | any
 }
 
-export interface User extends InfoMetadata {
+export interface AppUser extends InfoMetadata {
     bacaanku?: AyahData | null;
     email: string;
     join_at: number;
@@ -39,7 +39,7 @@ export interface Role {
 
 export interface UserNotification {
     id: string;
-    user_id: User['user_id'];
+    user_id: string;
     title: string;
     body: string;
     image: string;

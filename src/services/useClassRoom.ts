@@ -1,6 +1,6 @@
 import { MemberList } from "@/types/chat.interface";
 import { Room } from "@/types/room.interface";
-import { User } from "@/types/user.interface";
+import { AppUser } from "@/types/user.interface";
 import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
@@ -18,8 +18,8 @@ interface ClassRoomState {
     isLast: boolean;
     lastVisible: DocumentData;
     room: Room;
-    mentor: User;
-    members: User[];
+    mentor: AppUser;
+    members: AppUser[];
     memberRef: string[];
     rooms: Array<Room>;
     asMentorInRoom: Array<Room>;
@@ -32,11 +32,11 @@ export const useClassRoom = defineStore('classRoomService', {
         isPush: false,
         lastVisible: {} as DocumentData,
         room: {} as Room,
-        mentor: {} as User,
-        members: new Array<User>(),
-        memberRef: new Array<string>(),
-        rooms: new Array<Room>(),
-        asMentorInRoom: new Array<Room>()
+        mentor: {} as AppUser,
+        members: [],
+        memberRef: [],
+        rooms: [],
+        asMentorInRoom: []
     }),
 
     actions: {
@@ -122,7 +122,7 @@ export const useClassRoom = defineStore('classRoomService', {
             getDoc(mentorRef)
                 .then((snap) => {
                     if (snap.exists())
-                        this.mentor = snap.data() as User
+                        this.mentor = snap.data() as AppUser
                 })
         },
 
@@ -130,10 +130,10 @@ export const useClassRoom = defineStore('classRoomService', {
             const q = query(userCollectionRefConfig(), where('user_id', 'in', listMemberRef))
 
             onSnapshot(q, (snapshot) => {
-                const membersTemp: User[] = [];
+                const membersTemp: AppUser[] = [];
 
                 snapshot.docs.forEach(user => {
-                    membersTemp.push(user.data() as User)
+                    membersTemp.push(user.data() as AppUser)
                 })
 
                 this.members = membersTemp;
@@ -145,7 +145,7 @@ export const useClassRoom = defineStore('classRoomService', {
             getDocs(q)
                 .then(snapshot => {
                     if (!snapshot.empty) {
-                        const userReadyToInvite = snapshot.docs[0].data() as User;
+                        const userReadyToInvite = snapshot.docs[0].data() as AppUser;
 
                         const roomRef = doc(db, 'room_collections', `${roomId}`);
 

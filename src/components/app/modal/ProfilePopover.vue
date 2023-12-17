@@ -39,10 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import type { User } from '@/types/user.interface';
+import type { AppUser } from '@/types/user.interface';
 import { initPopovers } from 'flowbite';
 import { onMounted } from 'vue';
 
-defineProps<{ member: User }>();
+defineProps<{ member: AppUser }>();
 onMounted(() => initPopovers());
 </script>

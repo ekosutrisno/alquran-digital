@@ -257,7 +257,7 @@ import { calculateAge, formatDateFromNow, formatDateWithMonth } from '@/utils/he
 import { onMounted, ref } from 'vue';
 import Svg3 from '@/components/svg/Svg3.vue';
 import { storeToRefs } from 'pinia';
-import { SettingTab, User } from '@/types/user.interface';
+import { SettingTab } from '@/types/user.interface';
 import UpdatePassword from '@/components/app/UpdatePassword.vue';
 import UpdateEmail from '@/components/app/UpdateEmail.vue';
 import ConnectedAccount from '@/components/app/ConnectedAccount.vue';
@@ -345,7 +345,7 @@ async function onUpdateAvatar(event: any) {
 }
 
 async function updateData() {
-    await updateCurrentUserData(currentUser.value as User, { isSilent: false });
+    await updateCurrentUserData(currentUser.value, { isSilent: false });
 }
 
 function updateParams(paramName: string, paramValue: SettingTab) {

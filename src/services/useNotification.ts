@@ -1,4 +1,4 @@
-import { User, UserNotification, UserNotificationType } from "@/types/user.interface";
+import { AppUser, UserNotification, UserNotificationType } from "@/types/user.interface";
 import { getDoc, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
@@ -19,7 +19,7 @@ interface UseNotficationState {
 export const useNotification = defineStore('notificationService', {
     state: (): UseNotficationState => ({
         notification: null,
-        notifications: new Array<UserNotification>(),
+        notifications: [],
         userId: decrypt(String(localStorage.getItem("_uid")))
     }),
 
@@ -33,7 +33,6 @@ export const useNotification = defineStore('notificationService', {
             onSnapshot(q, (snapshot) => {
                 this.notifications = snapshot.docs.map((notif) => notif.data() as UserNotification);
             });
-
         },
 
         /**
@@ -101,19 +100,18 @@ export const useNotification = defineStore('notificationService', {
         },
 
         /**
-        * @param  {User} user
         * @description Added FCMS Token into the User Data (For Campaign and Newsletter)
         */
-        async addFcmsToken(payload: { userId: User['user_id'], token: string }, options: { isSilent: boolean }) {
+        async addFcmsToken(payload: { userId: string, token: string }, options: { isSilent: boolean }) {
             const docRef = userDataRefConfig(payload.userId);
             getDoc(docRef)
                 .then((snapshot) => {
-                    const user = snapshot.data() as User;
+                    const user = snapshot.data() as AppUser;
                     const fcmsExist = user.fcms ? user.fcms?.includes(payload.token) : false;
 
                     if (!fcmsExist) {
                         user.lastModifiedDate = Date.now();
-                        user.fcms?.push(payload.token) as User['fcms'];
+                        user.fcms?.push(payload.token);
 
                         setDoc(docRef, user, { merge: true })
                             .then(() => {
@@ -124,7 +122,7 @@ export const useNotification = defineStore('notificationService', {
                 })
         },
     },
-    
+
     getters: {
         unReadNotification(state: UseNotficationState): UserNotification[] {
             return state.notifications.filter(notif => !notif.read)

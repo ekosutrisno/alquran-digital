@@ -155,7 +155,9 @@
 import { computed, watch } from 'vue'
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { useRouter } from 'vue-router'
-import { useAuth, useNotification, useUser, useUtil } from '@/services';
+import { useUser, useUtil } from '@/services';
+import { useAuth } from '@/services/useAuth';
+import { useNotification } from '@/services/useNotification';
 import Svg2 from '../svg/Svg2.vue'
 import NotificationType from '../shared/NotificationType.vue';
 import { useDark, useMagicKeys, useToggle, useOnline } from '@vueuse/core';
