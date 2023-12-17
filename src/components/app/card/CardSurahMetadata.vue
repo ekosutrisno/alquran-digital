@@ -28,9 +28,9 @@
   </div>
 </router-link>
 </template>
+
 <script setup lang="ts">
 import { SurahData } from '@/types/alquran.interface';
 
-
-defineProps<{surah: SurahData}>();
+defineProps<{ surah: SurahData }>();
 </script>

@@ -24,8 +24,9 @@
   </div>
 </router-link>  
 </template>
+
 <script setup lang="ts">
 import { PageMetadata } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';
-defineProps<{page: PageMetadata}>()
+defineProps<{ page: PageMetadata }>()
 </script>

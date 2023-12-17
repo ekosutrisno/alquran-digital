@@ -23,8 +23,9 @@
   </div>
 </router-link>  
 </template>
+
 <script setup lang="ts">
 import { Metadata } from '@/types/alquran.interface';
 import { convertToArab } from '@/utils/helperFunction';
-defineProps<{juz: Metadata}>()
+defineProps<{ juz: Metadata }>()
 </script>

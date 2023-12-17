@@ -115,6 +115,9 @@ const utilService = useUtil();
 const route = useRoute();
 const title = useTitle();
 
+const { onGetSurahPilihan, onGetFavorit, onRemoveSurahPilihan, onMarkPilihan } = ayahService;
+const { nextAyahSurahOfSurah, nextAyahSurahOfSurahDetail } = surahService;
+
 interface RouteQuery {
     is_surah: boolean;
     sn: number;
@@ -131,7 +134,7 @@ const routeQuery: RouteQuery = {
     sajda: route.query.sajda === 'true' ? true : false
 };
 
-const { surah, isLoading, isPush, ayahs, } = storeToRefs(surahService)
+const { surah, isLoading, isPush, ayahs, isLast } = storeToRefs(surahService)
 const { surahPilihan, isPlayingAyah } = storeToRefs(ayahService);
 
 const state = reactive({
@@ -168,7 +171,6 @@ const state = reactive({
 
 onMounted(() => loadData());
 
-const isLast = computed(() => ayahs.value.length === surah.value?.count_ayat);
 const isIncludeMyPilihan = computed(() => surahPilihan.value.some(surat => surat.id === surah.value?.id));
 
 function setTitle() {
@@ -187,16 +189,18 @@ function loadData() {
             }
         })
         .then(() => {
-            if (decrypt(String(localStorage.getItem("_uid"))))
-                ayahService.onGetSurahPilihan();
+            if (decrypt(String(localStorage.getItem("_uid")))) {
+                onGetFavorit();
+                onGetSurahPilihan();
+            }
             setTitle();
         });
 }
 
 function loadNextAyah() {
     routeQuery?.is_surah
-        ? surahService.nextAyahSurahOfSurah(routeQuery.sn)
-        : surahService.nextAyahSurahOfSurahDetail()
+        ? nextAyahSurahOfSurah(routeQuery.sn)
+        : nextAyahSurahOfSurahDetail()
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();
@@ -219,8 +223,8 @@ const selectSize = (size: any) => {
 
 async function addToSurahPilihan() {
     if (isIncludeMyPilihan.value)
-        ayahService.onRemoveSurahPilihan(Number(surah.value?.id));
+        onRemoveSurahPilihan(Number(surah.value?.id));
     else
-        ayahService.onMarkPilihan(surah.value as SurahData);
+        onMarkPilihan(surah.value as SurahData);
 }
 </script>

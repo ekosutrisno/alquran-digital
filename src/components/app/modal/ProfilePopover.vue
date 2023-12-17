@@ -44,7 +44,5 @@ import { initPopovers } from 'flowbite';
 import { onMounted } from 'vue';
 
 defineProps<{ member: User }>();
-
 onMounted(() => initPopovers());
-
 </script>
