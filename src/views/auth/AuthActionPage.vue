@@ -26,22 +26,22 @@
                     Update Password
                     </h2>
                     <p class="mt-2 text-center text-sm text-gray-600 dark:text-slate-300">
-                        Set your new password or 
-                    <router-link to="/auth/login" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
-                        Back to login
+                        Buat password baru atau 
+                    <router-link :to="{name: 'LoginPage'}" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                        Masuk
                     </router-link>
                     </p>
                 </div>
                 <form class="mt-8 space-y-6" @submit.prevent="confirmPasswordResetAction">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label for="new-password" class="sr-only">New Password</label>
-                            <input id="new-password" v-model="authRequest.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="New Password" />
+                            <label for="new-password" class="sr-only">Password</label>
+                            <input id="new-password" v-model="authRequest.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="Password" />
                             <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                         <div>
-                            <label for="new-confirm-password" class="sr-only">Confirm New Password</label>
-                            <input id="new-confirm-password" v-model="authRequest.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Confirm New Password" />
+                            <label for="new-confirm-password" class="sr-only">Ulangi Password</label>
+                            <input id="new-confirm-password" v-model="authRequest.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Ulangi Password" />
                             <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                     </div>

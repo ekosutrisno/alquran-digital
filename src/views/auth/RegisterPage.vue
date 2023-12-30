@@ -22,13 +22,12 @@
             <div class="max-w-md with-transition w-full space-y-8">
                 <div>
                     <h2 class="text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
-                    Sign Up
+                    Daftar Sekarang
                     </h2>
                     <p class="mt-6 text-center text-sm text-gray-600 dark:text-slate-100">
-                    Or
-                    {{ ' ' }} Already have an Account?
-                    <router-link to="/auth/login" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
-                        Sign in
+                    Sudah punya akun?
+                    <router-link :to="{name: 'LoginPage'}" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                        Masuk
                     </router-link>
                     </p>
                 </div>
@@ -36,16 +35,16 @@
                     <input type="hidden" name="remember" value="true" />
                     <div class="rounded-md shadow-sm -space-y-px">
                     <div>
-                        <label for="email-address" class="sr-only">Email address</label>
-                        <input required id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="off" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                        <label for="email-address" class="sr-only">Alamat Email</label>
+                        <input required id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="off" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Alamat Email" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
                         <input required id="password" v-model="authRequest.password" name="password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
                     </div>
                     <div>
-                        <label for="confirm-password" class="sr-only">Confirm Password</label>
-                        <input required id="confirm-password" v-model="authRequest.confirmPassword" name="confirm-password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Confirm Password" />
+                        <label for="confirm-password" class="sr-only">Ulangi Password</label>
+                        <input required id="confirm-password" v-model="authRequest.confirmPassword" name="confirm-password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Ulangi Password" />
                     </div>
                     </div>
                     <div v-if="error.errorMessage" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
@@ -59,14 +58,15 @@
                             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                                 <LockIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
                             </span>
-                            Sign up
+                            Daftar
                         </button>
                     </div>
+                    <p class="text-center text-sm dark:text-white">Dengan mendaftar, saya menyetujui Syarat dan Ketentuan serta <RouterLink class="text-sky-600 dark:text-sky-400" :to="{name: 'PrivacyPolicyPage'}" title="Kebijakan Privasi">Kebijakan Privasi</RouterLink> </p>
                 </form>
                 <div class="flex flex-col space-y-4 items-center justify-end">
                     <div class="text-sm">
                         <p class="font-medium text-gray-600 dark:text-slate-100">
-                            Or continue with
+                            atau daftar dengan
                         </p>
                     </div>
                     <button 

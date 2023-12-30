@@ -10,13 +10,12 @@
             <div class="with-transition w-full space-y-8">
                 <div>
                     <h2 class="text-center text-3xl font-extrabold text-slate-800 dark:text-slate-50">
-                        Login
+                        Masuk
                     </h2>
                     <p class="mt-4 text-center text-sm text-gray-600 dark:text-slate-100">
-                        Or
-                        {{ ' ' }} Not register yet?
-                    <router-link to="/auth/register" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
-                        Create an Account
+                        Belum terdaftar?
+                    <router-link :to="{name: 'RegisterPage'}" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                        Buat Akun
                     </router-link>
                     </p>
                 </div>
@@ -24,8 +23,8 @@
                     <input type="hidden" name="remember" value="true" />
                     <div class="rounded-md shadow-sm -space-y-px">
                     <div>
-                        <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                        <label for="email-address" class="sr-only">Alamat Email</label>
+                        <input id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Alamat Email" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
@@ -35,8 +34,8 @@
 
                     <div class="flex items-center justify-end">
                         <div class="text-sm">
-                            <router-link to="/auth/reset-password" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
-                            Forgot your password?
+                            <router-link :to="{name: 'ResetPasswordPage'}" class="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-500">
+                            lupa password?
                             </router-link>
                         </div>
                     </div>
@@ -51,15 +50,15 @@
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                         <LockIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
                         </span>
-                        Sign in
+                        Masuk
                     </button>
                     </div>
                 </form>
 
                 <div class="flex flex-col space-y-4 items-center justify-end">
                     <div class="text-sm">
-                        <p class="font-medium text-gray-600 dark:text-slate-100">
-                            Or continue with
+                        <p class="text-gray-600 dark:text-slate-100">
+                            atau masuk dengan
                         </p>
                     </div>
                     <button 
