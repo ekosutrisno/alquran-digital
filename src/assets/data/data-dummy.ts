@@ -21,7 +21,8 @@ export const daftarMadrasah: Madrasah[] = [
         createdDate: 1656478778758,
         lastModifiedDate: 1656478778758,
         logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
-        public: true
+        public: true,
+        type: 'SM'
     },
     {
         code: "MAD002",
@@ -40,7 +41,8 @@ export const daftarMadrasah: Madrasah[] = [
         createdDate: new Date("2023-08-17"),
         lastModifiedDate: new Date("2023-08-17"),
         logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
-        public: false
+        public: false,
+        type: 'SM'
     },
     {
         code: "MAD003",
@@ -59,7 +61,8 @@ export const daftarMadrasah: Madrasah[] = [
         createdDate: new Date("2023-08-17"),
         lastModifiedDate: new Date("2023-08-17"),
         logo: 'https://madrasahjamilurrahman.sch.id/wp-content/uploads/2020/09/Logo-MA-Jamilurrahman-1.png',
-        public: true
+        public: true,
+        type: 'SM'
     }
 ];
 

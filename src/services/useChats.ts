@@ -50,6 +50,7 @@ export const useChats = defineStore('chatService', {
                 from: `${paylaod.from}`,
                 to: `${paylaod.to}`,
                 isGroup: false,
+                type: 'text',
                 timestamps: Date.now()
             }
 

@@ -80,7 +80,7 @@ export const quickMenu: QuickMenuType[] = [
         icon: 'classroom',
         title: 'E-Madrasah',
         description: 'Membuat madrasah dan ruang kelas.',
-        to: '',
+        to: 'MadrasahPage',
         tag: 'dev'
     }
 ]
