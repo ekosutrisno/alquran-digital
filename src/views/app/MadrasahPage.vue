@@ -84,9 +84,8 @@ const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
 const option = ref(false);
 
-onMounted(()=>{ 
-    // if(state.rooms.length > 0)
-        // roomService.getRooms( state.rooms as string[])
+onMounted(async ()=>{ 
+    await madrasahService.getAllMadrasah();
 })
 
 const pageUp = ref<HTMLDivElement | undefined>();

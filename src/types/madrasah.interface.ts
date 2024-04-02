@@ -2,7 +2,7 @@ import { DocumentReference } from "firebase/firestore";
 import { InfoMetadata } from "./user.interface";
 
 export interface Madrasah extends InfoMetadata {
-    code: string;
+    code: string | number;
     name: string;
     headMaster: DocumentReference | null;
     govermentCode: string;
@@ -26,5 +26,12 @@ export interface MadrasahType {
     img: string,
     type: MadrasahTypeOption,
     title: string;
+    description: string
+}
+
+
+export interface CreateMadrasahRequest {
+    name: string,
+    email: string,
     description: string
 }

@@ -7,21 +7,22 @@
             <p class="text-sm text-center">Pengisian data umum sekolah</p>
         </div>
         <div v-if="$route.query.step == '1'" class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-            <CardMadrasahType v-for="type in madrasahType" :key="type.type" :type="type"/>
+            <CardMadrasahType v-for="type in madrasahType" :key="type.type" :type="type" />
         </div>
 
         <!-- Section 1-->
         <section v-if="$route.query.step == '2'" class="gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4 mx-auto">
-            <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
+            <div
+                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
                 <!-- Content of tabs 1 -->
                 <div class="with-transition grid grid-cols-1 lg:grid-cols-2 w-full py-6 px-2">
                     <!-- Room Data -->
-                    <FormCreateMadrasah v-model:room="room" @send="saveRoom" />
-                    
+                    <FormCreateMadrasah @send="saveMadrasah" />
+
                     <!-- Image Ilustration -->
                     <div>
-                        <img src="@/assets/school.svg" alt="img-ill" class="" > 
+                        <img src="@/assets/school.svg" alt="img-ill" class="">
                     </div>
                 </div>
             </div>
@@ -35,9 +36,7 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ScrollToTop from '@/components/ScrollToTop.vue';
-import { useClassRoom } from '@/services';
-import { storeToRefs } from 'pinia';
-import { Room } from '@/types/room.interface';
+import { useMadrasah } from '@/services';
 import Svg3 from '@/components/svg/Svg3.vue';
 import CardMadrasahType from '@/components/app/card/CardMadrasahType.vue';
 import { madrasahType } from '@/assets/data/data-dummy';
@@ -45,25 +44,23 @@ import FormCreateMadrasah from '@/components/app/FormCreateMadrasah.vue';
 
 const route = useRoute();
 const router = useRouter();
-const roomService = useClassRoom();
-
-const { room } = storeToRefs(roomService);
+const madrasahService = useMadrasah();
 
 onMounted(async () => {
     if (route.query.a === 'edit')
-        await roomService.getRoom(route.query.id as Room['id']);
+        await madrasahService.getMadrasah(String(route.query.id));
 })
 
-const saveRoom = () => {
-    if(route.query.a === 'create')
-        roomService.addRoom(room.value)
+const saveMadrasah = async () => {
+    if (route.query.a === 'create')
+        madrasahService.createMadrasah()
             .then(() => {
-                router.push({ name: 'ClassRoomPage' })
+                router.push({ name: 'MadrasahPage' })
             });
     else {
-        roomService.editRoom(room.value)
+        madrasahService.updateMadrasah()
             .then(() => {
-                router.push({ name: 'ClassRoomPage' })
+                router.push({ name: 'MadrasahPage' })
             });
     }
 }

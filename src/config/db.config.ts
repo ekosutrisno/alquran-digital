@@ -13,6 +13,7 @@ export const TABLES = {
     SURAH_COLLECTIONS: 'surah_collections',
     SURAH_PILIHAN: 'surah_pilihan',
     USER_COLLECTIONS: 'user_collections',
+    MADRASAH_COLLECTION: 'madrasah_collections'
 }
 
 export const REALTIME_DB = {
