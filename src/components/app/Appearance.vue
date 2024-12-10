@@ -34,7 +34,60 @@
         </div>
     </section>
 
-    <!-- S2 -->
+    <!-- S2 TODO: Show Arti dan TransLiteration -->
+    <section>
+        <div class="pb-2">
+            <p class="text-xl dark:text-white inline-flex items-center space-x-2">
+                <AppearanceIcon class="text-slate-500 w-6 h-6"/>
+                <span>Tampilan Ayah</span>
+            </p>
+            <div class="border-t dark:border-slate-700/50 mt-2 py-2">
+                <p class="text-sm text-slate-700 dark:text-slate-300">Konfigurasi untuk menampilan cara baca dan arti dari setiap ayat.</p>
+            </div>
+        </div>
+        <div class="text-sm grid md:grid-cols-2 gap-4 dark:text-white">
+            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-50/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
+                <div class="inline-flex justify-between">
+                    <div class="inline-flex dark:hidden items-center space-x-1.5 text-sky-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <p class="font-semibold">Tampilkan Arti Ayat</p>
+                    </div>
+                    <div class="hidden dark:inline-flex items-center space-x-1.5 text-sky-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <p class="font-semibold">Night theme</p>
+                    </div>
+                    <span class="text-xs py-0.5 px-1.5 text-sky-500 rounded-full border border-sky-500">Active</span>
+                </div>
+                <p class="text-xs mt-3 dark:hidden">This theme will be active when your system is set to “light mode”</p>
+                <p class="text-xs mt-3 hidden dark:block">This theme will be active when your system is set to “dark mode”</p>
+            </div>
+            <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-50/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
+                <div class="inline-flex justify-between">
+                    <div class="inline-flex dark:hidden items-center space-x-1.5 text-sky-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <p class="font-semibold">Tampilkan Cara Baca</p>
+                    </div>
+                    <div class="hidden dark:inline-flex items-center space-x-1.5 text-sky-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <p class="font-semibold">Night theme</p>
+                    </div>
+                    <span class="text-xs py-0.5 px-1.5 text-sky-500 rounded-full border border-sky-500">Active</span>
+                </div>
+                <p class="text-xs mt-3 dark:hidden">This theme will be active when your system is set to “light mode”</p>
+                <p class="text-xs mt-3 hidden dark:block">This theme will be active when your system is set to “dark mode”</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- S3 -->
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
@@ -53,7 +106,6 @@
                 </button>
             </ul>
          </div>
-    
     </section>
 </div>
 </template>

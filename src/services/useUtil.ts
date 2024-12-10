@@ -16,6 +16,12 @@ export const useUtil = defineStore('utilityService', {
     actions: {
         setAlquranSize(size: QuranLayoutSize) {
             localStorage.setItem('_a_size', JSON.stringify(size));
+        },
+        setAyahCardConfig() {
+            localStorage.setItem('_a_config', JSON.stringify({
+                showTransliteration: false,
+                showTranslation: false
+            }));
         }
     },
     getters: {

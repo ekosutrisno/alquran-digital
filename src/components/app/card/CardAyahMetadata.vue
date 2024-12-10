@@ -13,16 +13,16 @@
          />
       </div>
       
-      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
+      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto text-right px-4 text-xl sm:text-2xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
          <p class="font-quran mb-4"> 
-            <span class="leading-10 dark:font-normal">{{ayat.aya_text}}</span>   
-            <span class="text-xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
+            <span class="leading-loose dark:font-normal">{{ayat.aya_text}}</span>   
+            <span class="text-2xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
          </p> 
 
-         <p class="text-base font-normal text-left dark:text-slate-100"> 
+         <p v-if="showTransliteration" class="text-base font-normal text-left dark:text-slate-100"> 
             <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 dark:text-sky-300 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
          </p>
-         <p class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
+         <p v-if="showTranslation" class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
             {{ayat.translation_aya_text}}
          </p>
          
@@ -114,7 +114,7 @@ defineProps<{ ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir
 
 const ayahService = useAyah();
 const { onCheckTafsir, onMarkFavorit, onRemoveFavorit, onMarkBacaanku } = ayahService;
-const { isMyFavorite } = storeToRefs(ayahService);
+const { isMyFavorite, showTranslation, showTransliteration } = storeToRefs(ayahService);
 
 const { myBacaanku } = storeToRefs(useUser());
 const router = useRouter();

@@ -178,6 +178,8 @@ function setTitle() {
 }
 
 function loadData() {
+    utilService.setAyahCardConfig();
+
     surahService
         .setSurah(routeQuery.sn, {
             is_surah: routeQuery.is_surah,
