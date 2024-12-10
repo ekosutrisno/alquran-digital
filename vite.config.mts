@@ -1,4 +1,5 @@
 /// <reference types="vite" />
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -11,8 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      runtimeOnly: false,
-      include: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
+      include: fileURLToPath(new URL('./src/i18n/locales/**', import.meta.url))
     }),
     VitePWA({
       registerType: 'prompt',
