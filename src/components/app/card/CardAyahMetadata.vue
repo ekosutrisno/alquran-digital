@@ -19,10 +19,10 @@
             <span class="text-2xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
          </p> 
 
-         <p v-if="showTransliteration" class="text-base font-normal text-left dark:text-slate-100"> 
+         <p v-if="ayahConfig.showTransliteration" class="text-base font-normal text-left dark:text-slate-100"> 
             <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 dark:text-sky-300 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
          </p>
-         <p v-if="showTranslation" class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
+         <p v-if="ayahConfig.showTranslation" class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
             {{ayat.translation_aya_text}}
          </p>
          
@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAyah, useUser } from '@/services';
+import { useAyah, useUser, useUtil } from '@/services';
 import { AyahData } from '@/types/alquran.interface';
 import { reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
@@ -114,7 +114,9 @@ defineProps<{ ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir
 
 const ayahService = useAyah();
 const { onCheckTafsir, onMarkFavorit, onRemoveFavorit, onMarkBacaanku } = ayahService;
-const { isMyFavorite, showTranslation, showTransliteration } = storeToRefs(ayahService);
+const { isMyFavorite } = storeToRefs(ayahService);
+const { ayahConfig } = storeToRefs(useUtil());
+
 
 const { myBacaanku } = storeToRefs(useUser());
 const router = useRouter();
