@@ -54,13 +54,13 @@
                         </div>
                     </button>
                     <p class="text-white font-medium py-0.5 px-2 rounded bg-sky-500">{{ state.sizeSelected.size }}</p>
-                    <p class="text-sm text-slate-700 dark:text-slate-50">Kamu dapat mencari semua metadata Ayah disini</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-50">Halaman bacaan Al-Quran</p>
                 </div>
             </div>
             
             <div class="mt-8 mx-auto select-none">
-                <div class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{surah?.surat_golongan}})</span> | {{surah?.surat_text_full}} </div>
-                <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+                <div class="font-quran text-center mb-4 text-sm font-medium dark:text-slate-400"><span class="text-sm font-normal">({{surah?.surat_golongan}})</span> | {{surah?.surat_text_full}} </div>
+                <div class="font-quran text-center mb-2 text-xl dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                 <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
             </div>
 
