@@ -53,8 +53,7 @@
 
             <div v-if="ayahs.length">
                 <div class="mt-8 mx-auto select-none">
-                    <div class="font-quran text-center mb-4 text-sm font-semibold dark:text-slate-400"><span class="text-sm font-normal">({{surah?.surat_golongan}})</span> | {{surah?.surat_text_full}} </div>
-                    <div class="font-quran text-center mb-2 text-xl font-semibold dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+                    <div class="font-quran text-center mb-2 text-xl dark:text-slate-300">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                     <p class="text-center text-sm text-gray-600 dark:text-slate-300">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</p>
                 </div>
                 <div class="w-full grid pt-6 pb-2">
@@ -65,6 +64,13 @@
             <div v-else class="w-full py-5 h-auto flex flex-col items-center justify-center with-transition mt-5 dark:text-white max-w-lg mx-auto">
                 <NoNotificationIcon />
                 <p class="mx-auto text-sm py-5">Hasil Tidak Ditemukan!</p>
+            </div>
+
+            <div v-if="ayahs.length" class="flex items-center my-4 justify-center">
+                <button @click="onLanjutBacaan()" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Lanjut Baca</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg></span> 
+                </button>
             </div>
 
         </section>
@@ -82,17 +88,35 @@ import CardAyahMetadata from '@/components/app/card/CardAyahMetadata.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 const surahService = useSurah();
-const { getSurah, setAyahDetailGeneral } = surahService;
-const { ayahs, surah, isLoading } = storeToRefs(surahService);
+const { setAyahDetailGeneral } = surahService;
+const { ayahs, isLoading } = storeToRefs(surahService);
+const router = useRouter();
+const search = reactive({ surah: 1, ayah: 1 });
 
-const search = reactive({ surah: 1, ayah: 1 })
+onMounted(() => {
+    ayahs.value = [];
+})
 
 async function onSearch() {
-    getSurah(search.surah).then(() => {
-        setAyahDetailGeneral({ surat: search.surah, ayat: search.ayah }, { next_bacaan: false, max_limit: 1 })
-    });
+    setAyahDetailGeneral({ surat: search.surah, ayat: search.ayah }, { next_bacaan: false, max_limit: 1 })
+}
+
+const onLanjutBacaan = () => {
+    if (ayahs.value.length) {
+        const currAyah = ayahs.value[0];
+        router.push({
+            name: 'AlquranPageDetail',
+            query: {
+                sn: currAyah.sura_id,
+                an: currAyah.aya_number,
+                next_bacaan: 'false'
+            }
+        })
+    }
 }
 
 const pageUp = ref<HTMLDivElement | undefined>();

@@ -1,11 +1,9 @@
-import { AppUser, UserNotification, UserNotificationType } from "@/types/user.interface";
+import { AppUser, UserNotification } from "@/types/user.interface";
 import { getDoc, limit, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { messaging, onMessage } from '@/config/firebase.config';
 import { useUser } from '@/services';
 import { notificationCollectionRefConfig, notificationDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
-import { generateFriendlyId } from "@/utils/friendlyId";
 import { decrypt } from "@/utils/cryp";
 
 const toast = useToast();
@@ -68,35 +66,25 @@ export const useNotification = defineStore('notificationService', {
          */
         onMessageForeground() {
             const userService = useUser();
+            const options = {
+                title: `Al-Quran Digital`,
+                body: `Hi ${userService.getLoginAsInfo.fullName}✋`,
+                image: `/n_banner.webp`,
+                icon: `${userService.getLoginAsInfo.photo_url}`,
+            };
 
-            onMessage(messaging, async (payload) => {
-                const notif = payload.notification as any;
-                const options = {
-                    title: `${notif?.title}`,
-                    body: `Hi ${userService.getLoginAsInfo.fullName}✋, ${notif.body}`,
-                    image: notif.image || `https://res.cloudinary.com/ekosutrisno/image/upload/v1662785818/briix/notif_n0ogoj.jpg`,
-                    icon: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1662786263/briix/n_pyzbuz.png',
-                };
-                const notify: UserNotification = {
-                    id: generateFriendlyId(),
-                    timestamp: Date.now(),
-                    user_id: String(userService.currentUser?.user_id),
-                    title: options.title,
-                    image: options.image,
-                    icon: options.icon,
-                    body: options.body,
-                    read: false,
-                    type: UserNotificationType.NEWS
-                }
-
-                await this.saveNotification(notify);
-
-                var n = new Notification(options.title, options);
-                toast.info(options.title);
-                n.onshow;
-
-
-            });
+            var n = new Notification(options.title, options);
+           
+            n.onclick = () => {
+                console.log('Notification clicked');
+            };
+        
+            n.onshow = () => {
+                console.log('Notification displayed');
+            };
+            n.onclose = () => {
+                console.log('Notification Closed');
+            };
         },
 
         /**

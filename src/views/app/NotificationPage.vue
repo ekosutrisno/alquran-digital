@@ -50,6 +50,7 @@
             </div>
 
             <div class="grid h-full">
+            <button class="hidden" @click="notificationService.onMessageForeground()" type="button">Alert</button>
                 <div class="w-full mx-auto px-4 grid pt-6 pb-2 dark:bg-transparent bg-white/40">
                     <div v-for="(item, idx) in notificationsList" :key="item.key">
                         <CardTimeline :item="item" :idx="idx"/>

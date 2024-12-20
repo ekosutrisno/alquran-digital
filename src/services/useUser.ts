@@ -252,10 +252,11 @@ export const useUser = defineStore('userService', {
          * @param  {} state
          * @returns User
          */
-        getLoginAsInfo(state: UserState): { fullName: string, email: string } {
+        getLoginAsInfo(state: UserState): { fullName: string, email: string, photo_url: string } {
             const loginAs = {
                 fullName: state.currentUser?.full_name as string,
-                email: state.currentUser?.email as string
+                email: state.currentUser?.email as string,
+                photo_url: state.currentUser?.photo_url as string
             }
             return loginAs;
         },

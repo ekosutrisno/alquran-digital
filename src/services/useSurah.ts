@@ -167,24 +167,26 @@ export const useSurah = defineStore('surahService', {
         },
 
         async nextAyahSurahOfSurahDetail() {
-            this.isPush = true;
+            if (this.lastAyahVisible) {
+                this.isPush = true;
 
-            const ayahColRefs = ayahCollectionRefConfig();
-            const q = query(ayahColRefs, orderBy("aya_id", "asc"), startAfter(this.lastAyahVisible), limit(20));
-
-            getDocs(q)
-                .then((doc) => {
-                    const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
-                    this.lastAyahVisible = lastVisible;
-                    const tempData: AyahData[] = [];
-
-                    doc.forEach((ayat) => {
-                        tempData.push(ayat.data() as AyahData);
+                const ayahColRefs = ayahCollectionRefConfig();
+                const q = query(ayahColRefs, orderBy("aya_id", "asc"), startAfter(this.lastAyahVisible), limit(20));
+    
+                getDocs(q)
+                    .then((doc) => {
+                        const lastVisible = doc.docs[doc.docs.length - 1] as DocumentData;
+                        this.lastAyahVisible = lastVisible;
+                        const tempData: AyahData[] = [];
+    
+                        doc.forEach((ayat) => {
+                            tempData.push(ayat.data() as AyahData);
+                        });
+    
+                        this.ayahs.push(...tempData);
+                        this.isPush = false;
                     });
-
-                    this.ayahs.push(...tempData);
-                    this.isPush = false;
-                });
+            }
         },
     },
     getters: {
