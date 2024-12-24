@@ -226,7 +226,11 @@ export const useUser = defineStore('userService', {
          * @description Update All Detail User Data Property
          */
         async updateUserClassRoom(userId: string, roomId: Room['id'], options: { isSilent: boolean }) {
-            this.currentUser?.rooms?.push(roomId);
+            if (this.currentUser.rooms?.length) {
+                this.currentUser?.rooms?.push(roomId);
+            } else {
+                this.currentUser.rooms = [roomId];
+            }
 
             setDoc(userDataRefConfig(userId), this.currentUser, { merge: true })
                 .then(() => {

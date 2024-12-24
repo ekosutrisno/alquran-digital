@@ -1,7 +1,7 @@
 import { MemberList } from "@/types/chat.interface";
 import { Room } from "@/types/room.interface";
 import { AppUser } from "@/types/user.interface";
-import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
+import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, runTransaction, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { db } from "../config/firebase.config";
@@ -42,31 +42,39 @@ export const useClassRoom = defineStore('classRoomService', {
     actions: {
         async addRoom(roomData: Room) {
 
-            const userService = useUser();
+            try {
 
-            const roomId = generateFriendlyId();
-            const user_id = decrypt(String(localStorage.getItem("_uid")));
+                await runTransaction(db, async (transaction) => {
+                    const userService = useUser();
 
-            const room: Room = {
-                id: `${roomId}`,
-                scheduleDay: roomData.scheduleDay,
-                scheduleTime: roomData.scheduleTime,
-                organization: roomData.organization,
-                createdDate: roomId,
-                description: roomData.description,
-                name: roomData.name,
-                mentor: userDataRefConfig(user_id),
-                heroImage: '',
-                ratings: 0,
-                isActive: true,
-                members: new Array<string>(user_id)
-            }
+                    const roomId = generateFriendlyId();
+                    const user_id = decrypt(String(localStorage.getItem("_uid")));
 
-            setDoc(roomDataRefConfig(String(roomId)), room)
-                .then(() =>
+                    const room: Room = {
+                        id: `${roomId}`,
+                        scheduleDay: roomData.scheduleDay,
+                        scheduleTime: roomData.scheduleTime,
+                        organization: roomData.organization,
+                        createdDate: Date.now(),
+                        description: roomData.description,
+                        name: roomData.name,
+                        mentor: userDataRefConfig(user_id),
+                        heroImage: '',
+                        ratings: 0,
+                        isActive: true,
+                        members: new Array<string>(user_id)
+                    }
+
+                    transaction.set(roomDataRefConfig(String(roomId)), room);
+
                     userService.updateUserClassRoom(user_id, String(roomId), { isSilent: true })
                         .then(() => toast.info('Room succesfully created.'))
-                );
+                })
+
+            } catch (_) {
+                toast.info("Yahhhh, you failed to add new class room🥺");
+            }
+
         },
 
         async editRoom(roomData: Room) {

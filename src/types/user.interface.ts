@@ -2,8 +2,8 @@ import { DocumentReference } from "firebase/firestore";
 import { AyahData } from "./alquran.interface";
 import { LocationQueryRaw } from "vue-router";
 export interface InfoMetadata {
-    createdDate?: Date | any
-    lastModifiedDate?: Date | any
+    createdDate?: Date | string | number
+    lastModifiedDate?: Date | string | number
 }
 
 export interface AppUser extends InfoMetadata {
