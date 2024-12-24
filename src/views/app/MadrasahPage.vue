@@ -81,14 +81,13 @@ import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
 import { useRouter } from 'vue-router';
 
 const madrasahService = useMadrasah();
+const { getAllMadrasah } = madrasahService;
 const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
 const option = ref(false);
 const router = useRouter();
 
-onMounted(async ()=>{ 
-    await madrasahService.getAllMadrasah();
-})
+onMounted(async () => await getAllMadrasah());
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

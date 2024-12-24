@@ -28,7 +28,7 @@ export interface AppUser extends InfoMetadata {
     nationality?: string;
     colorCode?: string;
     rooms?: Array<string>;
-    fcms?: Array<string>;
+    madrasah: Array<string>;
 }
 
 export interface Role {

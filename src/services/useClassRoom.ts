@@ -9,6 +9,7 @@ import { useUser } from "./useUser";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
 import { decrypt } from "@/utils/cryp";
+import { room_db } from "@/config/local.db";
 
 const toast = useToast();
 
@@ -82,9 +83,11 @@ export const useClassRoom = defineStore('classRoomService', {
                 .then(() => toast.info('Room succesfully updated.'))
         },
 
-        async getRooms(roomId: Room['id'][]) {
+        async getRooms(madrasah_id: string) {
             this.isLoading = true;
-            const q = query(roomCollectionRefConfig(), where('id', 'in', roomId), limit(10));
+
+            const rooms_db = await room_db.get(`rooms:${madrasah_id}`);
+            const q = query(roomCollectionRefConfig(), where('id', 'in', rooms_db?.rooms), limit(10));
 
             onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
                 if (snapshot.empty)

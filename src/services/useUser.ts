@@ -10,6 +10,7 @@ import randomColorCode from '@/utils/randomColors';
 import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { checkUserExist } from "@/utils/firebaseHelperFunction";
 import { updateProfile } from "firebase/auth";
+import { madrasah_db } from '@/config/local.db';
 
 const toast = useToast();
 interface UserState {
@@ -58,7 +59,7 @@ export const useUser = defineStore('userService', {
                 gender: "",
                 dob: "",
                 pob: "",
-                fcms: [],
+                madrasah: [],
                 colorCode: randomColorCode(),
                 nationality: "Indonesia",
                 hobby: "Reading Al-Qur'an and Learn something new.",
@@ -100,11 +101,10 @@ export const useUser = defineStore('userService', {
                     // Set The Current User
                     this.currentUser = data;
 
-                    // Rooms
-                    localStorage.setItem('_rooms', JSON.stringify(data.rooms))
-
-                    // Parse all reference data
-                    // this.parseFromReference(data);
+                    madrasah_db.save({
+                        idb_key: "madrasah",
+                        madrasah: data.madrasah ?? []
+                    }, true)
 
                     if (data.mentor_id)
                         this.fetchCurrentMentor(data.mentor_id);

@@ -2,9 +2,10 @@ import { CreateMadrasahRequest, MadrasahTypeOption } from './../types/madrasah.i
 import { Madrasah } from "@/types/madrasah.interface";
 import { defineStore } from "pinia";
 import { generateFriendlyId } from '@/utils/friendlyId';
-import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
 import { TABLES } from '@/config/db.config';
 import { db } from '@/config/firebase.config';
+import { room_db } from '@/config/local.db';
 interface MadrasahState {
     madrasahList: Madrasah[];
     madrasah: Madrasah;
@@ -26,12 +27,21 @@ export const useMadrasah = defineStore('useMadrasah', {
 
     actions: {
         async getAllMadrasah() {
-            let docData = collection(db, TABLES.MADRASAH_COLLECTION);
+            const local_db = await room_db.get('madrasah');
+            const q = query(collection(db, TABLES.MADRASAH_COLLECTION), where('code', 'in', local_db?.madrasah));
 
-            onSnapshot(docData, (snapshot) => {
+            onSnapshot(q, (snapshot) => {
                 const pageMetadata: Madrasah[] = [];
-                snapshot.docs.forEach((page) => {
-                    pageMetadata.push(page.data() as Madrasah);
+                snapshot.docs.forEach(async (page) => {
+                    const data = page.data() as Madrasah;
+
+                    pageMetadata.push(data);
+
+                    await room_db.save({
+                        idb_key: `rooms:${data.code}`,
+                        rooms: data.rooms ?? []
+                    }, true);
+
                 });
 
                 this.madrasahList = pageMetadata;
@@ -58,7 +68,8 @@ export const useMadrasah = defineStore('useMadrasah', {
                 subDistrict: '',
                 ward: '',
                 public: false,
-                type
+                type,
+                rooms: []
             };
 
             let docData = doc(db, TABLES.MADRASAH_COLLECTION, code)

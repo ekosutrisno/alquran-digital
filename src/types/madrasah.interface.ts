@@ -17,7 +17,8 @@ export interface Madrasah extends InfoMetadata {
     ward: string;
     logo?: string;
     public: boolean;
-    type: MadrasahTypeOption
+    type: MadrasahTypeOption;
+    rooms: string[]
 }
 
 export type MadrasahTypeOption = 'SM' | 'SU' | 'SP';
