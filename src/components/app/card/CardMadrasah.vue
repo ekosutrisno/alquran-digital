@@ -1,5 +1,5 @@
 <template>
-    <router-link :id="`room_${madrasah.code}`" :to="{ name: `ClassRoomPage`, params: {room_id: madrasah.code} }" class="w-auto max-w-full p-4 space-y-4 text-slate-800 dark:text-slate-50 hover:ring-sky-500 dark:hover:ring-sky-500 transition flex flex-col justify-between bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 card-shadow-sm min-h-[150px] rounded-lg dark:ring-slate-700">
+    <router-link :id="`room_${madrasah.code}`" :to="{ name: `ClassRoomPage`, params: {madrasah_id: madrasah.code} }" class="w-auto max-w-full p-4 space-y-4 text-slate-800 dark:text-slate-50 hover:ring-sky-500 dark:hover:ring-sky-500 transition flex flex-col justify-between bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 card-shadow-sm min-h-[150px] rounded-lg dark:ring-slate-700">
         <!-- Header -->
         <div class="flex items-start justify-between">
             <div class="flex flex-col items-start justify-between">

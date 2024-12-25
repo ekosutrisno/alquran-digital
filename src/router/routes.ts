@@ -169,7 +169,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'madrasah/:room_id/class-room',
+                path: 'madrasah/:madrasah_id/class-room',
                 name: 'ClassRoomPage',
                 component: () => import("@/views/app/ClassRoomPage.vue"),
                 meta: {
@@ -180,7 +180,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'madrasah/class-room/:room_id/detail',
+                path: 'madrasah/class-room/:madrasah_id/:room_id/detail',
                 name: 'ClassRoomDetailPage',
                 component: () => import("@/views/app/ClassRoomDetailPage.vue"),
                 meta: {
@@ -191,7 +191,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'madrasah/class-room/:room_id/advanced',
+                path: 'madrasah/class-room/:madrasah_id/:room_id/advanced',
                 name: 'ClassRoomAdvancedPage',
                 component: () => import("@/views/app/ClassRoomAdvancedPage.vue"),
                 meta: {
@@ -202,7 +202,7 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: 'madrasah/class-room/new',
+                path: 'madrasah/class-room/:madrasah_id/new',
                 name: 'ClassRoomCreatePage',
                 component: () => import("@/views/app/ClassRoomCreatePage.vue"),
                 meta: {

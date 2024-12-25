@@ -5,11 +5,12 @@ import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapsho
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { db } from "../config/firebase.config";
-import { useUser } from "./useUser";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
 import { decrypt } from "@/utils/cryp";
 import { room_db } from "@/config/local.db";
+import { TABLES } from "@/config/db.config";
+import { Madrasah } from "@/types/madrasah.interface";
 
 const toast = useToast();
 
@@ -41,13 +42,10 @@ export const useClassRoom = defineStore('classRoomService', {
     }),
 
     actions: {
-        async addRoom(roomData: Room) {
+        async addRoom(roomData: Room, madrasah_id: string) {
 
             try {
-
                 await runTransaction(db, async (transaction) => {
-                    const userService = useUser();
-
                     const roomId = generateFriendlyId();
                     const user_id = decrypt(String(localStorage.getItem("_uid")));
 
@@ -63,13 +61,25 @@ export const useClassRoom = defineStore('classRoomService', {
                         heroImage: '',
                         ratings: 0,
                         isActive: true,
-                        members: new Array<string>(user_id)
+                        members: [user_id],
+                        madrasah_id
                     }
+
+                    const madrasahRef = doc(db, TABLES.MADRASAH_COLLECTION, madrasah_id);
+                    const currentMadrasahSnapshot = await transaction.get(madrasahRef);
+
+                    if (!currentMadrasahSnapshot.exists()) {
+                        throw new Error("Madrasah not found");
+                    }
+
+                    const currMadrasah = currentMadrasahSnapshot.data() as Madrasah;
 
                     transaction.set(roomDataRefConfig(String(roomId)), room);
 
-                    userService.updateUserClassRoom(user_id, String(roomId), { isSilent: true })
-                        .then(() => toast.info('Room succesfully created.'))
+                    const updatedRooms = [...(currMadrasah.rooms || []), roomId];
+                    transaction.set(madrasahRef, { rooms: updatedRooms }, { merge: true });
+
+                    toast.info('Room succesfully created.');
                 })
 
             } catch (_) {
@@ -85,27 +95,32 @@ export const useClassRoom = defineStore('classRoomService', {
 
         async getRooms(madrasah_id: string) {
             this.isLoading = true;
+            this.rooms = [];
 
             const rooms_db = await room_db.get(`rooms:${madrasah_id}`);
-            const q = query(roomCollectionRefConfig(), where('id', 'in', rooms_db?.rooms), limit(10));
+            if (rooms_db?.rooms.length! > 0) {
+                const q = query(roomCollectionRefConfig(), where('id', 'in', rooms_db?.rooms), limit(10));
 
-            onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-                if (snapshot.empty)
+                onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
+                    if (snapshot.empty)
+                        this.isLoading = false;
+
+                    const roomsTemp: Room[] = [];
+
+                    const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
+
+                    this.lastVisible = lastVisible;
+
+                    snapshot.docs.forEach((page) => {
+                        roomsTemp.push(page.data() as Room);
+                    });
+
+                    this.rooms = roomsTemp;
                     this.isLoading = false;
-
-                const roomsTemp: Room[] = [];
-
-                const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
-
-                this.lastVisible = lastVisible;
-
-                snapshot.docs.forEach((page) => {
-                    roomsTemp.push(page.data() as Room);
-                });
-
-                this.rooms = roomsTemp;
+                })
+            } else {
                 this.isLoading = false;
-            })
+            }
         },
 
         async getRoom(roomId: string) {

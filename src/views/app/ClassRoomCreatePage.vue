@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="pl-20 md:pl-0">
-                <button  type="button" @click="$router.back()" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <button  type="button" @click="router.back()" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <span>Kembali</span>
                 </button>
             </div>
@@ -86,27 +86,26 @@ const roomService = useClassRoom();
 const userService = useUser();
 
 const { room } = storeToRefs(roomService);
+const { getRoom, addRoom, editRoom } = roomService;
 
 const { currentUser, getPhotoUrl } = storeToRefs(userService);
 
 onMounted(async () => {
     if (route.query.a === 'edit')
-        await roomService.getRoom(route.query.id as Room['id']);
+        await getRoom(route.query.id as Room['id']);
 })
 
-const saveRoom = () => {
-    if(route.query.a === 'create')
-        roomService.addRoom(room.value)
-            .then(() => {
-                router.push({ name: 'ClassRoomPage' })
-            });
-    else {
-        roomService.editRoom(room.value)
-            .then(() => {
-                router.push({ name: 'ClassRoomPage' })
-            });
+const saveRoom = async () => {
+    const action = route.query.a === 'create' ? addRoom(room.value, String(route.params.room_id)) : editRoom(room.value);
+
+    try {
+        await action;
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        router.push({ name: 'ClassRoomPage', params: { room_id: route.params.room_id } });
+    } catch (error) {
+        console.error("Failed to save room:", error);
     }
-}
+};
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

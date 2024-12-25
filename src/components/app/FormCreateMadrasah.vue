@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="space-x-4 float-right">
-            <button type="button" @click="$router.push({query: {step: 1}})" class="mt-6 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+            <button type="button" @click="router.push({query: {step: 1}})" class="mt-6 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                 <span>Sebelumnya</span>
             </button>
             <button type="submit" class="mt-6 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
@@ -42,8 +42,11 @@
 <script setup lang="ts">
 import { useMadrasah } from '@/services';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 
 defineEmits(['send']);
+
+const router = useRouter();
 
 const { createMadrasahReq } = storeToRefs(useMadrasah());
 </script>

@@ -94,7 +94,7 @@ const route = useRoute();
 
 const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))));
 
-onMounted(() => getRooms(String(route.params.room_id)));
+onMounted(() => getRooms(String(route.params.madrasah_id)));
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

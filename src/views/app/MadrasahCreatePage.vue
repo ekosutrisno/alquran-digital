@@ -6,12 +6,12 @@
             <h1 class="text-2xl font-semibold">Data Sekolah</h1>
             <p class="text-sm text-center">Pengisian data umum sekolah</p>
         </div>
-        <div v-if="$route.query.step == '1'" class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+        <div v-if="route.query.step == '1'" class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             <CardMadrasahType v-for="type in madrasahType" :key="type.type" :type="type" />
         </div>
 
         <!-- Section 1-->
-        <section v-if="$route.query.step == '2'" class="gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4 mx-auto">
+        <section v-if="route.query.step == '2'" class="gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4 mx-auto">
             <div
                 class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
                 <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
@@ -44,26 +44,24 @@ import FormCreateMadrasah from '@/components/app/FormCreateMadrasah.vue';
 
 const route = useRoute();
 const router = useRouter();
-const madrasahService = useMadrasah();
+const { getMadrasah, createMadrasah, updateMadrasah } = useMadrasah();
 
 onMounted(async () => {
     if (route.query.a === 'edit')
-        await madrasahService.getMadrasah(String(route.query.id));
+        await getMadrasah(String(route.query.id));
 })
 
 const saveMadrasah = async () => {
-    if (route.query.a === 'create')
-        madrasahService.createMadrasah()
-            .then(() => {
-                router.push({ name: 'MadrasahPage' })
-            });
-    else {
-        madrasahService.updateMadrasah()
-            .then(() => {
-                router.push({ name: 'MadrasahPage' })
-            });
+    const action = route.query.a === 'create' ? createMadrasah : updateMadrasah;
+
+    try {
+        await action();
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        router.push({ name: 'MadrasahPage' });
+    } catch (error) {
+        console.error("Failed to save Madrasah:", error);
     }
-}
+};
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

@@ -81,6 +81,6 @@ export const quickMenu: QuickMenuType[] = [
         title: 'E-Madrasah',
         description: 'Membuat madrasah dan ruang kelas.',
         to: 'MadrasahPage',
-        tag: 'dev'
+        tag: 'alpha'
     }
 ]
