@@ -72,14 +72,14 @@ export const quickMenu: QuickMenuType[] = [
         id: '3',
         icon: 'books',
         title: 'Surah Pilihan',
-        description: 'Koleksi dan baca surah-surah pilihan.',
+        description: 'Koleksi dan surah-surah pilihan.',
         to: 'SurahPilihan'
     },
     {
         id: '4',
         icon: 'classroom',
         title: 'E-Madrasah',
-        description: 'Membuat madrasah dan ruang kelas.',
+        description: 'Madrasah dan ruang kelas.',
         to: 'MadrasahPage',
         tag: 'alpha'
     }

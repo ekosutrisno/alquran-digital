@@ -11,6 +11,7 @@ import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/conf
 import { checkUserExist } from "@/utils/firebaseHelperFunction";
 import { updateProfile } from "firebase/auth";
 import { madrasah_db } from '@/config/local.db';
+import { DBMadrasah } from "@/types/db.interface";
 
 const toast = useToast();
 interface UserState {
@@ -101,10 +102,14 @@ export const useUser = defineStore('userService', {
                     // Set The Current User
                     this.currentUser = data;
 
-                    madrasah_db.save({
-                        idb_key: "madrasah",
-                        madrasah: data.madrasah ?? []
-                    }, true)
+                    if (!this.route.path.includes('madrasah')) {
+                        const madrasah: DBMadrasah[] = data.madrasah.map(madrasah => ({ madrasah, rooms: [] }));
+
+                        madrasah_db.save({
+                            idb_key: "madrasah",
+                            madrasah: madrasah ?? []
+                        }, true);
+                    }
 
                     if (data.mentor_id)
                         this.fetchCurrentMentor(data.mentor_id);

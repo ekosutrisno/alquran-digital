@@ -44,11 +44,11 @@
                 </div>
             </div>
 
+            <div v-if="isLoading" class="flex items-center justify-center w-full mx-auto">
+                <Loader />
+            </div>
             <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
-                <div v-if="isLoading" class="flex items-center justify-center">
-                    <Loader />
-                </div>
             </div>
 
             <CardNotLogin v-if="!isLogin"/>

@@ -8,7 +8,7 @@ import { db } from "../config/firebase.config";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
 import { decrypt } from "@/utils/cryp";
-import { room_db } from "@/config/local.db";
+import { madrasah_db } from "@/config/local.db";
 import { TABLES } from "@/config/db.config";
 import { Madrasah } from "@/types/madrasah.interface";
 
@@ -43,6 +43,7 @@ export const useClassRoom = defineStore('classRoomService', {
 
     actions: {
         async addRoom(roomData: Room, madrasah_id: string) {
+            console.log(madrasah_id);
 
             try {
                 await runTransaction(db, async (transaction) => {
@@ -79,10 +80,24 @@ export const useClassRoom = defineStore('classRoomService', {
                     const updatedRooms = [...(currMadrasah.rooms || []), roomId];
                     transaction.set(madrasahRef, { rooms: updatedRooms }, { merge: true });
 
+                    const local_db = await madrasah_db.get('madrasah');
+                    const madrasahs = local_db?.madrasah ?? [];
+                    const curr_madrasah_idx = madrasahs.findIndex(m => m.madrasah == madrasah_id);
+                    const curr_madrasah = madrasahs.find(m => m.madrasah == madrasah_id);
+
+                    curr_madrasah?.rooms.push(roomId);
+                    madrasahs[curr_madrasah_idx] = curr_madrasah!;
+
+                    await madrasah_db.save({
+                        idb_key: 'madrasah',
+                        madrasah: madrasahs
+                    }, true);
+
                     toast.info('Room succesfully created.');
                 })
 
-            } catch (_) {
+            } catch (err) {
+                console.log(err);
                 toast.info("Yahhhh, you failed to add new class room🥺");
             }
 
@@ -97,27 +112,33 @@ export const useClassRoom = defineStore('classRoomService', {
             this.isLoading = true;
             this.rooms = [];
 
-            const rooms_db = await room_db.get(`rooms:${madrasah_id}`);
-            if (rooms_db?.rooms.length! > 0) {
-                const q = query(roomCollectionRefConfig(), where('id', 'in', rooms_db?.rooms), limit(10));
+            const local_db = await madrasah_db.get('madrasah');
+            if (local_db?.madrasah.length! > 0) {
+                const curr_rooms = local_db?.madrasah.find(m => m.madrasah == madrasah_id)?.rooms;
 
-                onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-                    if (snapshot.empty)
+                if (curr_rooms?.length! > 0) {
+                    const q = query(roomCollectionRefConfig(), where('id', 'in', curr_rooms), limit(10));
+
+                    onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
+                        if (snapshot.empty)
+                            this.isLoading = false;
+
+                        const roomsTemp: Room[] = [];
+
+                        const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
+
+                        this.lastVisible = lastVisible;
+
+                        snapshot.docs.forEach((page) => {
+                            roomsTemp.push(page.data() as Room);
+                        });
+
+                        this.rooms = roomsTemp;
                         this.isLoading = false;
-
-                    const roomsTemp: Room[] = [];
-
-                    const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
-
-                    this.lastVisible = lastVisible;
-
-                    snapshot.docs.forEach((page) => {
-                        roomsTemp.push(page.data() as Room);
-                    });
-
-                    this.rooms = roomsTemp;
+                    })
+                } else {
                     this.isLoading = false;
-                })
+                }
             } else {
                 this.isLoading = false;
             }

@@ -103,6 +103,10 @@ class IndexedDBStore<T extends StorableData> {
         await this.executeTransaction('readwrite', (store) => store.delete(key));
     }
 
+    async clear(): Promise<void> {
+        await this.executeTransaction('readwrite', (store) => store.clear());
+    }
+
     async update(key: string | number, updatedData: Partial<T>): Promise<void> {
         const existingData = await this.get(key);
         if (!existingData) {

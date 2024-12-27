@@ -5,10 +5,11 @@ import { generateFriendlyId } from '@/utils/friendlyId';
 import { collection, doc, onSnapshot, query, runTransaction, where } from 'firebase/firestore';
 import { TABLES } from '@/config/db.config';
 import { db } from '@/config/firebase.config';
-import { room_db } from '@/config/local.db';
+import { madrasah_db } from '@/config/local.db';
 import { useToast } from 'vue-toastification';
 import { decrypt } from '@/utils/cryp';
 import { AppUser } from '@/types/user.interface';
+import { DBMadrasah } from '@/types/db.interface';
 
 const toast = useToast();
 interface MadrasahState {
@@ -32,25 +33,33 @@ export const useMadrasah = defineStore('useMadrasah', {
 
     actions: {
         async getAllMadrasah() {
-            const local_db = await room_db.get('madrasah');
-            const q = query(collection(db, TABLES.MADRASAH_COLLECTION), where('code', 'in', local_db?.madrasah));
 
-            onSnapshot(q, (snapshot) => {
-                const pageMetadata: Madrasah[] = [];
-                snapshot.docs.forEach(async (page) => {
-                    const data = page.data() as Madrasah;
+            const local_db = await madrasah_db.get('madrasah');
 
-                    pageMetadata.push(data);
+            if (local_db?.madrasah.length! > 0) {
+                const m_code = local_db?.madrasah.map(m => m.madrasah);
+                const q = query(collection(db, TABLES.MADRASAH_COLLECTION), where('code', 'in', m_code));
 
-                    await room_db.save({
-                        idb_key: `rooms:${data.code}`,
-                        rooms: data.rooms ?? []
-                    }, true);
+                onSnapshot(q, async (snapshot) => {
+                    const tempMadrasah: Madrasah[] = [];
+                    const madrasah: DBMadrasah[] = [];
 
+                    snapshot.docs.forEach(async (page) => {
+                        const data = page.data() as Madrasah;
+                        tempMadrasah.push(data);
+                        madrasah.push({
+                            madrasah: String(data.code),
+                            rooms: data.rooms
+                        });
+                    });
+
+                    this.madrasahList = tempMadrasah;
+
+                    await madrasah_db.save({ idb_key: 'madrasah', madrasah }, true);
                 });
-
-                this.madrasahList = pageMetadata;
-            });
+            } else {
+                this.madrasahList = [];
+            }
         },
         async getMadrasah(_madrasahId: String) { },
         async createMadrasah() {
@@ -95,9 +104,11 @@ export const useMadrasah = defineStore('useMadrasah', {
                     const updatedMadrasahs = [...(currUser.madrasah || []), code];
                     transaction.set(userRef, { madrasah: updatedMadrasahs }, { merge: true });
 
-                    await room_db.save({
-                        idb_key: `rooms:${code}`,
-                        rooms: []
+                    const local_db = await madrasah_db.get('madrasah');
+                    const curr_madrasah = local_db?.madrasah ?? [];
+                    await madrasah_db.save({
+                        idb_key: `madrasah`,
+                        madrasah: [...curr_madrasah, { madrasah: code, rooms: [] }]
                     }, true);
                 });
 

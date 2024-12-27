@@ -1,9 +1,10 @@
 import { StorableData } from "@/utils/indexedDb";
 
-export interface DBMadrasah extends StorableData {
-    madrasah: string[];
+export interface DBMadrasahStore extends StorableData {
+    madrasah: DBMadrasah[];
 };
 
-export interface DBMadrasahRoom extends StorableData {
+export interface DBMadrasah {
+    madrasah: string;
     rooms: string[];
 };

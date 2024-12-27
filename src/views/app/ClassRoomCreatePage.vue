@@ -96,12 +96,14 @@ onMounted(async () => {
 })
 
 const saveRoom = async () => {
-    const action = route.query.a === 'create' ? addRoom(room.value, String(route.params.room_id)) : editRoom(room.value);
+    const action = route.query.a === 'create'
+        ? addRoom(room.value, String(route.params.madrasah_id))
+        : editRoom(room.value);
 
     try {
         await action;
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        router.push({ name: 'ClassRoomPage', params: { room_id: route.params.room_id } });
+        router.push({ name: 'ClassRoomPage', params: { madrasah_id: route.params.madrasah_id } });
     } catch (error) {
         console.error("Failed to save room:", error);
     }
