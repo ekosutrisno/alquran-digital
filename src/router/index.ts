@@ -6,7 +6,7 @@ import { decrypt } from '@/utils/cryp';
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
-    scrollBehavior(_to, _from, _savedPosition) {return { top: 0 }}
+    scrollBehavior(_to, _from, _savedPosition) { return { top: 0 } }
 })
 
 router.beforeEach((to: RouteLocationNormalized) => {
