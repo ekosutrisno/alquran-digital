@@ -53,6 +53,26 @@ export default defineConfig({
             },],
           }
         ],
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^\/sitemap-index\.xml$/,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /^\/sitemap-0\.xml$/,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /^\/robots\.txt$/,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /^\/favicon\.png$/,
+            handler: 'NetworkOnly',
+          }
+        ]
       }
     })
   ],

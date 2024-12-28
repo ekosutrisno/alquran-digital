@@ -34,7 +34,7 @@
         <section class="grid lg:grid-cols-2 gap-4">
             <!-- Left -->
             <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
-                <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://i.pinimg.com/564x/68/be/3b/68be3b967fa1ac30f7da5633fff3e9f0.jpg'" :alt="room?.name">
+                <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://res.cloudinary.com/ekosutrisno/image/upload/v1735393045/os/A/w9nn1a1knqn0dfhgnw51.jpg'" :alt="room?.name">
                 <div class="absolute flex flex-col inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/10">
                     <div class="w-full p-4 space-y-4 text-white transition flex flex-col justify-between min-h-[150px] rounded">
                         <!-- Header -->
