@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /app/dashboard/settings/
+
+Sitemap: https://app.kelaspondok.com/sitemap-index.xml
