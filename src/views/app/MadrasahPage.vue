@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="flex items-start justify-end mt-8 lg:mt-0">
-                <router-link :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '1'}}" class="text-slate-800 inline-flex items-center space-x-2 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <RouterLink :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '1'}}" class="text-slate-800 inline-flex items-center space-x-2 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <AddAndEditIcon class="h-5 w-5"/>
                     <span>Buat Madrasah</span>
-                </router-link>
+                </RouterLink>
             </div>
         </section>
 
@@ -78,7 +78,7 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import CardMadrasah from '@/components/app/card/CardMadrasah.vue';
 import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const madrasahService = useMadrasah();
 const { getAllMadrasah } = madrasahService;

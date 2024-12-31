@@ -11,6 +11,7 @@ import { decrypt } from "@/utils/cryp";
 import { madrasah_db } from "@/config/local.db";
 import { TABLES } from "@/config/db.config";
 import { Madrasah } from "@/types/madrasah.interface";
+import { DBMadrasah } from "@/types/db.interface";
 
 const toast = useToast();
 
@@ -43,8 +44,6 @@ export const useClassRoom = defineStore('classRoomService', {
 
     actions: {
         async addRoom(roomData: Room, madrasah_id: string) {
-            console.log(madrasah_id);
-
             try {
                 await runTransaction(db, async (transaction) => {
                     const roomId = generateFriendlyId();
@@ -69,38 +68,32 @@ export const useClassRoom = defineStore('classRoomService', {
                     const madrasahRef = doc(db, TABLES.MADRASAH_COLLECTION, madrasah_id);
                     const currentMadrasahSnapshot = await transaction.get(madrasahRef);
 
+                    const userOwnedMadrasahRef = doc(db, `${TABLES.USER_COLLECTIONS}/${user_id}/${TABLES.USER_MADRASAH_COLLECTION}`, madrasah_id);
+                    const userOwnedcurrentMadrasahSnapshot = await transaction.get(userOwnedMadrasahRef);
+
                     if (!currentMadrasahSnapshot.exists()) {
                         throw new Error("Madrasah not found");
                     }
 
-                    const currMadrasah = currentMadrasahSnapshot.data() as Madrasah;
+                    if (!userOwnedcurrentMadrasahSnapshot.exists()) {
+                        throw new Error("User Owned Madrasah not found");
+                    }
 
                     transaction.set(roomDataRefConfig(String(roomId)), room);
 
+                    const currMadrasah = currentMadrasahSnapshot.data() as Madrasah;
                     const updatedRooms = [...(currMadrasah.rooms || []), roomId];
                     transaction.set(madrasahRef, { rooms: updatedRooms }, { merge: true });
 
-                    const local_db = await madrasah_db.get('madrasah');
-                    const madrasahs = local_db?.madrasah ?? [];
-                    const curr_madrasah_idx = madrasahs.findIndex(m => m.madrasah == madrasah_id);
-                    const curr_madrasah = madrasahs.find(m => m.madrasah == madrasah_id);
-
-                    curr_madrasah?.rooms.push(roomId);
-                    madrasahs[curr_madrasah_idx] = curr_madrasah!;
-
-                    await madrasah_db.save({
-                        idb_key: 'madrasah',
-                        madrasah: madrasahs
-                    }, true);
+                    const currOwnedMadrasah = userOwnedcurrentMadrasahSnapshot.data() as DBMadrasah;
+                    const updatedOwnedMadrasahRooms = [...(currOwnedMadrasah.rooms || []), roomId];
+                    transaction.set(userOwnedMadrasahRef, { rooms: updatedOwnedMadrasahRooms }, { merge: true });
 
                     toast.info('Room succesfully created.');
                 })
-
             } catch (err) {
-                console.log(err);
-                toast.info("Yahhhh, you failed to add new class room🥺");
+                toast.info(`Yahhhh, you failed to add new class room🥺, ${err}`);
             }
-
         },
 
         async editRoom(roomData: Room) {

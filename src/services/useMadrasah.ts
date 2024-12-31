@@ -9,7 +9,6 @@ import { madrasah_db } from '@/config/local.db';
 import { useToast } from 'vue-toastification';
 import { decrypt } from '@/utils/cryp';
 import { AppUser } from '@/types/user.interface';
-import { DBMadrasah } from '@/types/db.interface';
 
 const toast = useToast();
 interface MadrasahState {
@@ -42,20 +41,11 @@ export const useMadrasah = defineStore('useMadrasah', {
 
                 onSnapshot(q, async (snapshot) => {
                     const tempMadrasah: Madrasah[] = [];
-                    const madrasah: DBMadrasah[] = [];
-
                     snapshot.docs.forEach(async (page) => {
                         const data = page.data() as Madrasah;
                         tempMadrasah.push(data);
-                        madrasah.push({
-                            madrasah: String(data.code),
-                            rooms: data.rooms
-                        });
                     });
-
                     this.madrasahList = tempMadrasah;
-
-                    await madrasah_db.save({ idb_key: 'madrasah', madrasah }, true);
                 });
             } else {
                 this.madrasahList = [];
@@ -96,25 +86,19 @@ export const useMadrasah = defineStore('useMadrasah', {
                         throw new Error("User not found");
                     }
 
-                    const currUser = currUserSnapshot.data() as AppUser;
-
                     const madrasahRef = doc(db, TABLES.MADRASAH_COLLECTION, code);
                     transaction.set(madrasahRef, madrasah);
 
+                    const currUser = currUserSnapshot.data() as AppUser;
                     const updatedMadrasahs = [...(currUser.madrasah || []), code];
                     transaction.set(userRef, { madrasah: updatedMadrasahs }, { merge: true });
 
-                    const local_db = await madrasah_db.get('madrasah');
-                    const curr_madrasah = local_db?.madrasah ?? [];
-                    await madrasah_db.save({
-                        idb_key: `madrasah`,
-                        madrasah: [...curr_madrasah, { madrasah: code, rooms: [] }]
-                    }, true);
+                    const userOwnedMadrasahRef = doc(db, `${TABLES.USER_COLLECTIONS}/${userId}/${TABLES.USER_MADRASAH_COLLECTION}`, code);
+                    transaction.set(userOwnedMadrasahRef, { madrasah: code, rooms: [] });
                 });
 
                 toast.success("Madrasah created successfully!");
             } catch (error) {
-                console.error("Failed to create Madrasah:", error);
                 toast.info("Yahhhh, you failed to create new Madrasah🥺");
             }
         },

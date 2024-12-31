@@ -22,7 +22,7 @@ export default defineConfig({
         start_url: '/',
         theme_color: "#0B1120",
         background_color: "#0B1120",
-        description: "Mengelola bacaan dan hafalan Al-Qur'an",
+        description: "Al-Qur'an Digital by Kelas Pondok",
         icons: [
           {
             src: 'android-chrome-192x192.png',
@@ -44,35 +44,15 @@ export default defineConfig({
 
         shortcuts: [
           {
-            name: "Home Dashboard",
-            url: "/home-dashboard",
+            name: "Dashboard",
+            url: "/app/dashboard",
             icons: [{
               src: 'android-chrome-192x192.png',
               sizes: '192x192',
               type: 'image/png',
-            },],
+            }],
           }
         ],
-      },
-      workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: /^\/sitemap-index\.xml$/,
-            handler: 'NetworkOnly',
-          },
-          {
-            urlPattern: /^\/sitemap-0\.xml$/,
-            handler: 'NetworkOnly',
-          },
-          {
-            urlPattern: /^\/robots\.txt$/,
-            handler: 'NetworkOnly',
-          },
-          {
-            urlPattern: /^\/favicon\.png$/,
-            handler: 'NetworkOnly',
-          }
-        ]
       }
     })
   ],
