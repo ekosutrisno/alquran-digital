@@ -15,7 +15,7 @@ type TargetConfig = 'transliteration' | 'translation';
 
 export const useUtil = defineStore('utilityService', {
     state: (): UtilState => ({
-        wideMenu: true,
+        wideMenu: JSON.parse(localStorage.getItem("_a_mode") as string ?? 'true') as boolean,
         appVersion: `${import.meta.env.VITE_BASE_APP_VERSION}`,
         newAppAvailable: false,
         ayahConfig: JSON.parse(localStorage.getItem("_a_config") as string) ?? {
@@ -28,20 +28,23 @@ export const useUtil = defineStore('utilityService', {
         setAlquranSize(size: QuranLayoutSize) {
             localStorage.setItem('_a_size', JSON.stringify(size));
         },
-        
+        setModeScreen() {
+            this.wideMenu = this.wideMenu ? false : true;
+            localStorage.setItem('_a_mode', JSON.stringify(this.wideMenu));
+        },
+
         setAyahCardConfig(target: TargetConfig) {
-            const curr = JSON.parse(localStorage.getItem("_a_config") as string) ?? {
-                showTransliteration: false,
-                showTranslation: false,
+            const curr = JSON.parse(localStorage.getItem('_a_config') || '{}') as {
+                showTransliteration?: boolean;
+                showTranslation?: boolean;
             };
 
             const updatedConfig = {
-                showTransliteration: target === 'transliteration' ? !curr.showTransliteration : curr.showTransliteration,
-                showTranslation: target === 'translation' ? !curr.showTranslation : curr.showTranslation,
+                showTransliteration: target === 'transliteration' ? !curr.showTransliteration : curr.showTransliteration ?? false,
+                showTranslation: target === 'translation' ? !curr.showTranslation : curr.showTranslation ?? false,
             };
 
             this.ayahConfig = updatedConfig;
-
             localStorage.setItem('_a_config', JSON.stringify(updatedConfig));
         }
     },

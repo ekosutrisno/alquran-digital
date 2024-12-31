@@ -5,7 +5,7 @@
       <NavbarHeader @search="openModal"/>
    </header>
 
-   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 sm:p-8 -mt-44 pb-4 md:pb-0">
+   <div :class="[wideMenu ? '' : 'max-w-7xl']" class="flex-1 w-full relative mx-auto p-4 -mt-44 pb-4 md:pb-0">
       <RouterView />
    </div>
    <Footer />
