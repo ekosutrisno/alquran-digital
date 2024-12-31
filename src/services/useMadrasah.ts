@@ -62,6 +62,7 @@ export const useMadrasah = defineStore('useMadrasah', {
                     const madrasah: Madrasah = {
                         code,
                         createdDate: Date.now(),
+                        lastModifiedDate: Date.now(),
                         name: this.createMadrasahReq.name,
                         headMaster: null,
                         govermentCode: '',
@@ -77,6 +78,7 @@ export const useMadrasah = defineStore('useMadrasah', {
                         public: false,
                         type,
                         rooms: [],
+                        logo: 'https://res.cloudinary.com/ekosutrisno/image/upload/v1724405198/assets/oqecerh65qfy4gy5nrgl.webp'
                     };
 
                     const userRef = doc(db, TABLES.USER_COLLECTIONS, userId);

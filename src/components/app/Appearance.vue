@@ -4,7 +4,7 @@
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
-                <AppearanceIcon class="text-slate-500 w-6 h-6"/>
+                <AppearanceIcon class="text-slate-500 dark:text-sky-400 w-6 h-6"/>
                 <span>Tema Aplikasi</span>
             </p>
             <div class="dark:border-slate-700/50 py-2">
@@ -15,15 +15,11 @@
             <div @click="toggle()" class="border cursor-pointer dark:hover:bg-sky-800/50 hover:bg-sky-50/75 transition border-sky-500 dark:border-slate-700/50 rounded-lg p-3 flex flex-col">
                 <div class="inline-flex justify-between">
                     <div class="inline-flex dark:hidden items-center space-x-1.5 text-sky-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
+                        <LightModeIcon class="h-4 w-4"/>
                         <p class="font-semibold">Day theme</p>
                     </div>
                     <div class="hidden dark:inline-flex items-center space-x-1.5 text-sky-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
+                        <DarkModeIcon class="h-4 w-4"/>
                         <p class="font-semibold">Night theme</p>
                     </div>
                     <span class="text-xs py-0.5 px-1.5 text-sky-500 rounded-full border border-sky-500">Active</span>
@@ -34,7 +30,7 @@
         </div>
     </section>
 
-    <!-- S2 TODO: Show Arti dan TransLiteration -->
+    <!-- S2 -->
     <section>
         <div class="pb-2">
             <p class="text-xl dark:text-white inline-flex items-center space-x-2">
@@ -102,7 +98,7 @@
             </div>
         </div>
 
-         <div class="">
+         <div class="dark:text-white">
             <p class="text-sm">Klik untuk mengubah mode tampilan menjadi <kbd>Full Screen</kbd> atau <kbd>Compact</kbd>.</p>
             <button type="button" @click="setModeScreen" class="py-2 mt-2 ring-slate-700/20 rounded-lg ring-1 dark:ring-slate-700 dark:hover:ring-sky-500 hover:ring-sky-500 px-3 inline-flex items-center justify-center space-x-1 w-max relative dark:text-white transition">
                 <div class="text-sm col-span-3 text-left">Mode {{ wideMenu ? 'Full Screen' : 'Compact'}} Aktif</div>
@@ -121,6 +117,8 @@ import SizeIcon from '../svg/SizeIcon.vue';
 import { QuranLayoutSize } from '@/types/user.interface';
 import AppearanceAyahIcon from '../svg/AppearanceAyahIcon.vue';
 import { storeToRefs } from 'pinia';
+import LightModeIcon from '../svg/LightModeIcon.vue';
+import DarkModeIcon from '../svg/DarkModeIcon.vue';
 
 const isDark = useDark();
 const toggle = useToggle(isDark);
