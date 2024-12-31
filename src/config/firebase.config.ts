@@ -4,9 +4,6 @@ import { getFirestore, initializeFirestore, memoryLocalCache } from 'firebase/fi
 import { getDatabase } from "firebase/database";
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, logEvent } from 'firebase/analytics';
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
-
-import { useNotification } from '@/services';
 
 const firebaseConfig = {
     apiKey: `${import.meta.env.VITE_BASE_FIREBASE_APIKEY}`,
@@ -20,9 +17,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Cloud Messaging and get a reference to the service
-const messaging = getMessaging(app);
 
 // Initialize Firebase Realtime Database for Chats
 const database = getDatabase();
@@ -43,37 +37,11 @@ const storage = getStorage(app);
 /** Sign With Google Provider */
 const gProvider = new GoogleAuthProvider();
 
-
-const requestPermission = () => {
-    Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') { console.log('Notification permission granted.') } else { console.log('Notification permission denied.') }
-    })
-}
-
-const getTokenFcm = (userId: string): void => {
-    const notificationService = useNotification();
-
-    getToken(messaging, { vapidKey: import.meta.env.VITE_BASE_FIREBASE_VAPID })
-        .then(async (currentToken) => {
-            if (currentToken) {
-                await notificationService.addFcmsToken({ userId: userId, token: currentToken }, { isSilent: true });
-            } else {
-                console.log('No registration token available. Request permission to generate one.');
-            }
-        }).catch((err) => {
-            console.log('An error occurred while retrieving token. ', err);
-        });
-}
-
 export {
     auth,
     db,
     database,
     gProvider,
-    storage,
-    messaging,
-    onMessage,
-    requestPermission,
-    getTokenFcm
+    storage
 }
 

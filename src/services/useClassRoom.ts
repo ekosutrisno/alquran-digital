@@ -1,14 +1,17 @@
 import { MemberList } from "@/types/chat.interface";
 import { Room } from "@/types/room.interface";
 import { AppUser } from "@/types/user.interface";
-import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, setDoc, where } from "firebase/firestore";
+import { doc, DocumentData, DocumentReference, getDoc, getDocs, limit, onSnapshot, query, QuerySnapshot, runTransaction, setDoc, where } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { db } from "../config/firebase.config";
-import { useUser } from "./useUser";
 import { roomCollectionRefConfig, roomDataRefConfig, userCollectionRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { generateFriendlyId } from "@/utils/friendlyId";
 import { decrypt } from "@/utils/cryp";
+import { madrasah_db } from "@/config/local.db";
+import { TABLES } from "@/config/db.config";
+import { Madrasah } from "@/types/madrasah.interface";
+import { DBMadrasah } from "@/types/db.interface";
 
 const toast = useToast();
 
@@ -40,33 +43,57 @@ export const useClassRoom = defineStore('classRoomService', {
     }),
 
     actions: {
-        async addRoom(roomData: Room) {
+        async addRoom(roomData: Room, madrasah_id: string) {
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const roomId = generateFriendlyId();
+                    const user_id = decrypt(String(localStorage.getItem("_uid")));
 
-            const userService = useUser();
+                    const room: Room = {
+                        id: `${roomId}`,
+                        scheduleDay: roomData.scheduleDay,
+                        scheduleTime: roomData.scheduleTime,
+                        organization: roomData.organization,
+                        createdDate: Date.now(),
+                        description: roomData.description,
+                        name: roomData.name,
+                        mentor: userDataRefConfig(user_id),
+                        heroImage: '',
+                        ratings: 0,
+                        isActive: true,
+                        members: [user_id],
+                        madrasah_id
+                    }
 
-            const roomId = generateFriendlyId();
-            const user_id = decrypt(String(localStorage.getItem("_uid")));
+                    const madrasahRef = doc(db, TABLES.MADRASAH_COLLECTION, madrasah_id);
+                    const currentMadrasahSnapshot = await transaction.get(madrasahRef);
 
-            const room: Room = {
-                id: `${roomId}`,
-                scheduleDay: roomData.scheduleDay,
-                scheduleTime: roomData.scheduleTime,
-                organization: roomData.organization,
-                createdDate: roomId,
-                description: roomData.description,
-                name: roomData.name,
-                mentor: userDataRefConfig(user_id),
-                heroImage: '',
-                ratings: 0,
-                isActive: true,
-                members: new Array<string>(user_id)
+                    const userOwnedMadrasahRef = doc(db, `${TABLES.USER_COLLECTIONS}/${user_id}/${TABLES.USER_MADRASAH_COLLECTION}`, madrasah_id);
+                    const userOwnedcurrentMadrasahSnapshot = await transaction.get(userOwnedMadrasahRef);
+
+                    if (!currentMadrasahSnapshot.exists()) {
+                        throw new Error("Madrasah not found");
+                    }
+
+                    if (!userOwnedcurrentMadrasahSnapshot.exists()) {
+                        throw new Error("User Owned Madrasah not found");
+                    }
+
+                    transaction.set(roomDataRefConfig(String(roomId)), room);
+
+                    const currMadrasah = currentMadrasahSnapshot.data() as Madrasah;
+                    const updatedRooms = [...(currMadrasah.rooms || []), roomId];
+                    transaction.set(madrasahRef, { rooms: updatedRooms }, { merge: true });
+
+                    const currOwnedMadrasah = userOwnedcurrentMadrasahSnapshot.data() as DBMadrasah;
+                    const updatedOwnedMadrasahRooms = [...(currOwnedMadrasah.rooms || []), roomId];
+                    transaction.set(userOwnedMadrasahRef, { rooms: updatedOwnedMadrasahRooms }, { merge: true });
+
+                    toast.info('Room succesfully created.');
+                })
+            } catch (err) {
+                toast.info(`Yahhhh, you failed to add new class room🥺, ${err}`);
             }
-
-            setDoc(roomDataRefConfig(String(roomId)), room)
-                .then(() =>
-                    userService.updateUserClassRoom(user_id, String(roomId), { isSilent: true })
-                        .then(() => toast.info('Room succesfully created.'))
-                );
         },
 
         async editRoom(roomData: Room) {
@@ -74,27 +101,40 @@ export const useClassRoom = defineStore('classRoomService', {
                 .then(() => toast.info('Room succesfully updated.'))
         },
 
-        async getRooms(roomId: Room['id'][]) {
+        async getRooms(madrasah_id: string) {
             this.isLoading = true;
-            const q = query(roomCollectionRefConfig(), where('id', 'in', roomId), limit(10));
+            this.rooms = [];
 
-            onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-                if (snapshot.empty)
+            const local_db = await madrasah_db.get('madrasah');
+            if (local_db?.madrasah.length! > 0) {
+                const curr_rooms = local_db?.madrasah.find(m => m.madrasah == madrasah_id)?.rooms;
+
+                if (curr_rooms?.length! > 0) {
+                    const q = query(roomCollectionRefConfig(), where('id', 'in', curr_rooms), limit(10));
+
+                    onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
+                        if (snapshot.empty)
+                            this.isLoading = false;
+
+                        const roomsTemp: Room[] = [];
+
+                        const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
+
+                        this.lastVisible = lastVisible;
+
+                        snapshot.docs.forEach((page) => {
+                            roomsTemp.push(page.data() as Room);
+                        });
+
+                        this.rooms = roomsTemp;
+                        this.isLoading = false;
+                    })
+                } else {
                     this.isLoading = false;
-
-                const roomsTemp: Room[] = [];
-
-                const lastVisible = snapshot.docs[snapshot.docs.length - 1] as DocumentData;
-
-                this.lastVisible = lastVisible;
-
-                snapshot.docs.forEach((page) => {
-                    roomsTemp.push(page.data() as Room);
-                });
-
-                this.rooms = roomsTemp;
+                }
+            } else {
                 this.isLoading = false;
-            })
+            }
         },
 
         async getRoom(roomId: string) {

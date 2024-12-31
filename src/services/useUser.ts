@@ -1,15 +1,18 @@
 import { SurahData } from "@/types/alquran.interface";
 import { Room } from "@/types/room.interface";
 import { Role, AppUser } from "@/types/user.interface";
-import { DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { collection, DocumentReference, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
-import { auth, storage } from "../config/firebase.config";
+import { auth, db, storage } from "../config/firebase.config";
 import randomColorCode from '@/utils/randomColors';
 import { roleDataRefConfig, surahDataRefConfig, userDataRefConfig } from "@/config/dbRef.config";
 import { checkUserExist } from "@/utils/firebaseHelperFunction";
 import { updateProfile } from "firebase/auth";
+import { madrasah_db } from '@/config/local.db';
+import { DBMadrasah } from "@/types/db.interface";
+import { TABLES } from "@/config/db.config";
 
 const toast = useToast();
 interface UserState {
@@ -58,7 +61,7 @@ export const useUser = defineStore('userService', {
                 gender: "",
                 dob: "",
                 pob: "",
-                fcms: [],
+                madrasah: [],
                 colorCode: randomColorCode(),
                 nationality: "Indonesia",
                 hobby: "Reading Al-Qur'an and Learn something new.",
@@ -97,14 +100,11 @@ export const useUser = defineStore('userService', {
                     // Get Surah name of bacaan User
                     this.setSurahBacaan(data.bacaanku?.sura_id as number);
 
+                    // Fetch and Store Owned Madrasah
+                    this.fetchOwnedMadrasah(data.user_id);
+
                     // Set The Current User
                     this.currentUser = data;
-
-                    // Rooms
-                    localStorage.setItem('_rooms', JSON.stringify(data.rooms))
-
-                    // Parse all reference data
-                    // this.parseFromReference(data);
 
                     if (data.mentor_id)
                         this.fetchCurrentMentor(data.mentor_id);
@@ -124,6 +124,22 @@ export const useUser = defineStore('userService', {
                 const data = docSnap.data() as AppUser;
                 this.currentMentor = data;
             }
+        },
+
+        async fetchOwnedMadrasah(user_id: string) {
+            const owned_madrasah = collection(db, `${TABLES.USER_COLLECTIONS}/${user_id}/${TABLES.USER_MADRASAH_COLLECTION}`);
+            
+            onSnapshot(owned_madrasah, async (snapshot) => {
+                const temp_curr_madrasah: DBMadrasah[] = [];
+                snapshot.forEach(m => {
+                    temp_curr_madrasah.push(m.data() as DBMadrasah);
+                });
+
+                madrasah_db.save({
+                    idb_key: "madrasah",
+                    madrasah: temp_curr_madrasah
+                }, true);
+            });
         },
 
         /**
@@ -226,7 +242,11 @@ export const useUser = defineStore('userService', {
          * @description Update All Detail User Data Property
          */
         async updateUserClassRoom(userId: string, roomId: Room['id'], options: { isSilent: boolean }) {
-            this.currentUser?.rooms?.push(roomId);
+            if (this.currentUser.rooms?.length) {
+                this.currentUser?.rooms?.push(roomId);
+            } else {
+                this.currentUser.rooms = [roomId];
+            }
 
             setDoc(userDataRefConfig(userId), this.currentUser, { merge: true })
                 .then(() => {
@@ -252,10 +272,11 @@ export const useUser = defineStore('userService', {
          * @param  {} state
          * @returns User
          */
-        getLoginAsInfo(state: UserState): { fullName: string, email: string } {
+        getLoginAsInfo(state: UserState): { fullName: string, email: string, photo_url: string } {
             const loginAs = {
                 fullName: state.currentUser?.full_name as string,
-                email: state.currentUser?.email as string
+                email: state.currentUser?.email as string,
+                photo_url: state.currentUser?.photo_url as string
             }
             return loginAs;
         },

@@ -1,4 +1,5 @@
 /// <reference types="vite" />
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -11,8 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      runtimeOnly: false,
-      include: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
+      include: fileURLToPath(new URL('./src/i18n/locales/**', import.meta.url))
     }),
     VitePWA({
       registerType: 'prompt',
@@ -22,7 +22,7 @@ export default defineConfig({
         start_url: '/',
         theme_color: "#0B1120",
         background_color: "#0B1120",
-        description: "Mengelola bacaan dan hafalan Al-Qur'an",
+        description: "Al-Qur'an Digital by Kelas Pondok",
         icons: [
           {
             src: 'android-chrome-192x192.png',
@@ -44,13 +44,13 @@ export default defineConfig({
 
         shortcuts: [
           {
-            name: "Home Dashboard",
-            url: "/home-dashboard",
+            name: "Dashboard",
+            url: "/app/dashboard",
             icons: [{
               src: 'android-chrome-192x192.png',
               sizes: '192x192',
               type: 'image/png',
-            },],
+            }],
           }
         ],
       }

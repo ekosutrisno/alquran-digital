@@ -6,23 +6,23 @@
             :sura_id="ayat.sura_id"
          />
       </div>
-      <div v-else>
+      <div class="mt-4" v-else>
          <CardSurahSeparateMetadata 
             v-if="ayat.is_new_surat && isTafsir == false && isFavorite == false" 
             :sura_id="ayat.sura_id"
          />
       </div>
       
-      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto font-semibold text-right px-4 text-xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
-         <p class="font-quran mb-4"> 
-            <span class="leading-10 dark:font-normal">{{ayat.aya_text}}</span>   
-            <span class="text-xl font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
+      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto text-right px-4 text-xl sm:text-2xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
+         <p class="font-quran mb-4 leading-loose md:leading-[2.5] text-2xl md:text-3xl"> 
+            <span>{{ayat.aya_text}}</span>   
+            <span class="font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
          </p> 
 
-         <p class="text-base font-normal text-left dark:text-slate-100"> 
-            <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 dark:text-sky-300 font-medium">Juz {{ayat.juz_id}}</span> | <span class="font-medium">{{ ayat.transliteration.en}}</span>
+         <p v-if="ayahConfig.showTransliteration" class="text-base text-left dark:text-slate-100"> 
+            <span class="font-medium lining-nums">{{ayat.sura_id}}:{{ayat.aya_number}} </span> - <span class="text-sky-500 dark:text-sky-300 font-medium">Juz {{ayat.juz_id}}</span> | <span class="italic font-medium">{{ ayat.transliteration.en}}</span>
          </p>
-         <p class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
+         <p v-if="ayahConfig.showTranslation" class="text-base font-normal text-left mt-4 dark:text-slate-100"> 
             {{ayat.translation_aya_text}}
          </p>
          
@@ -41,21 +41,23 @@
             </audio>
          </div>
          
-         <div class="text-xs w-full dark:text-slate-400 inline-flex space-x-1 items-center font-normal mt-3 text-left"> 
-            <span v-if="isMyFavorite(ayat.aya_id)" class="font-semibold text-sky-600">
+         <div class="text-xs w-full dark:text-slate-400 inline-flex font-medium space-x-1 items-center mt-3 text-left"> 
+            <span v-if="isMyFavorite(ayat.aya_id)" class="text-sky-600">
                <svg class="w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                </svg>
             </span>
-            <span v-if="myBacaanku?.aya_id == ayat.aya_id" class="font-semibold text-green-500">
+            <span v-if="myBacaanku?.aya_id == ayat.aya_id" class="text-green-500">
                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks inline" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                   <path d="M7 12l5 5l10 -10"></path>
                   <path d="M2 12l5 5m5 -5l5 -5"></path>
                </svg>
             </span>
-            <span class="font-semibold"><span class="text-green-500 dark:text-green-300">(Page: {{ayat.page_number}})</span> <span class="text-red-500 dark:text-red-300">(Manzil: {{ayat.manzil}})</span> <span class="text-indigo-500 dark:text-indigo-300">(Rukuk: {{ayat.rukuk}})</span> </span>
-            <span v-if="ayat.sajda" class="font-semibold text-yellow-500">
+            <span class="dark:text-white">
+               Hal. {{ayat.page_number}} &bull; Manzil {{ayat.manzil}} &bull; Rukuk {{ayat.rukuk}} 
+            </span>
+            <span v-if="ayat.sajda" class="text-yellow-500">
             - Sajda 
                <svg class="w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
@@ -101,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAyah, useUser } from '@/services';
+import { useAyah, useUser, useUtil } from '@/services';
 import { AyahData } from '@/types/alquran.interface';
 import { reactive, ref } from 'vue';
 import { convertToArab } from '@/utils/helperFunction';
@@ -115,6 +117,8 @@ defineProps<{ ayat: AyahData, isBacaan?: boolean, isFavorite?: boolean, isTafsir
 const ayahService = useAyah();
 const { onCheckTafsir, onMarkFavorit, onRemoveFavorit, onMarkBacaanku } = ayahService;
 const { isMyFavorite } = storeToRefs(ayahService);
+const { ayahConfig } = storeToRefs(useUtil());
+
 
 const { myBacaanku } = storeToRefs(useUser());
 const router = useRouter();

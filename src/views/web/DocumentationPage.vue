@@ -59,9 +59,8 @@
                     <h3 class="text-lg font-semibold dark:text-white">Tester</h3>
                     <ul class="list-disc ml-8">
                         <li><span class="font-semibold">Safrizal</span> (Backend Developer at Prudential)</li>
-                        <li><span class="font-semibold">Windi</span> (Frontend Developer at Prudential)</li>
                         <li><span class="font-semibold">Siti Aminah</span> (Guru Sekolah Dasar)</li>
-                        <li><span class="font-semibold">Suci Ramadhani</span> (Developer at Azec Indonesia Management Service )</li>
+                        <li><span class="font-semibold">Suci Ramadhani</span> (Software Engineer at Azec Erajaya)</li>
                     </ul>
                 </li>
                 <li>

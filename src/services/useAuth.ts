@@ -8,6 +8,7 @@ import { useUser } from './useUser';
 import { queryByPropertyRefConfig, userCollectionRefConfig, userDataRefConfig } from '@/config/dbRef.config';
 import { mapFirebaseAuthError } from '@/utils/firebaseHelperFunction';
 import { encrypt } from '@/utils/cryp';
+import { madrasah_db } from '@/config/local.db';
 
 const toast = useToast();
 
@@ -82,8 +83,9 @@ export const useAuth = defineStore('authService', {
          * logout action method
          */
         async onLogoutAction(): Promise<void> {
-            signOut(auth).then(() => {
+            signOut(auth).then(async () => {
                 localStorage.removeItem('_uid');
+                await madrasah_db.clear();
             }).catch((error) => {
                 this.setErrorData(error);
             });

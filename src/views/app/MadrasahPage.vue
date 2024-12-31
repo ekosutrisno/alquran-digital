@@ -16,7 +16,7 @@
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi semua kelas yang kamu buat atau pun ikuti, kamu dapat menambahkan anggota baru yang sudah terdaftar sebagai User di Al-Qur'an Digital</p>
 
-                    <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="flex items-start justify-end mt-8 lg:mt-0">
-                <router-link :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '1'}}" class="text-slate-800 inline-flex items-center space-x-2 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
+                <RouterLink :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '1'}}" class="text-slate-800 inline-flex items-center space-x-2 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/20 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-lg text-sm">
                     <AddAndEditIcon class="h-5 w-5"/>
                     <span>Buat Madrasah</span>
-                </router-link>
+                </RouterLink>
             </div>
         </section>
 
@@ -78,16 +78,16 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import CardMadrasah from '@/components/app/card/CardMadrasah.vue';
 import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
+import { RouterLink, useRouter } from 'vue-router';
 
 const madrasahService = useMadrasah();
+const { getAllMadrasah } = madrasahService;
 const { isLoading, madrasahList } = storeToRefs(madrasahService);
 
 const option = ref(false);
+const router = useRouter();
 
-onMounted(()=>{ 
-    // if(state.rooms.length > 0)
-        // roomService.getRooms( state.rooms as string[])
-})
+onMounted(async () => await getAllMadrasah());
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

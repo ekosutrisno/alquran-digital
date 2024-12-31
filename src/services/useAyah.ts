@@ -15,7 +15,9 @@ interface UseAyahState {
     ayahTafsirSelected: AyahData | null;
     surahTafsirSelected: SurahData | null;
     currentPlay: AyahData | null;
-    isPlayingAyah: boolean
+    isPlayingAyah: boolean,
+    showTransliteration: boolean;
+    showTranslation: boolean;
 }
 
 export const useAyah = defineStore('ayatService', {
@@ -27,7 +29,9 @@ export const useAyah = defineStore('ayatService', {
         ayahTafsirSelected: null,
         surahTafsirSelected: null,
         currentPlay: null,
-        isPlayingAyah: false
+        isPlayingAyah: false,
+        showTranslation: true,
+        showTransliteration: true
     }),
 
     actions: {

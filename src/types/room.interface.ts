@@ -14,6 +14,7 @@ export interface Room extends InfoMetadata {
     isActive: boolean;
     members: Array<string>;
     about?: string;
+    madrasah_id: string;
 }
 
 export interface RoomData extends InfoMetadata {

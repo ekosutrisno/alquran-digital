@@ -1,23 +1,23 @@
 <template>
   <Disclosure as="nav">
-    <div :class="[wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 md:px-6 antialiased">
+    <div :class="[wideMenu ? '' : 'max-w-7xl']" class="mx-auto sm:px-4 antialiased">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
-          <router-link to="/" class="flex-shrink-0 flex items-center text-2xl">
+          <RouterLink to="/" class="flex-shrink-0 flex items-center text-2xl">
               <p class="font-semibold lg:font-bold text-gradien ml-1.5">Al-Qur'an<span class="hidden md:inline"> Digital</span><span class="align-super hidden ml-1.5 text-xs border py-0.5 px-2 font-medium rounded-full border-sky-500 text-sky-500">Beta</span></p>
-          </router-link>
+          </RouterLink>
           <div class="hidden sm:block with-transition">
             <div class="flex space-x-4">
-              <router-link 
+              <RouterLink 
                   v-for="item in navigation" 
                   :key="item.name" 
                   :to="item.href"
                   exact-active-class="hidden transition"
-                  :class="[ $route.name == item.name ? '' : 'text-sky-500', 'px-3 py-2 with-transition rounded-md text-sm font-medium']" 
+                  :class="[ route.name == item.name ? '' : 'text-sky-500', 'px-3 py-2 with-transition rounded-md text-sm font-medium']" 
               >
                 <span class="sr-only">{{ item.name }}</span>
                 <WidgetIcon/>
-              </router-link>
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
                   <p class="text-sm text-center">Tidak ada notifikasi. </p>
                 </div>
                 <MenuItem class="flex w-full border-t dark:border-slate-700/50 p-4 transition hover:bg-sky-50 dark:hover:bg-slate-700">
-                  <button @click="$router.push({name: 'NotificationPage'})" class="inline-flex items-center justify-end space-x-3 text-sm">
+                  <button @click="router.push({name: 'NotificationPage'})" class="inline-flex items-center justify-end space-x-3 text-sm">
                     <span>Lihat semua pesan </span>
                     <span>
                       <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -86,10 +86,10 @@
               </MenuButton>
             </div>
             <div v-else>
-              <router-link to="/auth/login" class="dark:bg-gray-800 p-1.5 dark:ring-slate-700 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
+              <RouterLink to="/auth/login" class="dark:bg-gray-800 p-1.5 dark:ring-slate-700 bg-slate-100 ring-1 ring-slate-700/10 z-0 flex cursor-default sm:cursor-pointer text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-sky-400 dark:focus:ring-sky-400">
                 <span class="sr-only">Open user menu</span>
                 <LoginIcon />
-              </router-link>
+              </RouterLink>
             </div>
             <transition enter-active-class="transition ease-out duration-100" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
               <MenuItems class="origin-top-right z-10 absolute right-5 mt-2 w-64 rounded-lg card-shadow-md overflow-hidden bg-white dark:bg-slate-800 ring-1 ring-slate-700/10 dark:ring-slate-700/75 focus:outline-none">
@@ -100,24 +100,17 @@
                        <p class="font-medium"> {{ getLoginAsInfo.fullName }} </p>
                        <p class="text-sm"> {{ getLoginAsInfo.email }} </p>
                      </div>
-                     <div>
-                       
-                     </div>
-                     <Svg2 aria-hidden="true" class="absolute -top-2"/>
+                      <Svg2 aria-hidden="true" class="absolute -top-2"/>
                       <button type="button" class="absolute top-2 right-5">
-                          <svg v-if="isDark" @click="togleDarkLightMode()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                          </svg>
-                          <svg v-else @click="togleDarkLightMode()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                          </svg>
+                          <LightModeIcon class="h-6 w-6 text-sky-500" v-if="isDark" @click="togleDarkLightMode()"/>
+                          <DarkModeIcon class="h-6 w-6 text-sky-500" v-else @click="togleDarkLightMode()"/>
                       </button>
                   </div>
                 </MenuItem>
 
                 <MenuItem v-slot="{ active }" class="pt-2">
                   <div class="px-3 py-px">
-                    <button @click="$router.push({name: 'SettingPage', query: {tab: 'profile'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
+                    <button @click="router.push({name: 'SettingPage', query: {tab: 'profile'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
                       <ProfileIcon class="text-slate-400 group-hover:text-sky-500 transition-colors w-5 h-5"/>
                       <span>Profile</span>
                     </button>
@@ -125,7 +118,7 @@
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                   <div class="px-3 py-px">
-                    <button @click="$router.push({name: 'SettingPage', query: {tab: 'account'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
+                    <button @click="router.push({name: 'SettingPage', query: {tab: 'account'}})" :class="[active ? 'bg-slate-100 dark:bg-slate-700/75 transition' : '', 'group rounded-md inline-flex items-center space-x-2 w-full p-2 text-slate-600 font-medium dark:text-white']">
                       <GearIcon class="text-slate-400 group-hover:text-sky-500 transition-colors w-5 h-5"/>
                       <span>Pengaturan</span>
                     </button>
@@ -154,7 +147,7 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue'
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { useRouter } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useUser, useUtil } from '@/services';
 import { useAuth } from '@/services/useAuth';
 import { useNotification } from '@/services/useNotification';
@@ -173,14 +166,17 @@ import ProfileIcon from '../svg/ProfileIcon.vue';
 import LoginIcon from '../svg/LoginIcon.vue';
 import WidgetIcon from '../svg/WidgetIcon.vue';
 import { decrypt } from '@/utils/cryp';
+import LightModeIcon from '../svg/LightModeIcon.vue';
+import DarkModeIcon from '../svg/DarkModeIcon.vue';
 
 const navigation = [
   { name: 'Dashboard', href: '/app/dashboard' }
 ]
 
+const router = useRouter();
+const route = useRoute();
 const authService = useAuth();
 const { getPhotoUrl, getLoginAsInfo } = storeToRefs(useUser());
-const router = useRouter();
 const { wideMenu, getAppVersion } = storeToRefs(useUtil());
 const notificationService = useNotification();
 const { readNotification } = notificationService;

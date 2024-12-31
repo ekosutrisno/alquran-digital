@@ -4,5 +4,16 @@
             "source": "/(.*)",
             "destination": "/"
         }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://firebase.googleapis.com https://apis.google.com https://*.firebasedatabase.app 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleapis.com https://www.google-analytics.com https://res.cloudinary.com https://tairo.cssninja.io; connect-src 'self' https://*.firebasedatabase.app https://*.googleapis.com https://www.google-analytics.com wss://*.firebaseio.com wss://*.firebasedatabase.app; frame-src https://*.firebaseapp.com https://*.firebasedatabase.app; object-src 'none';"
+                }
+            ]
+        }
     ]
 }

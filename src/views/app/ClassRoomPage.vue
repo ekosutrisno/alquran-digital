@@ -16,7 +16,7 @@
                     <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-600 dark:text-slate-100">Halaman ini berisi semua kelas yang kamu buat atau pun ikuti, kamu dapat menambahkan anggota baru yang sudah terdaftar sebagai User di Al-Qur'an Digital</p>
 
-                    <button type="button" @click="$router.push({name: 'MadrasahPage'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="router.push({name: 'MadrasahPage'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -44,11 +44,11 @@
                 </div>
             </div>
 
+            <div v-if="isLoading" class="flex items-center justify-center w-full mx-auto">
+                <Loader />
+            </div>
             <div class="with-transition w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 pt-6 pb-2 dark:bg-transparent bg-white/40">
                 <CardClassRoom v-for="room in rooms" :key="room.id" :room="room"/>
-                <div v-if="isLoading" class="flex items-center justify-center">
-                    <Loader />
-                </div>
             </div>
 
             <CardNotLogin v-if="!isLogin"/>
@@ -82,19 +82,19 @@ import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
 import { decrypt } from '@/utils/cryp';
 import AddAndEditIcon from '@/components/svg/AddAndEditIcon.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const roomService = useClassRoom();
+const { getRooms } = roomService;
 const { isLoading, rooms } = storeToRefs(roomService);
 
 const option = ref(false);
+const router = useRouter();
+const route = useRoute();
 
-const roomIds = computed(() => JSON.parse(localStorage.getItem('_rooms') != 'undefined' ? localStorage.getItem('_rooms') as string : '[]'));
 const isLogin = computed(() => decrypt(String(localStorage.getItem("_uid"))));
 
-onMounted(() => {
-    if (roomIds.value.length > 0)
-        roomService.getRooms(roomIds.value as string[])
-})
+onMounted(() => getRooms(String(route.params.madrasah_id)));
 
 const pageUp = ref<HTMLDivElement | undefined>();
 const scrollToPageUp = () => {

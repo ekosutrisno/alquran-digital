@@ -13,7 +13,7 @@
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold"> {{notifications.length}} / {{convertToArab(`${notifications.length}`)}} </span> Notifications</p>
                 </div>
                 <div class="pt-4">
-                    <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -26,14 +26,14 @@
         <!-- Section 2 -->
         <section>
             <div class="w-full flex items-center justify-between border-b border-slate-700/20 dark:border-slate-700/75 pb-2 px-1">
-                <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
+                <div class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
                     <WidgetIcon/>
                     <p>Notifications 
                         <span class="text-xs ml-5">Filter by 
                             <span class="text-white bg-sky-500 py-0.5 px-2 rounded-full ml-2"> {{ filter }} {{ filterAndReduced.length ?? 0 }} </span>
                         </span>
                     </p> 
-                </p>
+                </div>
                 <div class="md:inline-flex hidden items-center space-x-2">
                     <button @click="hideMenuOption" type="button" class="text-slate-700 relative group hover:bg-sky-500 rounded p-0.5 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -50,6 +50,7 @@
             </div>
 
             <div class="grid h-full">
+            <button class="hidden" @click="notificationService.onMessageForeground()" type="button">Alert</button>
                 <div class="w-full mx-auto px-4 grid pt-6 pb-2 dark:bg-transparent bg-white/40">
                     <div v-for="(item, idx) in notificationsList" :key="item.key">
                         <CardTimeline :item="item" :idx="idx"/>
@@ -90,6 +91,7 @@ import CardTimeline from '@/components/app/card/CardTimeline.vue';
 import NoNotificationIcon from '@/components/svg/NoNotificationIcon.vue';
 import WidgetIcon from '@/components/svg/WidgetIcon.vue';
 import WidgetPlusIcon from '@/components/svg/WidgetPlusIcon.vue';
+import { useRouter } from 'vue-router';
 
 const notificationService = useNotification();
 const { notifications } = storeToRefs(notificationService);
@@ -104,6 +106,7 @@ const filters = ref<NotifFilterOption[]>([
     { id: 3, filter: 'Read' }
 ]);
 const option = ref(false);
+const router = useRouter();
 
 const selectFilter = (opt: NotificationFilter) => {
     filter.value = opt;
