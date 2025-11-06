@@ -1,7 +1,7 @@
 <template>
     <div ref="pageUp" class="absolute -top-20"></div>
 
-    <div class="wrapper md:p-2 space-y-6 max-w-screen-lg mx-auto">
+    <div class="wrapper md:p-2 space-y-6 max-w-(--breakpoint-lg) mx-auto">
         <div class="flex flex-col items-center justify-center mb-10">
             <h1 class="text-2xl font-semibold">Data Sekolah</h1>
             <p class="text-sm text-center">Pengisian data umum sekolah</p>
@@ -13,8 +13,8 @@
         <!-- Section 1-->
         <section v-if="route.query.step == '2'" class="gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4 mx-auto">
             <div
-                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
-                <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
+                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-sm p-4 col-span-3 flex flex-col">
+                <Svg3 aria-hidden="true" class="absolute -right-26 bottom-24 rotate-90" />
                 <!-- Content of tabs 1 -->
                 <div class="with-transition grid grid-cols-1 lg:grid-cols-2 w-full py-6 px-2">
                     <!-- Room Data -->

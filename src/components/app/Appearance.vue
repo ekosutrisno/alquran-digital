@@ -133,20 +133,20 @@ const state = reactive({
             id: 1,
             size: 'MD',
             text: 'Medium',
-            class: 'max-w-screen-lg'
+            class: 'max-w-(--breakpoint-lg)'
         },
     sizes: [
         {
             id: 1,
             size: 'MD',
             text: 'Medium',
-            class: 'max-w-screen-lg'
+            class: 'max-w-(--breakpoint-lg)'
         },
         {
             id: 2,
             size: 'LG',
             text: 'Large',
-            class: 'max-w-screen-xl'
+            class: 'max-w-(--breakpoint-xl)'
         },
         {
             id: 3,

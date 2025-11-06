@@ -1,7 +1,7 @@
 <template>
     <div ref="pageUp" class="absolute -top-20"></div>
 
-    <div class="wrapper md:p-2 space-y-6 max-w-screen-xl mx-auto">
+    <div class="wrapper md:p-2 space-y-6 max-w-(--breakpoint-xl) mx-auto">
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
@@ -29,13 +29,13 @@
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
             <div
-                class="hidden xl:block bg-white h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded overflow-hidden col-span-1">
+                class="hidden xl:block bg-white h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-sm overflow-hidden col-span-1">
                 <img src="https://i.pinimg.com/564x/fd/14/90/fd1490eb21c52945cdce747251d3700c.jpg" alt="left-image">
             </div>
 
             <div
-                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
-                <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
+                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-sm p-4 col-span-3 flex flex-col">
+                <Svg3 aria-hidden="true" class="absolute -right-26 bottom-24 rotate-90" />
 
                 <!-- Header of Details tab -->
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
@@ -58,7 +58,7 @@
                     <form @submit.prevent="addMember" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-5">
                         <div>
                             <label for="email-invitation" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email Invitation</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="mt-1 relative rounded-md shadow-xs">
                                 <input type="email" required autocomplete="off" id="email-invitation" v-model="emailInvitations"
                                     class="focus:ring-sky-500 dark:bg-slate-900 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md"
                                     placeholder="Email" />
@@ -66,7 +66,7 @@
                             <p class="text-xs mt-2 dark:text-slate-400">Invitation email is an active user email registered as a Digital Al-Qur'an user.</p>
                         </div>
 
-                        <button type="submit" :disabled="!isValidEmail" class="mt-6 disabled:bg-opacity-50 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="submit" :disabled="!isValidEmail" class="mt-6 disabled:bg-opacity-50 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             <span>Send invitation</span>
                         </button>
                     </form>

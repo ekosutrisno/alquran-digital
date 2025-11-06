@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-lg mx-auto dark:text-white p-4 prose">
+    <div class="max-w-(--breakpoint-lg) mx-auto dark:text-white p-4 prose">
         <div>
             <h1 class="font-semibold text-4xl mt-4 text-center dark:text-white">Kebijakan Privasi</h1>
             <p class="text-center text-sm mt-2">Terakhir diperbarui pada 30 Desember 2023</p>

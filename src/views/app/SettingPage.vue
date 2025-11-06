@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper md:p-2 space-y-6 max-w-screen-xl mx-auto">
+    <div class="wrapper md:p-2 space-y-6 max-w-(--breakpoint-xl) mx-auto">
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
@@ -49,7 +49,7 @@
             </div>
 
             <div class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 col-span-3 flex flex-col">
-                <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90"/>
+                <Svg3 aria-hidden="true" class="absolute -right-26 bottom-24 rotate-90"/>
                 
                 <!-- Header of Details tab -->
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
@@ -66,7 +66,7 @@
                     <form @submit.prevent="updateData()" v-if="currentUser" class="md:col-span-4 mt-4 md:mt-0 w-full max-w-lg space-y-5">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Full name</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.full_name" type="text" name="name" id="name" 
                                         required
@@ -77,7 +77,7 @@
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         disabled
                                         v-model="currentUser.email" type="email" name="email" id="email" 
@@ -88,7 +88,7 @@
                             </div>
                             <div>
                                 <label for="pob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Place of birth</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.pob" type="text" name="pob" id="pob" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="pob" 
@@ -98,7 +98,7 @@
                             </div>
                             <div>
                                 <label for="dob" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date of birth</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.dob" type="date" name="dob" id="dob" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="dob" 
@@ -108,7 +108,7 @@
                             </div>
                             <div>
                                 <label for="telephone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Phone number</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.telephone" type="tel" name="telephone" id="telephone" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Phone number" 
@@ -118,7 +118,7 @@
                             </div>
                             <div>
                                 <label for="religion" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Religion</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.religion" type="text" name="religion" id="religion" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Religion" 
@@ -128,7 +128,7 @@
                             </div>
                             <div>
                                 <label for="gender" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Gender</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.gender" type="text" name="gender" id="gender" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
@@ -137,7 +137,7 @@
                             </div>
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nationality</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input
                                         v-model="currentUser.nationality" type="text" name="nationality" id="nationality" 
                                         class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Nationality" 
@@ -146,7 +146,7 @@
                             </div>
                             <div>
                                 <label for="hobby" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Hobby</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <textarea
                                         rows="3"
                                         v-model="currentUser.hobby" type="text" name="hobby" id="hobby" 
@@ -156,7 +156,7 @@
                             </div>
                             <div>
                                 <label for="about" class="block text-sm font-medium text-slate-700 dark:text-slate-300">About</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <textarea
                                         rows="3"
                                         v-model="currentUser.about" type="text" name="about" id="about" 
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            <button type="submit" class="mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                                 <span>Simpan</span>
                             </button>
                     </form>
@@ -186,10 +186,10 @@
                             <p class="text-sm">{{ currentUser?.username }} &bull; {{currentUser?.religion}} &bull; {{calculateAge(currentUser?.dob ?? 0)}} years old</p>
                             <p class="font-semibold mt-2">Joined on</p>
                             <p class="text-xs">{{formatDateWithMonth(currentUser?.join_at)}} ({{formatDateFromNow(currentUser?.join_at)}})</p>
-                            <p class="text-white rounded bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>
+                            <p class="text-white rounded-sm bg-sky-500 w-max py-1 px-2 text-xs mt-3">Last upated {{formatDateFromNow(currentUser?.lastModifiedDate)}}</p>
                         </div>
                         <div class="inline-flex items-center space-x-2 mt-4">
-                            <div class="group inline-flex cursor-pointer focus:outline-none"  aria-expanded="false">
+                            <div class="group inline-flex cursor-pointer focus:outline-hidden"  aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-red-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-red-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="group inline-flex cursor-pointer focus:outline-none" aria-expanded="false">
+                            <div class="group inline-flex cursor-pointer focus:outline-hidden" aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="bg-green-500/20 flex h-8 w-8 items-center justify-center rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon text-green-500 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24">
@@ -207,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                           <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer focus:outline-none" aria-expanded="false">
+                           <div v-if="currentUser?.is_mentor" class="group inline-flex cursor-pointer focus:outline-hidden" aria-expanded="false">
                                 <div class="dark:bg-slate-800 dark:ring-2 dark:ring-slate-700 shadow-slate-300/40 dark:shadow-slate-900/40 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-xl">
                                     <div class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400/25">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon h-5 w-5 text-orange-500" width="1em" height="1em" viewBox="0 0 24 24">

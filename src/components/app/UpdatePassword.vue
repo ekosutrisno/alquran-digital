@@ -17,7 +17,7 @@
     <div v-else class="with-transition mt-4 md:mt-0 w-full max-w-lg space-y-4">
         <div>
             <label for="new-password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">New password</label>
-            <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="mt-1 relative rounded-md shadow-xs">
                 <input
                     v-model="state.auth.password" type="password" name="new-password" id="new-password"
                     class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="New password"
@@ -26,7 +26,7 @@
         </div>
         <div>
             <label for="confirm-password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Confirm new password</label>
-            <div class="mt-1 relative rounded-md shadow-sm">
+            <div class="mt-1 relative rounded-md shadow-xs">
                 <input
                     v-model="state.auth.confirmPassword" type="password" name="confirm-password" id="confirm-password"
                     class="focus:ring-sky-500 dark:bg-slate-700/25 dark:text-slate-50 focus:border-sky-500 block w-full pl-4 pr-12 sm:text-sm border-slate-300 dark:border-slate-700/50 rounded-md" placeholder="Confirm new password"
@@ -38,7 +38,7 @@
             <button type="button" @click="toggleEdit" class="text-slate-800 dark:text-sky-50 bg-white hover:bg-slate-50 ring-1 ring-slate-700/10 hover:ring-slate-700/20 dark:bg-dark-blue dark:hover:bg-slate-700/50 dark:ring-slate-700/75 dark:hover:ring-slate-400/50 py-2 px-3 rounded-md mr-4 text-sm">
                 Cancel
             </button>
-            <button type="button" @click="toggleModalPassword(true)" :disabled="!isMatch || isBlank" class="mt-4 disabled:bg-opacity-50 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+            <button type="button" @click="toggleModalPassword(true)" :disabled="!isMatch || isBlank" class="mt-4 disabled:bg-opacity-50 inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                 <span class="mr-2">Update</span>
             </button>
         </div>
