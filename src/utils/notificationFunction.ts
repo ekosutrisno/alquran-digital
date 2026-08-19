@@ -5,31 +5,24 @@ import { formatToString } from "./helperFunction";
  * @param  {UserNotification[]} notifications
  * @returns NotificationMapper[]
  * This Function will Group and Sorting The Notification
+ * Optimized: single sort + single-pass grouping via Map
  */
 export function notificationMapper(notifications: UserNotification[]): NotificationMapper[] {
-    // 01. Grouping By Day
-    const dataReduced: { [key: string]: UserNotification[] } = notifications.reduce((group: { [key: string]: UserNotification[] }, notifs: UserNotification) => {
-        const { timestamp } = notifs;
-        const d = formatToString(timestamp);
-        group[d] = group[d] ?? [];
-        group[d].push(notifs);
-        return group;
-    }, {});
+    const sorted = notifications.slice().sort((a, b) => +b.timestamp - +a.timestamp);
 
-    // 02. Construct The Data
-    const tempData: NotificationMapper[] = Object.entries(dataReduced).map(([d, indexedData]) => {
-        const dataMapper: NotificationMapper = {
-            key: d,
-            data: indexedData.sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp))),
-            actualDate: new Date(indexedData[0].timestamp),
-        };
-        return dataMapper;
-    });
+    const groupMap = new Map<string, UserNotification[]>();
+    for (const notif of sorted) {
+        const key = formatToString(notif.timestamp);
+        const group = groupMap.get(key);
+        if (group) group.push(notif);
+        else groupMap.set(key, [notif]);
+    }
 
-    //03. Sort Descending the final data to show last notif first
-    const finalNotificationSortingAndGroup = tempData.sort((a, b) => b.key.localeCompare(a.key));
-
-    return finalNotificationSortingAndGroup;
+    const result: NotificationMapper[] = [];
+    for (const [key, data] of groupMap) {
+        result.push({ key, data, actualDate: new Date(data[0].timestamp) });
+    }
+    return result;
 };
 
 /**
