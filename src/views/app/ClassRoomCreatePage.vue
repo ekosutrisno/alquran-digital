@@ -1,7 +1,7 @@
 <template>
     <div ref="pageUp" class="absolute -top-20"></div>
 
-    <div class="wrapper md:p-2 space-y-6 max-w-screen-xl mx-auto">
+    <div class="wrapper md:p-2 space-y-6 max-w-(--breakpoint-xl) mx-auto">
         <!-- Section 0 -->
         <section class="flex flex-col gap-2 md:flex-row md:items-center justify-between">
             <div class="inline-flex space-x-3 items-center">
@@ -29,13 +29,13 @@
         <!-- Section 1-->
         <section class="grid gap-y-4 h-auto xl:gap-4 grid-cols-1 xl:grid-cols-4">
             <div
-                class="hidden xl:block bg-white h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded overflow-hidden col-span-1">
+                class="hidden xl:block bg-white h-max sm:max-w-md space-y-2 dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-sm overflow-hidden col-span-1">
                 <img src="https://i.pinimg.com/564x/fd/14/90/fd1490eb21c52945cdce747251d3700c.jpg" alt="left-image">
             </div>
 
             <div
-                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded p-4 col-span-3 flex flex-col">
-                <Svg3 aria-hidden="true" class="absolute right-[-6.5rem] bottom-24 rotate-90" />
+                class="bg-white relative overflow-hidden dark:bg-dark-blue shadow-lg shadow-slate-200 dark:shadow-slate-900/40 ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-sm p-4 col-span-3 flex flex-col">
+                <Svg3 aria-hidden="true" class="absolute -right-26 bottom-24 rotate-90" />
 
                 <!-- Header of Details tab -->
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">

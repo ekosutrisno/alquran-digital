@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="mb-5 flex flex-col items-center">
-            <RouterLink :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '2', type: type.type}}" :class="[class_map(type.type)]" class="w-full lg:w-56 mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm font-medium rounded-md transition focus:outline-none focus:ring-2 focus:ring-offset-2">
+            <RouterLink :to="{name: 'MadrasahCreatePage', query: {a: 'create', step: '2', type: type.type}}" :class="[class_map(type.type)]" class="w-full lg:w-56 mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-xs font-medium rounded-md transition focus:outline-hidden focus:ring-2 focus:ring-offset-2">
                 <span class="text-white">Pilih</span>
             </RouterLink>
         </div>

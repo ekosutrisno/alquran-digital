@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-lg mx-auto p-4 prose dark:text-white">
+    <div class="max-w-(--breakpoint-lg) mx-auto p-4 prose dark:text-white">
         <h1 class="text-3xl font-semibold dark:text-white">Al-Qur'an Digital</h1>
         <p class="mt-4">Al-Qur'an Digital Terjemahan Bahasa Indonesia dengan fitur mencari berdasarkan surat, ayat, manzil, rukuk, halaman, juz, tandai bacaan, dan menyimpan ayat-ayat penting ke koleksi favorit.</p>
         <section>

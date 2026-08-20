@@ -33,10 +33,10 @@
         <!-- Section 1 -->
         <section class="grid lg:grid-cols-2 gap-4">
             <!-- Left -->
-            <div class="bg-transparent min-h-[18rem] relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
+            <div class="bg-transparent min-h-72 relative card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/20 rounded-xl overflow-hidden flex flex-col">
                 <img class="object-cover w-full h-full object-top absolute inset-0 z-0" :src="room?.heroImage ? room.heroImage : 'https://res.cloudinary.com/ekosutrisno/image/upload/v1735393045/os/A/w9nn1a1knqn0dfhgnw51.jpg'" :alt="room?.name">
-                <div class="absolute flex flex-col inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/10">
-                    <div class="w-full p-4 space-y-4 text-white transition flex flex-col justify-between min-h-[150px] rounded">
+                <div class="absolute flex flex-col inset-0 bg-linear-to-t from-slate-900/90 to-slate-900/10">
+                    <div class="w-full p-4 space-y-4 text-white transition flex flex-col justify-between min-h-[150px] rounded-sm">
                         <!-- Header -->
                         <div class="flex items-start justify-between">
                             <div class="flex flex-col items-start justify-between">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="p-4 flex items-center justify-between">
-                        <button type="button" @click="router.back()" class="inline-flex justify-center py-2 px-3 border-2 border-transparent hover:border-sky-500 shadow-sm text-sm font-medium rounded-md text-white transition focus:outline-none w-max">
+                        <button type="button" @click="router.back()" class="inline-flex justify-center py-2 px-3 border-2 border-transparent hover:border-sky-500 shadow-xs text-sm font-medium rounded-md text-white transition focus:outline-hidden w-max">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                             </svg>
@@ -122,7 +122,7 @@
            <div v-if="!state.isLogin" class="mx-auto w-full max-w-xs">
                 <router-link to="/auth/login">
                     <div class="transition-shadow relative h-20 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                        <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
+                        <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-linear-to-tr from-sky-400/90 via-sky-500 to-sky-400/90"></div>
                         <div class="h-16 absolute z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                             <span class="font-semibold text-white">Fitur Non Aktif</span> 
                             <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>

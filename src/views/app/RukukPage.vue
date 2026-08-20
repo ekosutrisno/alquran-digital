@@ -12,9 +12,9 @@
                     <p class="text-sm hidden md:block text-slate-700 dark:text-slate-50">Terdapat total <span class="text-sky-500 font-semibold">556</span> Rukuk</p>
                 </div>
                 <div class="pt-4">
-                    <p class="text-white rounded bg-sky-500 w-min py-1 px-2 mb-2 text-sm">Info</p>
+                    <p class="text-white rounded-sm bg-sky-500 w-min py-1 px-2 mb-2 text-sm">Info</p>
                     <p class="text-slate-700 dark:text-slate-100">Halaman ini berisi metadata semua rukuk, dengan informasi nomor halaman, letak surah, dan nomor ayah.</p>
-                    <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="$router.push({name: 'AppDashboard'})" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -66,7 +66,7 @@
             </div>
             
              <div v-if="!isLast && !isLoading && !isPush" class="flex items-center my-4 justify-center">
-                <button @click="nextPage" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <button @click="nextPage" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-hidden"><span>Selanjutnya</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg></span> 
                 </button>

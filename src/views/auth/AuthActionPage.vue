@@ -33,20 +33,20 @@
                     </p>
                 </div>
                 <form class="mt-8 space-y-6" @submit.prevent="confirmPasswordResetAction">
-                    <div class="rounded-md shadow-sm -space-y-px">
+                    <div class="rounded-md shadow-xs -space-y-px">
                         <div>
                             <label for="new-password" class="sr-only">Password</label>
-                            <input id="new-password" v-model="authRequest.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="Password" />
+                            <input id="new-password" v-model="authRequest.newPassword" name="new-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-b-none" placeholder="Password" />
                             <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                         <div>
                             <label for="new-confirm-password" class="sr-only">Ulangi Password</label>
-                            <input id="new-confirm-password" v-model="authRequest.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Ulangi Password" />
+                            <input id="new-confirm-password" v-model="authRequest.newConfirmPassword" name="new-confirm-password" type="password" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm rounded-t-none" placeholder="Ulangi Password" />
                             <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email is not registered, please fill in your registered email.</p>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" :disabled="!isValidPassword" class="group relative disabled:bg-opacity-25 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="submit" :disabled="!isValidPassword" class="group relative disabled:bg-opacity-25 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             Submit
                         </button>
                     </div>

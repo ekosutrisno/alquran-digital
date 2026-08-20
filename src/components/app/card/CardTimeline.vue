@@ -8,7 +8,7 @@
                 <span v-if="item.key == today" class="text-left">Today</span>
                 <span v-else-if="item.key == yesterdays" class="text-left">Yesterday</span>
                 <span v-else class="text-left">{{ formatDateWithMonth(item.actualDate) }}</span>
-                <span v-if="idx == 0" class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300 ml-3">Latest</span>
+                <span v-if="idx == 0" class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-sm dark:bg-sky-900 dark:text-sky-300 ml-3">Latest</span>
             </h3>
             <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Notification received {{ formatDateWithMonth(item.actualDate) }}</time>
             <div class="mt-4">

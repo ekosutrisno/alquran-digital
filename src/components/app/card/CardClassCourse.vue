@@ -17,23 +17,23 @@
         <div class="mb-8 mt-auto flex items-center justify-between">
             <div class="flex">
                 <div class="dark:bg-slate-800 relative flex shrink-0 items-center justify-center rounded-full bg-white transition-all duration-100 ease-in hover:-ms-2 hover:me-2 focus:me-2">
-                    <div class="relative inline-flex shrink-0 items-center justify-center outline-none h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 !scale-90" tooltip="Clark Smith" tabindex="0">
+                    <div class="relative inline-flex shrink-0 items-center justify-center outline-hidden h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 scale-90!" tooltip="Clark Smith" tabindex="0">
                         <div class="flex h-full w-full items-center justify-center overflow-hidden text-center transition-all duration-300 rounded-full">
-                            <img src="https://tairo.cssninja.io/img/avatars/3.svg" class="max-h-full max-w-full object-cover shadow-sm dark:border-transparent h-10 w-10">
+                            <img src="https://tairo.cssninja.io/img/avatars/3.svg" class="max-h-full max-w-full object-cover shadow-xs dark:border-transparent h-10 w-10">
                         </div>
                     </div>
                 </div>
                 <div class="dark:bg-slate-800 relative flex shrink-0 items-center justify-center rounded-full bg-white transition-all duration-100 ease-in hover:-ms-2 hover:me-2 focus:me-2 -ms-3 h-10 w-10 focus:-ms-5">
-                    <div class="relative inline-flex shrink-0 items-center justify-center outline-none h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 !scale-90" tooltip="Maya Rosselini" tabindex="0">
+                    <div class="relative inline-flex shrink-0 items-center justify-center outline-hidden h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 scale-90!" tooltip="Maya Rosselini" tabindex="0">
                         <div class="flex h-full w-full items-center justify-center overflow-hidden text-center transition-all duration-300 rounded-full">
-                            <img src="https://tairo.cssninja.io/img/avatars/2.svg" class="max-h-full max-w-full object-cover shadow-sm dark:border-transparent h-10 w-10">
+                            <img src="https://tairo.cssninja.io/img/avatars/2.svg" class="max-h-full max-w-full object-cover shadow-xs dark:border-transparent h-10 w-10">
                         </div>
                     </div>
                 </div>
                 <div class="dark:bg-slate-800 relative flex shrink-0 items-center justify-center rounded-full bg-white transition-all duration-100 ease-in hover:-ms-2 hover:me-2 focus:me-2 -ms-3 h-10 w-10 focus:-ms-5">
-                    <div class="relative inline-flex shrink-0 items-center justify-center outline-none h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 !scale-90" tooltip="Clarissa Miller" tabindex="0">
+                    <div class="relative inline-flex shrink-0 items-center justify-center outline-hidden h-10 w-10 rounded-full bg-purple-500/20 text-primary-500 scale-90!" tooltip="Clarissa Miller" tabindex="0">
                         <div class="flex h-full w-full items-center justify-center overflow-hidden text-center transition-all duration-300 rounded-full">
-                            <img src="https://tairo.cssninja.io/img/avatars/5.svg" class="max-h-full max-w-full object-cover shadow-sm dark:border-transparent h-10 w-10">
+                            <img src="https://tairo.cssninja.io/img/avatars/5.svg" class="max-h-full max-w-full object-cover shadow-xs dark:border-transparent h-10 w-10">
                         </div>
                     </div>
                 </div>

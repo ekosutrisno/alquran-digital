@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            <button type="button" @click="onLanjutBacaan" class="mt-4 inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                                 <span class="mr-2">Lanjut</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -78,7 +78,7 @@
                     <div v-else class="mx-auto w-full my-6 with-transition">
                         <router-link to="/app/dashboard/surah">
                             <div class="transition-shadow z-0 relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                                <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-pink-300/90 via-purple-400 to-indigo-400/90"></div>
+                                <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-linear-to-tr from-pink-300/90 via-purple-400 to-indigo-400/90"></div>
                                 <div class="h-16 z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                                     <span class="font-semibold text-white">Upss... Ayo mulai progresmu</span> 
                                     <p class="text-xs text-gray-100">Kamu bisa memulai bacaan dari sini, click untuk mencari surah.</p>
@@ -93,7 +93,7 @@
                 <div v-else class="mx-auto w-full my-6 with-transition">
                     <router-link to="/auth/login">
                         <div class="transition-shadow z-0 relative h-32 duration-300 flex overflow-hidden flex-col bg-white rounded-md hover:card-shadow-md">
-                            <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-gradient-to-tr from-purple-400/90 via-indigo-400 to-blue-400/90"></div>
+                            <div class="max-h-72 w-full overflow-hidden absolute inset-0 bg-linear-to-tr from-purple-400/90 via-indigo-400 to-blue-400/90"></div>
                             <div class="h-16 z-10 sm:h-full max-h-72 w-full overflow-hidden py-2 px-3 md:p-5">
                                 <span class="font-semibold text-white">Fitur Non Aktif</span> 
                                 <p class="text-xs text-gray-100">Fitur akan aktif setelah Login, click untuk login.</p>

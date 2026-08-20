@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="flex items-center space-x-4 text-sm dark:text-white">
-        <button type="button" @click="currentUser?.is_active ? authService.deactivatedAccount() : authService.activatedAccount()" class="mt-4 disabled:bg-opacity-50 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+        <button type="button" @click="currentUser?.is_active ? authService.deactivatedAccount() : authService.activatedAccount()" class="mt-4 disabled:bg-opacity-50 inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
             <span class="mr-2">{{ currentUser?.is_active ? 'Aktifkan' : 'Nonaktifkan' }}</span>
         </button>
     </div>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="flex items-center space-x-4 text-sm dark:text-white">
-        <button type="button" :disabled="asMentorInRoom.length > 0" @click="authService.deleteAccount()" class="mt-4 disabled:bg-red-400 disabled:cursor-not-allowed inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+        <button type="button" :disabled="asMentorInRoom.length > 0" @click="authService.deleteAccount()" class="mt-4 disabled:bg-red-400 disabled:cursor-not-allowed inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
             <span class="mr-2">Delete account</span>
         </button>
     </div>

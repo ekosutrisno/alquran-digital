@@ -1,5 +1,4 @@
 <template>
-  <SpeedInsights />
   <RouterView />
   <ToastUpdateAvailabelVue />
   <OfflineBanner />
@@ -12,7 +11,6 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import ToastUpdateAvailabelVue from '@/components/shared/ToastUpdateAvailable.vue';
 import OfflineBanner from './components/shared/OfflineBanner.vue';
 import { decrypt } from './utils/cryp';
-import { SpeedInsights } from "@vercel/speed-insights/vue"
 
 const { loadNotifications } = useNotification();
 const { chatInfo } = useChats();

@@ -19,7 +19,7 @@
                 </div>
                 <div class="pt-4">
                     <div v-if="ayahTafsirSelected">
-                        <p class="text-white rounded bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ surahTafsirSelected?.surat_golongan }} ({{ surahTafsirSelected?.revelation_type }}) &bull; <span class="font-quran">{{surahTafsirSelected?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span></p>
+                        <p class="text-white rounded-sm bg-sky-500 w-max py-1 px-2 mb-2 text-sm"> {{ surahTafsirSelected?.surat_golongan }} ({{ surahTafsirSelected?.revelation_type }}) &bull; <span class="font-quran">{{surahTafsirSelected?.revelation_type == 'Meccan' ? `\u0645\u0643\u0629` : `\u0645\u062F\u064A\u0646\u0629`}}</span></p>
                         <p class="text-slate-700 font-quran text-2xl md:text-5xl text-right dark:text-slate-100">
                             <span class="text-base block md:inline md:text-xl font-quicksand">{{ surahTafsirSelected?.surat_terjemahan }}
                             <span class="text-xs md:text-sm">({{surahTafsirSelected?.surat_english_terjemahan}})</span>
@@ -27,7 +27,7 @@
                             <span class="text-2xl md:text-3xl font-light"> ({{surahTafsirSelected?.surat_text_full}})</span> {{surahTafsirSelected?.surat_text}}
                         </p>
                     </div>
-                    <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
+                    <button type="button" @click="$router.back()" class="mt-8 inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 w-max">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                         </svg>
@@ -49,11 +49,11 @@
                     <span>Ayahs</span> 
                 </p>
                 <div class="md:inline-flex hidden items-center space-x-2">
-                    <button @click="hideMenuOption" type="button" class="text-slate-700 relative group hover:bg-sky-500 rounded p-0.5 transition">
+                    <button @click="hideMenuOption" type="button" class="text-slate-700 relative group hover:bg-sky-500 rounded-sm p-0.5 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
-                        <div v-if="option" ref="target" class="absolute overflow-hidden bottom-[-5rem] w-36 card-shadow-md rounded right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
+                        <div v-if="option" ref="target" class="absolute overflow-hidden -bottom-20 w-36 card-shadow-md rounded-sm right-8 bg-white dark:bg-dark-blue ring-1 ring-slate-700/10 dark:ring-slate-700">
                             <button type="button" @click="selectSize(size)" v-for="size in state.sizes" :key="size.id" class="py-1 px-3 grid grid-cols-4 w-full gap-1 relative hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white">
                                 <div class="col-span-1">{{ size.size }}</div> <div class="text-sm col-span-3 text-left">({{ size.text}})</div>
                             </button>
@@ -77,9 +77,9 @@
                     :ayat="ayahTafsirSelected"
                />
 
-               <div class="p-4 prose max-w-none rounded text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-text">
+               <div class="p-4 prose max-w-none rounded-sm text-slate-800 dark:text-slate-200 ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-text">
                     <div class="flex flex-col">
-                        <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
+                        <p class="text-white rounded-sm inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
@@ -88,7 +88,7 @@
                         <span class="whitespace-pre-wrap leading-relaxed indent-8">{{ ayahTafsirSelected?.tafsir.id.short}}</span>
                     </div>
                     <div class="mt-4 flex flex-col border-t dark:border-slate-700/50 pt-4">
-                        <p class="text-white rounded inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
+                        <p class="text-white rounded-sm inline-flex items-center bg-sky-500 w-max py-1 px-2 mb-4 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
@@ -145,20 +145,20 @@ const state = reactive({
             id: 1,
             size: 'MD',
             text: 'Medium',
-            class: 'max-w-screen-lg'
+            class: 'max-w-(--breakpoint-lg)'
         },
     sizes: [
         {
             id: 1,
             size: 'MD',
             text: 'Medium',
-            class: 'max-w-screen-lg'
+            class: 'max-w-(--breakpoint-lg)'
         },
         {
             id: 2,
             size: 'LG',
             text: 'Large',
-            class: 'max-w-screen-xl'
+            class: 'max-w-(--breakpoint-xl)'
         },
         {
             id: 3,

@@ -1,18 +1,18 @@
 <template>
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10 font-quicksand" @close="onCloseModal">
-      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur-sm" />
+      <div class="fixed inset-0 bg-gray-900/75 backdrop-blur-xs" />
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex w-full items-start justify-center min-h-full p-4 sm:p-0">
-            <DialogPanel class="relative w-full bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-screen-md sm:w-full">
-              <div class="bg-white max-h-[36rem] flex flex-col rounded-2xl justify-between dark:bg-slate-800 border-2 border-transparent dark:border-slate-700/75">
-                <div class="w-full border-b px-4 inline-flex items-center border-slate-700/10 dark:border-slate-700/50 flex-shrink-0 h-max">
+            <DialogPanel class="relative w-full bg-transparent rounded-2xl overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-(--breakpoint-md) sm:w-full">
+              <div class="bg-white max-h-144 flex flex-col rounded-2xl justify-between dark:bg-slate-800 border-2 border-transparent dark:border-slate-700/75">
+                <div class="w-full border-b px-4 inline-flex items-center border-slate-700/10 dark:border-slate-700/50 shrink-0 h-max">
                   <svg width="24" height="24" fill="none" aria-hidden="true" class="flex-none text-slate-400">
                     <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
                   </svg>
-                  <input type="text" v-model="query" placeholder="Type something..." class="w-full dark:text-white focus:ring-0 active:outline-none rounded bg-transparent px-3 py-3 outline-none border-none">
-                  <button type="button" @click="onCloseModal" class="text-xs bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded p-1 px-1.5">Esc</button>
+                  <input type="text" v-model="query" placeholder="Type something..." class="w-full dark:text-white focus:ring-0 active:outline-hidden rounded-sm bg-transparent px-3 py-3 outline-hidden border-none">
+                  <button type="button" @click="onCloseModal" class="text-xs bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 dark:text-slate-300 dark:bg-slate-700/30 dark:hover:bg-slate-700/75 w-max rounded-sm p-1 px-1.5">Esc</button>
                 </div>
                 <div v-if="filteredData.length" class="overflow-auto w-full flex-1 flex flex-col light-scroll">
                   <button 

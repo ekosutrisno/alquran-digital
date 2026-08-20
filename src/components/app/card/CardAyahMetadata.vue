@@ -13,7 +13,7 @@
          />
       </div>
       
-      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto text-right px-4 text-xl sm:text-2xl rounded border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
+      <div class="w-full prose relative group with-transition text-slate-800 dark:text-slate-200 py-4 transition max-w-full mx-auto text-right px-4 text-xl sm:text-2xl rounded-sm border-r-4 border-transparent sm:cursor-pointer hover:border-sky-400 hover:card-shadow-sm hover:bg-white dark:hover:bg-dark-blue hover:ring-1 ring-slate-700/10 dark:ring-slate-700 select-none md:select-auto">
          <p class="font-quran mb-4 leading-loose md:leading-[2.5] text-2xl md:text-3xl"> 
             <span>{{ayat.aya_text}}</span>   
             <span class="font-mono"> &minus; {{convertToArab(`${ayat.aya_number}`)}}</span> 
@@ -36,7 +36,7 @@
          </div>
 
          <div class="w-full mt-6">
-            <audio v-if="state.playAudio" class="focus:outline-none mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
+            <audio v-if="state.playAudio" class="focus:outline-hidden mb-4 sm:mr-4 sm:mb-0 float-right nv-transition mt-2 h-8 w-full max-w-md bg-transparent" preload="auto" :src="ayat.audio" controls>
                <source v-for="(aud, idx) in ayat.audio_secondary" :key="idx" :src="aud" type = "audio/mp3" />
             </audio>
          </div>
@@ -82,16 +82,16 @@
                >
                
                   <div ref="target" v-if="state.option" class="p-2 w-40 font-normal absolute z-50 shadow-2xl shadow-sky-900/25 h-auto left-0 -bottom-6 -ml-36 mt-6 bg-white dark:bg-dark-blue rounded-md flex flex-col overflow-hidden ring-1 ring-slate-700/10 dark:ring-slate-700">
-                        <button type="button" @click="checkTafsir(ayat)" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
+                        <button type="button" @click="checkTafsir(ayat)" class="w-full rounded-sm text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-hidden p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
                            <span>Buka tafsir ayah</span>
                         </button>
-                        <button @click="onMarkBacaanku(ayat)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
+                        <button @click="onMarkBacaanku(ayat)" type="button" class="w-full rounded-sm text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-hidden p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
                            <span>Tandai bacaan</span>
                         </button>
-                        <button v-if="isFavorite" @click="onRemoveFavorit(ayat.aya_id)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
+                        <button v-if="isFavorite" @click="onRemoveFavorit(ayat.aya_id)" type="button" class="w-full rounded-sm text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-hidden p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
                            <span>Hapus favorit</span>
                         </button>
-                        <button v-else @click="onMarkFavorit(ayat)" type="button" class="w-full rounded text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-none p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
+                        <button v-else @click="onMarkFavorit(ayat)" type="button" class="w-full rounded-sm text-sm group transition-colors cursor-default sm:cursor-pointer duration-300 text-slate-700 dark:text-slate-300 focus:outline-hidden p-2 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 inline-flex space-x-2">
                            <span>Tandai favorit</span>
                         </button>
                   </div>

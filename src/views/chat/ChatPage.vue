@@ -1,14 +1,14 @@
 <template>
     <div class="flex w-full h-[80vh] bg-white rounded-lg overflow-hidden card-shadow-sm">
-        <div class="flex-none hidden md:block flex-shrink-0 w-full max-w-xs divide-y overflow-y-auto light-scroll">
+        <div class="flex-none hidden md:block shrink-0 w-full max-w-xs divide-y overflow-y-auto light-scroll">
             <CardRoomList v-for="room in rooms" :key="room.id" :room="room"/>
         </div>
-        <div class="flex-none hidden sm:block border-x flex-shrink-0 w-full max-w-xs divide-y overflow-y-auto light-scroll">
+        <div class="flex-none hidden sm:block border-x shrink-0 w-full max-w-xs divide-y overflow-y-auto light-scroll">
             <CardMemberList v-for="member in getMembers" :key="member.id" :member="member"/>
         </div>
         <div class="flex-1 overflow-y-auto h-full">
             <ChatRoom v-if="peerUser.user_id"/>
-            <div v-else class="flex flex-col items-center justify-center h-full bg-gradient-to-t from-sky-50">
+            <div v-else class="flex flex-col items-center justify-center h-full bg-linear-to-t from-sky-50">
                     <div class="text-center with-transition">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-sky-500 mx-auto mb-5">
                             <path d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 00-1.032-.211 50.89 50.89 0 00-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 002.433 3.984L7.28 21.53A.75.75 0 016 21v-4.03a48.527 48.527 0 01-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979z" />

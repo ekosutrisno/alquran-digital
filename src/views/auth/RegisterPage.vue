@@ -33,28 +33,28 @@
                 </div>
                 <form class="mt-8 space-y-6" @submit.prevent="registerWithEmailPassword">
                     <input type="hidden" name="remember" value="true" />
-                    <div class="rounded-md shadow-sm -space-y-px">
+                    <div class="rounded-md shadow-xs -space-y-px">
                     <div>
                         <label for="email-address" class="sr-only">Alamat Email</label>
-                        <input required id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="off" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Alamat Email" />
+                        <input required id="email-address" v-model="authRequest.email" name="email" type="text" autocomplete="off" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-t-md focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Alamat Email" />
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
-                        <input required id="password" v-model="authRequest.password" name="password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                        <input required id="password" v-model="authRequest.password" name="password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Password" />
                     </div>
                     <div>
                         <label for="confirm-password" class="sr-only">Ulangi Password</label>
-                        <input required id="confirm-password" v-model="authRequest.confirmPassword" name="confirm-password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Ulangi Password" />
+                        <input required id="confirm-password" v-model="authRequest.confirmPassword" name="confirm-password" type="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-100 rounded-b-md focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Ulangi Password" />
                     </div>
                     </div>
-                    <div v-if="error.errorMessage" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded p-2">
-                        <span class="py-0.5 px-2 rounded bg-red-500 text-white">Error</span>
+                    <div v-if="error.errorMessage" class="text-xs space-y-0.5 ring-1 ring-red-500 rounded-sm p-2">
+                        <span class="py-0.5 px-2 rounded-sm bg-red-500 text-white">Error</span>
                         <span class="block text-red-400">
                             {{ error.userMessage }}
                         </span>
                     </div>
                     <div>
-                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                                 <LockIcon class="h-5 w-5 text-sky-500 group-hover:text-sky-400" aria-hidden="true" />
                             </span>

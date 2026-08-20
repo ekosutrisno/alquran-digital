@@ -24,20 +24,20 @@
                     </p>
                 </div>
                 <div v-if="$route.query.cta == 'reset-confirmed'">
-                    <RouterLink :to="{name: 'LoginPage'}" class="group relative disabled:bg-opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                    <RouterLink :to="{name: 'LoginPage'}" class="group relative disabled:bg-opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                         Kembali ke halaman masuk
                     </RouterLink>
                 </div>
                 <form v-else class="mt-8 space-y-6" @submit.prevent="onSendEmailVerification">
-                    <div class="rounded-md shadow-sm -space-y-px">
+                    <div class="rounded-md shadow-xs -space-y-px">
                         <div>
                             <label for="email-address" class="sr-only">Alamat email</label>
-                            <input id="email-address" v-model="email" name="email" type="email" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                            <input id="email-address" v-model="email" name="email" type="email" autocomplete="off" required="true" class="appearance-none relative block w-full px-3 py-2 border border-slate-300 bg-white dark:bg-dark-blue dark:border-slate-700/50 placeholder-gray-500 dark:placeholder-slate-400 text-gray-900 dark:text-slate-300 rounded-md focus:outline-hidden focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm" placeholder="Email address" />
                             <p v-if="isEmailNotRegisterd" class="text-red-400 text-sm my-3">Email tidak terdaftar.</p>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" :disabled="!isValidEmail" class="group relative disabled:bg-opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        <button type="submit" :disabled="!isValidEmail" class="group relative disabled:bg-opacity-50 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                             Kirim email
                         </button>
                     </div>

@@ -1,8 +1,8 @@
 <template>
-    <div class="group flex flex-col h-[18rem]">
+    <div class="group flex flex-col h-72">
         <div class="bg-slate-200 dark:bg-slate-800 relative h-full w-full overflow-hidden rounded-2xl">
             <img src="https://tairo.cssninja.io/img/illustrations/dashboards/video/1.png" alt="Designing a consistent UI framework for your app" class="w-full h-full object-cover object-top" />
-            <div class="absolute inset-x-0 bottom-0 z-10 h-3/5 w-full bg-gradient-to-t from-black transition-all duration-500 ease-in-out group-hover:h-full"></div>
+            <div class="absolute inset-x-0 bottom-0 z-10 h-3/5 w-full bg-linear-to-t from-black transition-all duration-500 ease-in-out group-hover:h-full"></div>
             <div class="absolute inset-0 z-20 flex h-full w-full flex-col justify-between">
                 <div class="p-4">
                     <a aria-current="page" href="#" class="router-link-active router-link-exact-active group-hover:border-sky-500 text-slate-300 group-hover:text-sky-500 shadow-slate-300/30 dark:shadow-slate-900/40/20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-transparent bg-white shadow-2xl transition-colors duration-300">
@@ -18,9 +18,9 @@
                         </h3>
                     </a>
                     <div class="flex gap-3">
-                        <div class="relative inline-flex items-center justify-center outline-none h-8 w-8 rounded-full bg-sky-100 dark:bg-sky-500/20 text-sky-500 shrink-0">
+                        <div class="relative inline-flex items-center justify-center outline-hidden h-8 w-8 rounded-full bg-sky-100 dark:bg-sky-500/20 text-sky-500 shrink-0">
                             <div class="flex h-full w-full items-center justify-center overflow-hidden text-center transition-all duration-300 rounded-full">
-                                <img src="https://tairo.cssninja.io/img/avatars/16.svg" class="max-h-full max-w-full object-cover shadow-sm dark:border-transparent h-8 w-8">
+                                <img src="https://tairo.cssninja.io/img/avatars/16.svg" class="max-h-full max-w-full object-cover shadow-xs dark:border-transparent h-8 w-8">
                             </div>
                         </div>
                         <div>

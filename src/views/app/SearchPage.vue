@@ -2,7 +2,7 @@
     <div ref="pageUp" class="absolute -top-20"></div>
     <div class="wrapper md:p-4 space-y-6">
         <!-- Section 1 -->
-        <section class="grid max-w-screen-md mx-auto">
+        <section class="grid max-w-(--breakpoint-md) mx-auto">
             <div class="bg-white card-shadow-md dark:bg-dark-blue ring-1 dark:ring-slate-700 ring-slate-700/10 rounded-lg p-4 flex flex-col">
                 <div class="w-full flex items-center justify-between border-b dark:border-slate-700/75 pb-2 px-1">
                     <p class="font-semibold text-slate-800 dark:text-white inline-flex items-center space-x-2 text-xl">
@@ -15,14 +15,14 @@
                     <div class="pt-4 grid lg:grid-cols-2 gap-5 lg:gap-10">
                             <div>
                                 <label for="surah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nomor Surah</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input type="number" id="number-input-surah" autocomplete="off" v-model="search.surah" min="1" max="114" aria-describedby="Surah Number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="1-114" required>
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Ini akan menjadi parameter nomor surah yang Anda cari. Minimal 1 maksimal 114.</p>
                             </div>
                             <div>
                                 <label for="ayah-number" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nomor Ayat</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="mt-1 relative rounded-md shadow-xs">
                                     <input type="number" id="number-input-ayah" autocomplete="off" v-model="search.ayah" min="1" :disabled="(search.surah < 1 || search.surah > 114)" aria-describedby="Surah Number" class="bg-gray-50 border disabled:bg-slate-100 dark:disabled:bg-slate-600 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="Min 1" required>
                                 </div>
                                 <p class="text-xs mt-2 dark:text-slate-400">Ini akan menjadi parameter nomor ayat yang Anda cari.</p>
@@ -30,7 +30,7 @@
                     </div>
                 </form>
                 <div>
-                    <button form="form-search" type="submit" class="w-full lg:w-56 mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                    <button form="form-search" type="submit" class="w-full lg:w-56 mt-6 float-right inline-flex justify-center py-2 px-3 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-400 transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                         <span>Cari</span>
                     </button>
                 </div>
@@ -67,7 +67,7 @@
             </div>
 
             <div v-if="ayahs.length" class="flex items-center my-4 justify-center">
-                <button @click="onLanjutBacaan()" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-none"><span>Lanjut Baca</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <button @click="onLanjutBacaan()" class="py-2 px-3 inline-flex items-center space-x-2 transition rounded-lg bg-sky-500 hover:bg-sky-600 text-white focus:outline-hidden"><span>Lanjut Baca</span> <span><svg class="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg></span> 
                 </button>
