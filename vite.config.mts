@@ -3,7 +3,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
-import * as path from 'node:path';
 import tailwindcss from '@tailwindcss/vite'
 
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
@@ -60,7 +59,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
+      "@": fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   server: {

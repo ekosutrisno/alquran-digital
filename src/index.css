@@ -19,6 +19,21 @@ layer(base);
 
   --color-dark-blue: #1e293b;
   --color-dark-blue-bc: #151e32;
+
+  /*
+    Flowbite v4's theme redefines the radius scale and the default sans stack
+    (`rounded-lg` 8px -> 16px, `rounded-sm` 4px -> 6px, `--font-sans` -> Inter).
+    Restore Tailwind's own defaults so existing markup keeps its current look.
+    Remove these if we ever adopt Flowbite v4's design tokens on purpose.
+  */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 /*
